@@ -56,6 +56,33 @@ function AmazonLink({ title, author }: { title: string; author: string }) {
   );
 }
 
+const LOADING_MESSAGES = [
+  '膨大な本棚を探索中...',
+  'あなたの気分を分析中...',
+  'ぴったりの1冊を探しています...',
+  '本のソムリエが選書中...',
+  'もうすぐ見つかります...',
+];
+
+function LoadingMessage() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIdx(i => (i + 1) % LOADING_MESSAGES.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
+  return (
+    <p key={idx} style={{
+      color: 'var(--text-sub)', fontFamily: 'sans-serif', fontSize: 15,
+      animation: 'fadeInMsg 0.5s ease',
+    }}>
+      {LOADING_MESSAGES[idx]}
+    </p>
+  );
+}
+
+
 export default function Home() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -109,11 +136,28 @@ export default function Home() {
   }
 
   if (loading) return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
-      <div style={{ fontSize: 48 }}>📚</div>
-      <p style={{ color: 'var(--text-sub)', fontFamily: 'sans-serif' }}>あなたにぴったりの本を選書中...</p>
-    </main>
-  );
+  <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
+    <style>{`
+      @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-12px); }
+      }
+      @keyframes fadeInMsg {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .book-float { animation: float 2s ease-in-out infinite; }
+      .book-float:nth-child(2) { animation-delay: 0.3s; }
+      .book-float:nth-child(3) { animation-delay: 0.6s; }
+    `}</style>
+    <div style={{ display: 'flex', gap: 12 }}>
+      <span className="book-float" style={{ fontSize: 40 }}>📗</span>
+      <span className="book-float" style={{ fontSize: 40 }}>📘</span>
+      <span className="book-float" style={{ fontSize: 40 }}>📕</span>
+    </div>
+    <LoadingMessage />
+  </main>
+);
 
   if (result) return (
     <main style={{ maxWidth: 640, margin: '0 auto', padding: '40px 20px' }}>
