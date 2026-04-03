@@ -8,8 +8,8 @@
   --accent: #3D5A3E;
   --accent-light: #E8F0E8;
   --border: #D4C4A8;
-  --pill-active-bg: #3D5A3E;
-  --pill-active-text: #FDFAF4;
+  --gold: #C4963A;
+  --wood: #5C3D2E;
 }
 
 * { box-sizing: border-box; }
