@@ -2,11 +2,10 @@ import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
 const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY ?? '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',
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 export async function POST(req: NextRequest) {
-    console.log('API KEY:', process.env.ANTHROPIC_API_KEY?.slice(0, 10));
   const { mood, genre, personality, reading, avoid } = await req.json();
 
   const prompt = `あなたは本のソムリエです。本をほとんど読まない人が「はじめの1冊」を見つけるためのアドバイザーです。
@@ -50,7 +49,6 @@ export async function POST(req: NextRequest) {
     });
 
     const text = message.content[0].type === 'text' ? message.content[0].text : '';
-    console.log('Claude response:', text); // デバッグ用
     const cleaned = text.replace(/```json\n?|```\n?/g, '').trim();
     const data = JSON.parse(cleaned);
 
@@ -58,7 +56,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'レスポンス形式エラー', raw: text }, { status: 500 });
     }
 
-        // 表紙画像を取得
     for (const book of data.books) {
       try {
         const query = encodeURIComponent(`${book.title} ${book.author}`);
