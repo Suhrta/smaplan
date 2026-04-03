@@ -37,7 +37,7 @@ const QUESTIONS = [
 ];
 
 type Answers = Record<string, string | string[]>;
-type Book = { title: string; author: string; score: number; reason: string; first_page: string; kindle: boolean; cover?: string };
+type Book = { title: string; author: string; score: number; reason: string; first_page: string; kindle: boolean };
 type Result = { type: string; type_reason: string; books: Book[] };
 
 function AmazonLink({ title, author }: { title: string; author: string }) {

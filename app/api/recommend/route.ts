@@ -56,20 +56,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'レスポンス形式エラー', raw: text }, { status: 500 });
     }
 
-    for (const book of data.books) {
-      try {
-        const query = encodeURIComponent(`${book.title} ${book.author}`);
-        const gbRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=1&langRestrict=ja`);
-        const gbData = await gbRes.json();
-        const imageUrl = gbData.items?.[0]?.volumeInfo?.imageLinks?.thumbnail;
-        if (imageUrl) {
-          book.cover = imageUrl.replace('http://', 'https://');
-        }
-      } catch {
-        // 取得失敗は無視
-      }
-    }
-
     return NextResponse.json(data);
   } catch (e) {
     console.error(e);
