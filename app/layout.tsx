@@ -7,11 +7,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "これよも - あなただけの「はじめの1冊」を見つけよう",
     description: "5つの質問に答えるだけで、AIがあなたにぴったりの小説を3冊推薦します。",
-    url: "https://koreyomo.vercel.app",
+    url: "https://erabook.vercel.app",
     siteName: "これよも",
     images: [
       {
-        url: "https://koreyomo.vercel.app/og-image.jpg",
+        url: "https://erabook.vercel.app/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "これよも",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "これよも - あなただけの「はじめの1冊」を見つけよう",
     description: "5つの質問に答えるだけで、AIがあなたにぴったりの小説を3冊推薦します。",
-    images: ["https://koreyomo.vercel.app/og-image.jpg"],
+    images: ["https://erabook.vercel.app/og-image.jpg"],
   },
 };
 
