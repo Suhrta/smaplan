@@ -42,7 +42,7 @@ type Result = { type: string; type_reason: string; books: Book[] };
 
 function AmazonLink({ title, author }: { title: string; author: string }) {
   const query = encodeURIComponent(`${title} ${author} kindle`);
-  const url = `https://www.amazon.co.jp/s?k=${query}&i=digital-text`;
+  const url = `https://www.amazon.co.jp/s?k=${query}&i=digital-text&tag=erabook-22`;
   return (
     <a href={url} target="_blank" rel="noopener noreferrer"
       style={{
