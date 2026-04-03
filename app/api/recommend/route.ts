@@ -19,7 +19,8 @@ export async function POST(req: NextRequest) {
 - 本の長さ: ${length}
 - 読書経験: ${experience}
 - 苦手なもの: ${Array.isArray(avoid) && avoid.length > 0 ? avoid.join('、') : 'なし'}
-- 除外する本（読んだことがある）: ${excludedBooks.join('、')}
+- 除外する本（読んだことがある・これらと同じタイトルや非常に似た内容の本も推薦しないこと）: ${excludedBooks.join('、')}
+- 実在しない本・著者の組み合わせは絶対に推薦しないこと
 
 条件:
 - 実在する日本語で読める小説のみ
