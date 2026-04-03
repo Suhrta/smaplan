@@ -159,7 +159,7 @@ export default function Home() {
     <main style={{ maxWidth: 560, margin: '0 auto', padding: '40px 20px' }}>
       <div style={{ textAlign: 'center', marginBottom: 48 }}>
         <div style={{ fontSize: 36, marginBottom: 8 }}>📚</div>
-        <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>えらぶっく</h1>
+        <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>これよも</h1>
         <p style={{ fontSize: 14, color: 'var(--text-sub)', fontFamily: 'sans-serif' }}>あなただけの「はじめの1冊」を見つけよう</p>
       </div>
 
