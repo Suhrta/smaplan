@@ -1,6 +1,21 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
 
+    // 表紙画像を取得
+    for (const book of data.books) {
+      try {
+        const query = encodeURIComponent(`${book.title} ${book.author}`);
+        const gbRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=1&langRestrict=ja`);
+        const gbData = await gbRes.json();
+        const imageUrl = gbData.items?.[0]?.volumeInfo?.imageLinks?.thumbnail;
+        if (imageUrl) {
+          book.cover = imageUrl.replace('http://', 'https://');
+        }
+      } catch {
+        // 取得失敗は無視
+      }
+    }
+
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY ?? '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',
 });
