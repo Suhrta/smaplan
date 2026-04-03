@@ -146,12 +146,24 @@ export default function Home() {
         ))}
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: 40 }}>
-        <button onClick={() => { setStep(0); setAnswers({}); setResult(null); }}
-          style={{ padding: '10px 24px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, cursor: 'pointer', fontFamily: 'sans-serif', fontSize: 14, color: 'var(--text-sub)' }}>
-          もう一度診断する
-        </button>
-      </div>
+      <div style={{ textAlign: 'center', marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
+  
+    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`私は「${result.type}」タイプ！\nAIが選んでくれた本：${result.books[0].title}（${result.books[0].author}）\n\nあなたもやってみて👇\nhttps://koreyomo.vercel.app`)}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    style={{
+      display: 'inline-block', padding: '12px 28px',
+      background: '#000', color: '#fff', borderRadius: 6,
+      fontFamily: 'sans-serif', fontSize: 14, fontWeight: 600,
+      textDecoration: 'none',
+    }}>
+    𝕏 結果をシェアする
+  </a>
+  <button onClick={() => { setStep(0); setAnswers({}); setResult(null); }}
+    style={{ padding: '10px 24px', background: 'transparent', border: '1px solid var(--border)', borderRadius: 6, cursor: 'pointer', fontFamily: 'sans-serif', fontSize: 14, color: 'var(--text-sub)' }}>
+    もう一度診断する
+  </button>
+</div>
     </main>
   );
 
