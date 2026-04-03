@@ -167,6 +167,22 @@ export default function Home() {
         <div style={{ fontSize: 14, color: 'var(--text-sub)', fontFamily: 'sans-serif' }}>{result.type_reason}</div>
       </div>
 
+    <a href="https://www.amazon.co.jp/kindle-dbs/hz/subscribe/ku?tag=erabook-22"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: 'block', margin: '0 0 32px', padding: '16px',
+        background: '#FFF8E7', border: '1px solid #F0C040',
+        borderRadius: 12, textDecoration: 'none', textAlign: 'center',
+       }}>
+      <div style={{ fontSize: 13, fontWeight: 700, color: '#B8860B', fontFamily: 'sans-serif', marginBottom: 4 }}>
+        📖 Kindle Unlimited で無料で読んでみる
+       </div>
+      <div style={{ fontSize: 12, color: '#8B6914', fontFamily: 'sans-serif' }}>
+        30日間無料・200万冊以上が読み放題
+      </div>
+    </a>
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {result.books.map((book, i) => (
           <div key={i} style={{
