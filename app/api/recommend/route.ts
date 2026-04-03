@@ -6,7 +6,7 @@ const client = new Anthropic({
 });
 
 export async function POST(req: NextRequest) {
-  const { mood, want, genre, content, personality, avoid, excludedBooks, replaceIndex } = await req.json();
+  const { mood, genre, length, experience, avoid, excludedBooks, replaceIndex } = await req.json();
 
   const isReplace = replaceIndex !== undefined && excludedBooks && excludedBooks.length > 0;
 
@@ -15,19 +15,17 @@ export async function POST(req: NextRequest) {
 
 診断結果:
 - 今の気分: ${mood}
-- 本に求めるもの: ${want}
-- 好きな映画・ドラマのジャンル: ${Array.isArray(genre) ? genre.join('、') : genre}
-- 最近ハマったコンテンツ: ${content}
-- 性格タイプ: ${personality}
+- 読みたいジャンル: ${Array.isArray(genre) ? genre.join('、') : genre}
+- 本の長さ: ${length}
+- 読書経験: ${experience}
 - 苦手なもの: ${Array.isArray(avoid) && avoid.length > 0 ? avoid.join('、') : 'なし'}
 - 除外する本（読んだことがある）: ${excludedBooks.join('、')}
 
 条件:
 - 実在する日本語で読める小説のみ
-- 読書初心者でも読みやすいものを優先
-- Kindleで読めるものを優先
 - 苦手な要素は必ず避ける
 - 除外リストの本は絶対に推薦しないこと
+- 読書経験が「ほとんど読まない」場合は特に読みやすい本を優先
 
 必ずこのJSON形式のみで返答してください：
 {
@@ -44,23 +42,25 @@ export async function POST(req: NextRequest) {
 
 診断結果:
 - 今の気分: ${mood}
-- 本に求めるもの: ${want}
-- 好きな映画・ドラマのジャンル: ${Array.isArray(genre) ? genre.join('、') : genre}
-- 最近ハマったコンテンツ: ${content}
-- 性格タイプ: ${personality}
+- 読みたいジャンル: ${Array.isArray(genre) ? genre.join('、') : genre}
+- 本の長さ: ${length}
+- 読書経験: ${experience}
 - 苦手なもの: ${Array.isArray(avoid) && avoid.length > 0 ? avoid.join('、') : 'なし'}
 
-条件:
-- 実在する日本語で読める小説のみ
-- 読書初心者でも読みやすいものを優先
-- Kindleで読めるものを優先
-- 苦手な要素は必ず避ける
-- 診断結果を深く読み取り、その人の内面・好み・生活スタイルを反映した推薦をすること
+【推薦のポイント】
+- 気分とジャンルを掛け合わせて最適な本を選ぶこと
+  例：ミステリー好き×スカッとしたい→痛快な謎解き系、ミステリー好き×ゾクゾクしたい→心理サスペンス系
+- 読書経験が「ほとんど読まない」場合：有名・王道・映画化済みの読みやすい本を優先
+- 読書経験が「たまに読む」場合：ベストセラー・話題作を中心に
+- 読書経験が「よく読む」場合：質が高ければ多少マイナーな作品もOK
+- 本の長さの希望は必ず守ること
+- 苦手な要素は必ず避けること
+- KindleまたはKindle Unlimitedで読める本を優先すること
 
 タイプ名について：
-- 「〇〇な△△」という形式で、思わずXでシェアしたくなるような個性的でユニークな名前をつけること
-- 例：「深夜に泣ける系感情過多人間」「論理で世界を解読したい隠れ哲学者」「現実逃避のプロフェッショナル」「笑いで人生を乗り切るサバイバー」
-- 絶対に「〇〇タイプ」「〇〇派」などの無難な名前にしないこと
+- 思わずXでシェアしたくなる個性的でユニークな名前をつけること
+- 例：「深夜に泣ける系感情過多人間」「論理で世界を解読したい隠れ哲学者」「現実逃避のプロフェッショナル」
+- 「〇〇タイプ」「〇〇派」などの無難な名前にしないこと
 - 20文字以内に収めること
 
 必ずこのJSON形式のみで返答してください。説明文は不要です：
