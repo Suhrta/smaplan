@@ -6,7 +6,7 @@ const client = new Anthropic({
 });
 
 export async function POST(req: NextRequest) {
-  const { mood, genre, personality, reading, avoid } = await req.json();
+  const { mood, want, genre, content, personality, avoid } = await req.json();
 
   const prompt = `あなたは本のソムリエです。本をほとんど読まない人が「はじめの1冊」を見つけるためのアドバイザーです。
 
@@ -14,9 +14,10 @@ export async function POST(req: NextRequest) {
 
 診断結果:
 - 今の気分: ${mood}
+- 本に求めるもの: ${want}
 - 好きな映画・ドラマのジャンル: ${Array.isArray(genre) ? genre.join('、') : genre}
+- 最近ハマったコンテンツ: ${content}
 - 性格タイプ: ${personality}
-- 読書経験: ${reading}
 - 苦手なもの: ${Array.isArray(avoid) && avoid.length > 0 ? avoid.join('、') : 'なし'}
 
 条件:
@@ -24,10 +25,16 @@ export async function POST(req: NextRequest) {
 - 読書初心者でも読みやすいものを優先
 - Kindleで読めるものを優先
 - 苦手な要素は必ず避ける
+- 診断結果を深く読み取り、その人の内面・好み・生活スタイルを反映した推薦をすること
+
+タイプ名について：
+- 「〇〇な△△」という形式で、思わずXでシェアしたくなるような個性的でユニークな名前をつけること
+- 例：「深夜に泣ける系感情過多人間」「論理で世界を解読したい隠れ哲学者」「現実逃避のプロフェッショナル」「笑いで人生を乗り切るサバイバー」
+- 絶対に「〇〇タイプ」「〇〇派」などの無難な名前にしないこと
 
 必ずこのJSON形式のみで返答してください。説明文は不要です：
 {
-  "type": "あなたを一言で表すキャラクター名（例：静かな冒険者）",
+  "type": "ユニークなタイプ名",
   "type_reason": "そのタイプである理由（50文字以内）",
   "books": [
     {
