@@ -37,7 +37,7 @@ const QUESTIONS = [
 ];
 
 type Answers = Record<string, string | string[]>;
-type Book = { title: string; author: string; score: number; reason: string; first_page: string; kindle: boolean };
+type Book = { title: string; author: string; score: number; reason: string; first_page: string; kindle: boolean};
 type Result = { type: string; type_reason: string; books: Book[] };
 
 function AmazonLink({ title, author }: { title: string; author: string }) {
@@ -179,12 +179,6 @@ export default function Home() {
               <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>相性 {book.score}%</span>
               {book.kindle && <span style={{ fontSize: 11, color: 'var(--text-sub)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 20 }}>Kindle対応</span>}
             </div>
-            {book.cover && (
-             <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'center' }}>
-              <img src={book.cover} alt={book.title}
-             style={{ height: 140, borderRadius: 4, boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }} />
-             </div>
-             )}
             <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>{book.title}</div>
             <div style={{ fontSize: 13, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 12 }}>{book.author}</div>
             <div style={{ fontSize: 14, color: 'var(--text-main)', lineHeight: 1.7, marginBottom: 8, fontFamily: 'sans-serif' }}>{book.reason}</div>
