@@ -6,9 +6,39 @@ const client = new Anthropic({
 });
 
 export async function POST(req: NextRequest) {
-  const { mood, want, genre, content, personality, avoid } = await req.json();
+  const { mood, want, genre, content, personality, avoid, excludedBooks, replaceIndex } = await req.json();
 
-  const prompt = `あなたは本のソムリエです。本をほとんど読まない人が「はじめの1冊」を見つけるためのアドバイザーです。
+  const isReplace = replaceIndex !== undefined && excludedBooks && excludedBooks.length > 0;
+
+  const prompt = isReplace
+    ? `あなたは本のソムリエです。以下の診断結果をもとに、別の小説を1冊だけ推薦してください。
+
+診断結果:
+- 今の気分: ${mood}
+- 本に求めるもの: ${want}
+- 好きな映画・ドラマのジャンル: ${Array.isArray(genre) ? genre.join('、') : genre}
+- 最近ハマったコンテンツ: ${content}
+- 性格タイプ: ${personality}
+- 苦手なもの: ${Array.isArray(avoid) && avoid.length > 0 ? avoid.join('、') : 'なし'}
+- 除外する本（読んだことがある）: ${excludedBooks.join('、')}
+
+条件:
+- 実在する日本語で読める小説のみ
+- 読書初心者でも読みやすいものを優先
+- Kindleで読めるものを優先
+- 苦手な要素は必ず避ける
+- 除外リストの本は絶対に推薦しないこと
+
+必ずこのJSON形式のみで返答してください：
+{
+  "title": "書名",
+  "author": "著者名",
+  "score": 95,
+  "reason": "この人にすすめる理由（80文字以内）",
+  "first_page": "この本の最初の数行の雰囲気を説明（60文字以内）",
+  "kindle": true
+}`
+    : `あなたは本のソムリエです。本をほとんど読まない人が「はじめの1冊」を見つけるためのアドバイザーです。
 
 以下の診断結果をもとに、その人にぴったりの小説を3冊おすすめしてください。
 
@@ -59,6 +89,10 @@ export async function POST(req: NextRequest) {
     const text = message.content[0].type === 'text' ? message.content[0].text : '';
     const cleaned = text.replace(/```json\n?|```\n?/g, '').trim();
     const data = JSON.parse(cleaned);
+
+    if (isReplace) {
+      return NextResponse.json({ book: data, replaceIndex });
+    }
 
     if (!data.books || !Array.isArray(data.books)) {
       return NextResponse.json({ error: 'レスポンス形式エラー', raw: text }, { status: 500 });

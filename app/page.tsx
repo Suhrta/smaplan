@@ -94,6 +94,8 @@ export default function Home() {
   const [answers, setAnswers] = useState<Answers>({});
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const [replacingIndex, setReplacingIndex] = useState<number | null>(null);
+  const [excludedBooks, setExcludedBooks] = useState<string[]>([]);
 
   const q = QUESTIONS[step];
 
@@ -118,6 +120,29 @@ export default function Home() {
     const a = answers[q.key];
     if (Array.isArray(a)) return a.length > 0;
     return !!a;
+  }
+
+  async function handleReplaceBook(index: number, bookTitle: string) {
+    const newExcluded = [...excludedBooks, bookTitle];
+    setExcludedBooks(newExcluded);
+    setReplacingIndex(index);
+    try {
+      const res = await fetch('/api/recommend', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...answers, excludedBooks: newExcluded, replaceIndex: index }),
+      });
+      const data = await res.json();
+      if (data.book && result) {
+        const newBooks = [...result.books];
+        newBooks[index] = data.book;
+        setResult({ ...result, books: newBooks });
+      }
+    } catch {
+      alert('エラーが発生しました');
+    } finally {
+      setReplacingIndex(null);
+    }
   }
 
   async function handleNext() {
@@ -191,25 +216,49 @@ export default function Home() {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
         {result.books.map((book, i) => (
-          <div key={i} style={{
-            background: 'var(--bg-card)', border: '1px solid var(--border)',
-            borderRadius: 12, padding: '24px',
-            borderLeft: '4px solid var(--accent)',
+  <div key={i} style={{
+    background: 'var(--bg-card)', border: '1px solid var(--border)',
+    borderRadius: 12, padding: '24px',
+    borderLeft: '4px solid var(--accent)',
+    position: 'relative',
+  }}>
+    {replacingIndex === i && (
+      <div style={{
+        position: 'absolute', inset: 0, background: 'var(--bg-card)',
+        borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 14, color: 'var(--text-sub)', fontFamily: 'sans-serif',
+      }}>
+        📚 別の本を探しています...
+      </div>
+    )}
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, fontFamily: 'sans-serif' }}>
+      <span style={{ fontSize: 12, background: 'var(--accent)', color: 'var(--pill-active-text)', padding: '2px 10px', borderRadius: 20 }}>第{i + 1}位</span>
+      <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>相性 {book.score}%</span>
+      {book.kindle && <span style={{ fontSize: 11, color: 'var(--text-sub)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 20 }}>Kindle対応</span>}
+    </div>
+    <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>{book.title}</div>
+    <div style={{ fontSize: 13, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 12 }}>{book.author}</div>
+    <div style={{ fontSize: 14, color: 'var(--text-main)', lineHeight: 1.7, marginBottom: 8, fontFamily: 'sans-serif' }}>{book.reason}</div>
+    <div style={{ fontSize: 13, color: 'var(--text-sub)', fontStyle: 'italic', borderTop: '1px solid var(--border)', paddingTop: 12, marginTop: 12 }}>
+      📖 {book.first_page}
+    </div>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 12 }}>
+      <AmazonLink title={book.title} author={book.author} />
+      {!excludedBooks.includes(book.title) && (
+        <button
+          onClick={() => handleReplaceBook(i, book.title)}
+          style={{
+            padding: '8px 14px', background: 'transparent',
+            border: '1px solid var(--border)', borderRadius: 6,
+            cursor: 'pointer', fontFamily: 'sans-serif', fontSize: 12,
+            color: 'var(--text-sub)',
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, fontFamily: 'sans-serif' }}>
-              <span style={{ fontSize: 12, background: 'var(--accent)', color: 'var(--pill-active-text)', padding: '2px 10px', borderRadius: 20 }}>第{i + 1}位</span>
-              <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>相性 {book.score}%</span>
-              {book.kindle && <span style={{ fontSize: 11, color: 'var(--text-sub)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 20 }}>Kindle対応</span>}
-            </div>
-            <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>{book.title}</div>
-            <div style={{ fontSize: 13, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 12 }}>{book.author}</div>
-            <div style={{ fontSize: 14, color: 'var(--text-main)', lineHeight: 1.7, marginBottom: 8, fontFamily: 'sans-serif' }}>{book.reason}</div>
-            <div style={{ fontSize: 13, color: 'var(--text-sub)', fontStyle: 'italic', borderTop: '1px solid var(--border)', paddingTop: 12, marginTop: 12 }}>
-              📖 {book.first_page}
-            </div>
-            <AmazonLink title={book.title} author={book.author} />
-          </div>
-        ))}
+          読んだことある
+        </button>
+      )}
+    </div>
+  </div>
+))}
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
