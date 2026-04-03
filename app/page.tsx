@@ -77,47 +77,33 @@ function BookButton({ label, color, selected, onClick }: {
       onClick={onClick}
       style={{
         display: 'flex',
-        flexDirection: 'column',
-        width: 76,
-        height: 120,
+        alignItems: 'stretch',
         cursor: 'pointer',
-        borderRadius: '2px 4px 4px 2px',
+        borderRadius: '3px 6px 6px 3px',
         overflow: 'hidden',
-        boxShadow: selected ? `3px 16px 0 rgba(0,0,0,0.2)` : '3px 3px 0 rgba(0,0,0,0.18)',
-        transform: selected ? 'translateY(-14px)' : 'translateY(0)',
-        transition: 'transform 0.18s ease, box-shadow 0.18s ease',
-        position: 'relative',
-        flexShrink: 0,
+        boxShadow: selected ? '5px 2px 0 rgba(0,0,0,0.2)' : '2px 2px 0 rgba(0,0,0,0.12)',
+        transform: selected ? 'translateX(8px)' : 'translateX(0)',
+        transition: 'transform 0.15s ease, box-shadow 0.15s ease',
       }}
     >
-      <div style={{ width: '100%', height: 10, background: color.sp, flexShrink: 0 }} />
+      <div style={{ width: 10, flexShrink: 0, background: color.sp }} />
       <div style={{
         flex: 1,
         background: selected ? color.sp : color.bg,
         color: selected ? '#fff' : color.tx,
+        padding: '10px 12px',
+        fontSize: 13,
+        fontWeight: 500,
+        fontFamily: 'sans-serif',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '8px 6px',
-        fontSize: 12,
-        fontWeight: 500,
-        lineHeight: 1.6,
-        textAlign: 'center',
-        writingMode: 'vertical-rl' as const,
-        letterSpacing: '0.08em',
+        justifyContent: 'space-between',
+        gap: 8,
         transition: 'background 0.15s, color 0.15s',
       }}>
-        {label}
+        <span>{label}</span>
+        {selected && <span style={{ fontSize: 11, flexShrink: 0 }}>✓</span>}
       </div>
-      {selected && (
-        <div style={{
-          position: 'absolute', bottom: 4, right: 4,
-          width: 16, height: 16, borderRadius: '50%',
-          background: 'rgba(255,255,255,0.3)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: 10, fontFamily: 'sans-serif', color: '#fff',
-        }}>✓</div>
-      )}
     </div>
   );
 }
@@ -396,20 +382,25 @@ export default function Home() {
       {q.multi && <div style={{ fontSize: 12, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 16 }}>複数選択OK</div>}
       {q.optional && <div style={{ fontSize: 12, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 16 }}>なければそのまま次へ</div>}
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 8, alignItems: 'flex-end' }}>
-        {q.options.map((opt, oi) => {
-          const colors = q.key === 'avoid' ? GRAY_COLORS[oi % GRAY_COLORS.length] : BOOK_COLORS[oi % BOOK_COLORS.length];
-          return (
-            <BookButton
-              key={opt}
-              label={opt}
-              color={colors}
-              selected={isSelected(q.key, opt)}
-              onClick={() => toggle(q.key, opt, q.multi)}
-            />
-          );
-        })}
-      </div>
+      <div style={{
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: 8,
+  marginBottom: 8,
+}}>
+  {q.options.map((opt, oi) => {
+    const colors = q.key === 'avoid' ? GRAY_COLORS[oi % GRAY_COLORS.length] : BOOK_COLORS[oi % BOOK_COLORS.length];
+    return (
+      <BookButton
+        key={opt}
+        label={opt}
+        color={colors}
+        selected={isSelected(q.key, opt)}
+        onClick={() => toggle(q.key, opt, q.multi)}
+      />
+    );
+  })}
+</div>
       <div style={{ width: '100%', height: 7, background: '#C4A882', borderRadius: 2, marginBottom: 32 }} />
 
       <button onClick={handleNext} disabled={!canNext()} style={{
