@@ -208,7 +208,7 @@ export default function Home() {
 
       <div style={{ textAlign: 'center', marginTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
   
-    <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`私は「${result.type}」タイプ！\nAIが選んでくれた本：${result.books[0].title}（${result.books[0].author}）\n\nあなたもやってみて👇\nhttps://koreyomo.vercel.app`)}`}
+    <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`私は「${result.type}」タイプ！\nAIが選んでくれた本：${result.books[0].title}（${result.books[0].author}）\n\nあなたもやってみて👇\nhttps://erabook.vercel.app`)}`}
     target="_blank"
     rel="noopener noreferrer"
     style={{
