@@ -315,7 +315,6 @@ export default function Home() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, fontFamily: 'sans-serif' }}>
               <span style={{ fontSize: 12, background: 'var(--accent)', color: '#FDFAF4', padding: '2px 10px', borderRadius: 20 }}>第{i + 1}位</span>
               <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>相性 {book.score}%</span>
-              {book.kindle && <span style={{ fontSize: 11, color: 'var(--text-sub)', background: 'var(--accent-light)', padding: '2px 8px', borderRadius: 20 }}>Kindle対応</span>}
             </div>
             <div style={{ fontSize: 20, fontWeight: 700, marginBottom: 4 }}>{book.title}</div>
             <div style={{ fontSize: 13, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 12 }}>{book.author}</div>
