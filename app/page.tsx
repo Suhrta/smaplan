@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const BOOK_COLORS = [
   { sp: '#D4537E', bg: '#FBEAF0', tx: '#72243E' },
@@ -37,7 +37,7 @@ const QUESTIONS = [
     label: 'どんな本を読みたいですか？',
     multi: true,
     optional: false,
-    options: ['恋愛', 'ヒューマンドラマ', 'ミステリー', 'サスペンス', 'ホラー', 'ファンタジー', 'SF', 'コメディ', '歴史・時代', '海外文学', 'ライトノベル'],
+    options: ['恋愛', 'ヒューマンドラマ', 'ミステリー', 'サスペンス', 'ホラー', 'ファンタジー', 'SF', 'コメディ', '歴史・時代', '海外文学', 'ライトノベル', 'こだわらない'],
   },
   {
     key: 'length',
@@ -73,7 +73,8 @@ function BookButton({ label, color, selected, onClick }: {
   onClick: () => void;
 }) {
   return (
-    <div
+    <button
+      type="button"
       onClick={onClick}
       style={{
         display: 'flex',
@@ -81,8 +82,11 @@ function BookButton({ label, color, selected, onClick }: {
         cursor: 'pointer',
         borderRadius: '3px 6px 6px 3px',
         overflow: 'hidden',
-        boxShadow: selected ? '5px 2px 0 rgba(0,0,0,0.2)' : '2px 2px 0 rgba(0,0,0,0.12)',
-        transform: selected ? 'translateX(8px)' : 'translateX(0)',
+        border: 'none',
+        padding: 0,
+        width: '100%',
+        boxShadow: selected ? '4px 2px 0 rgba(0,0,0,0.2)' : '2px 2px 0 rgba(0,0,0,0.12)',
+        transform: selected ? 'translateX(4px)' : 'translateX(0)',
         transition: 'transform 0.15s ease, box-shadow 0.15s ease',
       }}
     >
@@ -91,7 +95,7 @@ function BookButton({ label, color, selected, onClick }: {
         flex: 1,
         background: selected ? color.sp : color.bg,
         color: selected ? '#fff' : color.tx,
-        padding: '10px 12px',
+        padding: '0 12px',
         fontSize: 13,
         fontWeight: 500,
         fontFamily: 'sans-serif',
@@ -99,12 +103,13 @@ function BookButton({ label, color, selected, onClick }: {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: 8,
+        minHeight: 44,
         transition: 'background 0.15s, color 0.15s',
       }}>
         <span>{label}</span>
         {selected && <span style={{ fontSize: 11, flexShrink: 0 }}>✓</span>}
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -113,7 +118,8 @@ function AmazonLink({ title, author }: { title: string; author: string }) {
   const url = `https://www.amazon.co.jp/s?k=${query}&i=digital-text&tag=erabook-22`;
   return (
     <a href={url} target="_blank" rel="noopener noreferrer" style={{
-      display: 'inline-block', marginTop: 12, padding: '8px 20px',
+      display: 'inline-flex', alignItems: 'center',
+      padding: '0 20px', minHeight: 44,
       background: '#FF9900', color: '#111', borderRadius: 6,
       fontFamily: 'sans-serif', fontSize: 13, fontWeight: 600,
       textDecoration: 'none',
@@ -176,6 +182,19 @@ function Header() {
   );
 }
 
+function ErrorBanner({ message }: { message: string }) {
+  return (
+    <div style={{
+      marginBottom: 16, padding: '12px 16px',
+      background: '#FEE2E2', border: '1px solid #FECACA',
+      borderRadius: 8, color: '#991B1B',
+      fontFamily: 'sans-serif', fontSize: 13,
+    }}>
+      {message}
+    </div>
+  );
+}
+
 export default function Home() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -184,6 +203,11 @@ export default function Home() {
   const [result, setResult] = useState<Result | null>(null);
   const [replacingIndex, setReplacingIndex] = useState<number | null>(null);
   const [excludedBooks, setExcludedBooks] = useState<string[]>([]);
+  const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => { if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current); };
+  }, []);
 
   const q = QUESTIONS[step];
 
@@ -195,6 +219,14 @@ export default function Home() {
       }
       return { ...prev, [key]: val };
     });
+    // シングル選択は300ms後に自動で次へ（最後のステップ除く）
+    if (!multi && step < QUESTIONS.length - 1) {
+      if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current);
+      advanceTimerRef.current = setTimeout(() => {
+        setStep(s => s + 1);
+        advanceTimerRef.current = null;
+      }, 300);
+    }
   }
 
   function isSelected(key: string, val: string) {
@@ -210,7 +242,20 @@ export default function Home() {
     return !!a;
   }
 
+  function resetAll() {
+    setStep(0);
+    setAnswers({});
+    setResult(null);
+    setExcludedBooks([]);
+    setError(null);
+  }
+
   async function handleNext() {
+    // 手動で次へを押したときはオートアドバンスタイマーをキャンセル
+    if (advanceTimerRef.current) {
+      clearTimeout(advanceTimerRef.current);
+      advanceTimerRef.current = null;
+    }
     if (step < QUESTIONS.length - 1) {
       setStep(s => s + 1);
     } else {
@@ -235,6 +280,7 @@ export default function Home() {
 
   async function handleReplaceBook(index: number, bookTitle: string) {
     if (replacingIndex !== null) return;
+    setError(null);
     const newExcluded = [...excludedBooks, bookTitle];
     setExcludedBooks(newExcluded);
     setReplacingIndex(index);
@@ -277,8 +323,18 @@ export default function Home() {
   );
 
   if (result) return (
-    <main style={{ maxWidth: 640, margin: '0 auto', padding: '40px 20px' }}>
+    <main style={{ maxWidth: 560, margin: '0 auto', padding: '24px 20px' }}>
       <Header />
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: -32, marginBottom: 16 }}>
+        <button onClick={resetAll} style={{
+          padding: '6px 12px', background: 'transparent',
+          border: '1px solid var(--border)', borderRadius: 6,
+          cursor: 'pointer', fontFamily: 'sans-serif', fontSize: 12, color: 'var(--text-sub)',
+        }}>← やり直す</button>
+      </div>
+
+      {error && <ErrorBanner message={error} />}
+
       <div style={{ textAlign: 'center', marginBottom: 40 }}>
         <div style={{ fontSize: 13, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 8 }}>あなたのタイプ</div>
         <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)', marginBottom: 8 }}>「{result.type}」</div>
@@ -327,11 +383,12 @@ export default function Home() {
             <div style={{ fontSize: 13, color: 'var(--text-sub)', fontStyle: 'italic', borderTop: '1px solid var(--border)', paddingTop: 12, marginTop: 12 }}>
               📖 {book.first_page}
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 16 }}>
               <AmazonLink title={book.title} author={book.author} />
               {!excludedBooks.includes(book.title) && (
                 <button onClick={() => handleReplaceBook(i, book.title)} style={{
-                  padding: '8px 14px', background: 'transparent',
+                  display: 'inline-flex', alignItems: 'center',
+                  padding: '0 14px', minHeight: 44, background: 'transparent',
                   border: '1px solid var(--border)', borderRadius: 6,
                   cursor: 'pointer', fontFamily: 'sans-serif', fontSize: 12,
                   color: 'var(--text-sub)',
@@ -355,7 +412,7 @@ export default function Home() {
           }}>
           𝕏 結果をシェアする
         </a>
-        <button onClick={() => { setStep(0); setAnswers({}); setResult(null); setExcludedBooks([]); }}
+        <button onClick={resetAll}
           style={{
             padding: '10px 24px', background: 'transparent',
             border: '1px solid var(--border)', borderRadius: 6,
@@ -368,7 +425,7 @@ export default function Home() {
   );
 
   return (
-    <main style={{ maxWidth: 560, margin: '0 auto', padding: '40px 20px' }}>
+    <main style={{ maxWidth: 560, margin: '0 auto', padding: '24px 20px' }}>
       <Header />
 
       <div style={{ display: 'flex', gap: 4, marginBottom: 32 }}>
@@ -381,52 +438,66 @@ export default function Home() {
         ))}
       </div>
 
-      <div style={{ marginBottom: 8, fontSize: 11, color: 'var(--text-sub)', fontFamily: 'sans-serif' }}>{step + 1} / {QUESTIONS.length}</div>
+      <div style={{ marginBottom: 8, fontSize: 12, color: 'var(--text-sub)', fontFamily: 'sans-serif' }}>{step + 1} / {QUESTIONS.length}</div>
       <h2 style={{ fontSize: 20, fontWeight: 600, marginBottom: 8, lineHeight: 1.5 }}>{q.label}</h2>
       {q.multi && <div style={{ fontSize: 12, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 16 }}>複数選択OK</div>}
       {q.optional && <div style={{ fontSize: 12, color: 'var(--text-sub)', fontFamily: 'sans-serif', marginBottom: 16 }}>なければそのまま次へ</div>}
 
       <div style={{
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  gap: 8,
-  marginBottom: 8,
-}}>
-  {q.options.map((opt, oi) => {
-    const colors = q.key === 'avoid' ? GRAY_COLORS[oi % GRAY_COLORS.length] : BOOK_COLORS[oi % BOOK_COLORS.length];
-    return (
-      <BookButton
-        key={opt}
-        label={opt}
-        color={colors}
-        selected={isSelected(q.key, opt)}
-        onClick={() => toggle(q.key, opt, q.multi)}
-      />
-    );
-  })}
-</div>
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 8,
+        marginBottom: 8,
+      }}>
+        {q.options.map((opt, oi) => {
+          const colors = q.key === 'avoid' ? GRAY_COLORS[oi % GRAY_COLORS.length] : BOOK_COLORS[oi % BOOK_COLORS.length];
+          return (
+            <BookButton
+              key={opt}
+              label={opt}
+              color={colors}
+              selected={isSelected(q.key, opt)}
+              onClick={() => toggle(q.key, opt, q.multi)}
+            />
+          );
+        })}
+      </div>
       <div style={{ width: '100%', height: 7, background: '#C4A882', borderRadius: 2, marginBottom: 32 }} />
 
-      {error && (
-        <div style={{
-          marginBottom: 16, padding: '12px 16px',
-          background: '#FEE2E2', border: '1px solid #FECACA',
-          borderRadius: 8, color: '#991B1B',
-          fontFamily: 'sans-serif', fontSize: 13,
+      {error && <ErrorBanner message={error} />}
+
+      <div style={{ display: 'flex', gap: 8 }}>
+        {step > 0 && (
+          <button
+            onClick={() => {
+              if (advanceTimerRef.current) {
+                clearTimeout(advanceTimerRef.current);
+                advanceTimerRef.current = null;
+              }
+              setStep(s => s - 1);
+            }}
+            style={{
+              flex: '0 0 auto', padding: '14px 20px', borderRadius: 8,
+              background: 'transparent', color: 'var(--text-sub)',
+              border: '1px solid var(--border)',
+              cursor: 'pointer', fontSize: 16, fontFamily: 'sans-serif', fontWeight: 600,
+              transition: 'all 0.2s',
+            }}
+          >
+            ← 前へ
+          </button>
+        )}
+        <button onClick={handleNext} disabled={!canNext()} style={{
+          flex: 1, padding: '14px', borderRadius: 8,
+          background: canNext() ? '#5C3D2E' : 'var(--border)',
+          color: canNext() ? '#F5E6C8' : 'var(--text-sub)',
+          border: 'none', cursor: canNext() ? 'pointer' : 'default',
+          fontSize: 16, fontFamily: 'sans-serif', fontWeight: 600,
+          transition: 'all 0.2s',
         }}>
-          {error}
-        </div>
-      )}
-      <button onClick={handleNext} disabled={!canNext()} style={{
-        width: '100%', padding: '14px', borderRadius: 8,
-        background: canNext() ? '#5C3D2E' : 'var(--border)',
-        color: canNext() ? '#F5E6C8' : 'var(--text-sub)',
-        border: 'none', cursor: canNext() ? 'pointer' : 'default',
-        fontSize: 16, fontFamily: 'sans-serif', fontWeight: 600,
-        transition: 'all 0.2s',
-      }}>
-        {step < QUESTIONS.length - 1 ? '次へ →' : '選書してもらう 📚'}
-      </button>
+          {step < QUESTIONS.length - 1 ? '次へ →' : '選書してもらう 📚'}
+        </button>
+      </div>
     </main>
   );
 }
