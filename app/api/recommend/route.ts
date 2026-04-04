@@ -100,12 +100,13 @@ export async function POST(req: NextRequest) {
     }
 
     if (!data.books || !Array.isArray(data.books)) {
-      return NextResponse.json({ error: 'レスポンス形式エラー', raw: text }, { status: 500 });
+      console.error('Invalid response format. Raw text:', text);
+      return NextResponse.json({ error: 'レスポンス形式エラー' }, { status: 500 });
     }
 
     return NextResponse.json(data);
   } catch (e) {
     console.error(e);
-    return NextResponse.json({ error: 'エラーが発生しました', detail: String(e) }, { status: 500 });
+    return NextResponse.json({ error: 'エラーが発生しました' }, { status: 500 });
   }
 }

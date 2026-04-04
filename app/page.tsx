@@ -180,6 +180,7 @@ export default function Home() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<Result | null>(null);
   const [replacingIndex, setReplacingIndex] = useState<number | null>(null);
   const [excludedBooks, setExcludedBooks] = useState<string[]>([]);
@@ -214,6 +215,7 @@ export default function Home() {
       setStep(s => s + 1);
     } else {
       setLoading(true);
+      setError(null);
       try {
         const res = await fetch('/api/recommend', {
           method: 'POST',
@@ -221,9 +223,10 @@ export default function Home() {
           body: JSON.stringify(answers),
         });
         const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'エラーが発生しました');
         setResult(data);
-      } catch {
-        alert('エラーが発生しました');
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'エラーが発生しました');
       } finally {
         setLoading(false);
       }
@@ -231,6 +234,7 @@ export default function Home() {
   }
 
   async function handleReplaceBook(index: number, bookTitle: string) {
+    if (replacingIndex !== null) return;
     const newExcluded = [...excludedBooks, bookTitle];
     setExcludedBooks(newExcluded);
     setReplacingIndex(index);
@@ -241,13 +245,14 @@ export default function Home() {
         body: JSON.stringify({ ...answers, excludedBooks: newExcluded, replaceIndex: index }),
       });
       const data = await res.json();
-      if (data.book && result) {
+      if (!res.ok) throw new Error(data.error || 'エラーが発生しました');
+      if (data.book && result && index >= 0 && index < result.books.length) {
         const newBooks = [...result.books];
         newBooks[index] = data.book;
         setResult({ ...result, books: newBooks });
       }
-    } catch {
-      alert('エラーが発生しました');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'エラーが発生しました');
     } finally {
       setReplacingIndex(null);
     }
@@ -402,6 +407,16 @@ export default function Home() {
 </div>
       <div style={{ width: '100%', height: 7, background: '#C4A882', borderRadius: 2, marginBottom: 32 }} />
 
+      {error && (
+        <div style={{
+          marginBottom: 16, padding: '12px 16px',
+          background: '#FEE2E2', border: '1px solid #FECACA',
+          borderRadius: 8, color: '#991B1B',
+          fontFamily: 'sans-serif', fontSize: 13,
+        }}>
+          {error}
+        </div>
+      )}
       <button onClick={handleNext} disabled={!canNext()} style={{
         width: '100%', padding: '14px', borderRadius: 8,
         background: canNext() ? '#5C3D2E' : 'var(--border)',
