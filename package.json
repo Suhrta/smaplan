@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "generate:og": "node scripts/generate-og.mjs",
-    "generate:carriers": "node scripts/generate-carrier-pages.mjs"
+    "generate:carriers": "node scripts/generate-carrier-pages.mjs",
+    "generate:blog": "node scripts/generate-blog-posts.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.82.0",

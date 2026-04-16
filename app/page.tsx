@@ -758,15 +758,26 @@ export default function Home() {
             textAlign: 'center',
             display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center',
           }}>
-            <Link
-              href="/carriers"
-              style={{
-                fontSize: 13, color: 'var(--text-sub)',
-                textDecoration: 'underline',
-              }}
-            >
-              プラン一覧を見る
-            </Link>
+            <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <Link
+                href="/carriers"
+                style={{
+                  fontSize: 13, color: 'var(--text-sub)',
+                  textDecoration: 'underline',
+                }}
+              >
+                プラン一覧を見る
+              </Link>
+              <Link
+                href="/blog"
+                style={{
+                  fontSize: 13, color: 'var(--text-sub)',
+                  textDecoration: 'underline',
+                }}
+              >
+                ブログ
+              </Link>
+            </div>
             <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
               © 2026 SmaPlan
             </div>
