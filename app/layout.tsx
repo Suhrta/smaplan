@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
     images: ["/og-image.png"],
   },
+  verification: {
+    google: "5Jtg1aOY0TlsPNeyVZD8LGBoByK93AgaVqLKAzI8i68",
+  },
 };
 
 export default function RootLayout({
