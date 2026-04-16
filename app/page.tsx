@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { getLink } from '@/data/affiliateLinks';
 import { track } from '@/lib/analytics';
 
@@ -376,6 +377,22 @@ export default function Home() {
             </div>
           ))}
         </div>
+
+        <footer style={{
+          marginTop: 40, paddingTop: 24,
+          borderTop: '1px solid var(--border)',
+          textAlign: 'center',
+        }}>
+          <Link
+            href="/carriers"
+            style={{
+              fontSize: 13, color: 'var(--text-sub)',
+              textDecoration: 'underline',
+            }}
+          >
+            プラン一覧を見る
+          </Link>
+        </footer>
       </main>
     );
   }

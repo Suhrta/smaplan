@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate:og": "node scripts/generate-og.mjs"
+    "generate:og": "node scripts/generate-og.mjs",
+    "generate:carriers": "node scripts/generate-carrier-pages.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.82.0",
