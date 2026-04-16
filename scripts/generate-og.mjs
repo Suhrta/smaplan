@@ -88,7 +88,7 @@ const HTML = `<!doctype html>
 <body>
   <div class="accent-bar"></div>
   <div class="container">
-    <div class="brand">SMAPLAN</div>
+    <div class="brand">SmaPlan</div>
     <div class="title">スマプラン</div>
     <div class="subtitle">AIがあなたに最適な<br />スマホプランを無料診断</div>
     <div class="badges">

@@ -95,11 +95,19 @@ type Recommendation = {
   affiliate_key: string;
 };
 
+type RelatedPost = {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+};
+
 type DiagnoseResult = {
   estimated_data_gb: number;
   current_estimated_cost: number;
   recommendations: Recommendation[];
   advice: string;
+  related_posts?: RelatedPost[];
 };
 
 type View = 'landing' | 'diagnose' | 'result';
@@ -250,7 +258,7 @@ const FAQ_ITEMS = [
   },
   {
     question: 'スマホの料金プランを見直すとどれくらい節約できますか？',
-    answer: '大手キャリアから格安SIMに乗り換えた場合、年間5〜8万円の節約になるケースが多いです。',
+    answer: '例えば、ドコモのeximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合、年間約52,000円の節約になります（当サイト試算・割引適用前の基本料金で比較）。実際の節約額はご利用状況により異なります。',
   },
   {
     question: '個人情報の入力は必要ですか？',
@@ -305,7 +313,7 @@ function PhoneMockup() {
             fontSize: 10, color: '#94A3B8', textAlign: 'center',
             letterSpacing: '0.15em', marginBottom: 6,
           }}>
-            SMAPLAN
+            SmaPlan
           </div>
           <div style={{
             background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%)',
@@ -636,17 +644,17 @@ export default function Home() {
                 margin: '0 0 16px', color: 'var(--text-main)',
                 letterSpacing: '0.01em',
               }}>
-                10問でわかる、<br />
+                <span style={{ color: 'var(--accent)' }}>年間5万円以上</span>おトクに？<br />
                 あなたに最適な<br />
-                <span style={{ color: 'var(--accent)' }}>スマホ料金プラン</span>
+                スマホプラン
               </h1>
               <p className="sp-hero-sub" style={{
                 fontSize: 15, color: 'var(--text-sub)',
                 margin: '0 auto 28px', lineHeight: 1.8,
                 maxWidth: 360,
               }}>
-                AIがあなたの使い方を分析して、<br />
-                月々の料金と年間節約額を無料で診断します。
+                10問・30秒で完了する無料診断。<br />
+                AIがあなたに最適なプランを提案します。
               </p>
               <div className="sp-hero-cta-wrap" style={{
                 display: 'flex', flexDirection: 'column',
@@ -848,6 +856,101 @@ export default function Home() {
           おすすめプラン TOP 3
         </div>
 
+        <div style={{
+          overflowX: 'auto',
+          marginBottom: 20,
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)',
+          borderRadius: 12,
+        }}>
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            fontSize: 13,
+            tableLayout: 'fixed',
+          }}>
+            <thead>
+              <tr style={{ background: 'var(--bg)' }}>
+                <th style={{
+                  padding: '10px 8px', textAlign: 'left',
+                  fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                  borderBottom: '1px solid var(--border)',
+                  width: '38%',
+                }}>プラン名</th>
+                <th style={{
+                  padding: '10px 6px', textAlign: 'right',
+                  fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                  borderBottom: '1px solid var(--border)',
+                  width: '22%',
+                }}>月額</th>
+                <th style={{
+                  padding: '10px 6px', textAlign: 'right',
+                  fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                  borderBottom: '1px solid var(--border)',
+                  width: '18%',
+                }}>データ</th>
+                <th style={{
+                  padding: '10px 8px', textAlign: 'right',
+                  fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                  borderBottom: '1px solid var(--border)',
+                  width: '22%',
+                }}>年間節約</th>
+              </tr>
+            </thead>
+            <tbody>
+              {result.recommendations.map((rec, i) => {
+                const isLast = i === result.recommendations.length - 1;
+                const isTop = i === 0;
+                return (
+                  <tr key={i}>
+                    <td style={{
+                      padding: '12px 8px',
+                      fontSize: 13, fontWeight: 600,
+                      color: 'var(--text-main)',
+                      borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                      overflow: 'hidden', textOverflow: 'ellipsis',
+                    }}>
+                      <span style={{
+                        fontSize: 11, fontWeight: 700, color: isTop ? 'var(--accent)' : 'var(--text-muted)',
+                        marginRight: 6,
+                      }}>
+                        {rec.rank}位
+                      </span>
+                      {rec.plan_name}
+                    </td>
+                    <td style={{
+                      padding: '12px 6px', textAlign: 'right',
+                      fontSize: 13, fontWeight: 700,
+                      color: 'var(--accent)',
+                      borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                    }}>
+                      {rec.monthly_cost.toLocaleString()}円
+                    </td>
+                    <td style={{
+                      padding: '12px 6px', textAlign: 'right',
+                      fontSize: 12, color: 'var(--text-sub)',
+                      borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                      overflow: 'hidden', textOverflow: 'ellipsis',
+                    }}>
+                      {rec.data_gb}
+                    </td>
+                    <td style={{
+                      padding: '12px 8px', textAlign: 'right',
+                      fontSize: 12, fontWeight: 700,
+                      color: rec.annual_saving > 0 ? 'var(--success)' : 'var(--text-muted)',
+                      borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                    }}>
+                      {rec.annual_saving > 0
+                        ? `${rec.annual_saving.toLocaleString()}円`
+                        : '—'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 24 }}>
           {result.recommendations.map((rec, i) => {
             const isTop = i === 0;
@@ -963,6 +1066,52 @@ export default function Home() {
             <p style={{ margin: 0, fontSize: 14, lineHeight: 1.8, color: 'var(--text-main)' }}>
               {result.advice}
             </p>
+          </div>
+        )}
+
+        {result.related_posts && result.related_posts.length > 0 && (
+          <div style={{ marginBottom: 24 }}>
+            <div style={{
+              fontSize: 14, fontWeight: 700,
+              color: 'var(--text-sub)', marginBottom: 12,
+            }}>
+              📚 あわせて読みたい
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {result.related_posts.map(p => (
+                <Link
+                  key={p.slug}
+                  href={`/blog/${p.slug}`}
+                  onClick={() => track('related_post_click', { slug: p.slug })}
+                  style={{
+                    display: 'block',
+                    padding: '14px 16px',
+                    background: 'var(--bg-card)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 12,
+                    textDecoration: 'none',
+                  }}
+                >
+                  <div style={{
+                    fontSize: 14, fontWeight: 700,
+                    color: 'var(--text-main)', marginBottom: 4,
+                    lineHeight: 1.5,
+                  }}>
+                    {p.title}
+                  </div>
+                  <div style={{
+                    fontSize: 12, color: 'var(--text-sub)',
+                    lineHeight: 1.6,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }}>
+                    {p.description}
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
 

@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
 import plans from '@/data/plans.json';
+import blogPosts from '@/data/blog-posts.json';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -31,12 +32,66 @@ type Recommendation = {
   affiliate_key: string;
 };
 
+type RelatedPost = {
+  slug: string;
+  title: string;
+  description: string;
+  publishedAt: string;
+};
+
 type DiagnoseResult = {
   estimated_data_gb: number;
   current_estimated_cost: number;
   recommendations: Recommendation[];
   advice: string;
+  related_posts?: RelatedPost[];
 };
+
+function getRelatedPosts(recommendations: Recommendation[]): RelatedPost[] {
+  const posts = blogPosts as Array<{
+    slug: string;
+    title: string;
+    description: string;
+    publishedAt: string;
+  }>;
+
+  const keywords = new Set<string>();
+  for (const r of recommendations) {
+    if (r.carrier) keywords.add(r.carrier);
+    if (r.plan_name) {
+      for (const token of r.plan_name.split(/[\s　]+/)) {
+        if (token.length >= 2) keywords.add(token);
+      }
+    }
+  }
+
+  const scored = posts.map(p => {
+    const text = `${p.title} ${p.description}`;
+    let score = 0;
+    for (const kw of keywords) {
+      if (text.includes(kw)) score += 1;
+    }
+    return { post: p, score };
+  });
+
+  scored.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    return b.post.publishedAt.localeCompare(a.post.publishedAt);
+  });
+
+  const matched = scored.filter(s => s.score > 0).slice(0, 3);
+  const selected =
+    matched.length >= 2
+      ? matched.map(s => s.post)
+      : [...posts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt)).slice(0, 3);
+
+  return selected.map(p => ({
+    slug: p.slug,
+    title: p.title,
+    description: p.description,
+    publishedAt: p.publishedAt,
+  }));
+}
 
 const VALID_KEYS = new Set(plans.map(p => p.id));
 
@@ -129,7 +184,9 @@ export async function POST(req: NextRequest) {
     const message = await client.messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 2048,
-      system: SYSTEM_PROMPT,
+      system: [
+        { type: 'text', text: SYSTEM_PROMPT, cache_control: { type: 'ephemeral' } },
+      ],
       messages: [{ role: 'user', content: userMessage }],
     });
 
@@ -149,6 +206,8 @@ export async function POST(req: NextRequest) {
       }
       return rec;
     });
+
+    data.related_posts = getRelatedPosts(data.recommendations);
 
     return NextResponse.json(data);
   } catch (e) {
