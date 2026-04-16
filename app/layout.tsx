@@ -1,8 +1,17 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
 const GA_ID = "G-RZ1FHYE0ZG";
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+  preload: false,
+  variable: "--font-noto",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smaplan.com"),
@@ -41,14 +50,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={notoSansJP.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
