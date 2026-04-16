@@ -31,6 +31,7 @@ export async function generateMetadata(
   const post = findPost(slug);
   if (!post) return {};
   const title = `${post.title} | スマプラン`;
+  const ogImage = `/blog/${post.slug}.png`;
   return {
     title,
     description: post.description,
@@ -41,13 +42,13 @@ export async function generateMetadata(
       url: `https://smaplan.com/blog/${post.slug}`,
       type: 'article',
       publishedTime: post.publishedAt,
-      images: [{ url: '/og-image.png', width: 1200, height: 630 }],
+      images: [{ url: ogImage, width: 1200, height: 630 }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description: post.description,
-      images: ['/og-image.png'],
+      images: [ogImage],
     },
   };
 }
@@ -353,6 +354,23 @@ export default async function BlogDetailPage({
       </nav>
 
       <article>
+        <img
+          src={`/blog/${post.slug}.png`}
+          alt={post.title}
+          width={1200}
+          height={630}
+          style={{
+            display: 'block',
+            width: '100%',
+            height: 'auto',
+            aspectRatio: '1200 / 630',
+            borderRadius: 12,
+            marginBottom: 20,
+            background: 'var(--accent-light)',
+          }}
+          loading="eager"
+          decoding="async"
+        />
         <header style={{ marginBottom: 24 }}>
           <h1 style={{
             fontSize: 26, fontWeight: 800, lineHeight: 1.45,

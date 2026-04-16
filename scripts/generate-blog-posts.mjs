@@ -3,6 +3,8 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Anthropic from '@anthropic-ai/sdk';
+import puppeteer from 'puppeteer';
+import { generateHeaderImage } from './lib/blog-image.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -30,13 +32,15 @@ const SLEEP_MS = 300;
 const MAX_RETRY = 1;
 
 function parseArgs(argv) {
-  const args = { count: 2 };
+  const args = { count: 2, image: true };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--count') {
       const v = parseInt(argv[++i], 10);
       if (!Number.isFinite(v) || v < 0) throw new Error(`invalid --count: ${argv[i]}`);
       args.count = v;
+    } else if (a === '--no-image') {
+      args.image = false;
     }
   }
   return args;
@@ -218,30 +222,53 @@ async function main() {
   }
 
   const client = new Anthropic({ apiKey });
-  console.log(`Generating ${target.length} post(s) (count=${args.count}, available=${pending.length})`);
+  console.log(`Generating ${target.length} post(s) (count=${args.count}, available=${pending.length}, image=${args.image})`);
 
-  for (const topic of target) {
-    console.log(`\ngenerating [p${topic.priority}/${topic.category}] ${topic.slug} (${topic.title})...`);
-    const { description, content } = await generateOne(client, topic, plansContext);
-    const post = {
-      slug: topic.slug,
-      title: topic.title,
-      description,
-      publishedAt: todayIso(),
-      content,
-    };
-    posts.push(post);
-    await mkdir(dirname(POSTS_PATH), { recursive: true });
-    await writeFile(POSTS_PATH, JSON.stringify(posts, null, 2) + '\n', 'utf-8');
+  let browser = null;
+  if (args.image) {
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+  }
 
-    topics[topic.originalIndex] = {
-      ...topics[topic.originalIndex],
-      generated: true,
-    };
-    await writeFile(TOPICS_PATH, JSON.stringify(topics, null, 2) + '\n', 'utf-8');
+  try {
+    for (const topic of target) {
+      console.log(`\ngenerating [p${topic.priority}/${topic.category}] ${topic.slug} (${topic.title})...`);
+      const { description, content } = await generateOne(client, topic, plansContext);
+      const post = {
+        slug: topic.slug,
+        title: topic.title,
+        description,
+        category: topic.category,
+        publishedAt: todayIso(),
+        content,
+      };
+      posts.push(post);
+      await mkdir(dirname(POSTS_PATH), { recursive: true });
+      await writeFile(POSTS_PATH, JSON.stringify(posts, null, 2) + '\n', 'utf-8');
 
-    console.log(`  ✓ wrote ${topic.slug}`);
-    await sleep(SLEEP_MS);
+      if (browser) {
+        await generateHeaderImage({
+          browser,
+          slug: topic.slug,
+          title: topic.title,
+          category: topic.category,
+        });
+        console.log(`  ✓ image: public/blog/${topic.slug}.png`);
+      }
+
+      topics[topic.originalIndex] = {
+        ...topics[topic.originalIndex],
+        generated: true,
+      };
+      await writeFile(TOPICS_PATH, JSON.stringify(topics, null, 2) + '\n', 'utf-8');
+
+      console.log(`  ✓ wrote ${topic.slug}`);
+      await sleep(SLEEP_MS);
+    }
+  } finally {
+    if (browser) await browser.close();
   }
 
   console.log(`\nDone. ${target.length} post(s) generated. Total posts: ${posts.length}`);
