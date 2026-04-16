@@ -290,6 +290,7 @@ function PhoneMockup() {
       }}
     >
       <div style={{
+        position: 'relative',
         width: 240, height: 480,
         background: '#0F172A',
         borderRadius: 36,
@@ -354,6 +355,16 @@ function PhoneMockup() {
               </div>
             ))}
           </div>
+        </div>
+        <div style={{
+          position: 'absolute',
+          bottom: 2, right: 14,
+          fontSize: 9,
+          color: 'rgba(255, 255, 255, 0.55)',
+          letterSpacing: '0.02em',
+          pointerEvents: 'none',
+        }}>
+          ※表示はイメージです
         </div>
       </div>
     </div>
@@ -648,6 +659,13 @@ export default function Home() {
                 あなたに最適な<br />
                 スマホプラン
               </h1>
+              <p style={{
+                fontSize: 10, color: 'var(--text-muted)',
+                margin: '0 auto 16px', lineHeight: 1.6,
+                maxWidth: 360,
+              }}>
+                ※ドコモ eximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合の当サイト試算
+              </p>
               <p className="sp-hero-sub" style={{
                 fontSize: 15, color: 'var(--text-sub)',
                 margin: '0 auto 28px', lineHeight: 1.8,
@@ -815,18 +833,27 @@ export default function Home() {
         {error && <ErrorBanner message={error} />}
 
         {topSaving > 0 && (
-          <div style={{
-            background: 'linear-gradient(135deg, var(--accent) 0%, #2563EB 100%)',
-            color: '#fff', borderRadius: 16, padding: '28px 20px',
-            textAlign: 'center', marginBottom: 24,
-            boxShadow: '0 8px 24px rgba(29, 78, 216, 0.3)',
-          }}>
-            <div style={{ fontSize: 13, opacity: 0.9, marginBottom: 6 }}>乗り換えたら</div>
-            <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1.1, marginBottom: 4 }}>
-              年間 {topSaving.toLocaleString()}円
+          <>
+            <div style={{
+              background: 'linear-gradient(135deg, var(--accent) 0%, #2563EB 100%)',
+              color: '#fff', borderRadius: 16, padding: '28px 20px',
+              textAlign: 'center', marginBottom: 8,
+              boxShadow: '0 8px 24px rgba(29, 78, 216, 0.3)',
+            }}>
+              <div style={{ fontSize: 13, opacity: 0.9, marginBottom: 6 }}>乗り換えたら</div>
+              <div style={{ fontSize: 36, fontWeight: 800, lineHeight: 1.1, marginBottom: 4 }}>
+                年間 {topSaving.toLocaleString()}円
+              </div>
+              <div style={{ fontSize: 18, fontWeight: 700 }}>おトクに！</div>
             </div>
-            <div style={{ fontSize: 18, fontWeight: 700 }}>おトクに！</div>
-          </div>
+            <div style={{
+              fontSize: 10, color: 'var(--text-muted)',
+              textAlign: 'center', marginBottom: 24, lineHeight: 1.6,
+              padding: '0 8px',
+            }}>
+              ※AIによる推定値です。実際の金額はご利用状況・割引適用により異なります
+            </div>
+          </>
         )}
 
         <div style={{
