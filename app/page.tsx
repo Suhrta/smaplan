@@ -52,19 +52,25 @@ const QUESTIONS: Question[] = [
     options: ['ほぼWi-Fi環境で足りてる', '通勤・移動中にそこそこ', '外でもガンガン使う'],
   },
   {
-    key: 'q7_usage_types',
+    key: 'q7_speed_concern',
+    label: '今の通信速度に不満はある？',
+    multi: false,
+    options: ['不満あり（遅いと感じる）', '特に不満なし', '気にしたことがない'],
+  },
+  {
+    key: 'q8_usage_types',
     label: '外出先で主に何をしてる？',
     multi: true,
     options: ['SNS・ニュース', '動画視聴（YouTube等）', '音楽ストリーミング', 'ゲーム', '仕事・テザリング', '地図・ナビ'],
   },
   {
-    key: 'q8_priority',
+    key: 'q9_priority',
     label: '一番重視するのは？',
     multi: false,
     options: ['とにかく安さ', '通信速度・安定性', 'データたっぷり', 'サポートの手厚さ'],
   },
   {
-    key: 'q9_bundle_discount',
+    key: 'q10_bundle_discount',
     label: '電気・光回線のセット割を使ってる？',
     multi: false,
     options: ['使ってる', '使ってない', 'わからない'],
@@ -224,7 +230,7 @@ function PiggyBankIcon() {
 }
 
 const FEATURES = [
-  { Icon: BotIcon, title: 'AI診断', body: '9問に答えるだけで、AIがあなたの使い方を分析' },
+  { Icon: BotIcon, title: 'AI診断', body: '10問に答えるだけで、AIがあなたの使い方を分析' },
   { Icon: ScaleIcon, title: '中立・全キャリア対応', body: '大手キャリアから格安SIMまで20プランから公平に比較' },
   { Icon: PiggyBankIcon, title: '年間節約額がわかる', body: '現在の料金と比較して「いくらお得か」を具体的に表示' },
 ] as const;
@@ -232,7 +238,7 @@ const FEATURES = [
 const FAQ_ITEMS = [
   {
     question: 'スマプランの診断は本当に無料ですか？',
-    answer: 'はい、完全無料です。会員登録も不要で、9問の質問に答えるだけで診断結果が表示されます。',
+    answer: 'はい、完全無料です。会員登録も不要で、10問の質問に答えるだけで診断結果が表示されます。',
   },
   {
     question: 'どのキャリアのプランが対象ですか？',
@@ -630,7 +636,7 @@ export default function Home() {
                 margin: '0 0 16px', color: 'var(--text-main)',
                 letterSpacing: '0.01em',
               }}>
-                9問でわかる、<br />
+                10問でわかる、<br />
                 あなたに最適な<br />
                 <span style={{ color: 'var(--accent)' }}>スマホ料金プラン</span>
               </h1>

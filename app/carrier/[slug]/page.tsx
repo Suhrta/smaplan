@@ -32,7 +32,7 @@ export async function generateMetadata(
   if (!plan) return {};
   const title = `${plan.plan_name}のメリット・デメリット | スマプラン`;
   const dataLabel = plan.data_gb === 999 ? '無制限' : `${plan.data_gb}GB`;
-  const description = `${plan.carrier}「${plan.plan_name}」（月${plan.monthly_cost.toLocaleString()}円 / ${dataLabel}）のメリット・デメリットを中立的に解説。9問のAI診断で本当にあなたに合うプランを無料で確認できます。`;
+  const description = `${plan.carrier}「${plan.plan_name}」（月${plan.monthly_cost.toLocaleString()}円 / ${dataLabel}）のメリット・デメリットを中立的に解説。10問のAI診断で本当にあなたに合うプランを無料で確認できます。`;
   return {
     title,
     description,

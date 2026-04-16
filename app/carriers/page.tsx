@@ -78,7 +78,7 @@ export default function CarriersIndexPage() {
         margin: '0 0 24px',
       }}>
         主要20プランのメリット・デメリットを中立的にまとめています。<br />
-        迷ったら<Link href="/" style={{ color: 'var(--accent)', fontWeight: 700 }}>9問のAI診断</Link>で自分に合うプランを見つけてください。
+        迷ったら<Link href="/" style={{ color: 'var(--accent)', fontWeight: 700 }}>10問のAI診断</Link>で自分に合うプランを見つけてください。
       </p>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>

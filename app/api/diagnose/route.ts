@@ -13,9 +13,10 @@ type Answers = {
   q4_family?: string;
   q5_call?: string;
   q6_data_usage?: string;
-  q7_usage_types?: string[];
-  q8_priority?: string;
-  q9_bundle_discount?: string;
+  q7_speed_concern?: string;
+  q8_usage_types?: string[];
+  q9_priority?: string;
+  q10_bundle_discount?: string;
 };
 
 type Recommendation = {
@@ -40,24 +41,27 @@ type DiagnoseResult = {
 const VALID_KEYS = new Set(plans.map(p => p.id));
 
 const SYSTEM_PROMPT = `あなたはスマホ料金の専門家「スマプラン」のAIアドバイザーです。
-ユーザーの9問診断の回答に基づき、以下のプランデータベースから最適なプランを3つ選んでください。
+ユーザーの10問診断の回答に基づき、以下のプランデータベースから最適なプランを3つ選んでください。
 
 ## ルール
 - ユーザーの回答からデータ使用量を推定すること
 - Q3で「できれば今のキャリアがいい」なら同キャリア内プラン（同じ carrier_parent のプラン）を優先
 - Q4で「まとめてる」「まとめたい」なら family_discount が true のプランを優先
-- Q8の重視ポイントを最優先条件として考慮
+- Q7の通信速度への不満を考慮
+  - 「不満あり（遅いと感じる）」→ サブブランド（ahamo / povo / LINEMO / UQ mobile / Y!mobile）および大手キャリア系を優先推薦。MVNO（IIJmio / mineo / 日本通信SIM / イオンモバイル）は順位を下げる
+  - 「特に不満なし」「気にしたことがない」→ MVNOを含めて安さ重視で推薦してよい
+- Q9の重視ポイントを最優先条件として考慮
   - 「とにかく安さ」→ monthly_cost が低いプラン優先
   - 「通信速度・安定性」→ 大手キャリア/サブブランド優先（MVNO は混雑時に低下する旨、advice に添える）
   - 「データたっぷり」→ data_gb が大きいまたは無制限（999）のプラン優先
   - 「サポートの手厚さ」→ 店舗サポートがある事業者（イオンモバイル、UQ mobile、Y!mobile、大手キャリア）を優先
-- Q9で「使ってる」なら bundle_discount が true のプランで比較時にセット割を考慮（monthly_cost_min_with_discounts があればそちらに近い価格で評価）
+- Q10で「使ってる」なら bundle_discount が true のプランで比較時にセット割を考慮（monthly_cost_min_with_discounts があればそちらに近い価格で評価）
 - 推定データ使用量の目安:
-  - Q6「ほぼWi-Fi環境で足りてる」＋Q7主にSNS・ニュース → 1〜3GB
-  - Q6「通勤・移動中にそこそこ」＋Q7主にSNS・ニュース → 3〜5GB
-  - Q6「通勤・移動中にそこそこ」＋Q7に動画視聴 → 10〜20GB
-  - Q6「外でもガンガン使う」＋Q7に動画視聴 → 20GB〜無制限
-  - Q7に「仕事・テザリング」→ 20GB〜無制限
+  - Q6「ほぼWi-Fi環境で足りてる」＋Q8主にSNS・ニュース → 1〜3GB
+  - Q6「通勤・移動中にそこそこ」＋Q8主にSNS・ニュース → 3〜5GB
+  - Q6「通勤・移動中にそこそこ」＋Q8に動画視聴 → 10〜20GB
+  - Q6「外でもガンガン使う」＋Q8に動画視聴 → 20GB〜無制限
+  - Q8に「仕事・テザリング」→ 20GB〜無制限
 - 現在の月額料金（current_estimated_cost）の扱い:
   - Q2に数値（例: 7000）が入っていればそれをそのまま current_estimated_cost に採用する（推定し直さない）
   - Q2が「わからない」の場合のみ、Q1のキャリアから以下の目安で推定する:
@@ -114,9 +118,10 @@ export async function POST(req: NextRequest) {
 - Q4 家族でまとめる: ${answers.q4_family ?? '未回答'}
 - Q5 電話利用: ${answers.q5_call ?? '未回答'}
 - Q6 外出時データ利用: ${answers.q6_data_usage ?? '未回答'}
-- Q7 外出時の主な利用: ${Array.isArray(answers.q7_usage_types) ? answers.q7_usage_types.join('、') : '未回答'}
-- Q8 最重視: ${answers.q8_priority ?? '未回答'}
-- Q9 セット割: ${answers.q9_bundle_discount ?? '未回答'}
+- Q7 通信速度への不満: ${answers.q7_speed_concern ?? '未回答'}
+- Q8 外出時の主な利用: ${Array.isArray(answers.q8_usage_types) ? answers.q8_usage_types.join('、') : '未回答'}
+- Q9 最重視: ${answers.q9_priority ?? '未回答'}
+- Q10 セット割: ${answers.q10_bundle_discount ?? '未回答'}
 
 上記の回答から、プランデータベースより最適な3プランを選び、指定のJSON形式で返答してください。`;
 

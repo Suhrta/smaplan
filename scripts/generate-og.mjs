@@ -92,7 +92,7 @@ const HTML = `<!doctype html>
     <div class="title">スマプラン</div>
     <div class="subtitle">AIがあなたに最適な<br />スマホプランを無料診断</div>
     <div class="badges">
-      <div class="badge"><span class="badge-icon">📱</span>9問で診断</div>
+      <div class="badge"><span class="badge-icon">📱</span>10問で診断</div>
       <div class="badge"><span class="badge-icon">⚖️</span>全キャリア対応</div>
       <div class="badge"><span class="badge-icon">💰</span>無料</div>
     </div>

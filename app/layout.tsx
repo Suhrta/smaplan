@@ -7,10 +7,10 @@ const GA_ID = "G-RZ1FHYE0ZG";
 export const metadata: Metadata = {
   metadataBase: new URL("https://smaplan.com"),
   title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
-  description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断し、年間いくら節約できるかお伝えします。全キャリア対応・無料・登録不要。",
+  description: "10の質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断し、年間いくら節約できるかお伝えします。全キャリア対応・無料・登録不要。",
   openGraph: {
     title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
-    description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
+    description: "10の質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
     url: "https://smaplan.com",
     siteName: "スマプラン",
     locale: "ja_JP",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
-    description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
+    description: "10の質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
     images: ["/og-image.png"],
   },
   verification: {
