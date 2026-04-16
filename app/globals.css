@@ -1,22 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #F5F0E8;
-  --bg-card: #FDFAF4;
-  --text-main: #2C1810;
-  --text-sub: #6B4C3B;
-  --accent: #3D5A3E;
-  --accent-light: #E8F0E8;
-  --border: #D4C4A8;
-  --gold: #C4963A;
-  --wood: #5C3D2E;
+  --bg: #F7FAFC;
+  --bg-card: #FFFFFF;
+  --text-main: #0F172A;
+  --text-sub: #475569;
+  --text-muted: #94A3B8;
+  --accent: #1D4ED8;
+  --accent-hover: #1E40AF;
+  --accent-light: #EFF6FF;
+  --accent-border: #BFDBFE;
+  --border: #E2E8F0;
+  --success: #16A34A;
+  --success-light: #DCFCE7;
+  --warning: #F59E0B;
+  --danger: #DC2626;
+  --danger-light: #FEE2E2;
 }
 
 * { box-sizing: border-box; }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   background: var(--bg);
   color: var(--text-main);
-  font-family: 'Georgia', 'Noto Serif JP', serif;
+  font-family: 'Noto Sans JP', system-ui, -apple-system, 'Segoe UI', sans-serif;
   min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
 }

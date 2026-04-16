@@ -2,29 +2,20 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "これよも - あなただけの「はじめの1冊」を見つけよう",
-  description: "5つの質問に答えるだけで、AIがあなたにぴったりの小説を3冊推薦します。本を読んだことがない人も、久しぶりに読みたい人も。",
+  title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
+  description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断し、年間いくら節約できるかお伝えします。全キャリア対応・無料・登録不要。",
   openGraph: {
-    title: "これよも - あなただけの「はじめの1冊」を見つけよう",
-    description: "5つの質問に答えるだけで、AIがあなたにぴったりの小説を3冊推薦します。",
-    url: "https://erabook.vercel.app",
-    siteName: "これよも",
-    images: [
-      {
-        url: "https://erabook.vercel.app/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "これよも",
-      },
-    ],
+    title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
+    description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
+    url: "https://smaplan.com",
+    siteName: "スマプラン",
     locale: "ja_JP",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "これよも - あなただけの「はじめの1冊」を見つけよう",
-    description: "5つの質問に答えるだけで、AIがあなたにぴったりの小説を3冊推薦します。",
-    images: ["https://erabook.vercel.app/og-image.jpg"],
+    title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
+    description: "9つの質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
   },
 };
 
@@ -35,6 +26,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
