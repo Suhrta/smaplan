@@ -229,6 +229,39 @@ const FEATURES = [
   { Icon: PiggyBankIcon, title: '年間節約額がわかる', body: '現在の料金と比較して「いくらお得か」を具体的に表示' },
 ] as const;
 
+const FAQ_ITEMS = [
+  {
+    question: 'スマプランの診断は本当に無料ですか？',
+    answer: 'はい、完全無料です。会員登録も不要で、9問の質問に答えるだけで診断結果が表示されます。',
+  },
+  {
+    question: 'どのキャリアのプランが対象ですか？',
+    answer: 'ドコモ・au・ソフトバンクの大手3キャリアに加え、ahamo・LINEMO・Y!mobile・UQ mobileなどのサブブランド、IIJmio・mineo・楽天モバイルなどの格安SIMまで全20プランを比較対象としています。',
+  },
+  {
+    question: '診断結果の通りに乗り換えないといけませんか？',
+    answer: 'いいえ、診断結果はあくまで参考情報です。最終的な判断はご自身でお願いします。',
+  },
+  {
+    question: 'スマホの料金プランを見直すとどれくらい節約できますか？',
+    answer: '大手キャリアから格安SIMに乗り換えた場合、年間5〜8万円の節約になるケースが多いです。',
+  },
+  {
+    question: '個人情報の入力は必要ですか？',
+    answer: '一切不要です。氏名・電話番号・メールアドレスなどの個人情報は入力しません。',
+  },
+] as const;
+
+const FAQ_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ_ITEMS.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
 function PhoneMockup() {
   const plans = [
     { rank: '🥇 1位', name: 'ahamo 30GB', price: '2,970', accent: true },
@@ -568,6 +601,14 @@ export default function Home() {
           .sp-cta:active { transform: scale(1.02); }
           .sp-feature { transition: transform 0.18s ease, box-shadow 0.18s ease; }
           .sp-feature:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08); }
+          .sp-faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: background 0.15s ease; }
+          .sp-faq-item[open] { background: var(--accent-light); }
+          .sp-faq-summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--text-main); outline: none; }
+          .sp-faq-summary::-webkit-details-marker { display: none; }
+          .sp-faq-summary::after { content: '▾'; margin-left: auto; color: var(--accent); transition: transform 0.2s ease; font-size: 14px; }
+          .sp-faq-item[open] .sp-faq-summary::after { transform: rotate(180deg); }
+          .sp-faq-q { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+          .sp-faq-answer { padding: 0 18px 18px 54px; font-size: 14px; line-height: 1.8; color: var(--text-sub); margin: 0; }
           .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
           @media (min-width: 720px) {
             .sp-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
@@ -576,6 +617,10 @@ export default function Home() {
             .sp-hero-cta-wrap { justify-content: flex-start; }
           }
         `}</style>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+        />
         <main style={{ maxWidth: 960, margin: '0 auto', padding: '0 20px 40px' }}>
           <Header />
           <section className="sp-hero-grid" style={{ padding: '24px 0 36px' }}>
@@ -677,6 +722,26 @@ export default function Home() {
                 }}>
                   {c}
                 </span>
+              ))}
+            </div>
+          </section>
+
+          <section style={{ marginTop: 40 }}>
+            <h2 style={{
+              fontSize: 22, fontWeight: 800, margin: '0 0 16px',
+              color: 'var(--text-main)', textAlign: 'center',
+            }}>
+              よくある質問
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {FAQ_ITEMS.map((item, i) => (
+                <details key={i} className="sp-faq-item">
+                  <summary className="sp-faq-summary">
+                    <span className="sp-faq-q" aria-hidden="true">Q</span>
+                    <span style={{ flex: 1 }}>{item.question}</span>
+                  </summary>
+                  <p className="sp-faq-answer">{item.answer}</p>
+                </details>
               ))}
             </div>
           </section>
