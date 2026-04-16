@@ -1,0 +1,247 @@
+[
+  {
+    "slug": "save-money",
+    "title": "スマホ料金を節約する5つの方法【2026年最新】",
+    "priority": 1,
+    "category": "guide",
+    "generated": true
+  },
+  {
+    "slug": "how-to-switch",
+    "title": "格安SIMへの乗り換え手順を完全解説【初心者向け】",
+    "priority": 1,
+    "category": "guide",
+    "generated": true
+  },
+  {
+    "slug": "average-cost",
+    "title": "スマホ代の平均はいくら？年代別の料金相場を解説",
+    "priority": 1,
+    "category": "knowledge",
+    "generated": true
+  },
+  {
+    "slug": "carrier-comparison",
+    "title": "大手キャリアvs格安SIM 料金・速度・サポートを徹底比較",
+    "priority": 1,
+    "category": "comparison",
+    "generated": true
+  },
+  {
+    "slug": "docomo-expensive",
+    "title": "ドコモの料金が高いと感じたら？見直しポイント5選",
+    "priority": 1,
+    "category": "guide",
+    "generated": true
+  },
+  {
+    "slug": "ahamo-vs-linemo",
+    "title": "ahamo vs LINEMO どっちがいい？料金・速度・特徴を比較",
+    "priority": 1,
+    "category": "comparison",
+    "generated": true
+  },
+  {
+    "slug": "uqmobile-vs-ymobile",
+    "title": "UQモバイル vs ワイモバイル 徹底比較",
+    "priority": 1,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "family-plan-comparison",
+    "title": "家族向けスマホプランを比較！最安の組み合わせは？",
+    "priority": 1,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "mnp-guide-2026",
+    "title": "MNP（乗り換え）のやり方を完全解説【2026年最新】",
+    "priority": 1,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "sim-switch-timing",
+    "title": "格安SIMに乗り換えるベストなタイミングはいつ？",
+    "priority": 1,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "smartphone-cost-reduction",
+    "title": "固定費を削減！スマホ代を半額にする具体的ステップ",
+    "priority": 1,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "couple-plan-optimization",
+    "title": "カップル・夫婦のスマホ代を最適化する方法",
+    "priority": 1,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "kakuyasu-sim-demerit",
+    "title": "格安SIMのデメリット・注意点まとめ【乗り換え前に確認】",
+    "priority": 1,
+    "category": "knowledge",
+    "generated": false
+  },
+  {
+    "slug": "rakuten-mobile-review",
+    "title": "楽天モバイルの評判は？メリット・デメリットを正直レビュー",
+    "priority": 2,
+    "category": "review",
+    "generated": false
+  },
+  {
+    "slug": "iijmio-review",
+    "title": "IIJmioの評判は？実際に使って分かったメリット・デメリット",
+    "priority": 2,
+    "category": "review",
+    "generated": false
+  },
+  {
+    "slug": "mineo-review",
+    "title": "mineoの評判・口コミまとめ。パケット放題Plusは使える？",
+    "priority": 2,
+    "category": "review",
+    "generated": false
+  },
+  {
+    "slug": "nuro-mobile-review",
+    "title": "NUROモバイルの評判は？速度・料金を徹底解説",
+    "priority": 2,
+    "category": "review",
+    "generated": false
+  },
+  {
+    "slug": "povo-guide",
+    "title": "povo2.0の使い方・トッピング活用術",
+    "priority": 2,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "iphone-cheapest-plan",
+    "title": "iPhoneを最安で使えるプランは？キャリア別比較",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "student-discount-sim",
+    "title": "学生におすすめの格安SIM・スマホプラン",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "senior-smartphone-plan",
+    "title": "シニア向けスマホプランのおすすめと選び方",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "call-free-plans",
+    "title": "通話かけ放題の格安SIMを比較！最安はどこ？",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "data-unlimited-plans",
+    "title": "データ無制限プランを比較！本当に使い放題のキャリアは？",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "speed-comparison-2026",
+    "title": "格安SIM通信速度ランキング【2026年最新実測】",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "android-cheapest-plan",
+    "title": "Androidスマホを安く使えるおすすめプラン",
+    "priority": 2,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "esim-guide",
+    "title": "eSIMとは？メリット・デメリットと対応キャリアまとめ",
+    "priority": 3,
+    "category": "knowledge",
+    "generated": false
+  },
+  {
+    "slug": "dual-sim-guide",
+    "title": "デュアルSIMとは？活用方法とおすすめの組み合わせ",
+    "priority": 3,
+    "category": "knowledge",
+    "generated": false
+  },
+  {
+    "slug": "wifi-vs-mobile-data",
+    "title": "自宅Wi-Fiとモバイルデータどっちがお得？",
+    "priority": 3,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "smartphone-insurance",
+    "title": "スマホ保険・補償サービスは必要？各社比較と選び方",
+    "priority": 3,
+    "category": "knowledge",
+    "generated": false
+  },
+  {
+    "slug": "overseas-roaming-comparison",
+    "title": "海外旅行でスマホを使うには？ローミング・eSIM比較",
+    "priority": 3,
+    "category": "comparison",
+    "generated": false
+  },
+  {
+    "slug": "data-saving-tips",
+    "title": "スマホのデータ通信量を節約する10のコツ",
+    "priority": 3,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "5g-vs-4g",
+    "title": "5Gは必要？4Gとの違いと選び方",
+    "priority": 3,
+    "category": "knowledge",
+    "generated": false
+  },
+  {
+    "slug": "communication-cost-household-average",
+    "title": "世帯の通信費の平均は？月いくらが適正かを解説",
+    "priority": 3,
+    "category": "knowledge",
+    "generated": false
+  },
+  {
+    "slug": "campaign-watch",
+    "title": "スマホ乗り換えキャンペーンの活用術【損しないコツ】",
+    "priority": 3,
+    "category": "guide",
+    "generated": false
+  },
+  {
+    "slug": "payment-method-choice",
+    "title": "スマホ料金の支払い方法、クレカ・口座振替・キャリア決済の違い",
+    "priority": 3,
+    "category": "knowledge",
+    "generated": false
+  }
+]
