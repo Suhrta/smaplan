@@ -189,6 +189,130 @@ function OptionButton({
   );
 }
 
+function BotIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M12 8V4H8" />
+      <rect width="16" height="12" x="4" y="8" rx="2" />
+      <path d="M2 14h2" />
+      <path d="M20 14h2" />
+      <path d="M15 13v2" />
+      <path d="M9 13v2" />
+    </svg>
+  );
+}
+
+function ScaleIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+      <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+      <path d="M7 21h10" />
+      <path d="M12 3v18" />
+      <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+    </svg>
+  );
+}
+
+function PiggyBankIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8.4 2.8 1 3.5V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.5c1.1.1 2.4.1 3.5 0V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-1.7c1.2-.8 2.2-1.8 2.5-3.3H21a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-.5C20 6.5 19.5 5 19 5Z" />
+      <path d="M16 11h.01" />
+    </svg>
+  );
+}
+
+const FEATURES = [
+  { Icon: BotIcon, title: 'AI診断', body: '9問に答えるだけで、AIがあなたの使い方を分析' },
+  { Icon: ScaleIcon, title: '中立・全キャリア対応', body: '大手キャリアから格安SIMまで20プランから公平に比較' },
+  { Icon: PiggyBankIcon, title: '年間節約額がわかる', body: '現在の料金と比較して「いくらお得か」を具体的に表示' },
+] as const;
+
+function PhoneMockup() {
+  const plans = [
+    { rank: '🥇 1位', name: 'ahamo 30GB', price: '2,970', accent: true },
+    { rank: '🥈 2位', name: 'LINEMO V', price: '2,970' },
+    { rank: '🥉 3位', name: '日本通信SIM', price: '1,390' },
+  ];
+  return (
+    <div
+      aria-hidden="true"
+      style={{
+        display: 'flex', justifyContent: 'center',
+      }}
+    >
+      <div style={{
+        width: 240, height: 480,
+        background: '#0F172A',
+        borderRadius: 36,
+        padding: 10,
+        boxShadow: '0 20px 50px rgba(15, 23, 42, 0.18)',
+        animation: 'mockPop 0.6s ease both',
+      }}>
+        <div style={{
+          width: '100%', height: '100%',
+          background: '#FFFFFF',
+          borderRadius: 28,
+          padding: '28px 16px 20px',
+          position: 'relative',
+          overflow: 'hidden',
+        }}>
+          <div style={{
+            position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
+            width: 70, height: 5, borderRadius: 3, background: '#CBD5E1',
+          }} />
+          <div style={{
+            fontSize: 10, color: '#94A3B8', textAlign: 'center',
+            letterSpacing: '0.15em', marginBottom: 6,
+          }}>
+            SMAPLAN
+          </div>
+          <div style={{
+            background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%)',
+            borderRadius: 12, padding: '12px 14px', color: '#fff',
+            marginBottom: 14,
+          }}>
+            <div style={{ fontSize: 9, opacity: 0.85 }}>乗り換えたら</div>
+            <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.1 }}>年間 54,000円</div>
+            <div style={{ fontSize: 11, fontWeight: 700 }}>おトクに！</div>
+          </div>
+          <div style={{
+            fontSize: 10, fontWeight: 700, color: '#475569', marginBottom: 8,
+          }}>
+            おすすめプラン TOP 3
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {plans.map((p, i) => (
+              <div key={i} style={{
+                padding: '10px 10px',
+                background: '#fff',
+                border: `1px solid ${p.accent ? '#1D4ED8' : '#E2E8F0'}`,
+                borderRadius: 10,
+              }}>
+                <div style={{ fontSize: 9, color: '#64748B', marginBottom: 2 }}>
+                  {p.rank}
+                </div>
+                <div style={{
+                  display: 'flex', justifyContent: 'space-between',
+                  alignItems: 'baseline',
+                }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>
+                    {p.name}
+                  </span>
+                  <span style={{ fontSize: 13, fontWeight: 800, color: '#1D4ED8' }}>
+                    {p.price}<span style={{ fontSize: 8, fontWeight: 600 }}>円</span>
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CostInput({
   value,
   onChange,
@@ -433,79 +557,151 @@ export default function Home() {
 
   if (view === 'landing') {
     return (
-      <main style={{ maxWidth: 560, margin: '0 auto', padding: '0 20px 40px' }}>
-        <Header />
-        <div style={{ textAlign: 'center', padding: '32px 0 40px' }}>
-          <h1 style={{
-            fontSize: 28, fontWeight: 700, lineHeight: 1.4,
-            margin: '0 0 16px', color: 'var(--text-main)',
-          }}>
-            9問でわかる、<br />
-            あなたに最適な<br />
-            <span style={{ color: 'var(--accent)' }}>スマホ料金プラン</span>
-          </h1>
-          <p style={{
-            fontSize: 15, color: 'var(--text-sub)',
-            margin: '0 0 32px', lineHeight: 1.7,
-          }}>
-            AIがあなたの使い方を分析して、<br />
-            月々の料金と年間節約額を無料で診断します。
-          </p>
-          <button
-            onClick={startDiagnose}
-            style={{
-              padding: '16px 48px', minHeight: 56,
-              background: 'var(--accent)', color: '#fff',
-              border: 'none', borderRadius: 12,
-              fontSize: 17, fontWeight: 700,
-              cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(29, 78, 216, 0.25)',
-              transition: 'all 0.15s',
-            }}
-          >
-            診断スタート →
-          </button>
-          <div style={{ marginTop: 12, fontSize: 12, color: 'var(--text-muted)' }}>
-            無料・登録不要・約1分で完了
-          </div>
-        </div>
-
-        <div style={{ display: 'grid', gap: 12 }}>
-          {[
-            { icon: '🤖', title: 'AI診断', body: '9問に答えるだけで、AIがあなたの使い方を分析' },
-            { icon: '⚖️', title: '中立・全キャリア対応', body: '大手キャリアから格安SIMまで20プランから公平に比較' },
-            { icon: '💰', title: '年間節約額がわかる', body: '現在の料金と比較して「いくらお得か」を具体的に表示' },
-          ].map(f => (
-            <div key={f.title} style={{
-              padding: '18px 20px', background: 'var(--bg-card)',
-              border: '1px solid var(--border)', borderRadius: 12,
-              display: 'flex', gap: 14, alignItems: 'flex-start',
-            }}>
-              <div style={{ fontSize: 24, flexShrink: 0 }}>{f.icon}</div>
-              <div>
-                <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)', marginBottom: 4 }}>{f.title}</div>
-                <div style={{ fontSize: 13, color: 'var(--text-sub)', lineHeight: 1.6 }}>{f.body}</div>
+      <div style={{
+        background: 'linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 60%)',
+        minHeight: '100vh',
+      }}>
+        <style>{`
+          @keyframes mockPop { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
+          .sp-cta { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+          .sp-cta:hover { transform: scale(1.05); box-shadow: 0 10px 24px rgba(29, 78, 216, 0.35); }
+          .sp-cta:active { transform: scale(1.02); }
+          .sp-feature { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+          .sp-feature:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08); }
+          .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
+          @media (min-width: 720px) {
+            .sp-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+            .sp-hero-text { text-align: left; }
+            .sp-hero-text .sp-hero-sub { margin-left: 0; margin-right: 0; }
+            .sp-hero-cta-wrap { justify-content: flex-start; }
+          }
+        `}</style>
+        <main style={{ maxWidth: 960, margin: '0 auto', padding: '0 20px 40px' }}>
+          <Header />
+          <section className="sp-hero-grid" style={{ padding: '24px 0 36px' }}>
+            <div className="sp-hero-text" style={{ textAlign: 'center' }}>
+              <h1 style={{
+                fontSize: 30, fontWeight: 800, lineHeight: 1.35,
+                margin: '0 0 16px', color: 'var(--text-main)',
+                letterSpacing: '0.01em',
+              }}>
+                9問でわかる、<br />
+                あなたに最適な<br />
+                <span style={{ color: 'var(--accent)' }}>スマホ料金プラン</span>
+              </h1>
+              <p className="sp-hero-sub" style={{
+                fontSize: 15, color: 'var(--text-sub)',
+                margin: '0 auto 28px', lineHeight: 1.8,
+                maxWidth: 360,
+              }}>
+                AIがあなたの使い方を分析して、<br />
+                月々の料金と年間節約額を無料で診断します。
+              </p>
+              <div className="sp-hero-cta-wrap" style={{
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', gap: 10,
+              }}>
+                <button
+                  onClick={startDiagnose}
+                  className="sp-cta"
+                  style={{
+                    padding: '20px 56px', minHeight: 60,
+                    background: 'var(--accent)', color: '#fff',
+                    border: 'none', borderRadius: 14,
+                    fontSize: 18, fontWeight: 800,
+                    cursor: 'pointer',
+                    boxShadow: '0 6px 16px rgba(29, 78, 216, 0.28)',
+                    letterSpacing: '0.02em',
+                  }}
+                >
+                  診断スタート →
+                </button>
+                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
+                  ⚡ 平均30秒で診断完了
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+            <PhoneMockup />
+          </section>
 
-        <footer style={{
-          marginTop: 40, paddingTop: 24,
-          borderTop: '1px solid var(--border)',
-          textAlign: 'center',
-        }}>
-          <Link
-            href="/carriers"
-            style={{
-              fontSize: 13, color: 'var(--text-sub)',
-              textDecoration: 'underline',
-            }}
-          >
-            プラン一覧を見る
-          </Link>
-        </footer>
-      </main>
+          <div style={{ display: 'grid', gap: 12 }}>
+            {FEATURES.map(f => (
+              <div
+                key={f.title}
+                className="sp-feature"
+                style={{
+                  padding: '20px 22px', background: 'var(--bg-card)',
+                  border: '1px solid var(--border)', borderRadius: 14,
+                  display: 'flex', gap: 16, alignItems: 'flex-start',
+                }}
+              >
+                <div style={{
+                  flexShrink: 0,
+                  width: 40, height: 40, borderRadius: 10,
+                  background: 'var(--accent-light)',
+                  color: 'var(--accent)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <f.Icon />
+                </div>
+                <div>
+                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)', marginBottom: 4 }}>{f.title}</div>
+                  <div style={{ fontSize: 13, color: 'var(--text-sub)', lineHeight: 1.7 }}>{f.body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <section style={{
+            marginTop: 40, paddingTop: 24,
+            borderTop: '1px solid var(--border)',
+            textAlign: 'center',
+          }}>
+            <div style={{
+              fontSize: 11, color: 'var(--text-muted)',
+              letterSpacing: '0.15em', marginBottom: 12,
+            }}>
+              対応キャリア
+            </div>
+            <div style={{
+              display: 'flex', flexWrap: 'wrap',
+              gap: 8, justifyContent: 'center',
+            }}>
+              {['ドコモ', 'au', 'ソフトバンク', '楽天モバイル', '格安SIM'].map(c => (
+                <span key={c} style={{
+                  padding: '6px 14px',
+                  background: 'var(--bg)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 999,
+                  fontSize: 13, color: 'var(--text-sub)', fontWeight: 500,
+                }}>
+                  {c}
+                </span>
+              ))}
+            </div>
+          </section>
+
+          <footer style={{
+            marginTop: 40, paddingTop: 24,
+            borderTop: '1px solid var(--border)',
+            textAlign: 'center',
+            display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center',
+          }}>
+            <Link
+              href="/carriers"
+              style={{
+                fontSize: 13, color: 'var(--text-sub)',
+                textDecoration: 'underline',
+              }}
+            >
+              プラン一覧を見る
+            </Link>
+            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+              © 2026 SmaPlan
+            </div>
+          </footer>
+        </main>
+      </div>
     );
   }
 
