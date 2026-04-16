@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { getLink } from '@/data/affiliateLinks';
+import { track } from '@/lib/analytics';
 
 type Question = {
   key: string;
@@ -197,11 +198,17 @@ export default function Home() {
   const q = QUESTIONS[step];
 
   function startDiagnose() {
+    track('diagnose_start');
     setView('diagnose');
     setStep(0);
     setAnswers({});
     setResult(null);
     setError(null);
+  }
+
+  function handleRetry() {
+    track('retry_diagnose');
+    resetAll();
   }
 
   function resetAll() {
@@ -258,6 +265,7 @@ export default function Home() {
       if (!res.ok) throw new Error(data.error || 'エラーが発生しました');
       setResult(data);
       setView('result');
+      track('diagnose_complete');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'エラーが発生しました');
     } finally {
@@ -351,7 +359,7 @@ export default function Home() {
 
         <div style={{ display: 'grid', gap: 12 }}>
           {[
-            { icon: '🤖', title: 'AI診断', body: '9問に答えるだけで、Claude AIがあなたの使い方を分析' },
+            { icon: '🤖', title: 'AI診断', body: '9問に答えるだけで、AIがあなたの使い方を分析' },
             { icon: '⚖️', title: '中立・全キャリア対応', body: '大手キャリアから格安SIMまで20プランから公平に比較' },
             { icon: '💰', title: '年間節約額がわかる', body: '現在の料金と比較して「いくらお得か」を具体的に表示' },
           ].map(f => (
@@ -516,6 +524,11 @@ export default function Home() {
                   href={rec.affiliate_key ? getLink(rec.affiliate_key) : '#'}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => track('affiliate_click', {
+                    plan_name: rec.plan_name,
+                    carrier: rec.carrier,
+                    rank: rec.rank,
+                  })}
                   style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                     width: '100%', minHeight: 48,
@@ -564,7 +577,7 @@ export default function Home() {
             𝕏 結果をシェアする
           </a>
           <button
-            onClick={resetAll}
+            onClick={handleRetry}
             style={{
               padding: '10px 24px', minHeight: 44,
               background: 'transparent', color: 'var(--text-sub)',
