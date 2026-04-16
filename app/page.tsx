@@ -10,6 +10,7 @@ type Question = {
   label: string;
   multi: boolean;
   options: string[];
+  input?: 'number';
 };
 
 const QUESTIONS: Question[] = [
@@ -23,7 +24,8 @@ const QUESTIONS: Question[] = [
     key: 'q2_monthly_cost',
     label: '今の月額料金はだいたいいくら？',
     multi: false,
-    options: ['〜2,000円', '2,000〜5,000円', '5,000〜8,000円', '8,000円〜', 'わからない'],
+    options: [],
+    input: 'number',
   },
   {
     key: 'q3_switch',
@@ -69,7 +71,11 @@ const QUESTIONS: Question[] = [
   },
 ];
 
-type Answers = Record<string, string | string[]>;
+type Answers = Record<string, string | string[] | number>;
+
+const COST_MIN = 500;
+const COST_MAX = 30000;
+const UNKNOWN = 'わからない';
 
 type Recommendation = {
   rank: number;
@@ -183,6 +189,99 @@ function OptionButton({
   );
 }
 
+function CostInput({
+  value,
+  onChange,
+}: {
+  value: string | string[] | number | undefined;
+  onChange: (v: number | typeof UNKNOWN | undefined) => void;
+}) {
+  const isUnknown = value === UNKNOWN;
+  const numValue = typeof value === 'number' ? value : undefined;
+  const [text, setText] = useState(numValue !== undefined ? String(numValue) : '');
+
+  useEffect(() => {
+    if (numValue === undefined) setText('');
+    else setText(String(numValue));
+  }, [numValue]);
+
+  const outOfRange =
+    !isUnknown && text !== '' && (Number(text) < COST_MIN || Number(text) > COST_MAX);
+
+  function handleTextChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const raw = e.target.value.replace(/[^0-9]/g, '');
+    setText(raw);
+    if (raw === '') onChange(undefined);
+    else onChange(Number(raw));
+  }
+
+  function handleToggleUnknown(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.checked) {
+      onChange(UNKNOWN);
+    } else {
+      onChange(undefined);
+    }
+  }
+
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 10,
+        padding: '14px 18px',
+        background: isUnknown ? 'var(--bg)' : 'var(--bg-card)',
+        border: `2px solid ${outOfRange ? '#FCA5A5' : 'var(--border)'}`,
+        borderRadius: 12,
+        opacity: isUnknown ? 0.55 : 1,
+      }}>
+        <input
+          type="number"
+          inputMode="numeric"
+          min={COST_MIN}
+          max={COST_MAX}
+          step={100}
+          placeholder="例：7000"
+          value={isUnknown ? '' : text}
+          onChange={handleTextChange}
+          disabled={isUnknown}
+          style={{
+            flex: 1, minWidth: 0,
+            fontSize: 18, fontWeight: 600,
+            color: 'var(--text-main)',
+            background: 'transparent',
+            border: 'none', outline: 'none',
+            padding: '4px 0',
+          }}
+        />
+        <span style={{ fontSize: 14, color: 'var(--text-sub)', fontWeight: 500 }}>円/月</span>
+      </div>
+
+      {outOfRange && (
+        <div style={{ marginTop: 8, fontSize: 12, color: '#B91C1C' }}>
+          {COST_MIN.toLocaleString()}〜{COST_MAX.toLocaleString()}円の範囲で入力してください
+        </div>
+      )}
+
+      <div style={{ marginTop: 10, fontSize: 11, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+        ※端末の分割払いを除いた通信料のみを入力してください
+      </div>
+
+      <label style={{
+        display: 'inline-flex', alignItems: 'center', gap: 8,
+        marginTop: 14, cursor: 'pointer',
+        fontSize: 14, color: 'var(--text-sub)',
+      }}>
+        <input
+          type="checkbox"
+          checked={isUnknown}
+          onChange={handleToggleUnknown}
+          style={{ width: 18, height: 18, cursor: 'pointer' }}
+        />
+        わからない
+      </label>
+    </div>
+  );
+}
+
 export default function Home() {
   const [view, setView] = useState<View>('landing');
   const [step, setStep] = useState(0);
@@ -241,6 +340,15 @@ export default function Home() {
     }
   }
 
+  function setCost(val: number | typeof UNKNOWN | undefined) {
+    setAnswers(prev => {
+      const next = { ...prev };
+      if (val === undefined) delete next.q2_monthly_cost;
+      else next.q2_monthly_cost = val;
+      return next;
+    });
+  }
+
   function isSelected(key: string, val: string) {
     const a = answers[key];
     if (Array.isArray(a)) return a.includes(val);
@@ -250,6 +358,10 @@ export default function Home() {
   function canNext() {
     const a = answers[q.key];
     if (Array.isArray(a)) return a.length > 0;
+    if (q.input === 'number') {
+      if (a === UNKNOWN) return true;
+      return typeof a === 'number' && a >= COST_MIN && a <= COST_MAX;
+    }
     return !!a;
   }
 
@@ -640,19 +752,26 @@ export default function Home() {
         {q.label}
       </h2>
 
-      <div style={{
-        display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24,
-      }}>
-        {q.options.map(opt => (
-          <OptionButton
-            key={opt}
-            label={opt}
-            selected={isSelected(q.key, opt)}
-            multi={q.multi}
-            onClick={() => toggle(q.key, opt, q.multi)}
-          />
-        ))}
-      </div>
+      {q.input === 'number' ? (
+        <CostInput
+          value={answers.q2_monthly_cost}
+          onChange={setCost}
+        />
+      ) : (
+        <div style={{
+          display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24,
+        }}>
+          {q.options.map(opt => (
+            <OptionButton
+              key={opt}
+              label={opt}
+              selected={isSelected(q.key, opt)}
+              multi={q.multi}
+              onClick={() => toggle(q.key, opt, q.multi)}
+            />
+          ))}
+        </div>
+      )}
 
       {error && <ErrorBanner message={error} />}
 
@@ -668,7 +787,7 @@ export default function Home() {
         >
           ← 戻る
         </button>
-        {(q.multi || step === QUESTIONS.length - 1) && (
+        {(q.multi || q.input === 'number' || step === QUESTIONS.length - 1) && (
           <button
             onClick={handleNext}
             disabled={!canNext()}

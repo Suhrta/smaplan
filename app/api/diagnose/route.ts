@@ -8,7 +8,7 @@ const client = new Anthropic({
 
 type Answers = {
   q1_carrier?: string;
-  q2_monthly_cost?: string;
+  q2_monthly_cost?: string | number;
   q3_switch?: string;
   q4_family?: string;
   q5_call?: string;
@@ -58,10 +58,13 @@ const SYSTEM_PROMPT = `あなたはスマホ料金の専門家「スマプラン
   - Q6「通勤・移動中にそこそこ」＋Q7に動画視聴 → 10〜20GB
   - Q6「外でもガンガン使う」＋Q7に動画視聴 → 20GB〜無制限
   - Q7に「仕事・テザリング」→ 20GB〜無制限
-- 現在の月額料金（current_estimated_cost）の推定:
-  - Q2で金額レンジが選択されていればその中央値を採用
-  - Q2「わからない」の場合、Q1のキャリアの平均的なプラン料金を推定（ドコモ/au/ソフトバンクは7,000〜8,000円、サブブランド・楽天は3,000〜4,000円、格安SIMは1,500〜2,500円）
-- annual_saving は (current_estimated_cost - monthly_cost) * 12 で算出。マイナス（現在より高い）の場合は 0 とする
+- 現在の月額料金（current_estimated_cost）の扱い:
+  - Q2に数値（例: 7000）が入っていればそれをそのまま current_estimated_cost に採用する（推定し直さない）
+  - Q2が「わからない」の場合のみ、Q1のキャリアの平均的なプラン料金を推定（ドコモ/au/ソフトバンクは7,000〜8,000円、サブブランド・楽天は3,000〜4,000円、格安SIMは1,500〜2,500円）
+- **おすすめ順序**: ユーザーの current_estimated_cost より monthly_cost が安いプランを優先的に上位（rank 1〜3）に推薦すること。同等以上の価格帯は、データ容量や通話込みなど明確な価値向上がある場合のみ推薦する
+- annual_saving の算出:
+  - annual_saving = (current_estimated_cost - recommended_monthly_cost) * 12 で算出する
+  - マイナス（現在より高い）になる場合、その値（負数）をそのまま annual_saving にセットし、reason に「データ容量が◯倍」「通話込みで従量課金が不要」などコスパ改善の具体的な理由を必ず明記する
 - 3つの推薦は異なるキャリアまたは容量レンジから選ぶこと（同じ事業者の似たプランを並べない）
 - affiliate_key は必ずプランデータベースの id と完全一致させること（独自のキーを作らない）
 
@@ -94,9 +97,13 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   const answers: Answers = body.answers ?? body;
 
+  const q2 = answers.q2_monthly_cost;
+  const q2Display =
+    typeof q2 === 'number' ? `${q2.toLocaleString()}円（ユーザー入力）` : (q2 ?? '未回答');
+
   const userMessage = `ユーザーの診断回答:
 - Q1 現在のキャリア: ${answers.q1_carrier ?? '未回答'}
-- Q2 現在の月額料金: ${answers.q2_monthly_cost ?? '未回答'}
+- Q2 現在の月額料金: ${q2Display}
 - Q3 乗り換え意向: ${answers.q3_switch ?? '未回答'}
 - Q4 家族でまとめる: ${answers.q4_family ?? '未回答'}
 - Q5 電話利用: ${answers.q5_call ?? '未回答'}
