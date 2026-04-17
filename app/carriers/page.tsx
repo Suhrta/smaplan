@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import plans from '@/data/plans.json';
+import { SiteHeader } from '../components/SiteHeader';
 
 export const metadata: Metadata = {
   title: 'スマホ料金プラン一覧 | スマプラン',
@@ -49,18 +50,9 @@ function groupPlans(plans: typeof import('@/data/plans.json')) {
 export default function CarriersIndexPage() {
   const groups = groupPlans(plans);
   return (
-    <main style={{ maxWidth: 720, margin: '0 auto', padding: '0 20px 40px' }}>
-      <div style={{ textAlign: 'center', padding: '20px 0 12px' }}>
-        <Link href="/" style={{
-          display: 'inline-flex', alignItems: 'baseline', gap: 6,
-          fontSize: 22, fontWeight: 700, color: 'var(--accent)',
-          letterSpacing: '0.02em', textDecoration: 'none',
-        }}>
-          <span>スマプラン</span>
-          <span style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 500 }}>SmaPlan</span>
-        </Link>
-      </div>
-
+    <>
+      <SiteHeader />
+      <main style={{ maxWidth: 720, margin: '0 auto', padding: '24px 20px 40px' }}>
       <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
         <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
         <span style={{ margin: '0 6px' }}>/</span>
@@ -155,6 +147,7 @@ export default function CarriersIndexPage() {
           🤖 AI診断を試す →
         </Link>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

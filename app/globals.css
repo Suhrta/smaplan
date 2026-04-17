@@ -3,7 +3,7 @@
   --bg-card: #FFFFFF;
   --text-main: #0F172A;
   --text-sub: #475569;
-  --text-muted: #94A3B8;
+  --text-muted: #64748B;
   --accent: #1D4ED8;
   --accent-hover: #1E40AF;
   --accent-light: #EFF6FF;
@@ -11,7 +11,8 @@
   --border: #E2E8F0;
   --success: #16A34A;
   --success-light: #DCFCE7;
-  --warning: #F59E0B;
+  --warning: #B45309;
+  --warning-light: #FEF3C7;
   --danger: #DC2626;
   --danger-light: #FEE2E2;
 }
@@ -34,4 +35,91 @@ body {
 
 button {
   font-family: inherit;
+}
+
+/* Site Header (sticky global nav) */
+.sp-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.sp-site-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.sp-site-logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+.sp-site-logo-en {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.sp-site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.sp-nav-link {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sub);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.sp-nav-link:hover { color: var(--accent); }
+.sp-nav-cta {
+  padding: 8px 16px;
+  min-height: 36px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s ease;
+}
+.sp-nav-cta:hover { background: var(--accent-hover); }
+.sp-nav-label-full { display: inline; }
+.sp-nav-label-short { display: none; }
+@media (max-width: 480px) {
+  .sp-nav-label-full { display: none; }
+  .sp-nav-label-short { display: inline; }
+  .sp-nav-link { padding: 8px 6px; }
+  .sp-site-header-inner { padding: 10px 14px; gap: 8px; }
+}
+
+/* Feature grid (3-col on desktop) */
+.sp-feature-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .sp-feature-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+
+/* Result page: hide table on small screens (cards already provide info) */
+.sp-result-table-wrap { display: none; }
+@media (min-width: 640px) {
+  .sp-result-table-wrap { display: block; }
 }

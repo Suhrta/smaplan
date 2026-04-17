@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import plans from '@/data/plans.json';
 import contents from '@/data/carrier-contents.json';
 import { getLink } from '@/data/affiliateLinks';
+import { SiteHeader } from '../../components/SiteHeader';
 
 type Plan = (typeof plans)[number];
 type Content = {
@@ -53,21 +54,6 @@ export async function generateMetadata(
   };
 }
 
-function Header() {
-  return (
-    <div style={{ textAlign: 'center', padding: '20px 0 12px' }}>
-      <Link href="/" style={{
-        display: 'inline-flex', alignItems: 'baseline', gap: 6,
-        fontSize: 22, fontWeight: 700, color: 'var(--accent)',
-        letterSpacing: '0.02em', textDecoration: 'none',
-      }}>
-        <span>スマプラン</span>
-        <span style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 500 }}>SmaPlan</span>
-      </Link>
-    </div>
-  );
-}
-
 export default async function CarrierDetailPage({
   params,
 }: {
@@ -99,12 +85,13 @@ export default async function CarrierDetailPage({
   };
 
   return (
-    <main style={{ maxWidth: 720, margin: '0 auto', padding: '0 20px 40px' }}>
+    <>
+      <SiteHeader />
+      <main style={{ maxWidth: 720, margin: '0 auto', padding: '24px 20px 40px' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Header />
 
       <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
         <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
@@ -173,16 +160,27 @@ export default async function CarrierDetailPage({
         </h2>
         <ul style={{
           listStyle: 'none', padding: 0, margin: 0,
-          display: 'flex', flexDirection: 'column', gap: 12,
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)', borderRadius: 12,
+          overflow: 'hidden',
         }}>
           {content.merits.map((m, i) => (
             <li key={i} style={{
-              padding: '16px 18px', background: 'var(--bg-card)',
-              border: '1px solid var(--border)', borderRadius: 12,
-              fontSize: 14, lineHeight: 1.8, color: 'var(--text-main)',
+              padding: '14px 16px',
+              borderBottom: i === content.merits.length - 1 ? 'none' : '1px solid var(--border)',
+              fontSize: 14, lineHeight: 1.75, color: 'var(--text-main)',
+              display: 'flex', gap: 12, alignItems: 'flex-start',
             }}>
-              <span style={{ fontWeight: 700, color: 'var(--success)', marginRight: 6 }}>{i + 1}.</span>
-              {m}
+              <span style={{
+                flexShrink: 0,
+                width: 24, height: 24, borderRadius: '50%',
+                background: 'var(--success-light)',
+                color: 'var(--success)',
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 13, fontWeight: 800,
+                marginTop: 1,
+              }}>✓</span>
+              <span style={{ flex: 1 }}>{m}</span>
             </li>
           ))}
         </ul>
@@ -197,16 +195,27 @@ export default async function CarrierDetailPage({
         </h2>
         <ul style={{
           listStyle: 'none', padding: 0, margin: 0,
-          display: 'flex', flexDirection: 'column', gap: 12,
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border)', borderRadius: 12,
+          overflow: 'hidden',
         }}>
           {content.demerits.map((d, i) => (
             <li key={i} style={{
-              padding: '16px 18px', background: 'var(--bg-card)',
-              border: '1px solid var(--border)', borderRadius: 12,
-              fontSize: 14, lineHeight: 1.8, color: 'var(--text-main)',
+              padding: '14px 16px',
+              borderBottom: i === content.demerits.length - 1 ? 'none' : '1px solid var(--border)',
+              fontSize: 14, lineHeight: 1.75, color: 'var(--text-main)',
+              display: 'flex', gap: 12, alignItems: 'flex-start',
             }}>
-              <span style={{ fontWeight: 700, color: '#B45309', marginRight: 6 }}>{i + 1}.</span>
-              {d}
+              <span style={{
+                flexShrink: 0,
+                width: 24, height: 24, borderRadius: '50%',
+                background: 'var(--warning-light)',
+                color: 'var(--warning)',
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 13, fontWeight: 800,
+                marginTop: 1,
+              }}>!</span>
+              <span style={{ flex: 1 }}>{d}</span>
             </li>
           ))}
         </ul>
@@ -274,26 +283,97 @@ export default async function CarrierDetailPage({
             fontSize: 18, fontWeight: 700, margin: '0 0 12px',
             color: 'var(--text-main)',
           }}>
-            {plan.carrier_parent}の他のプラン
+            {plan.carrier_parent}の他プランと料金比較
           </h2>
-          <div style={{ display: 'grid', gap: 8 }}>
-            {related.map(r => (
-              <Link
-                key={r.id}
-                href={`/carrier/${r.id}`}
-                style={{
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  padding: '12px 16px', background: 'var(--bg-card)',
-                  border: '1px solid var(--border)', borderRadius: 10,
-                  textDecoration: 'none', color: 'var(--text-main)',
-                }}
-              >
-                <span style={{ fontSize: 14, fontWeight: 600 }}>{r.plan_name}</span>
-                <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 700 }}>
-                  {r.monthly_cost.toLocaleString()}円/月
-                </span>
-              </Link>
-            ))}
+          <div style={{
+            overflowX: 'auto',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border)',
+            borderRadius: 12,
+          }}>
+            <table style={{
+              width: '100%', borderCollapse: 'collapse', fontSize: 13,
+            }}>
+              <thead>
+                <tr style={{ background: 'var(--bg)' }}>
+                  <th style={{
+                    padding: '10px 12px', textAlign: 'left',
+                    fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                    borderBottom: '1px solid var(--border)',
+                  }}>プラン</th>
+                  <th style={{
+                    padding: '10px 8px', textAlign: 'right',
+                    fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                    borderBottom: '1px solid var(--border)',
+                    whiteSpace: 'nowrap',
+                  }}>月額</th>
+                  <th style={{
+                    padding: '10px 12px', textAlign: 'right',
+                    fontSize: 11, fontWeight: 700, color: 'var(--text-sub)',
+                    borderBottom: '1px solid var(--border)',
+                    whiteSpace: 'nowrap',
+                  }}>データ</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[plan, ...related].map((p, i, arr) => {
+                  const isCurrent = p.id === plan.id;
+                  const isLast = i === arr.length - 1;
+                  const dLabel = p.data_gb === 999 ? '無制限' : `${p.data_gb}GB`;
+                  const cellBase = {
+                    padding: '12px 12px',
+                    borderBottom: isLast ? 'none' : '1px solid var(--border)',
+                    background: isCurrent ? 'var(--accent-light)' : 'transparent',
+                  } as const;
+                  return (
+                    <tr key={p.id}>
+                      <td style={{
+                        ...cellBase,
+                        fontSize: 13, fontWeight: isCurrent ? 700 : 600,
+                        color: 'var(--text-main)',
+                      }}>
+                        {isCurrent ? (
+                          <span>
+                            <span style={{
+                              fontSize: 10, fontWeight: 800,
+                              color: 'var(--accent)',
+                              marginRight: 6,
+                              verticalAlign: 'middle',
+                            }}>▶ 表示中</span>
+                            {p.plan_name}
+                          </span>
+                        ) : (
+                          <Link
+                            href={`/carrier/${p.id}`}
+                            style={{ color: 'var(--text-main)', textDecoration: 'none' }}
+                          >
+                            {p.plan_name}
+                          </Link>
+                        )}
+                      </td>
+                      <td style={{
+                        ...cellBase,
+                        padding: '12px 8px',
+                        textAlign: 'right',
+                        fontSize: 13, fontWeight: 700,
+                        color: 'var(--accent)',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {p.monthly_cost.toLocaleString()}円
+                      </td>
+                      <td style={{
+                        ...cellBase,
+                        textAlign: 'right',
+                        fontSize: 12, color: 'var(--text-sub)',
+                        whiteSpace: 'nowrap',
+                      }}>
+                        {dLabel}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </section>
       )}
@@ -309,6 +389,7 @@ export default async function CarrierDetailPage({
           すべてのプラン一覧を見る →
         </Link>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

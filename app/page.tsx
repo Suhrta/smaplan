@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { getLink } from '@/data/affiliateLinks';
 import { track } from '@/lib/analytics';
+import { SiteHeader, LogoHeader } from './components/SiteHeader';
 
 type Question = {
   key: string;
@@ -130,21 +131,6 @@ function LoadingMessage() {
     <p style={{ color: 'var(--text-sub)', fontSize: 15, animation: 'fadeInMsg 0.5s ease' }}>
       {LOADING_MESSAGES[idx]}
     </p>
-  );
-}
-
-function Header({ compact = false }: { compact?: boolean }) {
-  return (
-    <div style={{ textAlign: 'center', padding: compact ? '20px 0 12px' : '28px 0 20px' }}>
-      <div style={{
-        display: 'inline-flex', alignItems: 'baseline', gap: 6,
-        fontSize: compact ? 22 : 26, fontWeight: 700, color: 'var(--accent)',
-        letterSpacing: '0.02em',
-      }}>
-        <span>スマプラン</span>
-        <span style={{ fontSize: compact ? 11 : 12, color: 'var(--text-muted)', fontWeight: 500 }}>SmaPlan</span>
-      </div>
-    </div>
   );
 }
 
@@ -631,41 +617,43 @@ export default function Home() {
           .sp-faq-q { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
           .sp-faq-answer { padding: 0 18px 18px 54px; font-size: 14px; line-height: 1.8; color: var(--text-sub); margin: 0; }
           .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
+          .sp-hero-h1 { font-size: 28px; }
           @media (min-width: 720px) {
             .sp-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
             .sp-hero-text { text-align: left; }
-            .sp-hero-text .sp-hero-sub { margin-left: 0; margin-right: 0; }
+            .sp-hero-text .sp-hero-sub, .sp-hero-text .sp-hero-note { margin-left: 0; margin-right: 0; }
             .sp-hero-cta-wrap { justify-content: flex-start; }
+            .sp-hero-h1 { font-size: 36px; }
           }
         `}</style>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
         />
+        <SiteHeader />
         <main style={{ maxWidth: 960, margin: '0 auto', padding: '0 20px 40px' }}>
-          <Header />
-          <section className="sp-hero-grid" style={{ padding: '24px 0 36px' }}>
+          <section className="sp-hero-grid" style={{ padding: '32px 0 36px' }}>
             <div className="sp-hero-text" style={{ textAlign: 'center' }}>
-              <h1 style={{
-                fontSize: 30, fontWeight: 800, lineHeight: 1.35,
+              <h1 className="sp-hero-h1" style={{
+                fontWeight: 800, lineHeight: 1.35,
                 margin: '0 0 16px', color: 'var(--text-main)',
                 letterSpacing: '0.01em',
+                maxWidth: 420, marginLeft: 'auto', marginRight: 'auto',
               }}>
                 <span style={{ color: 'var(--accent)' }}>年間5万円以上</span>おトクに？<br />
-                あなたに最適な<br />
-                スマホプラン
+                あなたに最適なスマホプラン
               </h1>
-              <p style={{
-                fontSize: 10, color: 'var(--text-muted)',
+              <p className="sp-hero-note" style={{
+                fontSize: 12, color: 'var(--text-sub)',
                 margin: '0 auto 16px', lineHeight: 1.6,
-                maxWidth: 360,
+                maxWidth: 380,
               }}>
                 ※ドコモ eximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合の当サイト試算
               </p>
               <p className="sp-hero-sub" style={{
                 fontSize: 15, color: 'var(--text-sub)',
                 margin: '0 auto 28px', lineHeight: 1.8,
-                maxWidth: 360,
+                maxWidth: 380,
               }}>
                 10問・30秒で完了する無料診断。<br />
                 AIがあなたに最適なプランを提案します。
@@ -689,15 +677,15 @@ export default function Home() {
                 >
                   診断スタート →
                 </button>
-                <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>
-                  ⚡ 平均30秒で診断完了
+                <div style={{ fontSize: 12, color: 'var(--text-sub)' }}>
+                  ⚡ 平均30秒で診断完了 ／ 📱 全20プラン対応
                 </div>
               </div>
             </div>
             <PhoneMockup />
           </section>
 
-          <div style={{ display: 'grid', gap: 12 }}>
+          <div className="sp-feature-grid">
             {FEATURES.map(f => (
               <div
                 key={f.title}
@@ -710,7 +698,7 @@ export default function Home() {
               >
                 <div style={{
                   flexShrink: 0,
-                  width: 40, height: 40, borderRadius: 10,
+                  width: 44, height: 44, borderRadius: 10,
                   background: 'var(--accent-light)',
                   color: 'var(--accent)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -815,8 +803,9 @@ export default function Home() {
     const shareText = `AIが私にぴったりのスマホプランを診断してくれた！\n1位: ${topRec?.carrier} ${topRec?.plan_name}\n${topSaving > 0 ? `年間${topSaving.toLocaleString()}円お得に！\n` : ''}\nあなたも試してみて👇\nhttps://smaplan.com`;
 
     return (
-      <main style={{ maxWidth: 560, margin: '0 auto', padding: '0 20px 40px' }}>
-        <Header compact />
+      <>
+        <SiteHeader />
+        <main style={{ maxWidth: 560, margin: '0 auto', padding: '20px 20px 40px' }}>
 
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
           <button onClick={resetAll} style={{
@@ -843,7 +832,7 @@ export default function Home() {
               <div style={{ fontSize: 18, fontWeight: 700 }}>おトクに！</div>
             </div>
             <div style={{
-              fontSize: 10, color: 'var(--text-muted)',
+              fontSize: 12, color: 'var(--text-sub)',
               textAlign: 'center', marginBottom: 24, lineHeight: 1.6,
               padding: '0 8px',
             }}>
@@ -879,7 +868,7 @@ export default function Home() {
           おすすめプラン TOP 3
         </div>
 
-        <div style={{
+        <div className="sp-result-table-wrap" style={{
           overflowX: 'auto',
           marginBottom: 20,
           background: 'var(--bg-card)',
@@ -982,9 +971,23 @@ export default function Home() {
               <div key={i} style={{
                 background: 'var(--bg-card)',
                 border: isTop ? '2px solid var(--accent)' : '1px solid var(--border)',
-                borderRadius: 14, padding: '20px',
+                borderRadius: 14,
                 position: 'relative',
+                overflow: 'hidden',
+                boxShadow: isTop ? '0 10px 28px rgba(29, 78, 216, 0.16)' : 'none',
               }}>
+                {isTop && (
+                  <div style={{
+                    background: 'var(--accent)', color: '#fff',
+                    padding: '8px 16px',
+                    fontSize: 12, fontWeight: 800,
+                    letterSpacing: '0.06em',
+                    textAlign: 'center',
+                  }}>
+                    ⭐ 最もおすすめ
+                  </div>
+                )}
+                <div style={{ padding: '20px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
                   <span style={{
                     fontSize: 12, fontWeight: 700,
@@ -993,10 +996,13 @@ export default function Home() {
                   }}>
                     {rec.rank === 1 ? '🥇 1位' : rec.rank === 2 ? '🥈 2位' : '🥉 3位'}
                   </span>
-                  <span style={{ fontSize: 12, color: 'var(--text-muted)' }}>{rec.carrier}</span>
+                  <span style={{ fontSize: 12, color: 'var(--text-sub)' }}>{rec.carrier}</span>
                 </div>
 
-                <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12 }}>
+                <div style={{
+                  fontSize: isTop ? 20 : 18, fontWeight: 700,
+                  color: 'var(--text-main)', marginBottom: 12,
+                }}>
                   {rec.plan_name}
                 </div>
 
@@ -1005,7 +1011,9 @@ export default function Home() {
                   padding: '12px 14px', background: 'var(--accent-light)',
                   borderRadius: 10, marginBottom: 12,
                 }}>
-                  <span style={{ fontSize: 26, fontWeight: 800, color: 'var(--accent)' }}>
+                  <span style={{
+                    fontSize: isTop ? 30 : 26, fontWeight: 800, color: 'var(--accent)',
+                  }}>
                     {rec.monthly_cost.toLocaleString()}
                   </span>
                   <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>円/月</span>
@@ -1065,13 +1073,17 @@ export default function Home() {
                   style={{
                     display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                     width: '100%', minHeight: 48,
-                    background: 'var(--accent)', color: '#fff',
+                    background: isTop ? 'var(--accent)' : 'var(--bg-card)',
+                    color: isTop ? '#fff' : 'var(--accent)',
+                    border: isTop ? 'none' : '2px solid var(--accent)',
                     borderRadius: 10, textDecoration: 'none',
                     fontSize: 15, fontWeight: 700,
+                    boxShadow: isTop ? '0 4px 12px rgba(29, 78, 216, 0.25)' : 'none',
                   }}
                 >
                   詳細を見る →
                 </a>
+                </div>
               </div>
             );
           })}
@@ -1168,38 +1180,56 @@ export default function Home() {
           </button>
         </div>
       </main>
+      </>
     );
   }
 
+  const remaining = QUESTIONS.length - step - 1;
+  const percent = Math.round(((step + 1) / QUESTIONS.length) * 100);
+
   return (
     <main style={{ maxWidth: 560, margin: '0 auto', padding: '0 20px 40px' }}>
-      <Header compact />
+      <LogoHeader compact />
 
       <div style={{
         display: 'flex', alignItems: 'center', gap: 4,
-        marginBottom: 8,
+        marginBottom: 10,
       }}>
         {QUESTIONS.map((_, i) => (
           <div key={i} style={{
-            flex: 1, height: 4, borderRadius: 2,
+            flex: 1, height: 6, borderRadius: 3,
             background: i <= step ? 'var(--accent)' : 'var(--border)',
             transition: 'background 0.3s',
           }} />
         ))}
       </div>
       <div style={{
-        marginBottom: 20, fontSize: 12, color: 'var(--text-muted)',
-        display: 'flex', justifyContent: 'space-between',
+        marginBottom: 20, fontSize: 12, color: 'var(--text-sub)',
+        display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8,
       }}>
-        <span>質問 {step + 1} / {QUESTIONS.length}</span>
-        {q.multi && <span>複数選択可</span>}
+        <span>質問 {step + 1} / {QUESTIONS.length}（{percent}% 完了）</span>
+        <span style={{ display: 'inline-flex', gap: 10 }}>
+          {q.multi && <span>複数選択可</span>}
+          {remaining > 0 && remaining <= 3 && (
+            <span style={{ color: 'var(--success)', fontWeight: 700 }}>あと{remaining}問！</span>
+          )}
+        </span>
       </div>
 
       <h2 style={{
         fontSize: 22, fontWeight: 700, color: 'var(--text-main)',
         margin: '0 0 20px', lineHeight: 1.5,
+        display: 'flex', alignItems: 'flex-start', gap: 10,
       }}>
-        {q.label}
+        <span style={{
+          flexShrink: 0,
+          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+          width: 32, height: 32, borderRadius: 8,
+          background: 'var(--accent)', color: '#fff',
+          fontSize: 13, fontWeight: 800, letterSpacing: '0.02em',
+          marginTop: 2,
+        }}>Q{step + 1}</span>
+        <span style={{ flex: 1 }}>{q.label}</span>
       </h2>
 
       {q.input === 'number' ? (
@@ -1235,7 +1265,7 @@ export default function Home() {
             cursor: 'pointer', fontSize: 15, fontWeight: 600,
           }}
         >
-          ← 戻る
+          {step === 0 ? '← トップへ' : '← 戻る'}
         </button>
         {(q.multi || q.input === 'number' || step === QUESTIONS.length - 1) && (
           <button

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import posts from '@/data/blog-posts.json';
+import { SiteHeader } from '../../components/SiteHeader';
 
 type Post = (typeof posts)[number];
 
@@ -152,8 +153,8 @@ function renderInline(text: string, keyPrefix: string) {
 
 const BLOG_BODY_CSS = `
 .sp-blog-body ul, .sp-blog-body ol {
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 16px;
+  line-height: 1.85;
   color: var(--text-main);
   margin: 0 0 24px;
   padding-left: 24px;
@@ -243,7 +244,7 @@ function renderBlocksWithMidCta(blocks: Block[], midCtaH2Index: number) {
     if (b.kind === 'p') {
       out.push(
         <p key={i} style={{
-          fontSize: 15, lineHeight: 1.8, color: 'var(--text-main)',
+          fontSize: 16, lineHeight: 1.85, color: 'var(--text-main)',
           margin: '0 0 24px',
         }}>
           {renderInline(b.text, `p${i}`)}
@@ -258,7 +259,7 @@ function renderBlocksWithMidCta(blocks: Block[], midCtaH2Index: number) {
           background: 'var(--accent-light)',
           padding: '14px 18px',
           margin: '0 0 24px',
-          fontSize: 15, lineHeight: 1.8,
+          fontSize: 16, lineHeight: 1.85,
           color: 'var(--text-main)',
           borderRadius: '0 8px 8px 0',
         }}>
@@ -328,23 +329,14 @@ export default async function BlogDetailPage({
   };
 
   return (
-    <main style={{ maxWidth: 720, margin: '0 auto', padding: '0 20px 40px' }}>
+    <>
+      <SiteHeader />
+      <main style={{ maxWidth: 720, margin: '0 auto', padding: '24px 20px 40px' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <style dangerouslySetInnerHTML={{ __html: BLOG_BODY_CSS }} />
-      <div style={{ textAlign: 'center', padding: '20px 0 12px' }}>
-        <Link href="/" style={{
-          display: 'inline-flex', alignItems: 'baseline', gap: 6,
-          fontSize: 22, fontWeight: 700, color: 'var(--accent)',
-          letterSpacing: '0.02em', textDecoration: 'none',
-        }}>
-          <span>スマプラン</span>
-          <span style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 500 }}>SmaPlan</span>
-        </Link>
-      </div>
-
       <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
         <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
         <span style={{ margin: '0 6px' }}>/</span>
@@ -506,6 +498,7 @@ export default async function BlogDetailPage({
           ← ブログ一覧に戻る
         </Link>
       </div>
-    </main>
+      </main>
+    </>
   );
 }
