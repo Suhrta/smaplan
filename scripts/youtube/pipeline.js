@@ -10,7 +10,6 @@ import { generateScript } from "./generate-script.js";
 import { generateVoice } from "./generate-voice.js";
 import { generateVideo } from "./generate-video.js";
 import { generateThumbnail } from "./generate-thumbnail.js";
-import { uploadShort } from "./upload-short.js";
 
 function logError(message) {
   const outputDir = path.join(__dirname, "output");
@@ -45,11 +44,13 @@ function markTopicUsed(topicId) {
 async function main() {
   const startTime = Date.now();
 
-  console.log("━".repeat(60));
-  console.log("  スマプラン YouTubeショート 自動生成パイプライ��");
-  console.log("━".repeat(60));
+  const separator = "\u2501".repeat(60);
+  const thinSep = "\u2500".repeat(60);
 
-  // 出力ディレクトリ初期��
+  console.log(separator);
+  console.log("  smaplan YouTube Shorts Pipeline");
+  console.log(separator);
+
   const outputDir = path.join(__dirname, "output");
   if (fs.existsSync(outputDir)) {
     for (const file of fs.readdirSync(outputDir)) {
@@ -64,101 +65,91 @@ async function main() {
     fs.mkdirSync(outputDir);
   }
 
-  // Step 0: トピック選択
-  console.log("\n[STEP 0] トピック選択");
+  // Step 0
+  console.log("\n[STEP 0] Topic selection");
   const topic = selectTopic();
   if (!topic) {
-    console.error("[ERROR] 使用可能なトピックがありません。short-topics.json を確認してくだ���い。");
+    console.error("[ERROR] No available topics. Check short-topics.json.");
     process.exit(1);
   }
   console.log(`  ID: ${topic.id}`);
-  console.log(`  種類: ${topic.type}`);
-  console.log(`  タイ���ル: ${topic.title}`);
-  console.log(`  優先度: ${topic.priority}`);
+  console.log(`  Type: ${topic.type}`);
+  console.log(`  Title: ${topic.title}`);
+  console.log(`  Priority: ${topic.priority}`);
 
   let script;
   let voiceResult;
 
-  // Step 1: 台本生成
+  // Step 1
   try {
-    console.log(`\n${"─".repeat(60)}`);
-    console.log("[STEP 1] 台本生成（Claude API）");
-    console.log("─".repeat(60));
+    console.log("\n" + thinSep);
+    console.log("[STEP 1] Script generation (Claude API)");
+    console.log(thinSep);
     script = await generateScript(topic);
   } catch (e) {
-    const msg = `台本生成失敗: ${e.message}`;
-    console.error(`[ERROR] ${msg}`);
+    const msg = "Script generation failed: " + e.message;
+    console.error("[ERROR] " + msg);
     logError(msg);
     process.exit(1);
   }
 
-  // Step 2: 音声生成
+  // Step 2
   try {
-    console.log(`\n${"─".repeat(60)}`);
-    console.log("[STEP 2] 音声生成（VOICEVOX）");
-    console.log("─".repeat(60));
+    console.log("\n" + thinSep);
+    console.log("[STEP 2] Voice generation (VOICEVOX)");
+    console.log(thinSep);
     voiceResult = await generateVoice(script);
   } catch (e) {
-    const msg = `音声生���失敗: ${e.message}`;
-    console.error(`[ERROR] ${msg}`);
+    const msg = "Voice generation failed: " + e.message;
+    console.error("[ERROR] " + msg);
     logError(msg);
     process.exit(1);
   }
 
-  // Step 3: 動画合成
+  // Step 3
   try {
-    console.log(`\n${"─".repeat(60)}`);
-    console.log("[STEP 3] 動画合成（Puppeteer + ffmpeg）");
-    console.log("─".repeat(60));
+    console.log("\n" + thinSep);
+    console.log("[STEP 3] Video generation (Puppeteer + ffmpeg)");
+    console.log(thinSep);
     await generateVideo(script, voiceResult.timings);
   } catch (e) {
-    const msg = `動画合成失敗: ${e.message}`;
-    console.error(`[ERROR] ${msg}`);
+    const msg = "Video generation failed: " + e.message;
+    console.error("[ERROR] " + msg);
     logError(msg);
     process.exit(1);
   }
 
-  // Step 4: サムネイル生成
+  // Step 4
   try {
-    console.log(`\n${"─".repeat(60)}`);
-    console.log("[STEP 4] サムネイル生成（Puppeteer）");
-    console.log("─".repeat(60));
+    console.log("\n" + thinSep);
+    console.log("[STEP 4] Thumbnail generation (Puppeteer)");
+    console.log(thinSep);
     await generateThumbnail(script);
   } catch (e) {
-    const msg = `サムネイ���生成失敗: ${e.message}`;
-    console.error(`[ERROR] ${msg}`);
+    const msg = "Thumbnail generation failed: " + e.message;
+    console.error("[ERROR] " + msg);
     logError(msg);
     process.exit(1);
   }
 
-  // Step 5: YouTubeアップロード
-  try {
-    console.log(`\n${"─".repeat(60)}`);
-    console.log("[STEP 5] YouTubeアップロード");
-    console.log("��".repeat(60));
-    await uploadShort(script);
-  } catch (e) {
-    const msg = `アップロード失敗: ${e.message}`;
-    console.error(`[ERROR] ${msg}`);
-    logError(msg);
-    process.exit(1);
-  }
-
-  // Step 6: トピック更新
+  // Step 5
   markTopicUsed(topic.id);
-  console.log(`\n[STEP 6] トピック #${topic.id} を使用済みに更新`);
+  console.log("\n[STEP 5] Topic #" + topic.id + " marked as used");
 
+  const videoPath = path.join(outputDir, "video.mp4");
+  const thumbnailPath = path.join(outputDir, "thumbnail.png");
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(0);
-  console.log("\n" + "━".repeat(60));
-  console.log(`  完了！ (${elapsed}秒)`);
-  console.log(`  トピック: ${topic.title}`);
-  console.log(`  出力: output/ フォルダを確認してください`);
-  console.log("━".repeat(60));
+  console.log("\n" + separator);
+  console.log("  Done! (" + elapsed + "s)");
+  console.log("  Topic: " + topic.title);
+  console.log("  Video: " + videoPath);
+  console.log("  Thumbnail: " + thumbnailPath);
+  console.log(separator);
 }
 
 main().catch(e => {
-  const msg = `パイプライ��エラー: ${e.message}`;
-  console.error(`\n[PIPELINE ERROR] ${msg}`);
+  const msg = "Pipeline error: " + e.message;
+  console.error("\n[PIPELINE ERROR] " + msg);
   logError(msg);
   process.exit(1);
 });
