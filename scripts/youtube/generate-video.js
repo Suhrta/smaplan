@@ -26,7 +26,7 @@ function getAudioDuration(audioPath) {
 
 async function captureScene(browser, templatePath, sceneType, data, outputPath) {
   const template = fs.readFileSync(templatePath, "utf-8");
-  const safeData = JSON.stringify(data).replace(/'/g, "\\'").replace(/\n/g, "\\n");
+  const safeData = JSON.stringify(data).replace(/\\/g, "\\\\").replace(/'/g, "\\'");
   const html = template
     .replace("'{{DATA}}'", `'${safeData}'`)
     .replace("{{SCENE_TYPE}}", sceneType);
