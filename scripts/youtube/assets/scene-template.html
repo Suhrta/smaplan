@@ -228,7 +228,7 @@
 
   .subtitle-area {
     z-index: 2;
-    width: 600px;
+    width: calc(100% - 20px);
     margin-top: 16px;
     background: rgba(0, 0, 0, 0.75);
     border-radius: 12px;
@@ -238,10 +238,13 @@
   }
   .subtitle-text {
     color: #fff;
-    font-size: 38px;
+    font-size: 44px;
     font-weight: 700;
     line-height: 1.4;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .bottom-area { z-index: 2; text-align: center; margin-top: 24px; min-height: 60px; }
