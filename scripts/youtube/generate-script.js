@@ -83,15 +83,23 @@ ${sectionsInstruction}
   "sections": [
     {
       "type": "セクション種類",
-      "text": "読み上げるテキスト（全文）",
-      "displayText": "画面に表示する短縮テキスト（25文字以内）",
-      "duration": 秒数（数値）
+      "text": "読み上げるテキスト（1ポイントのみ、短く）",
+      "displayText": "画面に超大きく表示するキーワード（15文字以内）",
+      "duration": 秒数（5〜10）
     }
   ]
 }
 
+【displayTextのルール】
+- 15文字以内。画面全体に巨大フォントで表示される
+- 料金は数字のみ大きく表示（例: "3,278円"、"月額990円"）
+- 改行したい場合は\\nを使う（例: "楽天モバイル\\n3,278円"）
+- 意味のかたまりで区切る。単語の途中で切れないこと
+- 1セクション=1ポイントのみ。複数の情報を詰め込まない
+
 sectionsの最後は必ずtype:"cta"で、スマプランへの誘導を含めること。
-各sectionのdurationの合計が${template.constraints.totalDuration}秒以内になるようにすること。`;
+各sectionのdurationの合計が${template.constraints.totalDuration}秒以内になるようにすること。
+セクション数は7〜8個、各セクション5〜10秒が目安。テンポよく画面を切り替える。`;
 
   console.log("[SCRIPT] Claude API呼び出し中...");
   const response = await client.messages.create({

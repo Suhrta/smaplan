@@ -128,17 +128,24 @@ function buildSceneData(section) {
   const base = { displayText: dt, text: section.text || "" };
 
   switch (section.type) {
+    case "plan_a_name":
+    case "plan_b_name":
     case "plan_a":
     case "plan_b": {
       const parsed = parsePlanFromDisplay(dt);
-      const features = extractFeatures(section.text || "");
       return {
         ...base,
-        planLabel: section.type === "plan_a" ? "Plan A" : "Plan B",
+        planLabel: section.type.includes("plan_a") ? "Plan A" : "Plan B",
         planName: section.planName || parsed.planName || dt,
         price: section.price || parsed.price,
         dataGb: parsed.dataGb,
-        features,
+      };
+    }
+    case "plan_a_point":
+    case "plan_b_point": {
+      return {
+        ...base,
+        label: section.type.includes("plan_a") ? "Plan A の強み" : "Plan B の強み",
       };
     }
     case "rank1":
@@ -146,14 +153,22 @@ function buildSceneData(section) {
     case "rank3": {
       const rankNum = parseInt(section.type.slice(-1));
       const parsed = parsePlanFromDisplay(dt);
-      const features = extractFeatures(section.text || "");
       return {
         ...base,
         rank: rankNum,
         planName: section.planName || parsed.planName || dt,
         price: section.price || parsed.price,
         dataGb: parsed.dataGb,
-        features,
+      };
+    }
+    case "rank1_name": {
+      const parsed = parsePlanFromDisplay(dt);
+      return {
+        ...base,
+        rank: 1,
+        planName: section.planName || parsed.planName || dt,
+        price: section.price || parsed.price,
+        dataGb: parsed.dataGb,
       };
     }
     case "verdict": {
@@ -161,13 +176,10 @@ function buildSceneData(section) {
       return { ...base, label: "結論", left: verdict.left, right: verdict.right };
     }
     case "opening":
-      return base;
     case "cta":
       return base;
-    default: {
-      const features = extractFeatures(section.text || "");
-      return { ...base, label: section.label || section.type, features };
-    }
+    default:
+      return { ...base, label: section.label || section.type };
   }
 }
 
