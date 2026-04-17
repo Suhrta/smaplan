@@ -1,6 +1,9 @@
 const affiliateLinks: Record<string, string> = {
   ahamo_20gb: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
   ahamo_100gb: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
+  ymobile_s: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+AZXA2A+424K+C164X",
+  ymobile_m: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+AZXA2A+424K+C164X",
+  ymobile_l: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+AZXA2A+424K+C164X",
 };
 
 const officialLinks: Record<string, string> = {
