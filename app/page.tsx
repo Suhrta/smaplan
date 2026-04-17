@@ -624,34 +624,59 @@ export default function Home() {
   }
 
   if (view === 'landing') {
+    const baExamples = [
+      { beforeId: 'docomo_max', afterId: 'ahamo_30gb' },
+      { beforeId: 'ymobile_simple3_s', afterId: 'iijmio_5gb' },
+      { beforeId: 'ahamo_110gb', afterId: 'rakuten_saikyo' },
+    ];
+    const personas = [
+      {
+        icon: '👤', label: '20代 一人暮らし',
+        data: '月20GB', call: '通話少なめ',
+        planId: 'ahamo_30gb', saving: '約5.4万円',
+      },
+      {
+        icon: '👨\u200D👩\u200D👧\u200D👦', label: '家族4人',
+        data: '月10GB', call: '通話あり',
+        planId: 'uq_komikomi_value', saving: '約8.2万円',
+      },
+      {
+        icon: '👴', label: 'シニア夫婦',
+        data: '月3GB', call: '通話多め',
+        planId: 'iijmio_5gb', saving: '約6.1万円',
+      },
+    ];
+    const carrierBadges = [
+      { name: 'ドコモ', bg: '#CC0033' },
+      { name: 'au', bg: '#EB5505' },
+      { name: 'ソフトバンク', bg: '#E60012' },
+      { name: '楽天モバイル', bg: '#BF0000' },
+      { name: '格安SIM', bg: '#475569' },
+    ];
     return (
-      <div style={{
-        background: 'linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 60%)',
-        minHeight: '100vh',
-      }}>
+      <div style={{ background: '#fff' }}>
         <style>{`
           @keyframes mockPop { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
           .sp-cta { transition: transform 0.18s ease, box-shadow 0.18s ease; }
           .sp-cta:hover { transform: scale(1.05); box-shadow: 0 10px 24px rgba(29, 78, 216, 0.35); }
           .sp-cta:active { transform: scale(1.02); }
-          .sp-feature { transition: transform 0.18s ease, box-shadow 0.18s ease; }
-          .sp-feature:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08); }
-          .sp-faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: background 0.15s ease; }
-          .sp-faq-item[open] { background: var(--accent-light); }
-          .sp-faq-summary { list-style: none; cursor: pointer; padding: 16px 18px; display: flex; align-items: center; gap: 12px; font-size: 15px; font-weight: 600; color: var(--text-main); outline: none; }
+          .sp-feature { transition: transform 0.22s ease, box-shadow 0.22s ease; }
+          .sp-feature:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1); }
+          .sp-faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; transition: background 0.15s ease; }
+          .sp-faq-item[open] { background: var(--accent-light); border-color: var(--accent-border); }
+          .sp-faq-summary { list-style: none; cursor: pointer; padding: 24px 28px; display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 700; color: var(--text-main); outline: none; }
           .sp-faq-summary::-webkit-details-marker { display: none; }
-          .sp-faq-summary::after { content: '▾'; margin-left: auto; color: var(--accent); transition: transform 0.2s ease; font-size: 14px; }
+          .sp-faq-summary::after { content: '▾'; margin-left: auto; color: var(--accent); transition: transform 0.2s ease; font-size: 16px; }
           .sp-faq-item[open] .sp-faq-summary::after { transform: rotate(180deg); }
-          .sp-faq-q { flex-shrink: 0; width: 24px; height: 24px; border-radius: 6px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
-          .sp-faq-answer { padding: 0 18px 18px 54px; font-size: 14px; line-height: 1.8; color: var(--text-sub); margin: 0; }
-          .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
-          .sp-hero-h1 { font-size: 28px; }
-          @media (min-width: 720px) {
-            .sp-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+          .sp-faq-q { flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+          .sp-faq-answer { padding: 0 28px 24px 70px; font-size: 15px; line-height: 1.9; color: var(--text-sub); margin: 0; }
+          .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+          .sp-hero-mock { display: none; }
+          @media (min-width: 900px) {
+            .sp-hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
             .sp-hero-text { text-align: left; }
-            .sp-hero-text .sp-hero-sub, .sp-hero-text .sp-hero-note { margin-left: 0; margin-right: 0; }
-            .sp-hero-cta-wrap { justify-content: flex-start; }
-            .sp-hero-h1 { font-size: 36px; }
+            .sp-hero-text .sp-hero-cta-wrap { align-items: flex-start; }
+            .sp-hero-mock { display: block; }
           }
         `}</style>
         <script
@@ -659,450 +684,465 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
         />
         <SiteHeader />
-        <main style={{ maxWidth: 960, margin: '0 auto', padding: '0 20px 40px' }}>
-          <section className="sp-hero-grid" style={{ padding: '32px 0 36px' }}>
-            <div className="sp-hero-text" style={{ textAlign: 'center' }}>
-              <h1 className="sp-hero-h1" style={{
-                fontWeight: 800, lineHeight: 1.35,
-                margin: '0 0 16px', color: 'var(--text-main)',
-                letterSpacing: '0.01em',
-                maxWidth: 420, marginLeft: 'auto', marginRight: 'auto',
-              }}>
-                <span style={{ color: 'var(--accent)' }}>年間5万円以上</span>おトクに？<br />
-                あなたに最適なスマホプラン
-              </h1>
-              <p className="sp-hero-note" style={{
-                fontSize: 12, color: 'var(--text-sub)',
-                margin: '0 auto 16px', lineHeight: 1.6,
-                maxWidth: 380,
-              }}>
-                ※ドコモ eximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合の当サイト試算
-              </p>
-              <p className="sp-hero-sub" style={{
-                fontSize: 15, color: 'var(--text-sub)',
-                margin: '0 auto 28px', lineHeight: 1.8,
-                maxWidth: 380,
-              }}>
-                10問・30秒で完了する無料診断。<br />
-                AIがあなたに最適なプランを提案します。
-              </p>
-              <div className="sp-hero-cta-wrap" style={{
-                display: 'flex', flexDirection: 'column',
-                alignItems: 'center', gap: 10,
-              }}>
-                <button
-                  onClick={startDiagnose}
-                  className="sp-cta"
-                  style={{
-                    padding: '20px 56px', minHeight: 60,
-                    background: 'var(--accent)', color: '#fff',
-                    border: 'none', borderRadius: 14,
-                    fontSize: 18, fontWeight: 800,
-                    cursor: 'pointer',
-                    boxShadow: '0 6px 16px rgba(29, 78, 216, 0.28)',
-                    letterSpacing: '0.02em',
-                  }}
-                >
-                  診断スタート →
-                </button>
-                <div style={{ fontSize: 12, color: 'var(--text-sub)' }}>
-                  ⚡ 平均30秒で診断完了 ／ 📱 全20プラン対応
+
+        {/* ── HERO ── */}
+        <section className="sp-hero-block">
+          <div className="sp-container">
+            <div className="sp-hero-grid">
+              <div className="sp-hero-text" style={{ textAlign: 'center' }}>
+                <div style={{
+                  display: 'inline-block',
+                  padding: '7px 16px', borderRadius: 999,
+                  background: 'var(--accent-light)', color: 'var(--accent)',
+                  fontSize: 13, fontWeight: 800, marginBottom: 24,
+                  letterSpacing: '0.05em',
+                }}>
+                  AIが30秒で最適プラン診断
                 </div>
+                <h1 style={{
+                  fontSize: 'clamp(40px, 8vw, 68px)',
+                  fontWeight: 900, lineHeight: 1.15,
+                  margin: '0 0 24px', color: 'var(--text-main)',
+                  letterSpacing: '-0.02em',
+                }}>
+                  <span style={{ color: 'var(--accent)' }}>年間5万円</span><br />
+                  安くなるかも
+                </h1>
+                <p style={{
+                  fontSize: 'clamp(16px, 2.2vw, 18px)',
+                  color: 'var(--text-sub)',
+                  margin: '0 0 40px', lineHeight: 1.75,
+                }}>
+                  10問・30秒の無料AI診断で<br />
+                  あなたに最適なプランが見つかる
+                </p>
+                <div className="sp-hero-cta-wrap" style={{
+                  display: 'flex', flexDirection: 'column',
+                  alignItems: 'center', gap: 18,
+                }}>
+                  <button onClick={startDiagnose} className="sp-cta-pill">
+                    診断スタート →
+                  </button>
+                  <div style={{ fontSize: 13, color: 'var(--text-sub)', fontWeight: 600 }}>
+                    ⚡ 30秒で完了 ／ 📱 全20プラン ／ 🔒 個人情報不要
+                  </div>
+                </div>
+                <p style={{
+                  fontSize: 12, color: 'var(--text-muted)',
+                  margin: '32px 0 0', lineHeight: 1.7,
+                }}>
+                  ※ドコモ eximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合の当サイト試算
+                </p>
+              </div>
+              <div className="sp-hero-mock">
+                <PhoneMockup />
               </div>
             </div>
-            <PhoneMockup />
-          </section>
+          </div>
+        </section>
 
-          {/* ── 競合比較セクション ── */}
-          <section className="sp-section-fade" style={{ margin: '48px 0 0' }}>
-            <h2 style={{
-              fontSize: 22, fontWeight: 800, textAlign: 'center',
-              color: 'var(--text-main)', margin: '0 0 28px',
-            }}>
-              スマホプラン選び、まだ悩んでる？
+        {/* ── 競合比較セクション ── */}
+        <section className="sp-block sp-block-accent sp-section-fade">
+          <div className="sp-container">
+            <h2 className="sp-h2">
+              スマホプラン選び、<br />
+              もう自分で悩まない
             </h2>
-            <div className="sp-compare-grid">
-              <div className="sp-compare-card" style={{
-                background: 'var(--bg)', border: '1px solid var(--border)',
-                borderRadius: 16, padding: '28px 20px', textAlign: 'center',
+            <p className="sp-h2-sub">
+              AI診断なら、時間も手間も10分の1以下
+            </p>
+
+            <div className="sp-compare-grid-v2">
+              <div style={{
+                background: '#fff', border: '1px solid var(--border)',
+                borderRadius: 24, padding: '48px 32px', textAlign: 'center',
+                boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
               }}>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-muted)', marginBottom: 20, letterSpacing: '0.05em' }}>
                   自分で調べる
                 </div>
-                <div style={{ fontSize: 48, fontWeight: 800, color: 'var(--text-sub)', lineHeight: 1, marginBottom: 4 }}>
+                <div className="sp-big-num" style={{ color: 'var(--text-sub)', marginBottom: 10 }}>
                   2〜3時間
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 24 }}>かかる目安</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
+                <div style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 36 }}>
+                  かかる目安
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 18, textAlign: 'left' }}>
                   {[
                     { icon: '🔍', text: '比較サイトを何個も巡回' },
                     { icon: '🧮', text: '割引計算が複雑' },
                     { icon: '😩', text: '結局どれがいいかわからない' },
                   ].map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--text-sub)' }}>
-                      <span style={{ fontSize: 18, flexShrink: 0 }}>{item.icon}</span>
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: 'var(--text-sub)' }}>
+                      <span style={{ fontSize: 20, flexShrink: 0 }}>{item.icon}</span>
                       {item.text}
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="sp-compare-card" style={{
-                background: 'var(--accent-light)',
-                border: '2px solid var(--accent)',
-                borderRadius: 16, padding: '28px 20px', textAlign: 'center',
-                position: 'relative',
+              <div style={{
+                background: 'linear-gradient(135deg, var(--accent) 0%, #2563EB 100%)',
+                borderRadius: 24, padding: '48px 32px', textAlign: 'center',
+                color: '#fff', position: 'relative',
+                boxShadow: '0 20px 50px rgba(29, 78, 216, 0.35)',
               }}>
                 <div style={{
-                  position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)',
-                  background: 'var(--accent)', color: '#fff',
-                  fontSize: 11, fontWeight: 800, padding: '4px 16px',
-                  borderRadius: 20, whiteSpace: 'nowrap',
+                  position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%)',
+                  background: '#fff', color: 'var(--accent)',
+                  fontSize: 13, fontWeight: 800, padding: '7px 20px',
+                  borderRadius: 999, whiteSpace: 'nowrap',
+                  boxShadow: '0 4px 12px rgba(15, 23, 42, 0.15)',
                 }}>
-                  おすすめ
+                  ⭐ おすすめ
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', marginBottom: 16 }}>
+                <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 20, letterSpacing: '0.05em', opacity: 0.9 }}>
                   スマプランで診断
                 </div>
-                <div style={{ fontSize: 48, fontWeight: 800, color: 'var(--accent)', lineHeight: 1, marginBottom: 4 }}>
+                <div className="sp-big-num" style={{ color: '#fff', marginBottom: 10 }}>
                   30秒
                 </div>
-                <div style={{ fontSize: 12, color: 'var(--text-sub)', marginBottom: 24 }}>10問に答えるだけ</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 14, textAlign: 'left' }}>
+                <div style={{ fontSize: 14, color: '#fff', opacity: 0.85, marginBottom: 36 }}>
+                  10問に答えるだけ
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 18, textAlign: 'left' }}>
                   {[
-                    { icon: '🤖', text: 'AIが自動で最適プランを計算' },
+                    { icon: '🤖', text: 'AIが自動で最適プラン計算' },
                     { icon: '⚖️', text: '全20プランから公平に比較' },
-                    { icon: '😊', text: '1つに絞って提案してくれる' },
+                    { icon: '😊', text: '1つに絞って提案' },
                   ].map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: 'var(--text-main)', fontWeight: 500 }}>
-                      <span style={{ fontSize: 18, flexShrink: 0 }}>{item.icon}</span>
+                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: '#fff', fontWeight: 600 }}>
+                      <span style={{ fontSize: 20, flexShrink: 0 }}>{item.icon}</span>
                       {item.text}
                     </div>
                   ))}
                 </div>
               </div>
             </div>
-            <div style={{ textAlign: 'center', marginTop: 28 }}>
-              <button
-                onClick={startDiagnose}
-                className="sp-cta"
-                style={{
-                  padding: '16px 40px', minHeight: 52,
-                  background: 'var(--accent)', color: '#fff',
-                  border: 'none', borderRadius: 12,
-                  fontSize: 16, fontWeight: 800, cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(29, 78, 216, 0.25)',
-                }}
-              >
+
+            <div style={{ textAlign: 'center', marginTop: 56 }}>
+              <button onClick={startDiagnose} className="sp-cta-pill">
                 無料で診断してみる →
               </button>
             </div>
-          </section>
-
-          <div className="sp-feature-grid" style={{ marginTop: 48 }}>
-            {FEATURES.map(f => (
-              <div
-                key={f.title}
-                className="sp-feature"
-                style={{
-                  padding: '20px 22px', background: 'var(--bg-card)',
-                  border: '1px solid var(--border)', borderRadius: 14,
-                  display: 'flex', gap: 16, alignItems: 'flex-start',
-                }}
-              >
-                <div style={{
-                  flexShrink: 0,
-                  width: 44, height: 44, borderRadius: 10,
-                  background: 'var(--accent-light)',
-                  color: 'var(--accent)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
-                  <f.Icon />
-                </div>
-                <div>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text-main)', marginBottom: 4 }}>{f.title}</div>
-                  <div style={{ fontSize: 13, color: 'var(--text-sub)', lineHeight: 1.7 }}>{f.body}</div>
-                </div>
-              </div>
-            ))}
           </div>
+        </section>
 
-          {/* ── ビフォーアフターセクション ── */}
-          {(() => {
-            const examples = [
-              { beforeId: 'docomo_max', afterId: 'ahamo_30gb' },
-              { beforeId: 'ymobile_simple3_s', afterId: 'iijmio_5gb' },
-              { beforeId: 'ahamo_110gb', afterId: 'rakuten_saikyo' },
-            ];
-            return (
-              <section className="sp-section-fade" style={{ margin: '56px 0 0' }}>
-                <h2 style={{
-                  fontSize: 22, fontWeight: 800, textAlign: 'center',
-                  color: 'var(--text-main)', margin: '0 0 8px',
-                }}>
-                  乗り換えるとこんなに変わる
-                </h2>
-                <p style={{
-                  fontSize: 13, color: 'var(--text-sub)', textAlign: 'center',
-                  margin: '0 0 32px',
-                }}>
-                  プラン見直しだけで、年間数万円の差になることも
-                </p>
+        {/* ── FEATURES セクション ── */}
+        <section className="sp-block sp-section-fade">
+          <div className="sp-container">
+            <h2 className="sp-h2">
+              スマプランの3つの強み
+            </h2>
+            <p className="sp-h2-sub">
+              たった30秒で、あなたにぴったりの1つが見つかる
+            </p>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-                  {examples.map(({ beforeId, afterId }, idx) => {
-                    const before = getPlan(beforeId);
-                    const after = getPlan(afterId);
-                    const monthlySaving = before.monthly_cost - after.monthly_cost;
-                    const annualSaving = monthlySaving * 12;
-                    return (
-                      <div key={idx} className="sp-ba-row" style={{
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border)',
-                        borderRadius: 16,
-                        overflow: 'hidden',
-                      }}>
-                        <div className="sp-ba-cards">
-                          <div style={{ flex: 1, padding: '24px 20px', textAlign: 'center' }}>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: 8 }}>BEFORE</div>
-                            <div style={{ fontSize: 13, color: 'var(--text-sub)', marginBottom: 4 }}>{before.carrier}</div>
-                            <div style={{
-                              fontSize: 40, fontWeight: 800, color: 'var(--text-main)', lineHeight: 1.1,
-                            }}>
-                              <span style={{ fontSize: 16, fontWeight: 600 }}>月額</span>{before.monthly_cost.toLocaleString()}<span style={{ fontSize: 16, fontWeight: 600 }}>円</span>
-                            </div>
-                          </div>
-                          <div className="sp-ba-arrow" style={{
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            fontSize: 24, color: 'var(--accent)', fontWeight: 800,
-                          }}>
-                            →
-                          </div>
-                          <div style={{ flex: 1, padding: '24px 20px', textAlign: 'center' }}>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: 8 }}>AFTER</div>
-                            <div style={{ fontSize: 13, color: 'var(--text-sub)', marginBottom: 4 }}>{after.carrier}</div>
-                            <div style={{
-                              fontSize: 40, fontWeight: 800, color: 'var(--accent)', lineHeight: 1.1,
-                            }}>
-                              <span style={{ fontSize: 16, fontWeight: 600 }}>月額</span>{after.monthly_cost.toLocaleString()}<span style={{ fontSize: 16, fontWeight: 600 }}>円</span>
-                            </div>
-                          </div>
+            <div className="sp-feature-grid">
+              {FEATURES.map(f => (
+                <div
+                  key={f.title}
+                  className="sp-feature"
+                  style={{
+                    padding: '44px 32px', background: '#fff',
+                    border: '1px solid var(--border)', borderRadius: 20,
+                    textAlign: 'center',
+                    boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                  }}
+                >
+                  <div style={{
+                    width: 72, height: 72, borderRadius: 20,
+                    background: 'var(--accent-light)',
+                    color: 'var(--accent)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    margin: '0 auto 24px',
+                    transform: 'scale(1.4)',
+                    transformOrigin: 'center',
+                  }}>
+                    <f.Icon />
+                  </div>
+                  <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main)', marginBottom: 14 }}>
+                    {f.title}
+                  </div>
+                  <div style={{ fontSize: 15, color: 'var(--text-sub)', lineHeight: 1.75 }}>
+                    {f.body}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── BEFORE / AFTER セクション ── */}
+        <section className="sp-block sp-block-gray sp-section-fade">
+          <div className="sp-container">
+            <h2 className="sp-h2">
+              乗り換えると<br />
+              こんなに変わる
+            </h2>
+            <p className="sp-h2-sub">
+              プラン見直しだけで、年間数万円の節約も可能
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+              {baExamples.map(({ beforeId, afterId }, idx) => {
+                const before = getPlan(beforeId);
+                const after = getPlan(afterId);
+                const annualSaving = (before.monthly_cost - after.monthly_cost) * 12;
+                return (
+                  <div key={idx} style={{
+                    background: '#fff',
+                    borderRadius: 24,
+                    overflow: 'hidden',
+                    boxShadow: '0 12px 40px rgba(15, 23, 42, 0.08)',
+                  }}>
+                    <div className="sp-ba-cards">
+                      <div style={{ flex: 1, padding: '40px 24px', textAlign: 'center' }}>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-muted)', letterSpacing: '0.2em', marginBottom: 14 }}>
+                          BEFORE
                         </div>
-                        <div style={{
-                          background: 'var(--success-light)',
-                          padding: '14px 20px', textAlign: 'center',
-                        }}>
-                          <span style={{
-                            fontSize: 13, color: 'var(--text-sub)',
-                          }}>この例では </span>
-                          <span style={{
-                            fontSize: 28, fontWeight: 800, color: 'var(--success)',
-                          }}>
-                            年間{annualSaving.toLocaleString()}円
-                          </span>
-                          <span style={{ fontSize: 13, color: 'var(--text-sub)' }}> おトク</span>
+                        <div style={{ fontSize: 15, color: 'var(--text-sub)', marginBottom: 14, fontWeight: 600 }}>
+                          {before.carrier}
+                        </div>
+                        <div className="sp-ba-price" style={{ color: 'var(--text-main)' }}>
+                          {before.monthly_cost.toLocaleString()}
+                          <span style={{ fontSize: '0.4em', fontWeight: 700, marginLeft: 4 }}>円/月</span>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-
-                <div style={{
-                  marginTop: 16, fontSize: 12, color: 'var(--text-sub)',
-                  lineHeight: 1.8, textAlign: 'center',
-                }}>
-                  ※料金は税込。割引適用前の標準価格での比較です<br />
-                  ※実際の節約額はご利用状況・適用中の割引により異なります
-                </div>
-
-                <div style={{ textAlign: 'center', marginTop: 24 }}>
-                  <button
-                    onClick={startDiagnose}
-                    className="sp-cta"
-                    style={{
-                      padding: '16px 40px', minHeight: 52,
-                      background: 'var(--accent)', color: '#fff',
-                      border: 'none', borderRadius: 12,
-                      fontSize: 16, fontWeight: 800, cursor: 'pointer',
-                      boxShadow: '0 4px 14px rgba(29, 78, 216, 0.25)',
-                    }}
-                  >
-                    あなたの節約額を診断する →
-                  </button>
-                </div>
-              </section>
-            );
-          })()}
-
-          {/* ── 診断結果サンプルギャラリー ── */}
-          {(() => {
-            const ahamoPlan = getPlan('ahamo_30gb');
-            const uqPlan = getPlan('uq_komikomi_value');
-            const iijPlan = getPlan('iijmio_5gb');
-            const personas = [
-              {
-                icon: '👤',
-                label: '20代 一人暮らし',
-                data: '月20GB',
-                call: '通話少なめ',
-                plan: ahamoPlan.plan_name,
-                carrier: ahamoPlan.carrier,
-                cost: ahamoPlan.monthly_cost,
-                saving: '約5.4万円',
-              },
-              {
-                icon: '👨\u200D👩\u200D👧\u200D👦',
-                label: '家族4人',
-                data: '月10GB',
-                call: '通話あり',
-                plan: uqPlan.plan_name,
-                carrier: uqPlan.carrier,
-                cost: uqPlan.monthly_cost,
-                saving: '約8.2万円',
-              },
-              {
-                icon: '👴',
-                label: 'シニア夫婦',
-                data: '月3GB',
-                call: '通話多め',
-                plan: iijPlan.plan_name,
-                carrier: iijPlan.carrier,
-                cost: iijPlan.monthly_cost,
-                saving: '約6.1万円',
-              },
-            ];
-            return (
-              <section className="sp-section-fade" style={{ margin: '56px 0 0' }}>
-                <h2 style={{
-                  fontSize: 22, fontWeight: 800, textAlign: 'center',
-                  color: 'var(--text-main)', margin: '0 0 8px',
-                }}>
-                  あなたに近い人の診断結果
-                </h2>
-                <p style={{
-                  fontSize: 13, color: 'var(--text-sub)', textAlign: 'center',
-                  margin: '0 0 28px',
-                }}>
-                  ペルソナ別のおすすめプラン例
-                </p>
-
-                <div className="sp-persona-grid">
-                  {personas.map((p, i) => (
-                    <button
-                      key={i}
-                      onClick={startDiagnose}
-                      className="sp-persona-card"
-                      style={{
-                        background: 'var(--bg-card)',
-                        border: '1px solid var(--border)',
-                        borderRadius: 16,
-                        padding: '28px 20px',
-                        textAlign: 'center',
-                        cursor: 'pointer',
-                        width: '100%',
-                        fontFamily: 'inherit',
-                      }}
-                    >
-                      <div style={{ fontSize: 40, marginBottom: 8 }}>{p.icon}</div>
-                      <div style={{
-                        fontSize: 16, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12,
+                      <div className="sp-ba-arrow" style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 36, color: 'var(--accent)', fontWeight: 900,
+                        flexShrink: 0,
                       }}>
-                        {p.label}
-                      </div>
-                      <div style={{ display: 'flex', justifyContent: 'center', gap: 6, marginBottom: 16 }}>
-                        <span style={{
-                          fontSize: 12, padding: '3px 10px', borderRadius: 6,
-                          background: 'var(--bg)', color: 'var(--text-sub)',
-                          border: '1px solid var(--border)',
-                        }}>{p.data}</span>
-                        <span style={{
-                          fontSize: 12, padding: '3px 10px', borderRadius: 6,
-                          background: 'var(--bg)', color: 'var(--text-sub)',
-                          border: '1px solid var(--border)',
-                        }}>{p.call}</span>
+                        →
                       </div>
                       <div style={{
-                        fontSize: 11, color: 'var(--text-muted)', marginBottom: 4,
-                      }}>おすすめプラン</div>
-                      <div style={{
-                        fontSize: 15, fontWeight: 700, color: 'var(--accent)', marginBottom: 2,
-                      }}>{p.carrier}</div>
-                      <div style={{
-                        fontSize: 28, fontWeight: 800, color: 'var(--accent)', lineHeight: 1.2, marginBottom: 12,
+                        flex: 1, padding: '40px 24px', textAlign: 'center',
+                        background: 'var(--accent-light)',
                       }}>
-                        {p.cost.toLocaleString()}<span style={{ fontSize: 14, fontWeight: 600 }}>円/月</span>
+                        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 14 }}>
+                          AFTER
+                        </div>
+                        <div style={{ fontSize: 15, color: 'var(--text-sub)', marginBottom: 14, fontWeight: 600 }}>
+                          {after.carrier}
+                        </div>
+                        <div className="sp-ba-price" style={{ color: 'var(--accent)' }}>
+                          {after.monthly_cost.toLocaleString()}
+                          <span style={{ fontSize: '0.4em', fontWeight: 700, marginLeft: 4 }}>円/月</span>
+                        </div>
                       </div>
-                      <div style={{
-                        fontSize: 18, fontWeight: 800, color: 'var(--success)',
-                      }}>
-                        年間{p.saving}節約 ※目安
+                    </div>
+                    <div style={{
+                      background: 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)',
+                      padding: '32px 24px', textAlign: 'center',
+                      color: '#fff',
+                    }}>
+                      <div style={{ fontSize: 14, marginBottom: 10, opacity: 0.95, fontWeight: 600 }}>
+                        この例では
                       </div>
-                    </button>
-                  ))}
-                </div>
+                      <div className="sp-ba-saving" style={{ color: '#fff' }}>
+                        年間{annualSaving.toLocaleString()}円
+                      </div>
+                      <div style={{ fontSize: 16, fontWeight: 800, marginTop: 6 }}>
+                        おトクに
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-                <div style={{
-                  marginTop: 16, fontSize: 12, color: 'var(--text-sub)',
-                  lineHeight: 1.8, textAlign: 'center',
-                }}>
-                  ※節約額は一般的な利用パターンからの目安です。実際の金額はご利用状況により異なります
-                </div>
-
-                <div style={{ textAlign: 'center', marginTop: 24 }}>
-                  <button
-                    onClick={startDiagnose}
-                    className="sp-cta"
-                    style={{
-                      padding: '16px 40px', minHeight: 52,
-                      background: 'var(--accent)', color: '#fff',
-                      border: 'none', borderRadius: 12,
-                      fontSize: 16, fontWeight: 800, cursor: 'pointer',
-                      boxShadow: '0 4px 14px rgba(29, 78, 216, 0.25)',
-                    }}
-                  >
-                    自分の診断結果を見る →
-                  </button>
-                </div>
-              </section>
-            );
-          })()}
-
-          <section style={{
-            marginTop: 40, paddingTop: 24,
-            borderTop: '1px solid var(--border)',
-            textAlign: 'center',
-          }}>
             <div style={{
-              fontSize: 11, color: 'var(--text-muted)',
-              letterSpacing: '0.15em', marginBottom: 12,
+              marginTop: 32, fontSize: 12, color: 'var(--text-sub)',
+              lineHeight: 1.9, textAlign: 'center',
+            }}>
+              ※料金は税込。割引適用前の標準価格での比較です<br />
+              ※実際の節約額はご利用状況・適用中の割引により異なります
+            </div>
+
+            <div style={{ textAlign: 'center', marginTop: 48 }}>
+              <button onClick={startDiagnose} className="sp-cta-pill">
+                あなたの節約額を診断する →
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ── PERSONA セクション ── */}
+        <section className="sp-block sp-section-fade">
+          <div className="sp-container">
+            <h2 className="sp-h2">
+              あなたに近い人の<br />
+              診断結果
+            </h2>
+            <p className="sp-h2-sub">
+              ペルソナ別のおすすめプラン例
+            </p>
+
+            <div className="sp-persona-grid">
+              {personas.map((p, i) => {
+                const plan = getPlan(p.planId);
+                return (
+                  <button
+                    key={i}
+                    onClick={startDiagnose}
+                    className="sp-persona-card"
+                    style={{
+                      background: '#fff',
+                      border: '2px solid var(--border)',
+                      borderRadius: 24,
+                      padding: '44px 28px',
+                      textAlign: 'center',
+                      cursor: 'pointer',
+                      width: '100%',
+                      fontFamily: 'inherit',
+                      boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                    }}
+                  >
+                    <div style={{ fontSize: 56, marginBottom: 16, lineHeight: 1 }}>{p.icon}</div>
+                    <div style={{
+                      fontSize: 18, fontWeight: 800, color: 'var(--text-main)', marginBottom: 20,
+                    }}>
+                      {p.label}
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 28 }}>
+                      <span style={{
+                        fontSize: 12, padding: '5px 12px', borderRadius: 999,
+                        background: 'var(--bg)', color: 'var(--text-sub)',
+                        border: '1px solid var(--border)', fontWeight: 600,
+                      }}>{p.data}</span>
+                      <span style={{
+                        fontSize: 12, padding: '5px 12px', borderRadius: 999,
+                        background: 'var(--bg)', color: 'var(--text-sub)',
+                        border: '1px solid var(--border)', fontWeight: 600,
+                      }}>{p.call}</span>
+                    </div>
+                    <div style={{ height: 1, background: 'var(--border)', margin: '0 0 24px' }} />
+                    <div style={{
+                      fontSize: 11, color: 'var(--text-muted)', fontWeight: 800,
+                      letterSpacing: '0.15em', marginBottom: 8,
+                    }}>
+                      おすすめプラン
+                    </div>
+                    <div style={{
+                      fontSize: 17, fontWeight: 800, color: 'var(--accent)', marginBottom: 8,
+                    }}>
+                      {plan.carrier}
+                    </div>
+                    <div style={{
+                      fontSize: 32, fontWeight: 900, color: 'var(--accent)',
+                      lineHeight: 1.1, marginBottom: 24,
+                      letterSpacing: '-0.01em',
+                    }}>
+                      {plan.monthly_cost.toLocaleString()}
+                      <span style={{ fontSize: 14, fontWeight: 700 }}>円/月</span>
+                    </div>
+                    <div style={{
+                      padding: '16px 16px',
+                      background: 'var(--success-light)',
+                      borderRadius: 14,
+                    }}>
+                      <div style={{ fontSize: 12, color: 'var(--text-sub)', marginBottom: 4, fontWeight: 600 }}>
+                        年間節約額
+                      </div>
+                      <div style={{
+                        fontSize: 26, fontWeight: 900, color: 'var(--success)',
+                        lineHeight: 1.1,
+                      }}>
+                        {p.saving}
+                      </div>
+                      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>
+                        ※目安
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div style={{
+              marginTop: 32, fontSize: 12, color: 'var(--text-sub)',
+              lineHeight: 1.9, textAlign: 'center',
+            }}>
+              ※節約額は一般的な利用パターンからの目安です。実際の金額はご利用状況により異なります
+            </div>
+          </div>
+        </section>
+
+        {/* ── FINAL CTA（ダーク） ── */}
+        <section className="sp-block sp-block-dark sp-section-fade">
+          <div className="sp-container" style={{ textAlign: 'center' }}>
+            <div style={{
+              display: 'inline-block',
+              padding: '7px 18px', borderRadius: 999,
+              background: 'rgba(255, 255, 255, 0.08)',
+              color: '#93C5FD',
+              fontSize: 13, fontWeight: 800, marginBottom: 28,
+              letterSpacing: '0.05em',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+            }}>
+              完全無料・個人情報不要
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(36px, 6.5vw, 56px)',
+              fontWeight: 900, lineHeight: 1.2,
+              margin: '0 0 20px', color: '#fff',
+              letterSpacing: '-0.02em',
+            }}>
+              今すぐ<br style={{ display: 'inline' }} />
+              無料診断
+            </h2>
+            <p style={{
+              fontSize: 'clamp(15px, 2vw, 18px)',
+              color: 'rgba(255, 255, 255, 0.8)',
+              margin: '0 0 48px', lineHeight: 1.75,
+            }}>
+              30秒で、あなたにぴったりの<br />
+              スマホプランが見つかる
+            </p>
+            <button onClick={startDiagnose} className="sp-cta-pill sp-cta-pill-light">
+              診断スタート →
+            </button>
+            <div style={{
+              marginTop: 24, fontSize: 13,
+              color: 'rgba(255, 255, 255, 0.55)', fontWeight: 500,
+            }}>
+              ⚡ 30秒で完了 ／ 📱 全20プラン対応
+            </div>
+          </div>
+        </section>
+
+        {/* ── 対応キャリア + FAQ ── */}
+        <section className="sp-block sp-section-fade">
+          <div className="sp-container">
+            <div style={{
+              fontSize: 13, fontWeight: 800, color: 'var(--text-muted)',
+              letterSpacing: '0.2em', textAlign: 'center', marginBottom: 28,
             }}>
               対応キャリア
             </div>
             <div style={{
-              display: 'flex', flexWrap: 'wrap',
-              gap: 8, justifyContent: 'center',
+              display: 'flex', flexWrap: 'wrap', gap: 12,
+              justifyContent: 'center', marginBottom: 96,
             }}>
-              {['ドコモ', 'au', 'ソフトバンク', '楽天モバイル', '格安SIM'].map(c => (
-                <span key={c} style={{
-                  padding: '6px 14px',
-                  background: 'var(--bg)',
-                  border: '1px solid var(--border)',
+              {carrierBadges.map(c => (
+                <span key={c.name} style={{
+                  padding: '10px 22px',
+                  background: c.bg,
+                  color: '#fff',
                   borderRadius: 999,
-                  fontSize: 13, color: 'var(--text-sub)', fontWeight: 500,
+                  fontSize: 14, fontWeight: 700,
+                  boxShadow: `0 4px 12px ${c.bg}33`,
+                  letterSpacing: '0.02em',
                 }}>
-                  {c}
+                  {c.name}
                 </span>
               ))}
             </div>
-          </section>
 
-          <section style={{ marginTop: 40 }}>
-            <h2 style={{
-              fontSize: 22, fontWeight: 800, margin: '0 0 16px',
-              color: 'var(--text-main)', textAlign: 'center',
-            }}>
+            <h2 className="sp-h2">
               よくある質問
             </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 40 }}>
               {FAQ_ITEMS.map((item, i) => (
                 <details key={i} className="sp-faq-item">
                   <summary className="sp-faq-summary">
@@ -1113,39 +1153,47 @@ export default function Home() {
                 </details>
               ))}
             </div>
-          </section>
+          </div>
+        </section>
 
-          <footer style={{
-            marginTop: 40, paddingTop: 24,
-            borderTop: '1px solid var(--border)',
+        {/* ── FOOTER ── */}
+        <footer style={{
+          padding: '56px 0 40px',
+          background: '#0F172A',
+          color: 'rgba(255,255,255,0.7)',
+        }}>
+          <div className="sp-container" style={{
             textAlign: 'center',
-            display: 'flex', flexDirection: 'column', gap: 10, alignItems: 'center',
+            display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center',
           }}>
-            <div style={{ display: 'flex', gap: 18, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{
+              display: 'flex', gap: 28, flexWrap: 'wrap',
+              justifyContent: 'center',
+            }}>
               <Link
                 href="/carriers"
                 style={{
-                  fontSize: 13, color: 'var(--text-sub)',
-                  textDecoration: 'underline',
+                  fontSize: 14, color: 'rgba(255,255,255,0.85)',
+                  textDecoration: 'none', fontWeight: 500,
                 }}
               >
-                プラン一覧を見る
+                プラン一覧
               </Link>
               <Link
                 href="/blog"
                 style={{
-                  fontSize: 13, color: 'var(--text-sub)',
-                  textDecoration: 'underline',
+                  fontSize: 14, color: 'rgba(255,255,255,0.85)',
+                  textDecoration: 'none', fontWeight: 500,
                 }}
               >
                 ブログ
               </Link>
             </div>
-            <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>
+            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>
               © 2026 SmaPlan
             </div>
-          </footer>
-        </main>
+          </div>
+        </footer>
       </div>
     );
   }

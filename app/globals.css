@@ -111,12 +111,127 @@ button {
 /* Feature grid (3-col on desktop) */
 .sp-feature-grid {
   display: grid;
-  gap: 12px;
+  gap: 20px;
   grid-template-columns: 1fr;
 }
 @media (min-width: 720px) {
-  .sp-feature-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .sp-feature-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
 }
+
+/* ── LP v2: spacious design system ── */
+.sp-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+@media (max-width: 600px) {
+  .sp-container { padding: 0 20px; }
+}
+
+.sp-block {
+  padding: 100px 0;
+}
+@media (max-width: 720px) {
+  .sp-block { padding: 64px 0; }
+}
+
+.sp-block-accent { background: var(--accent-light); }
+.sp-block-gray { background: #F1F5F9; }
+.sp-block-dark { background: #0F172A; color: #fff; }
+
+.sp-hero-block {
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding: 56px 0 72px;
+  background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 80%);
+}
+@media (max-width: 720px) {
+  .sp-hero-block { min-height: auto; padding: 48px 0 64px; }
+}
+
+.sp-h2 {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+  text-align: center;
+  margin: 0 0 16px;
+  line-height: 1.3;
+}
+.sp-h2-sub {
+  font-size: 16px;
+  color: var(--text-sub);
+  text-align: center;
+  margin: 0 0 56px;
+  line-height: 1.7;
+}
+.sp-block-dark .sp-h2 { color: #fff; }
+.sp-block-dark .sp-h2-sub { color: rgba(255, 255, 255, 0.8); }
+@media (max-width: 720px) {
+  .sp-h2 { font-size: 30px; }
+  .sp-h2-sub { font-size: 14px; margin-bottom: 40px; }
+}
+
+.sp-cta-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 56px;
+  min-height: 64px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 28px rgba(29, 78, 216, 0.32);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+.sp-cta-pill:hover {
+  transform: scale(1.03);
+  box-shadow: 0 14px 36px rgba(29, 78, 216, 0.42);
+}
+.sp-cta-pill:active { transform: scale(1.01); }
+.sp-cta-pill-light {
+  background: #fff;
+  color: var(--accent);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+.sp-cta-pill-light:hover {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+}
+@media (max-width: 480px) {
+  .sp-cta-pill { padding: 18px 40px; min-height: 58px; font-size: 16px; }
+}
+
+.sp-big-num {
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+@media (max-width: 720px) { .sp-big-num { font-size: 56px; } }
+
+.sp-ba-price {
+  font-size: 56px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 720px) { .sp-ba-price { font-size: 36px; } }
+
+.sp-ba-saving {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+@media (max-width: 720px) { .sp-ba-saving { font-size: 34px; } }
 
 /* Compare section (2-col grid) */
 .sp-compare-grid {
@@ -126,6 +241,14 @@ button {
 }
 @media (min-width: 600px) {
   .sp-compare-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+.sp-compare-grid-v2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 720px) {
+  .sp-compare-grid-v2 { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
 
 /* Before/After cards */
@@ -150,17 +273,18 @@ button {
 .sp-persona-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 16px;
+  gap: 24px;
 }
 @media (min-width: 720px) {
-  .sp-persona-grid { grid-template-columns: repeat(3, 1fr); }
+  .sp-persona-grid { grid-template-columns: repeat(3, 1fr); gap: 28px; }
 }
 .sp-persona-card {
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 .sp-persona-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+  border-color: var(--accent) !important;
 }
 
 /* Section fade-in on scroll */
