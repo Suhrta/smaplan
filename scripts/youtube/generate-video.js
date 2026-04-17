@@ -109,12 +109,14 @@ function detectLogos(text) {
 }
 
 function parsePlanFromDisplay(displayText) {
-  const priceMatch = displayText.match(/([\d,]+)\s*円/);
+  const clean = displayText.replace(/\*\*/g, "");
+  const priceMatch = clean.match(/([\d,]+)\s*円/);
   const price = priceMatch ? priceMatch[1].replace(/,/g, "") : "";
-  const planName = price
-    ? displayText.replace(/([\d,]+)\s*円.*/, "").trim()
-    : displayText;
-  const gbMatch = displayText.match(/(\d+)\s*GB|無制限/);
+  let planName = price
+    ? clean.replace(/([\d,]+)\s*円.*/, "").trim()
+    : clean;
+  planName = planName.replace(/^\d+位\s*/, "").replace(/\\n/g, " ").trim();
+  const gbMatch = clean.match(/(\d+)\s*GB|無制限/);
   const dataGb = gbMatch ? gbMatch[0] : "";
   return { planName: planName || displayText, price, dataGb };
 }
