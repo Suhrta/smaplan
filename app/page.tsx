@@ -884,13 +884,13 @@ export default function Home() {
           .sp-faq-item[open] .sp-faq-summary::after { transform: rotate(180deg); }
           .sp-faq-q { flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
           .sp-faq-answer { padding: 0 28px 24px 70px; font-size: 15px; line-height: 1.9; color: var(--text-sub); margin: 0; }
-          .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
-          .sp-hero-mock { display: none; }
+          .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+          .sp-hero-mock { display: block; transform: scale(0.81); transform-origin: top center; margin-bottom: -108px; }
           @media (min-width: 900px) {
             .sp-hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
             .sp-hero-text { text-align: left; }
             .sp-hero-text .sp-hero-cta-wrap { align-items: flex-start; }
-            .sp-hero-mock { display: block; }
+            .sp-hero-mock { transform: none; margin-bottom: 0; }
           }
         `}</style>
         <script
