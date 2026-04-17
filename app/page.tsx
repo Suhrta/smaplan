@@ -281,15 +281,103 @@ const FAQ_JSON_LD = {
 };
 
 function PhoneMockup() {
-  const plans = [
-    { rank: '🥇 1位', name: 'ahamo 30GB', price: '2,970', accent: true },
-    { rank: '🥈 2位', name: 'LINEMO V', price: '2,970' },
-    { rank: '🥉 3位', name: '日本通信SIM', price: '1,390' },
-  ];
+  const panelBase: React.CSSProperties = {
+    position: 'absolute',
+    inset: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    willChange: 'opacity, transform',
+    opacity: 0,
+  };
+  const progRow: React.CSSProperties = {
+    display: 'flex', gap: 4, marginBottom: 14,
+  };
+  const dot = (active: boolean): React.CSSProperties => ({
+    height: 4, flex: 1, borderRadius: 2,
+    background: active ? '#1D4ED8' : '#E2E8F0',
+  });
+  const qTag: React.CSSProperties = {
+    fontSize: 10, color: '#94A3B8', fontWeight: 800, marginBottom: 4,
+    letterSpacing: '0.06em',
+  };
+  const qLabel: React.CSSProperties = {
+    fontSize: 13, fontWeight: 800, color: '#0F172A',
+    marginBottom: 12, lineHeight: 1.35,
+  };
+  const optWrap: React.CSSProperties = {
+    display: 'flex', flexDirection: 'column', gap: 7,
+  };
+  const optBase: React.CSSProperties = {
+    padding: '10px 12px',
+    background: '#fff',
+    border: '1px solid #E2E8F0',
+    borderRadius: 10,
+    fontSize: 11, fontWeight: 700,
+    color: '#475569',
+    willChange: 'background, border-color, color',
+  };
+
   return (
-    <div
-      aria-hidden="true"
-    >
+    <div aria-hidden="true">
+      <style>{`
+        @keyframes mockStep1 {
+          0%, 18% { opacity: 1; transform: translateY(0); }
+          20%, 100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes mockStep2 {
+          0%, 20% { opacity: 0; transform: translateY(6px); }
+          22%, 38% { opacity: 1; transform: translateY(0); }
+          40%, 100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes mockStep3 {
+          0%, 40% { opacity: 0; transform: translateY(6px); }
+          42%, 58% { opacity: 1; transform: translateY(0); }
+          60%, 100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes mockStep4 {
+          0%, 60% { opacity: 0; }
+          62%, 71% { opacity: 1; }
+          73%, 100% { opacity: 0; }
+        }
+        @keyframes mockStep5 {
+          0%, 73% { opacity: 0; transform: translateY(6px) scale(0.97); }
+          76%, 98% { opacity: 1; transform: translateY(0) scale(1); }
+          100% { opacity: 0; transform: translateY(0) scale(1); }
+        }
+        @keyframes mockHi1 {
+          0%, 4% { background: #fff; border-color: #E2E8F0; color: #475569; }
+          7%, 18% { background: #EFF6FF; border-color: #1D4ED8; color: #1D4ED8; }
+          20%, 100% { background: #fff; border-color: #E2E8F0; color: #475569; }
+        }
+        @keyframes mockHi2 {
+          0%, 24% { background: #fff; border-color: #E2E8F0; color: #475569; }
+          27%, 38% { background: #EFF6FF; border-color: #1D4ED8; color: #1D4ED8; }
+          40%, 100% { background: #fff; border-color: #E2E8F0; color: #475569; }
+        }
+        @keyframes mockHi3 {
+          0%, 44% { background: #fff; border-color: #E2E8F0; color: #475569; }
+          47%, 58% { background: #EFF6FF; border-color: #1D4ED8; color: #1D4ED8; }
+          60%, 100% { background: #fff; border-color: #E2E8F0; color: #475569; }
+        }
+        @keyframes mockSpin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+        @keyframes mockPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .mock-step { animation-duration: 15s; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+        .mock-step-1 { animation-name: mockStep1; }
+        .mock-step-2 { animation-name: mockStep2; }
+        .mock-step-3 { animation-name: mockStep3; }
+        .mock-step-4 { animation-name: mockStep4; }
+        .mock-step-5 { animation-name: mockStep5; }
+        .mock-hi { animation-duration: 15s; animation-timing-function: ease-out; animation-iteration-count: infinite; }
+        .mock-hi-1 { animation-name: mockHi1; }
+        .mock-hi-2 { animation-name: mockHi2; }
+        .mock-hi-3 { animation-name: mockHi3; }
+        .mock-spin { animation: mockSpin 1.2s linear infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .mock-step, .mock-hi, .mock-spin { animation: none !important; }
+          .mock-step-1, .mock-step-2, .mock-step-3, .mock-step-4 { opacity: 0 !important; }
+          .mock-step-5 { opacity: 1 !important; transform: none !important; }
+        }
+      `}</style>
       <div style={{
         position: 'relative',
         width: 240, height: 480,
@@ -302,11 +390,13 @@ function PhoneMockup() {
       }}>
         <div style={{
           width: '100%', height: '100%',
-          background: '#FFFFFF',
+          background: '#F7FAFC',
           borderRadius: 28,
-          padding: '28px 16px 20px',
+          padding: '26px 14px 18px',
           position: 'relative',
           overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
         }}>
           <div style={{
             position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
@@ -314,48 +404,131 @@ function PhoneMockup() {
           }} />
           <div style={{
             fontSize: 10, color: '#94A3B8', textAlign: 'center',
-            letterSpacing: '0.15em', marginBottom: 6,
+            letterSpacing: '0.18em', marginBottom: 14, fontWeight: 800,
           }}>
             SmaPlan
           </div>
-          <div style={{
-            background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%)',
-            borderRadius: 12, padding: '12px 14px', color: '#fff',
-            marginBottom: 14,
-          }}>
-            <div style={{ fontSize: 9, opacity: 0.85 }}>乗り換えたら</div>
-            <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.1 }}>年間 54,000円</div>
-            <div style={{ fontSize: 11, fontWeight: 700 }}>おトクに！</div>
-          </div>
-          <div style={{
-            fontSize: 10, fontWeight: 700, color: '#475569', marginBottom: 8,
-          }}>
-            おすすめプラン TOP 3
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-            {plans.map((p, i) => (
-              <div key={i} style={{
-                padding: '10px 10px',
-                background: '#fff',
-                border: `1px solid ${p.accent ? '#1D4ED8' : '#E2E8F0'}`,
-                borderRadius: 10,
+          <div style={{ position: 'relative', flex: 1 }}>
+            {/* Q1: データ使用量 */}
+            <div className="mock-step mock-step-1" style={panelBase}>
+              <div style={progRow}>
+                <div style={dot(true)} />
+                <div style={dot(false)} />
+                <div style={dot(false)} />
+              </div>
+              <div style={qTag}>Q1</div>
+              <div style={qLabel}>月のデータ使用量は？</div>
+              <div style={optWrap}>
+                <div style={optBase}>3GB以下</div>
+                <div style={optBase}>3〜10GB</div>
+                <div className="mock-hi mock-hi-1" style={optBase}>10〜20GB ✓</div>
+                <div style={optBase}>20GB以上</div>
+              </div>
+            </div>
+
+            {/* Q2: 通話 */}
+            <div className="mock-step mock-step-2" style={panelBase}>
+              <div style={progRow}>
+                <div style={dot(true)} />
+                <div style={dot(true)} />
+                <div style={dot(false)} />
+              </div>
+              <div style={qTag}>Q2</div>
+              <div style={qLabel}>通話の頻度は？</div>
+              <div style={optWrap}>
+                <div style={optBase}>ほぼ使わない</div>
+                <div className="mock-hi mock-hi-2" style={optBase}>たまにする ✓</div>
+                <div style={optBase}>毎日使う</div>
+              </div>
+            </div>
+
+            {/* Q3: こだわり */}
+            <div className="mock-step mock-step-3" style={panelBase}>
+              <div style={progRow}>
+                <div style={dot(true)} />
+                <div style={dot(true)} />
+                <div style={dot(true)} />
+              </div>
+              <div style={qTag}>Q3</div>
+              <div style={qLabel}>こだわりポイントは？</div>
+              <div style={optWrap}>
+                <div className="mock-hi mock-hi-3" style={optBase}>安さ重視 ✓</div>
+                <div style={optBase}>通信速度重視</div>
+                <div style={optBase}>データ量重視</div>
+              </div>
+            </div>
+
+            {/* Loading */}
+            <div className="mock-step mock-step-4" style={{
+              ...panelBase,
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 16,
+            }}>
+              <div className="mock-spin" style={{
+                width: 42, height: 42,
+                borderRadius: '50%',
+                border: '3px solid #E2E8F0',
+                borderTopColor: '#1D4ED8',
+              }} />
+              <div style={{
+                fontSize: 12, fontWeight: 800, color: '#475569',
+                textAlign: 'center', lineHeight: 1.5,
               }}>
-                <div style={{ fontSize: 9, color: '#64748B', marginBottom: 2 }}>
-                  {p.rank}
+                あなたに最適な<br />プランを分析中...
+              </div>
+            </div>
+
+            {/* Result */}
+            <div className="mock-step mock-step-5" style={panelBase}>
+              <div style={{
+                background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%)',
+                borderRadius: 14, padding: '14px 16px', color: '#fff',
+                marginBottom: 14,
+              }}>
+                <div style={{ fontSize: 10, opacity: 0.85, fontWeight: 700 }}>乗り換えで</div>
+                <div style={{ fontSize: 22, fontWeight: 900, lineHeight: 1.1, marginTop: 2 }}>
+                  年間 54,000円
+                </div>
+                <div style={{ fontSize: 12, fontWeight: 800 }}>おトク！</div>
+              </div>
+              <div style={{
+                fontSize: 10, fontWeight: 700, color: '#475569', marginBottom: 8,
+              }}>
+                あなたに最適なプラン
+              </div>
+              <div style={{
+                padding: 12,
+                background: '#fff',
+                border: '2px solid #1D4ED8',
+                borderRadius: 12,
+                boxShadow: '0 6px 16px rgba(29, 78, 216, 0.15)',
+              }}>
+                <div style={{
+                  fontSize: 10, color: '#64748B', marginBottom: 4, fontWeight: 700,
+                }}>
+                  🥇 第1位
                 </div>
                 <div style={{
-                  display: 'flex', justifyContent: 'space-between',
-                  alignItems: 'baseline',
+                  fontSize: 14, fontWeight: 900, color: '#0F172A', marginBottom: 4,
                 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>
-                    {p.name}
+                  ahamo 30GB
+                </div>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
+                  <span style={{ fontSize: 22, fontWeight: 900, color: '#1D4ED8', lineHeight: 1 }}>
+                    2,970
                   </span>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#1D4ED8' }}>
-                    {p.price}<span style={{ fontSize: 8, fontWeight: 600 }}>円</span>
+                  <span style={{ fontSize: 10, fontWeight: 800, color: '#1D4ED8' }}>
+                    円/月
                   </span>
                 </div>
               </div>
-            ))}
+              <div style={{
+                marginTop: 8, fontSize: 9, color: '#94A3B8', textAlign: 'center',
+              }}>
+                ※目安
+              </div>
+            </div>
           </div>
         </div>
       </div>
