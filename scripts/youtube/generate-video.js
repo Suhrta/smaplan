@@ -61,22 +61,43 @@ function generateSilence(durationSec, outputPath) {
   );
 }
 
+function parsePlanFromDisplay(displayText) {
+  const priceMatch = displayText.match(/([\d,]+)\s*円/);
+  const price = priceMatch ? priceMatch[1].replace(/,/g, "") : "";
+  const planName = price
+    ? displayText.replace(/([\d,]+)\s*円.*/, "").trim()
+    : displayText;
+  return { planName: planName || displayText, price };
+}
+
 function buildSceneData(section) {
-  const base = {
-    displayText: section.displayText || section.text || "",
-    text: section.text || "",
-  };
+  const dt = section.displayText || section.text || "";
+  const base = { displayText: dt, text: section.text || "" };
 
   switch (section.type) {
     case "plan_a":
-    case "plan_b":
-      return { ...base, planName: section.planName || "", price: section.price || "", features: section.features || "" };
+    case "plan_b": {
+      const parsed = parsePlanFromDisplay(dt);
+      return {
+        ...base,
+        planName: section.planName || parsed.planName || dt,
+        price: section.price || parsed.price,
+        features: section.features || "",
+      };
+    }
     case "rank1":
-      return { ...base, rank: 1, planName: section.planName || "", price: section.price || "", features: section.features || "" };
     case "rank2":
-      return { ...base, rank: 2, planName: section.planName || "", price: section.price || "", features: section.features || "" };
-    case "rank3":
-      return { ...base, rank: 3, planName: section.planName || "", price: section.price || "", features: section.features || "" };
+    case "rank3": {
+      const rankNum = parseInt(section.type.slice(-1));
+      const parsed = parsePlanFromDisplay(dt);
+      return {
+        ...base,
+        rank: rankNum,
+        planName: section.planName || parsed.planName || dt,
+        price: section.price || parsed.price,
+        features: section.features || "",
+      };
+    }
     case "verdict":
       return { ...base, label: "結論", subText: section.subText || "" };
     case "opening":

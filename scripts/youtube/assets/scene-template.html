@@ -375,9 +375,17 @@
         }
         const card = document.getElementById('plan-card');
         if (data.rank === 1) card.classList.add('winner');
-        document.getElementById('plan-name').textContent = data.planName || '';
-        document.getElementById('plan-price').innerHTML = data.price ? `${data.price}<small>円/月</small>` : '';
-        document.getElementById('plan-features').textContent = data.features || '';
+        const nameEl = document.getElementById('plan-name');
+        const priceEl = document.getElementById('plan-price');
+        const featEl = document.getElementById('plan-features');
+        nameEl.textContent = data.planName || data.displayText || '';
+        priceEl.innerHTML = data.price ? `${Number(data.price).toLocaleString()}<small>円/月</small>` : '';
+        featEl.textContent = data.features || '';
+        if (!data.planName && !data.price && data.displayText) {
+          nameEl.textContent = data.displayText;
+          nameEl.style.fontSize = '56px';
+          nameEl.style.lineHeight = '1.4';
+        }
         break;
       }
       case 'verdict': {
