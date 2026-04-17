@@ -290,7 +290,8 @@ function fmt(text, hlClass) {
   const cls = hlClass || 'hl';
   return (text || '')
     .replace(/\n/g, '<br>')
-    .replace(/\*\*([^*]+)\*\*/g, `<span class="${cls}">$1</span>`);
+    .replace(/\*\*([^*]+)\*\*/g, `<span class="${cls}">$1</span>`)
+    .replace(/\*\*/g, '');
 }
 
 function extractPrice(text) {
@@ -358,7 +359,7 @@ const SCENE_STYLES = {
   solution:     { bodyBg: 'linear-gradient(160deg, #059669 0%, #10B981 100%)', screenBg: '#FFFFFF', dark: false },
   solution_benefit: { bodyBg: 'linear-gradient(160deg, #059669 0%, #10B981 100%)', screenBg: '#FFFFFF', dark: false },
   rank1:        { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 50%, #F59E0B 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
-  rank2:        { bodyBg: 'linear-gradient(160deg, #374151 0%, #6B7280 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  rank2:        { bodyBg: 'linear-gradient(160deg, #78350F 0%, #B45309 50%, #D97706 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
   rank3:        { bodyBg: 'linear-gradient(160deg, #78350F 0%, #92400E 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
   rank1_name:   { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 50%, #F59E0B 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
   rank1_point:  { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
@@ -510,7 +511,7 @@ function renderRank() {
         <span style="font-size:44px;font-weight:900;color:rgba(255,255,255,0.5);">位</span>
       </div>
       ${DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 240, 72) : ''}
-      <div class="dark-title" style="font-size:44px;">${fmt(planName)}</div>
+      <div class="dark-title" style="font-size:44px;">${fmt(planName.replace(/\*\*/g, ''))}</div>
       ${priceFormatted ? `<div class="price-text price-dark" style="font-size:88px;">${priceFormatted}<span style="font-size:36px;">円</span></div>` : ''}
       ${DATA.dataGb ? `<div class="accent-text" style="font-size:36px;">📱 ${DATA.dataGb}</div>` : ''}
     </div>
