@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    font-family: 'Noto Sans JP', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scene { width: 100%; height: 100%; position: relative; display: none; }
+  .scene.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+  /* ── Opening ── */
+  .scene-opening {
+    background: linear-gradient(160deg, #1D4ED8 0%, #1E40AF 60%, #0F172A 100%);
+    padding: 80px 64px;
+    gap: 48px;
+  }
+  .scene-opening .hook-text {
+    color: #fff;
+    font-size: 72px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.4;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .scene-opening .sub-text {
+    color: rgba(255,255,255,0.8);
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .scene-opening .logo-badge {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 60px;
+    padding: 16px 48px;
+  }
+  .scene-opening .logo-badge span {
+    color: #fff;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 4px;
+  }
+
+  /* ── Main (generic content sections) ── */
+  .scene-main {
+    background: #F7FAFC;
+    padding: 80px 64px;
+    gap: 40px;
+  }
+  .scene-main .section-label {
+    background: #1D4ED8;
+    color: #fff;
+    font-size: 32px;
+    font-weight: 900;
+    padding: 12px 40px;
+    border-radius: 40px;
+    letter-spacing: 2px;
+  }
+  .scene-main .main-text {
+    color: #0F172A;
+    font-size: 64px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.4;
+    padding: 0 20px;
+  }
+  .scene-main .detail-text {
+    color: #475569;
+    font-size: 38px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+    padding: 0 20px;
+  }
+  .scene-main .highlight-box {
+    background: #EFF6FF;
+    border: 3px solid #BFDBFE;
+    border-radius: 24px;
+    padding: 32px 48px;
+    width: 90%;
+  }
+  .scene-main .highlight-box .price {
+    color: #1D4ED8;
+    font-size: 80px;
+    font-weight: 900;
+    text-align: center;
+  }
+  .scene-main .highlight-box .price-note {
+    color: #475569;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  /* ── Plan card (for comparison/ranking) ── */
+  .scene-plan {
+    background: #F7FAFC;
+    padding: 60px 48px;
+    gap: 32px;
+  }
+  .scene-plan .plan-card {
+    background: #fff;
+    border-radius: 32px;
+    padding: 48px;
+    width: 90%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: 2px solid #E2E8F0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .scene-plan .plan-card.winner {
+    border: 4px solid #1D4ED8;
+    box-shadow: 0 0 40px rgba(29,78,216,0.2);
+  }
+  .scene-plan .plan-name {
+    color: #0F172A;
+    font-size: 52px;
+    font-weight: 900;
+    text-align: center;
+  }
+  .scene-plan .plan-price {
+    color: #1D4ED8;
+    font-size: 72px;
+    font-weight: 900;
+  }
+  .scene-plan .plan-price small {
+    font-size: 36px;
+    color: #475569;
+  }
+  .scene-plan .plan-features {
+    color: #475569;
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .scene-plan .rank-badge {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #fff;
+    font-size: 48px;
+    font-weight: 900;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .scene-plan .rank-badge.rank-1 {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    width: 120px;
+    height: 120px;
+    font-size: 56px;
+  }
+
+  /* ── Verdict ── */
+  .scene-verdict {
+    background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
+    padding: 80px 64px;
+    gap: 48px;
+  }
+  .scene-verdict .verdict-label {
+    color: #F59E0B;
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: 4px;
+  }
+  .scene-verdict .verdict-text {
+    color: #fff;
+    font-size: 56px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .scene-verdict .verdict-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── CTA ── */
+  .scene-cta {
+    background: linear-gradient(160deg, #1D4ED8 0%, #1E40AF 50%, #0F172A 100%);
+    padding: 80px 64px;
+    gap: 48px;
+  }
+  .scene-cta .cta-main {
+    color: #fff;
+    font-size: 64px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.4;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .scene-cta .cta-button {
+    background: #F59E0B;
+    color: #0F172A;
+    font-size: 44px;
+    font-weight: 900;
+    padding: 28px 64px;
+    border-radius: 60px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(245,158,11,0.4);
+  }
+  .scene-cta .cta-url {
+    color: rgba(255,255,255,0.9);
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 4px;
+  }
+  .scene-cta .cta-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  /* ── Decorations ── */
+  .bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+  }
+  .content-wrap { z-index: 1; display: flex; flex-direction: column; align-items: center; gap: inherit; width: 100%; }
+  .watermark {
+    position: absolute;
+    bottom: 32px;
+    right: 40px;
+    color: rgba(255,255,255,0.3);
+    font-size: 28px;
+    font-weight: 700;
+    z-index: 1;
+  }
+  .watermark-dark {
+    color: rgba(0,0,0,0.15);
+  }
+</style>
+</head>
+<body>
+
+  <!-- Opening -->
+  <div id="scene-opening" class="scene scene-opening">
+    <div class="bg-circle" style="top:-200px;right:-200px;width:600px;height:600px;background:rgba(255,255,255,0.05);"></div>
+    <div class="bg-circle" style="bottom:-150px;left:-150px;width:500px;height:500px;background:rgba(255,255,255,0.03);"></div>
+    <div class="content-wrap">
+      <div class="logo-badge"><span>スマプラン</span></div>
+      <div class="hook-text" id="opening-hook"></div>
+    </div>
+    <span class="watermark">smaplan.com</span>
+  </div>
+
+  <!-- Main -->
+  <div id="scene-main" class="scene scene-main">
+    <div class="content-wrap">
+      <span class="section-label" id="main-label"></span>
+      <div class="main-text" id="main-text"></div>
+      <div class="detail-text" id="main-detail"></div>
+    </div>
+    <span class="watermark watermark-dark">smaplan.com</span>
+  </div>
+
+  <!-- Main with highlight (price box) -->
+  <div id="scene-main-highlight" class="scene scene-main">
+    <div class="content-wrap">
+      <span class="section-label" id="highlight-label"></span>
+      <div class="main-text" id="highlight-title"></div>
+      <div class="highlight-box">
+        <div class="price" id="highlight-price"></div>
+        <div class="price-note" id="highlight-note"></div>
+      </div>
+      <div class="detail-text" id="highlight-detail"></div>
+    </div>
+    <span class="watermark watermark-dark">smaplan.com</span>
+  </div>
+
+  <!-- Plan card -->
+  <div id="scene-plan" class="scene scene-plan">
+    <div class="content-wrap">
+      <div class="rank-badge" id="plan-rank"></div>
+      <div class="plan-card" id="plan-card">
+        <div class="plan-name" id="plan-name"></div>
+        <div class="plan-price" id="plan-price"></div>
+        <div class="plan-features" id="plan-features"></div>
+      </div>
+    </div>
+    <span class="watermark watermark-dark">smaplan.com</span>
+  </div>
+
+  <!-- Verdict -->
+  <div id="scene-verdict" class="scene scene-verdict">
+    <div class="bg-circle" style="top:-100px;left:-100px;width:400px;height:400px;background:rgba(29,78,216,0.15);"></div>
+    <div class="content-wrap">
+      <div class="verdict-label" id="verdict-label">結論</div>
+      <div class="verdict-text" id="verdict-text"></div>
+      <div class="verdict-sub" id="verdict-sub"></div>
+    </div>
+    <span class="watermark">smaplan.com</span>
+  </div>
+
+  <!-- CTA -->
+  <div id="scene-cta" class="scene scene-cta">
+    <div class="bg-circle" style="top:-200px;right:-200px;width:600px;height:600px;background:rgba(255,255,255,0.05);"></div>
+    <div class="bg-circle" style="bottom:-150px;left:-150px;width:500px;height:500px;background:rgba(255,255,255,0.03);"></div>
+    <div class="content-wrap">
+      <div class="cta-main" id="cta-text"></div>
+      <div class="cta-button">無料診断してみる →</div>
+      <div class="cta-url">smaplan.com</div>
+      <div class="cta-sub">プロフィールのリンクから！</div>
+    </div>
+    <span class="watermark">smaplan.com</span>
+  </div>
+
+  <script>
+    const sceneType = '{{SCENE_TYPE}}';
+    const data = JSON.parse('{{DATA}}');
+
+    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+
+    switch (sceneType) {
+      case 'opening': {
+        const el = document.getElementById('scene-opening');
+        el.classList.add('active');
+        document.getElementById('opening-hook').textContent = data.displayText || data.text || '';
+        break;
+      }
+      case 'main':
+      case 'problem':
+      case 'question':
+      case 'reveal':
+      case 'benefit':
+      case 'tip1':
+      case 'tip2':
+      case 'tip3':
+      case 'fact':
+      case 'detail':
+      case 'solution': {
+        const el = document.getElementById('scene-main');
+        el.classList.add('active');
+        document.getElementById('main-label').textContent = data.label || sceneType.toUpperCase();
+        document.getElementById('main-text').textContent = data.displayText || '';
+        document.getElementById('main-detail').textContent = data.detailText || '';
+        break;
+      }
+      case 'plan_a':
+      case 'plan_b':
+      case 'rank1':
+      case 'rank2':
+      case 'rank3': {
+        const el = document.getElementById('scene-plan');
+        el.classList.add('active');
+        const rankEl = document.getElementById('plan-rank');
+        if (data.rank) {
+          rankEl.textContent = data.rank;
+          if (data.rank === 1) rankEl.classList.add('rank-1');
+          rankEl.style.display = 'flex';
+        } else {
+          rankEl.style.display = 'none';
+        }
+        const card = document.getElementById('plan-card');
+        if (data.rank === 1) card.classList.add('winner');
+        document.getElementById('plan-name').textContent = data.planName || '';
+        document.getElementById('plan-price').innerHTML = data.price ? `${data.price}<small>円/月</small>` : '';
+        document.getElementById('plan-features').textContent = data.features || '';
+        break;
+      }
+      case 'verdict': {
+        const el = document.getElementById('scene-verdict');
+        el.classList.add('active');
+        document.getElementById('verdict-label').textContent = data.label || '結論';
+        document.getElementById('verdict-text').textContent = data.displayText || '';
+        document.getElementById('verdict-sub').textContent = data.subText || '';
+        break;
+      }
+      case 'cta': {
+        const el = document.getElementById('scene-cta');
+        el.classList.add('active');
+        document.getElementById('cta-text').textContent = data.displayText || 'あなたに最適なプランを\n30秒で無料診断！';
+        break;
+      }
+      default: {
+        const el = document.getElementById('scene-main');
+        el.classList.add('active');
+        document.getElementById('main-label').textContent = sceneType;
+        document.getElementById('main-text').textContent = data.displayText || data.text || '';
+        document.getElementById('main-detail').textContent = '';
+        break;
+      }
+    }
+  </script>
+</body>
+</html>
