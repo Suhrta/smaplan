@@ -87,7 +87,7 @@
   /* ── Phone mockup ── */
   .phone {
     z-index: 2;
-    width: 500px;
+    width: 560px;
     height: 880px;
     border-radius: 56px;
     border: 8px solid #1F2937;
@@ -159,7 +159,7 @@
   .screen-opening .phone-statusbar { color: rgba(255,255,255,0.5); }
   .screen-opening .title {
     color: #fff;
-    font-size: 52px;
+    font-size: 38px;
     font-weight: 900;
     text-align: center;
     line-height: 1.35;
@@ -180,22 +180,22 @@
 
   /* ── Screen: plan ── */
   .screen-plan {
-    background: #FFFFFF;
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
     display: flex;
     flex-direction: column;
     padding: 56px 28px 28px;
     gap: 0;
   }
-  .screen-plan .phone-statusbar { color: #475569; }
+  .screen-plan .phone-statusbar { color: rgba(255,255,255,0.5); }
   .screen-plan .plan-header {
     text-align: center;
     padding-bottom: 16px;
-    border-bottom: 2px solid #E2E8F0;
+    border-bottom: 2px solid rgba(255,255,255,0.12);
     margin-bottom: 16px;
   }
   .screen-plan .plan-name {
-    color: #0F172A;
-    font-size: 40px;
+    color: #fff;
+    font-size: 34px;
     font-weight: 900;
     line-height: 1.2;
   }
@@ -207,33 +207,33 @@
     margin-top: 8px;
   }
   .screen-plan .plan-pricing .amount {
-    color: #1D4ED8;
+    color: #60A5FA;
     font-size: 64px;
     font-weight: 900;
     line-height: 1;
   }
   .screen-plan .plan-pricing .unit {
-    color: #475569;
+    color: rgba(255,255,255,0.6);
     font-size: 24px;
     font-weight: 700;
   }
   .screen-plan .plan-data-badge {
     display: inline-block;
-    background: #EFF6FF;
-    border: 2px solid #BFDBFE;
+    background: rgba(96,165,250,0.15);
+    border: 2px solid rgba(96,165,250,0.3);
     border-radius: 20px;
     padding: 6px 20px;
     margin-top: 10px;
   }
   .screen-plan .plan-data-badge span {
-    color: #1D4ED8;
+    color: #60A5FA;
     font-size: 24px;
     font-weight: 900;
   }
   .screen-plan .features-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     margin-top: 8px;
     flex: 1;
   }
@@ -241,9 +241,9 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: #F8FAFC;
+    background: rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 14px 16px;
+    padding: 12px 14px;
   }
   .screen-plan .feature-icon {
     font-size: 26px;
@@ -252,8 +252,8 @@
     text-align: center;
   }
   .screen-plan .feature-text {
-    color: #334155;
-    font-size: 22px;
+    color: rgba(255,255,255,0.85);
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.4;
     flex: 1;
@@ -261,16 +261,16 @@
 
   /* ── Screen: main (generic) ── */
   .screen-main {
-    background: #FFFFFF;
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
     display: flex;
     flex-direction: column;
     padding: 56px 28px 28px;
     gap: 16px;
   }
-  .screen-main .phone-statusbar { color: #475569; }
+  .screen-main .phone-statusbar { color: rgba(255,255,255,0.5); }
   .screen-main .main-title {
-    color: #0F172A;
-    font-size: 38px;
+    color: #fff;
+    font-size: 32px;
     font-weight: 900;
     text-align: center;
     line-height: 1.35;
@@ -279,23 +279,23 @@
   .screen-main .main-divider {
     width: 60px;
     height: 3px;
-    background: #1D4ED8;
+    background: #60A5FA;
     border-radius: 2px;
     align-self: center;
   }
   .screen-main .features-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     flex: 1;
   }
   .screen-main .feature-item {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    background: #F8FAFC;
+    background: rgba(255,255,255,0.08);
     border-radius: 14px;
-    padding: 14px 16px;
+    padding: 12px 14px;
   }
   .screen-main .feature-icon {
     font-size: 26px;
@@ -304,8 +304,8 @@
     text-align: center;
   }
   .screen-main .feature-text {
-    color: #334155;
-    font-size: 22px;
+    color: rgba(255,255,255,0.85);
+    font-size: 20px;
     font-weight: 700;
     line-height: 1.4;
     flex: 1;
@@ -313,14 +313,14 @@
 
   /* ── Screen: rank ── */
   .screen-rank {
-    background: #FFFFFF;
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 56px 28px 28px;
     gap: 12px;
   }
-  .screen-rank .phone-statusbar { color: #475569; }
+  .screen-rank .phone-statusbar { color: rgba(255,255,255,0.5); }
   .screen-rank .rank-number {
     font-size: 100px;
     font-weight: 900;
@@ -594,7 +594,7 @@ function renderPlan() {
     </div>
     ${DATA.features && DATA.features.length > 0 ? featuresHTML(DATA.features) :
       `<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div class="plan-name" style="font-size:36px;color:#334155;text-align:center;line-height:1.5;">${DATA.displayText}</div>
+        <div class="plan-name" style="font-size:30px;color:rgba(255,255,255,0.85);text-align:center;line-height:1.5;">${DATA.displayText}</div>
       </div>`
     }
   `;
@@ -619,7 +619,7 @@ function renderMain() {
     <div class="main-divider"></div>
     ${DATA.features && DATA.features.length > 0 ? featuresHTML(DATA.features) :
       `<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px;">
-        <div style="color:#334155;font-size:32px;font-weight:700;text-align:center;line-height:1.5;">${DATA.text ? DATA.text.slice(0, 80) : ''}</div>
+        <div style="color:rgba(255,255,255,0.85);font-size:28px;font-weight:700;text-align:center;line-height:1.5;">${DATA.text ? DATA.text.slice(0, 80) : ''}</div>
       </div>`
     }
   `;
@@ -640,11 +640,11 @@ function renderRank() {
       <span class="rank-number ${rankClass}">${DATA.rank}</span>
       <span class="rank-suffix">位</span>
     </div>
-    <div class="plan-name" style="color:#0F172A;font-size:40px;font-weight:900;text-align:center;">${DATA.planName || DATA.displayText}</div>
+    <div class="plan-name" style="color:#fff;font-size:34px;font-weight:900;text-align:center;">${DATA.planName || DATA.displayText}</div>
     ${priceFormatted ? `
       <div style="display:flex;align-items:baseline;justify-content:center;gap:4px;">
-        <span style="color:#1D4ED8;font-size:56px;font-weight:900;">${priceFormatted}</span>
-        <span style="color:#475569;font-size:22px;font-weight:700;">円/月</span>
+        <span style="color:#60A5FA;font-size:56px;font-weight:900;">${priceFormatted}</span>
+        <span style="color:rgba(255,255,255,0.6);font-size:22px;font-weight:700;">円/月</span>
       </div>
     ` : ''}
     ${DATA.dataGb ? `<div class="plan-data-badge" style="align-self:center;"><span>📱 ${DATA.dataGb}</span></div>` : ''}
@@ -653,7 +653,7 @@ function renderRank() {
         `<div class="feature-item"><span class="feature-icon">${f.icon}</span><span class="feature-text">${f.text}</span></div>`
       ).join('')}</div>` :
       `<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;">
-        <div style="color:#334155;font-size:28px;font-weight:700;text-align:center;line-height:1.5;">${DATA.displayText}</div>
+        <div style="color:rgba(255,255,255,0.7);font-size:28px;font-weight:700;text-align:center;line-height:1.5;">${DATA.displayText}</div>
       </div>`
     }
   `;

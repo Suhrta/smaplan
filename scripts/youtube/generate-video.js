@@ -84,7 +84,8 @@ function extractFeatures(text) {
   ];
 
   const sentences = text
-    .replace(/！/g, "。").replace(/!/, "。")
+    .replace(/(?<![A-Za-z])！(?![A-Za-z])/g, "。")
+    .replace(/(?<![A-Za-z])!(?![A-Za-z])/g, "。")
     .split(/[。、]/)
     .map(s => s.trim())
     .filter(s => s.length > 5 && s.length < 60);
