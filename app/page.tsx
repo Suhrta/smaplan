@@ -285,13 +285,11 @@ function PhoneMockup() {
   return (
     <div
       aria-hidden="true"
-      style={{
-        display: 'flex', justifyContent: 'center',
-      }}
     >
       <div style={{
         position: 'relative',
         width: 240, height: 480,
+        margin: '0 auto',
         background: '#0F172A',
         borderRadius: 36,
         padding: 10,
@@ -358,11 +356,10 @@ function PhoneMockup() {
         </div>
       </div>
       <div style={{
-        marginTop: 6,
-        textAlign: 'right',
+        marginTop: 8,
+        textAlign: 'center',
         fontSize: 9,
-        color: 'rgba(255, 255, 255, 0.55)',
-        letterSpacing: '0.02em',
+        color: '#9CA3AF',
       }}>
         ※表示はイメージです
       </div>
