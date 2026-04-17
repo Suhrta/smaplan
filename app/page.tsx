@@ -380,27 +380,68 @@ function PhoneMockup() {
       `}</style>
       <div style={{
         position: 'relative',
-        width: 240, height: 480,
+        width: 272, height: 560,
         margin: '0 auto',
-        background: '#0F172A',
-        borderRadius: 36,
-        padding: 10,
-        boxShadow: '0 20px 50px rgba(15, 23, 42, 0.18)',
+        background: 'linear-gradient(135deg, #4A5568 0%, #1A202C 45%, #2D3748 100%)',
+        borderRadius: 48,
+        padding: 5,
+        boxShadow: [
+          '0 30px 80px rgba(15, 23, 42, 0.35)',
+          '0 12px 28px rgba(15, 23, 42, 0.22)',
+          '0 4px 10px rgba(15, 23, 42, 0.12)',
+          'inset 0 0 0 1px rgba(255, 255, 255, 0.06)',
+          'inset 0 2px 3px rgba(255, 255, 255, 0.14)',
+          'inset 0 -2px 3px rgba(0, 0, 0, 0.3)',
+        ].join(', '),
         animation: 'mockPop 0.6s ease both',
       }}>
+        {/* side buttons */}
+        <div aria-hidden="true" style={{
+          position: 'absolute', left: -2, top: 108, width: 3, height: 32,
+          background: 'linear-gradient(90deg, #2D3748, #4A5568)',
+          borderRadius: '2px 0 0 2px',
+        }} />
+        <div aria-hidden="true" style={{
+          position: 'absolute', left: -2, top: 152, width: 3, height: 54,
+          background: 'linear-gradient(90deg, #2D3748, #4A5568)',
+          borderRadius: '2px 0 0 2px',
+        }} />
+        <div aria-hidden="true" style={{
+          position: 'absolute', left: -2, top: 216, width: 3, height: 54,
+          background: 'linear-gradient(90deg, #2D3748, #4A5568)',
+          borderRadius: '2px 0 0 2px',
+        }} />
+        <div aria-hidden="true" style={{
+          position: 'absolute', right: -2, top: 172, width: 3, height: 80,
+          background: 'linear-gradient(90deg, #4A5568, #2D3748)',
+          borderRadius: '0 2px 2px 0',
+        }} />
         <div style={{
           width: '100%', height: '100%',
           background: '#F7FAFC',
-          borderRadius: 28,
-          padding: '26px 14px 18px',
+          borderRadius: 44,
+          padding: '38px 16px 20px',
           position: 'relative',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
         }}>
-          <div style={{
+          {/* Dynamic Island */}
+          <div aria-hidden="true" style={{
             position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
-            width: 70, height: 5, borderRadius: 3, background: '#CBD5E1',
+            width: 92, height: 26, borderRadius: 14,
+            background: '#0B0F19',
+            boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
+            zIndex: 3,
+          }} />
+          {/* Screen light reflection overlay */}
+          <div aria-hidden="true" style={{
+            position: 'absolute', inset: 0,
+            borderRadius: 44,
+            background: 'linear-gradient(125deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 28%, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0.08) 88%, rgba(255, 255, 255, 0.16) 100%)',
+            pointerEvents: 'none',
+            zIndex: 2,
+            mixBlendMode: 'overlay',
           }} />
           <div style={{
             fontSize: 10, color: '#94A3B8', textAlign: 'center',
