@@ -11,6 +11,12 @@ import { generateVoice } from "./generate-voice.js";
 import { generateVideo } from "./generate-video.js";
 import { generateThumbnail } from "./generate-thumbnail.js";
 
+function makeTimestamp() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}_${pad(d.getHours())}${pad(d.getMinutes())}`;
+}
+
 function logError(message) {
   const outputDir = path.join(__dirname, "output");
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
@@ -57,7 +63,7 @@ async function main() {
       const p = path.join(outputDir, file);
       if (fs.statSync(p).isDirectory()) {
         fs.rmSync(p, { recursive: true });
-      } else if (file !== "error.log") {
+      } else if (["script.json", "video.mp4", "thumbnail.png"].includes(file)) {
         fs.unlinkSync(p);
       }
     }
@@ -132,18 +138,30 @@ async function main() {
     process.exit(1);
   }
 
-  // Step 5
-  markTopicUsed(topic.id);
-  console.log("\n[STEP 5] Topic #" + topic.id + " marked as used");
+  // Step 5: Rename output files
+  const suffix = `_${topic.id}_${makeTimestamp()}`;
+  const renames = [
+    ["script.json", `script${suffix}.json`],
+    ["video.mp4", `video${suffix}.mp4`],
+    ["thumbnail.png", `thumbnail${suffix}.png`],
+  ];
+  for (const [from, to] of renames) {
+    const src = path.join(outputDir, from);
+    const dst = path.join(outputDir, to);
+    if (fs.existsSync(src)) fs.renameSync(src, dst);
+  }
 
-  const videoPath = path.join(outputDir, "video.mp4");
-  const thumbnailPath = path.join(outputDir, "thumbnail.png");
+  // Step 6
+  markTopicUsed(topic.id);
+  console.log("\n[STEP 6] Topic #" + topic.id + " marked as used");
+
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(0);
   console.log("\n" + separator);
   console.log("  Done! (" + elapsed + "s)");
   console.log("  Topic: " + topic.title);
-  console.log("  Video: " + videoPath);
-  console.log("  Thumbnail: " + thumbnailPath);
+  console.log("  Script: " + path.join(outputDir, `script${suffix}.json`));
+  console.log("  Video: " + path.join(outputDir, `video${suffix}.mp4`));
+  console.log("  Thumbnail: " + path.join(outputDir, `thumbnail${suffix}.png`));
   console.log(separator);
 }
 

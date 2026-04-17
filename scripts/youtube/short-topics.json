@@ -6,24 +6,24 @@
       "title": "ahamo vs LINEMO 徹底比較",
       "description": "30GBプラン同士の比較。ahamo 30GB(2,970円) vs LINEMOベストプランV(2,970円)。同価格帯で通話・データ・海外利用の違いを解説",
       "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T04:05:13.135Z"
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 2,
       "type": "comparison",
       "title": "楽天モバイル vs ahamo大盛り",
       "description": "大容量プラン比較。楽天最強プラン無制限(3,278円) vs ahamo大盛り110GB(4,950円)。料金差1,672円の価値はあるか",
-      "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T04:18:14.932Z"
+      "priority": 2,
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 3,
       "type": "comparison",
       "title": "IIJmio vs 日本通信SIM 20GB対決",
       "description": "格安SIM20GB比較。IIJmio 20GB(2,000円) vs 日本通信みんなのプラン20GB(1,390円)。通話込みのコスパ対決",
-      "priority": 2,
+      "priority": 3,
       "used": false,
       "usedAt": null
     },
@@ -32,7 +32,7 @@
       "type": "comparison",
       "title": "UQモバイル vs Y!mobile",
       "description": "サブブランド対決。UQコミコミプランバリュー(3,828円) vs Y!mobileシンプル3 M(4,158円)。通話込み・割引後の実質料金を比較",
-      "priority": 2,
+      "priority": 4,
       "used": false,
       "usedAt": null
     },
@@ -41,7 +41,7 @@
       "type": "comparison",
       "title": "povo2.0 vs LINEMO 小容量対決",
       "description": "3GBプラン比較。povo2.0 3GB(990円) vs LINEMOベストプラン3GB(990円)。同額でもLINEギガフリーの差がある",
-      "priority": 3,
+      "priority": 5,
       "used": false,
       "usedAt": null
     },
@@ -50,7 +50,7 @@
       "type": "comparison",
       "title": "ドコモmini vs IIJmio 小容量対決",
       "description": "小容量プラン比較。ドコモmini 4GB(2,750円) vs IIJmio 5GB(950円)。品質と価格のトレードオフ",
-      "priority": 3,
+      "priority": 6,
       "used": false,
       "usedAt": null
     },
@@ -59,25 +59,25 @@
       "type": "tips",
       "title": "月5,000円以上払ってたら見て",
       "description": "大手キャリアの標準プランからサブブランドや格安SIMへの乗り換えで月3,000〜5,000円節約できる具体例を紹介",
-      "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T04:35:09.678Z"
+      "priority": 7,
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 8,
       "type": "tips",
       "title": "スマホ代を半額にする3つの方法",
       "description": "①プラン見直し ②不要オプション解約 ③家族割/セット割活用 の3ステップ",
-      "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T05:03:50.879Z"
+      "priority": 8,
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 9,
       "type": "tips",
       "title": "格安SIMに乗り換える前に確認すべき3つのこと",
       "description": "①通信速度の違い ②キャリアメール ③家族割の影響。失敗しない乗り換えのポイント",
-      "priority": 2,
+      "priority": 9,
       "used": false,
       "usedAt": null
     },
@@ -86,7 +86,7 @@
       "type": "tips",
       "title": "通話料金を0円にする裏ワザ",
       "description": "楽天モバイルのRakuten Link、ahamoの5分無料、日本通信の70分無料通話など、通話込みプランの活用法",
-      "priority": 2,
+      "priority": 10,
       "used": false,
       "usedAt": null
     },
@@ -95,7 +95,7 @@
       "type": "tips",
       "title": "データ使用量の確認方法と最適プランの選び方",
       "description": "自分の実際のデータ使用量を確認する方法と、それに合ったプランの選び方を解説",
-      "priority": 3,
+      "priority": 11,
       "used": false,
       "usedAt": null
     },
@@ -104,7 +104,7 @@
       "type": "tips",
       "title": "家族4人で年間10万円節約する方法",
       "description": "家族割・セット割を最大活用してドコモMAXやY!mobileで大幅節約する具体例",
-      "priority": 3,
+      "priority": 12,
       "used": false,
       "usedAt": null
     },
@@ -113,25 +113,25 @@
       "type": "quiz",
       "title": "10秒であなたに最適なプランがわかる",
       "description": "スマプランの診断機能を直接紹介。使い方の簡単さと診断結果の価値を伝える",
-      "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T05:27:36.913Z"
+      "priority": 13,
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 14,
       "type": "quiz",
       "title": "スマホ代、実は半額にできるかも",
       "description": "多くの人が自分に合っていないプランを使っている事実を提示し、診断への誘導",
-      "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T06:21:53.375Z"
+      "priority": 14,
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 15,
       "type": "quiz",
       "title": "あなたのスマホプラン、本当に合ってる？",
       "description": "プラン選びの難しさに共感し、AIが最適プランを提案するスマプランを紹介",
-      "priority": 2,
+      "priority": 15,
       "used": false,
       "usedAt": null
     },
@@ -140,7 +140,7 @@
       "type": "quiz",
       "title": "20社以上のプランから最適な1つを選ぶ方法",
       "description": "プラン数の多さに圧倒される問題をスマプランの診断で解決できることを伝える",
-      "priority": 2,
+      "priority": 16,
       "used": false,
       "usedAt": null
     },
@@ -149,7 +149,7 @@
       "type": "quiz",
       "title": "3つの質問だけで最適プランが見つかる",
       "description": "スマプラン診断の手軽さをアピール。データ量・通話頻度・こだわりの3問で診断",
-      "priority": 3,
+      "priority": 17,
       "used": false,
       "usedAt": null
     },
@@ -158,7 +158,7 @@
       "type": "quiz",
       "title": "友達に聞かれたら答えられる？最適プランの選び方",
       "description": "プラン選びの知識がなくても診断で簡単に最適解が見つかることを伝える",
-      "priority": 3,
+      "priority": 18,
       "used": false,
       "usedAt": null
     },
@@ -167,16 +167,16 @@
       "type": "fact",
       "title": "楽天モバイルの意外な落とし穴",
       "description": "楽天最強プランの段階制料金の仕組み。3GB以下なら1,078円だが、少しでも超えると2,178円になる点を解説",
-      "priority": 1,
-      "used": true,
-      "usedAt": "2026-04-17T06:38:44.742Z"
+      "priority": 19,
+      "used": false,
+      "usedAt": null
     },
     {
       "id": 20,
       "type": "fact",
       "title": "格安SIMに乗り換えてはいけない人の特徴",
       "description": "家族割が大きい人、キャリアメール依存、速度重視の人など、乗り換えが逆に損になるケース",
-      "priority": 1,
+      "priority": 20,
       "used": false,
       "usedAt": null
     },
@@ -185,7 +185,7 @@
       "type": "fact",
       "title": "実は損してる？データ無制限プランの真実",
       "description": "ドコモMAX(8,448円)を使っていても実際のデータ使用量が10GB以下の人が多い事実",
-      "priority": 2,
+      "priority": 21,
       "used": false,
       "usedAt": null
     },
@@ -194,7 +194,7 @@
       "type": "fact",
       "title": "povo2.0の180日ルールを知らないと回線停止",
       "description": "povo2.0は180日以内にトッピング購入が必要。忘れると回線停止になる注意点を解説",
-      "priority": 2,
+      "priority": 22,
       "used": false,
       "usedAt": null
     },
@@ -203,7 +203,7 @@
       "type": "fact",
       "title": "割引なしだとY!mobileは意外と高い",
       "description": "Y!mobileシンプル3 S(3,058円)は割引なしだと格安SIMより大幅に高い。割引条件を知らないと損する",
-      "priority": 3,
+      "priority": 23,
       "used": false,
       "usedAt": null
     },
@@ -212,7 +212,7 @@
       "type": "fact",
       "title": "5分かけ放題が無料で付いてくるプランがある",
       "description": "ahamo(2,970円)やLINEMOベストプランV(2,970円)は5分通話無料込み。オプション不要で通話もお得",
-      "priority": 3,
+      "priority": 24,
       "used": false,
       "usedAt": null
     },
@@ -221,7 +221,7 @@
       "type": "ranking",
       "title": "コスパ最強プランTOP3",
       "description": "1GBあたりの料金が安いプランランキング。日本通信50GB、IIJmio 20GB、楽天モバイル無制限が候補",
-      "priority": 1,
+      "priority": 25,
       "used": false,
       "usedAt": null
     },
@@ -230,7 +230,7 @@
       "type": "ranking",
       "title": "一人暮らしにおすすめプランTOP3",
       "description": "家族割不要・20GB前後の一人暮らし向けプラン。ahamo、日本通信、IIJmioなど",
-      "priority": 1,
+      "priority": 26,
       "used": false,
       "usedAt": null
     },
@@ -239,7 +239,7 @@
       "type": "ranking",
       "title": "通話もデータも全部入りプランTOP3",
       "description": "通話かけ放題込みプランのコスパランキング。日本通信、ahamo、UQコミコミが候補",
-      "priority": 2,
+      "priority": 27,
       "used": false,
       "usedAt": null
     },
@@ -248,7 +248,7 @@
       "type": "ranking",
       "title": "月1,000円台で使えるプランTOP3",
       "description": "超節約プランランキング。IIJmio 5GB(950円)、LINEMO 3GB(990円)、povo 3GB(990円)など",
-      "priority": 2,
+      "priority": 28,
       "used": false,
       "usedAt": null
     },
@@ -257,7 +257,7 @@
       "type": "ranking",
       "title": "速度重視の人におすすめプランTOP3",
       "description": "キャリア直回線の速度重視プラン。ahamo、LINEMO、UQモバイルなどMNO/サブブランドのランキング",
-      "priority": 3,
+      "priority": 29,
       "used": false,
       "usedAt": null
     },
@@ -266,7 +266,7 @@
       "type": "ranking",
       "title": "データたっぷり大容量プランTOP3",
       "description": "50GB以上の大容量プランランキング。楽天最強プラン無制限、ahamo大盛り110GB、日本通信50GBなど",
-      "priority": 3,
+      "priority": 30,
       "used": false,
       "usedAt": null
     }
