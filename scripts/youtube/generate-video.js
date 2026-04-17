@@ -67,7 +67,59 @@ function parsePlanFromDisplay(displayText) {
   const planName = price
     ? displayText.replace(/([\d,]+)\s*円.*/, "").trim()
     : displayText;
-  return { planName: planName || displayText, price };
+  const gbMatch = displayText.match(/(\d+)\s*GB|無制限/);
+  const dataGb = gbMatch ? gbMatch[0] : "";
+  return { planName: planName || displayText, price, dataGb };
+}
+
+function extractFeatures(text) {
+  const ICON_MAP = [
+    { keywords: ["料金", "円", "月額", "税込", "割引", "安"], icon: "💰" },
+    { keywords: ["通話", "かけ放題", "5分", "10分", "無料通話", "Rakuten Link"], icon: "📞" },
+    { keywords: ["海外", "国", "地域", "ローミング"], icon: "🌏" },
+    { keywords: ["速度", "Mbps", "kbps", "制限", "低速"], icon: "⚡" },
+    { keywords: ["LINE", "ギガフリー", "カウントフリー"], icon: "💬" },
+    { keywords: ["GB", "データ", "容量", "無制限", "段階"], icon: "📱" },
+    { keywords: ["回線", "ドコモ", "au", "ソフトバンク", "楽天", "エリア"], icon: "📡" },
+  ];
+
+  const sentences = text
+    .replace(/！/g, "。").replace(/!/, "。")
+    .split(/[。、]/)
+    .map(s => s.trim())
+    .filter(s => s.length > 5 && s.length < 60);
+
+  const features = [];
+  const usedIcons = new Set();
+  for (const s of sentences) {
+    if (features.length >= 4) break;
+    let icon = "✅";
+    for (const m of ICON_MAP) {
+      if (!usedIcons.has(m.icon) && m.keywords.some(k => s.includes(k))) {
+        icon = m.icon;
+        usedIcons.add(icon);
+        break;
+      }
+    }
+    features.push({ icon, text: s });
+  }
+  return features;
+}
+
+function parseVerdict(displayText) {
+  const parts = displayText.split(/\s*[/／]\s*/);
+  if (parts.length >= 2) {
+    return { left: parts[0].trim(), right: parts[1].trim() };
+  }
+  const arrowParts = displayText.split(/→/);
+  if (arrowParts.length >= 3) {
+    const mid = Math.ceil(arrowParts.length / 2);
+    return {
+      left: arrowParts.slice(0, mid).join("→").trim(),
+      right: arrowParts.slice(mid).join("→").trim(),
+    };
+  }
+  return { left: displayText, right: "" };
 }
 
 function buildSceneData(section) {
@@ -78,11 +130,14 @@ function buildSceneData(section) {
     case "plan_a":
     case "plan_b": {
       const parsed = parsePlanFromDisplay(dt);
+      const features = extractFeatures(section.text || "");
       return {
         ...base,
+        planLabel: section.type === "plan_a" ? "Plan A" : "Plan B",
         planName: section.planName || parsed.planName || dt,
         price: section.price || parsed.price,
-        features: section.features || "",
+        dataGb: parsed.dataGb,
+        features,
       };
     }
     case "rank1":
@@ -90,22 +145,28 @@ function buildSceneData(section) {
     case "rank3": {
       const rankNum = parseInt(section.type.slice(-1));
       const parsed = parsePlanFromDisplay(dt);
+      const features = extractFeatures(section.text || "");
       return {
         ...base,
         rank: rankNum,
         planName: section.planName || parsed.planName || dt,
         price: section.price || parsed.price,
-        features: section.features || "",
+        dataGb: parsed.dataGb,
+        features,
       };
     }
-    case "verdict":
-      return { ...base, label: "結論", subText: section.subText || "" };
+    case "verdict": {
+      const verdict = parseVerdict(dt);
+      return { ...base, label: "結論", left: verdict.left, right: verdict.right };
+    }
     case "opening":
       return base;
     case "cta":
       return base;
-    default:
-      return { ...base, label: section.label || section.type };
+    default: {
+      const features = extractFeatures(section.text || "");
+      return { ...base, label: section.label || section.type, features };
+    }
   }
 }
 

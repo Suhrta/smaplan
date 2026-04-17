@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
@@ -10,407 +10,758 @@
     height: 1920px;
     overflow: hidden;
     font-family: 'Noto Sans JP', sans-serif;
+    background: linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
-  .scene { width: 100%; height: 100%; position: relative; display: none; }
-  .scene.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
-  /* ── Opening ── */
-  .scene-opening {
-    background: linear-gradient(160deg, #1D4ED8 0%, #1E40AF 60%, #0F172A 100%);
-    padding: 80px 64px;
-    gap: 48px;
-  }
-  .scene-opening .hook-text {
-    color: #fff;
-    font-size: 72px;
-    font-weight: 900;
-    text-align: center;
-    line-height: 1.4;
-    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
-  }
-  .scene-opening .sub-text {
-    color: rgba(255,255,255,0.8);
-    font-size: 36px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.5;
-  }
-  .scene-opening .logo-badge {
-    background: rgba(255,255,255,0.15);
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 60px;
-    padding: 16px 48px;
-  }
-  .scene-opening .logo-badge span {
-    color: #fff;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 4px;
-  }
-
-  /* ── Main (generic content sections) ── */
-  .scene-main {
-    background: #F7FAFC;
-    padding: 80px 64px;
-    gap: 40px;
-  }
-  .scene-main .section-label {
-    background: #1D4ED8;
-    color: #fff;
-    font-size: 32px;
-    font-weight: 900;
-    padding: 12px 40px;
-    border-radius: 40px;
-    letter-spacing: 2px;
-  }
-  .scene-main .main-text {
-    color: #0F172A;
-    font-size: 64px;
-    font-weight: 900;
-    text-align: center;
-    line-height: 1.4;
-    padding: 0 20px;
-  }
-  .scene-main .detail-text {
-    color: #475569;
-    font-size: 38px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.6;
-    padding: 0 20px;
-  }
-  .scene-main .highlight-box {
-    background: #EFF6FF;
-    border: 3px solid #BFDBFE;
-    border-radius: 24px;
-    padding: 32px 48px;
-    width: 90%;
-  }
-  .scene-main .highlight-box .price {
-    color: #1D4ED8;
-    font-size: 80px;
-    font-weight: 900;
-    text-align: center;
-  }
-  .scene-main .highlight-box .price-note {
-    color: #475569;
-    font-size: 28px;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 8px;
-  }
-
-  /* ── Plan card (for comparison/ranking) ── */
-  .scene-plan {
-    background: #F7FAFC;
-    padding: 60px 48px;
-    gap: 32px;
-  }
-  .scene-plan .plan-card {
-    background: #fff;
-    border-radius: 32px;
-    padding: 48px;
-    width: 90%;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    border: 2px solid #E2E8F0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-  }
-  .scene-plan .plan-card.winner {
-    border: 4px solid #1D4ED8;
-    box-shadow: 0 0 40px rgba(29,78,216,0.2);
-  }
-  .scene-plan .plan-name {
-    color: #0F172A;
-    font-size: 52px;
-    font-weight: 900;
-    text-align: center;
-  }
-  .scene-plan .plan-price {
-    color: #1D4ED8;
-    font-size: 72px;
-    font-weight: 900;
-  }
-  .scene-plan .plan-price small {
-    font-size: 36px;
-    color: #475569;
-  }
-  .scene-plan .plan-features {
-    color: #475569;
-    font-size: 32px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.6;
-  }
-  .scene-plan .rank-badge {
-    background: linear-gradient(135deg, #F59E0B, #D97706);
-    color: #fff;
-    font-size: 48px;
-    font-weight: 900;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .scene-plan .rank-badge.rank-1 {
-    background: linear-gradient(135deg, #F59E0B, #D97706);
-    width: 120px;
-    height: 120px;
-    font-size: 56px;
-  }
-
-  /* ── Verdict ── */
-  .scene-verdict {
-    background: linear-gradient(160deg, #0F172A 0%, #1E293B 100%);
-    padding: 80px 64px;
-    gap: 48px;
-  }
-  .scene-verdict .verdict-label {
-    color: #F59E0B;
-    font-size: 40px;
-    font-weight: 900;
-    letter-spacing: 4px;
-  }
-  .scene-verdict .verdict-text {
-    color: #fff;
-    font-size: 56px;
-    font-weight: 900;
-    text-align: center;
-    line-height: 1.5;
-  }
-  .scene-verdict .verdict-sub {
-    color: rgba(255,255,255,0.7);
-    font-size: 36px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  /* ── CTA ── */
-  .scene-cta {
-    background: linear-gradient(160deg, #1D4ED8 0%, #1E40AF 50%, #0F172A 100%);
-    padding: 80px 64px;
-    gap: 48px;
-  }
-  .scene-cta .cta-main {
-    color: #fff;
-    font-size: 64px;
-    font-weight: 900;
-    text-align: center;
-    line-height: 1.4;
-    text-shadow: 0 4px 24px rgba(0,0,0,0.4);
-  }
-  .scene-cta .cta-button {
-    background: #F59E0B;
-    color: #0F172A;
-    font-size: 44px;
-    font-weight: 900;
-    padding: 28px 64px;
-    border-radius: 60px;
-    text-align: center;
-    box-shadow: 0 8px 32px rgba(245,158,11,0.4);
-  }
-  .scene-cta .cta-url {
-    color: rgba(255,255,255,0.9);
-    font-size: 48px;
-    font-weight: 900;
-    letter-spacing: 4px;
-  }
-  .scene-cta .cta-sub {
-    color: rgba(255,255,255,0.7);
-    font-size: 32px;
-    font-weight: 700;
-    text-align: center;
-  }
-
-  /* ── Decorations ── */
+  /* ── Background decorations ── */
   .bg-circle {
     position: absolute;
     border-radius: 50%;
     z-index: 0;
   }
-  .content-wrap { z-index: 1; display: flex; flex-direction: column; align-items: center; gap: inherit; width: 100%; }
+  .bg-c1 { top: -200px; right: -200px; width: 600px; height: 600px; background: rgba(255,255,255,0.04); }
+  .bg-c2 { bottom: -150px; left: -180px; width: 500px; height: 500px; background: rgba(255,255,255,0.03); }
+  .bg-c3 { top: 400px; left: -100px; width: 300px; height: 300px; background: rgba(255,255,255,0.02); }
+
+  /* ── Watermark ── */
   .watermark {
     position: absolute;
-    bottom: 32px;
-    right: 40px;
-    color: rgba(255,255,255,0.3);
+    bottom: 28px;
+    right: 36px;
+    color: rgba(255,255,255,0.25);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    z-index: 10;
+  }
+
+  /* ── Top area (above phone) ── */
+  .top-area {
+    z-index: 2;
+    text-align: center;
+    margin-bottom: 32px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .logo-badge {
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.25);
+    border-radius: 60px;
+    padding: 10px 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-badge span {
+    color: #fff;
     font-size: 28px;
     font-weight: 700;
-    z-index: 1;
+    letter-spacing: 3px;
   }
-  .watermark-dark {
-    color: rgba(0,0,0,0.15);
+  .scene-label {
+    color: #F59E0B;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  .plan-label {
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: #fff;
+    font-size: 38px;
+    font-weight: 900;
+    padding: 10px 40px;
+    border-radius: 40px;
+    letter-spacing: 3px;
+  }
+
+  /* ── Phone mockup ── */
+  .phone {
+    z-index: 2;
+    width: 500px;
+    height: 880px;
+    border-radius: 56px;
+    border: 8px solid #1F2937;
+    background: #1F2937;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.4), 0 0 0 2px rgba(255,255,255,0.08);
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 32px;
+    background: #1F2937;
+    border-radius: 0 0 20px 20px;
+    z-index: 5;
+  }
+  .phone-notch::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    background: #374151;
+    border-radius: 50%;
+  }
+  .phone-statusbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 4;
+  }
+  .phone-statusbar .time {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .phone-statusbar .icons {
+    font-size: 14px;
+    letter-spacing: 4px;
+  }
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── Screen: opening ── */
+  .screen-opening {
+    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 32px;
+    gap: 28px;
+  }
+  .screen-opening .phone-statusbar { color: rgba(255,255,255,0.5); }
+  .screen-opening .title {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.35;
+  }
+  .screen-opening .divider {
+    width: 80px;
+    height: 4px;
+    background: #1D4ED8;
+    border-radius: 2px;
+  }
+  .screen-opening .subtitle {
+    color: rgba(255,255,255,0.6);
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* ── Screen: plan ── */
+  .screen-plan {
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 28px 28px;
+    gap: 0;
+  }
+  .screen-plan .phone-statusbar { color: #475569; }
+  .screen-plan .plan-header {
+    text-align: center;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #E2E8F0;
+    margin-bottom: 16px;
+  }
+  .screen-plan .plan-name {
+    color: #0F172A;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+  .screen-plan .plan-pricing {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .screen-plan .plan-pricing .amount {
+    color: #1D4ED8;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .screen-plan .plan-pricing .unit {
+    color: #475569;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .screen-plan .plan-data-badge {
+    display: inline-block;
+    background: #EFF6FF;
+    border: 2px solid #BFDBFE;
+    border-radius: 20px;
+    padding: 6px 20px;
+    margin-top: 10px;
+  }
+  .screen-plan .plan-data-badge span {
+    color: #1D4ED8;
+    font-size: 24px;
+    font-weight: 900;
+  }
+  .screen-plan .features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+    flex: 1;
+  }
+  .screen-plan .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #F8FAFC;
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .screen-plan .feature-icon {
+    font-size: 26px;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+  .screen-plan .feature-text {
+    color: #334155;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  /* ── Screen: main (generic) ── */
+  .screen-main {
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 28px 28px;
+    gap: 16px;
+  }
+  .screen-main .phone-statusbar { color: #475569; }
+  .screen-main .main-title {
+    color: #0F172A;
+    font-size: 38px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.35;
+    padding: 0 8px;
+  }
+  .screen-main .main-divider {
+    width: 60px;
+    height: 3px;
+    background: #1D4ED8;
+    border-radius: 2px;
+    align-self: center;
+  }
+  .screen-main .features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .screen-main .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #F8FAFC;
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .screen-main .feature-icon {
+    font-size: 26px;
+    flex-shrink: 0;
+    width: 36px;
+    text-align: center;
+  }
+  .screen-main .feature-text {
+    color: #334155;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  /* ── Screen: rank ── */
+  .screen-rank {
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 56px 28px 28px;
+    gap: 12px;
+  }
+  .screen-rank .phone-statusbar { color: #475569; }
+  .screen-rank .rank-number {
+    font-size: 100px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .screen-rank .rank-1 { color: #D97706; }
+  .screen-rank .rank-2 { color: #6B7280; }
+  .screen-rank .rank-3 { color: #92400E; }
+  .screen-rank .rank-suffix {
+    font-size: 36px;
+    font-weight: 900;
+    color: #9CA3AF;
+    margin-left: 2px;
+  }
+
+  /* ── Screen: verdict ── */
+  .screen-verdict {
+    background: #0F172A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 24px 24px;
+    gap: 0;
+  }
+  .screen-verdict .phone-statusbar { color: rgba(255,255,255,0.4); }
+  .screen-verdict .verdict-box {
+    width: 100%;
+    border-radius: 20px;
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .screen-verdict .verdict-box-top {
+    background: linear-gradient(135deg, #1D4ED8, #2563EB);
+    margin-bottom: 0;
+    border-radius: 20px 20px 0 0;
+  }
+  .screen-verdict .verdict-vs {
+    background: #1E293B;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .screen-verdict .verdict-vs span {
+    color: #F59E0B;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 6px;
+  }
+  .screen-verdict .verdict-box-bottom {
+    background: linear-gradient(135deg, #16A34A, #15803D);
+    margin-top: 0;
+    border-radius: 0 0 20px 20px;
+  }
+  .screen-verdict .verdict-text {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.4;
+  }
+  .screen-verdict .verdict-single {
+    background: linear-gradient(135deg, #1D4ED8, #2563EB);
+    border-radius: 20px;
+    padding: 36px 24px;
+    width: 100%;
+  }
+  .screen-verdict .verdict-single .verdict-text {
+    font-size: 34px;
+  }
+
+  /* ── Screen: CTA ── */
+  .screen-cta {
+    background: #F7FAFC;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  .screen-cta .phone-statusbar { color: #475569; }
+  .screen-cta .cta-urlbar {
+    background: #F1F5F9;
+    margin: 52px 16px 0;
+    border-radius: 10px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .screen-cta .cta-urlbar .lock { font-size: 14px; color: #16A34A; }
+  .screen-cta .cta-urlbar .url { font-size: 16px; color: #475569; font-weight: 700; }
+  .screen-cta .cta-content {
+    flex: 1;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .screen-cta .cta-heading {
+    color: #0F172A;
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .screen-cta .cta-form-item {
+    background: #fff;
+    border: 2px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 14px 18px;
+  }
+  .screen-cta .cta-form-label {
+    color: #475569;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .screen-cta .cta-form-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .screen-cta .cta-form-option {
+    background: #EFF6FF;
+    border: 2px solid #BFDBFE;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1D4ED8;
+  }
+  .screen-cta .cta-form-option.selected {
+    background: #1D4ED8;
+    color: #fff;
+    border-color: #1D4ED8;
+  }
+  .screen-cta .cta-button {
+    background: #F59E0B;
+    border-radius: 16px;
+    padding: 18px 0;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .screen-cta .cta-button span {
+    color: #0F172A;
+    font-size: 28px;
+    font-weight: 900;
+  }
+  .screen-cta .cta-note {
+    text-align: center;
+    color: #94A3B8;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .screen-cta .cta-footer {
+    background: #0F172A;
+    padding: 18px 0;
+    text-align: center;
+    margin-top: auto;
+  }
+  .screen-cta .cta-footer span {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 3px;
+  }
+
+  /* ── Bottom area (below phone) ── */
+  .bottom-area {
+    z-index: 2;
+    text-align: center;
+    margin-top: 28px;
+    min-height: 60px;
+  }
+  .bottom-text {
+    color: rgba(255,255,255,0.7);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+  .bottom-cta-btn {
+    display: inline-block;
+    background: #F59E0B;
+    color: #0F172A;
+    font-size: 32px;
+    font-weight: 900;
+    padding: 14px 48px;
+    border-radius: 40px;
+    margin-top: 12px;
+    box-shadow: 0 4px 24px rgba(245,158,11,0.3);
   }
 </style>
 </head>
 <body>
 
-  <!-- Opening -->
-  <div id="scene-opening" class="scene scene-opening">
-    <div class="bg-circle" style="top:-200px;right:-200px;width:600px;height:600px;background:rgba(255,255,255,0.05);"></div>
-    <div class="bg-circle" style="bottom:-150px;left:-150px;width:500px;height:500px;background:rgba(255,255,255,0.03);"></div>
-    <div class="content-wrap">
-      <div class="logo-badge"><span>スマプラン</span></div>
-      <div class="hook-text" id="opening-hook"></div>
-    </div>
-    <span class="watermark">smaplan.com</span>
+  <div class="bg-circle bg-c1"></div>
+  <div class="bg-circle bg-c2"></div>
+  <div class="bg-circle bg-c3"></div>
+
+  <div class="top-area" id="top-area"></div>
+
+  <div class="phone">
+    <div class="phone-notch"></div>
+    <div class="phone-screen" id="phone-screen"></div>
   </div>
 
-  <!-- Main -->
-  <div id="scene-main" class="scene scene-main">
-    <div class="content-wrap">
-      <span class="section-label" id="main-label"></span>
-      <div class="main-text" id="main-text"></div>
-      <div class="detail-text" id="main-detail"></div>
+  <div class="bottom-area" id="bottom-area"></div>
+
+  <span class="watermark">smaplan.com</span>
+
+<script>
+const SCENE_TYPE = '{{SCENE_TYPE}}';
+const DATA = JSON.parse('{{DATA}}');
+
+const topArea = document.getElementById('top-area');
+const screen = document.getElementById('phone-screen');
+const bottomArea = document.getElementById('bottom-area');
+
+function statusBar(light) {
+  const c = light ? 'rgba(255,255,255,0.5)' : '#475569';
+  return `<div class="phone-statusbar" style="color:${c}"><span class="time">9:41</span><span class="icons">📶 🔋</span></div>`;
+}
+
+function featuresHTML(features) {
+  if (!features || features.length === 0) return '';
+  return `<div class="features-list">${features.map(f =>
+    `<div class="feature-item">
+      <span class="feature-icon">${f.icon || '✅'}</span>
+      <span class="feature-text">${f.text}</span>
+    </div>`
+  ).join('')}</div>`;
+}
+
+function renderOpening() {
+  topArea.innerHTML = `<div class="logo-badge"><span>📱 スマプラン</span></div>`;
+
+  const lines = (DATA.displayText || '').split(/[！!？?]/);
+  const mainTitle = lines[0] || DATA.displayText || '';
+  const sub = DATA.text ? DATA.text.slice(0, 60) : '';
+
+  screen.className = 'phone-screen screen-opening';
+  screen.innerHTML = `
+    ${statusBar(true)}
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;gap:24px;">
+      <div class="title">${mainTitle}</div>
+      <div class="divider"></div>
+      <div class="subtitle">${sub}${sub.length >= 60 ? '…' : ''}</div>
     </div>
-    <span class="watermark watermark-dark">smaplan.com</span>
-  </div>
+  `;
 
-  <!-- Main with highlight (price box) -->
-  <div id="scene-main-highlight" class="scene scene-main">
-    <div class="content-wrap">
-      <span class="section-label" id="highlight-label"></span>
-      <div class="main-text" id="highlight-title"></div>
-      <div class="highlight-box">
-        <div class="price" id="highlight-price"></div>
-        <div class="price-note" id="highlight-note"></div>
-      </div>
-      <div class="detail-text" id="highlight-detail"></div>
+  bottomArea.innerHTML = `<div class="bottom-text">スマプランが徹底解説！</div>`;
+}
+
+function renderPlan() {
+  const label = DATA.planLabel || (SCENE_TYPE === 'plan_a' ? 'Plan A' : 'Plan B');
+  topArea.innerHTML = `<span class="plan-label">${label}</span>`;
+
+  const priceFormatted = DATA.price ? Number(DATA.price).toLocaleString() : '';
+
+  screen.className = 'phone-screen screen-plan';
+  screen.innerHTML = `
+    ${statusBar(false)}
+    <div class="plan-header">
+      <div class="plan-name">${DATA.planName || DATA.displayText}</div>
+      ${priceFormatted ? `
+        <div class="plan-pricing">
+          <span class="amount">${priceFormatted}</span>
+          <span class="unit">円/月（税込）</span>
+        </div>
+      ` : ''}
+      ${DATA.dataGb ? `<div class="plan-data-badge"><span>📱 ${DATA.dataGb}</span></div>` : ''}
     </div>
-    <span class="watermark watermark-dark">smaplan.com</span>
-  </div>
-
-  <!-- Plan card -->
-  <div id="scene-plan" class="scene scene-plan">
-    <div class="content-wrap">
-      <div class="rank-badge" id="plan-rank"></div>
-      <div class="plan-card" id="plan-card">
-        <div class="plan-name" id="plan-name"></div>
-        <div class="plan-price" id="plan-price"></div>
-        <div class="plan-features" id="plan-features"></div>
-      </div>
-    </div>
-    <span class="watermark watermark-dark">smaplan.com</span>
-  </div>
-
-  <!-- Verdict -->
-  <div id="scene-verdict" class="scene scene-verdict">
-    <div class="bg-circle" style="top:-100px;left:-100px;width:400px;height:400px;background:rgba(29,78,216,0.15);"></div>
-    <div class="content-wrap">
-      <div class="verdict-label" id="verdict-label">結論</div>
-      <div class="verdict-text" id="verdict-text"></div>
-      <div class="verdict-sub" id="verdict-sub"></div>
-    </div>
-    <span class="watermark">smaplan.com</span>
-  </div>
-
-  <!-- CTA -->
-  <div id="scene-cta" class="scene scene-cta">
-    <div class="bg-circle" style="top:-200px;right:-200px;width:600px;height:600px;background:rgba(255,255,255,0.05);"></div>
-    <div class="bg-circle" style="bottom:-150px;left:-150px;width:500px;height:500px;background:rgba(255,255,255,0.03);"></div>
-    <div class="content-wrap">
-      <div class="cta-main" id="cta-text"></div>
-      <div class="cta-button">無料診断してみる →</div>
-      <div class="cta-url">smaplan.com</div>
-      <div class="cta-sub">プロフィールのリンクから！</div>
-    </div>
-    <span class="watermark">smaplan.com</span>
-  </div>
-
-  <script>
-    const sceneType = '{{SCENE_TYPE}}';
-    const data = JSON.parse('{{DATA}}');
-
-    document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-
-    switch (sceneType) {
-      case 'opening': {
-        const el = document.getElementById('scene-opening');
-        el.classList.add('active');
-        document.getElementById('opening-hook').textContent = data.displayText || data.text || '';
-        break;
-      }
-      case 'main':
-      case 'problem':
-      case 'question':
-      case 'reveal':
-      case 'benefit':
-      case 'tip1':
-      case 'tip2':
-      case 'tip3':
-      case 'fact':
-      case 'detail':
-      case 'solution': {
-        const el = document.getElementById('scene-main');
-        el.classList.add('active');
-        document.getElementById('main-label').textContent = data.label || sceneType.toUpperCase();
-        document.getElementById('main-text').textContent = data.displayText || '';
-        document.getElementById('main-detail').textContent = data.detailText || '';
-        break;
-      }
-      case 'plan_a':
-      case 'plan_b':
-      case 'rank1':
-      case 'rank2':
-      case 'rank3': {
-        const el = document.getElementById('scene-plan');
-        el.classList.add('active');
-        const rankEl = document.getElementById('plan-rank');
-        if (data.rank) {
-          rankEl.textContent = data.rank;
-          if (data.rank === 1) rankEl.classList.add('rank-1');
-          rankEl.style.display = 'flex';
-        } else {
-          rankEl.style.display = 'none';
-        }
-        const card = document.getElementById('plan-card');
-        if (data.rank === 1) card.classList.add('winner');
-        const nameEl = document.getElementById('plan-name');
-        const priceEl = document.getElementById('plan-price');
-        const featEl = document.getElementById('plan-features');
-        nameEl.textContent = data.planName || data.displayText || '';
-        priceEl.innerHTML = data.price ? `${Number(data.price).toLocaleString()}<small>円/月</small>` : '';
-        featEl.textContent = data.features || '';
-        if (!data.planName && !data.price && data.displayText) {
-          nameEl.textContent = data.displayText;
-          nameEl.style.fontSize = '56px';
-          nameEl.style.lineHeight = '1.4';
-        }
-        break;
-      }
-      case 'verdict': {
-        const el = document.getElementById('scene-verdict');
-        el.classList.add('active');
-        document.getElementById('verdict-label').textContent = data.label || '結論';
-        document.getElementById('verdict-text').textContent = data.displayText || '';
-        document.getElementById('verdict-sub').textContent = data.subText || '';
-        break;
-      }
-      case 'cta': {
-        const el = document.getElementById('scene-cta');
-        el.classList.add('active');
-        document.getElementById('cta-text').textContent = data.displayText || 'あなたに最適なプランを\n30秒で無料診断！';
-        break;
-      }
-      default: {
-        const el = document.getElementById('scene-main');
-        el.classList.add('active');
-        document.getElementById('main-label').textContent = sceneType;
-        document.getElementById('main-text').textContent = data.displayText || data.text || '';
-        document.getElementById('main-detail').textContent = '';
-        break;
-      }
+    ${DATA.features && DATA.features.length > 0 ? featuresHTML(DATA.features) :
+      `<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div class="plan-name" style="font-size:36px;color:#334155;text-align:center;line-height:1.5;">${DATA.displayText}</div>
+      </div>`
     }
-  </script>
+  `;
+
+  bottomArea.innerHTML = '';
+}
+
+function renderMain() {
+  const LABEL_MAP = {
+    problem: '⚠️ 問題提起', question: '🤔 質問', reveal: '💡 解決策',
+    benefit: '�� メリット', tip1: '💡 Tips 1', tip2: '💡 Tips 2',
+    tip3: '💡 Tips 3', fact: '😲 知ってた？', detail: '🔍 詳しく解説',
+    solution: '✅ 解決策', main: '📋 ポイント',
+  };
+  const label = LABEL_MAP[SCENE_TYPE] || DATA.label || SCENE_TYPE;
+  topArea.innerHTML = `<span class="scene-label">${label}</span>`;
+
+  screen.className = 'phone-screen screen-main';
+  screen.innerHTML = `
+    ${statusBar(false)}
+    <div class="main-title">${DATA.displayText || ''}</div>
+    <div class="main-divider"></div>
+    ${DATA.features && DATA.features.length > 0 ? featuresHTML(DATA.features) :
+      `<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="color:#334155;font-size:32px;font-weight:700;text-align:center;line-height:1.5;">${DATA.text ? DATA.text.slice(0, 80) : ''}</div>
+      </div>`
+    }
+  `;
+
+  bottomArea.innerHTML = '';
+}
+
+function renderRank() {
+  topArea.innerHTML = `<span class="scene-label">🏆 ランキング</span>`;
+
+  const rankClass = DATA.rank === 1 ? 'rank-1' : DATA.rank === 2 ? 'rank-2' : 'rank-3';
+  const priceFormatted = DATA.price ? Number(DATA.price).toLocaleString() : '';
+
+  screen.className = 'phone-screen screen-rank';
+  screen.innerHTML = `
+    ${statusBar(false)}
+    <div style="display:flex;align-items:baseline;justify-content:center;">
+      <span class="rank-number ${rankClass}">${DATA.rank}</span>
+      <span class="rank-suffix">位</span>
+    </div>
+    <div class="plan-name" style="color:#0F172A;font-size:40px;font-weight:900;text-align:center;">${DATA.planName || DATA.displayText}</div>
+    ${priceFormatted ? `
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:4px;">
+        <span style="color:#1D4ED8;font-size:56px;font-weight:900;">${priceFormatted}</span>
+        <span style="color:#475569;font-size:22px;font-weight:700;">円/月</span>
+      </div>
+    ` : ''}
+    ${DATA.dataGb ? `<div class="plan-data-badge" style="align-self:center;"><span>📱 ${DATA.dataGb}</span></div>` : ''}
+    ${DATA.features && DATA.features.length > 0 ?
+      `<div class="features-list" style="width:100%;padding:0 4px;margin-top:8px;">${DATA.features.map(f =>
+        `<div class="feature-item"><span class="feature-icon">${f.icon}</span><span class="feature-text">${f.text}</span></div>`
+      ).join('')}</div>` :
+      `<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:16px;">
+        <div style="color:#334155;font-size:28px;font-weight:700;text-align:center;line-height:1.5;">${DATA.displayText}</div>
+      </div>`
+    }
+  `;
+
+  bottomArea.innerHTML = '';
+}
+
+function renderVerdict() {
+  topArea.innerHTML = `<span class="scene-label">⚡ 結論</span>`;
+
+  screen.className = 'phone-screen screen-verdict';
+
+  if (DATA.right) {
+    screen.innerHTML = `
+      ${statusBar(true)}
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:100%;">
+        <div class="verdict-box verdict-box-top">
+          <div class="verdict-text">${DATA.left}</div>
+        </div>
+        <div class="verdict-vs"><span>VS</span></div>
+        <div class="verdict-box verdict-box-bottom">
+          <div class="verdict-text">${DATA.right}</div>
+        </div>
+      </div>
+    `;
+  } else {
+    screen.innerHTML = `
+      ${statusBar(true)}
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;">
+        <div class="verdict-single">
+          <div class="verdict-text">${DATA.left || DATA.displayText}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  bottomArea.innerHTML = `<div class="bottom-text">あな���に合うのはどっち？</div>`;
+}
+
+function renderCTA() {
+  topArea.innerHTML = `<div class="bottom-cta-btn">無料診断してみ��� →</div>`;
+
+  screen.className = 'phone-screen screen-cta';
+  screen.innerHTML = `
+    ${statusBar(false)}
+    <div class="cta-urlbar">
+      <span class="lock">🔒</span>
+      <span class="url">smaplan.com</span>
+    </div>
+    <div class="cta-content">
+      <div class="cta-heading">📱 あなたに最適な<br>スマホプランは？</div>
+      <div class="cta-form-item">
+        <div class="cta-form-label">月のデータ使用量は？</div>
+        <div class="cta-form-options">
+          <span class="cta-form-option">〜3GB</span>
+          <span class="cta-form-option selected">3〜10GB</span>
+          <span class="cta-form-option">10〜20GB</span>
+          <span class="cta-form-option">20GB〜</span>
+        </div>
+      </div>
+      <div class="cta-form-item">
+        <div class="cta-form-label">通話の頻度は？</div>
+        <div class="cta-form-options">
+          <span class="cta-form-option">ほぼしない</span>
+          <span class="cta-form-option selected">たまにする</span>
+          <span class="cta-form-option">よくする</span>
+        </div>
+      </div>
+      <div class="cta-form-item">
+        <div class="cta-form-label">こだわりポイントは？</div>
+        <div class="cta-form-options">
+          <span class="cta-form-option selected">安さ重視</span>
+          <span class="cta-form-option">速度重視</span>
+          <span class="cta-form-option">サポート</span>
+        </div>
+      </div>
+      <div class="cta-button"><span>👆 無料で診断する ���</span></div>
+      <div class="cta-note">30秒で完了・登録不要・完全無料</div>
+    </div>
+    <div class="cta-footer"><span>smaplan.com</span></div>
+  `;
+
+  bottomArea.innerHTML = `<div class="bottom-text">${DATA.displayText || 'プロフィールのリンクから！'}</div>`;
+}
+
+switch (SCENE_TYPE) {
+  case 'opening':
+    renderOpening();
+    break;
+  case 'plan_a':
+  case 'plan_b':
+    renderPlan();
+    break;
+  case 'rank1':
+  case 'rank2':
+  case 'rank3':
+    renderRank();
+    break;
+  case 'verdict':
+    renderVerdict();
+    break;
+  case 'cta':
+    renderCTA();
+    break;
+  default:
+    renderMain();
+    break;
+}
+</script>
 </body>
 </html>
