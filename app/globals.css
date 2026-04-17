@@ -118,6 +118,62 @@ button {
   .sp-feature-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
 }
 
+/* Compare section (2-col grid) */
+.sp-compare-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 600px) {
+  .sp-compare-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+
+/* Before/After cards */
+.sp-ba-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.sp-ba-arrow {
+  padding: 4px 0;
+  transform: rotate(90deg);
+}
+@media (min-width: 600px) {
+  .sp-ba-cards { flex-direction: row; }
+  .sp-ba-arrow {
+    transform: none;
+    padding: 0 4px;
+  }
+}
+
+/* Persona grid (3-col on desktop) */
+.sp-persona-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 720px) {
+  .sp-persona-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.sp-persona-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.sp-persona-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+
+/* Section fade-in on scroll */
+.sp-section-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.sp-section-fade.sp-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Result page: hide table on small screens (cards already provide info) */
 .sp-result-table-wrap { display: none; }
 @media (min-width: 640px) {
