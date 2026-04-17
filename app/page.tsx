@@ -420,7 +420,7 @@ function PhoneMockup() {
           width: '100%', height: '100%',
           background: '#F7FAFC',
           borderRadius: 44,
-          padding: '38px 16px 20px',
+          padding: '26px 16px 20px',
           position: 'relative',
           overflow: 'hidden',
           display: 'flex',
@@ -428,8 +428,8 @@ function PhoneMockup() {
         }}>
           {/* Dynamic Island */}
           <div aria-hidden="true" style={{
-            position: 'absolute', top: 10, left: '50%', transform: 'translateX(-50%)',
-            width: 92, height: 26, borderRadius: 14,
+            position: 'absolute', top: 7, left: '50%', transform: 'translateX(-50%)',
+            width: 60, height: 16, borderRadius: 10,
             background: '#0B0F19',
             boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.04)',
             zIndex: 3,
