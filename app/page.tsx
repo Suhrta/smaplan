@@ -356,16 +356,15 @@ function PhoneMockup() {
             ))}
           </div>
         </div>
-        <div style={{
-          position: 'absolute',
-          bottom: 2, right: 14,
-          fontSize: 9,
-          color: 'rgba(255, 255, 255, 0.55)',
-          letterSpacing: '0.02em',
-          pointerEvents: 'none',
-        }}>
-          ※表示はイメージです
-        </div>
+      </div>
+      <div style={{
+        marginTop: 6,
+        textAlign: 'right',
+        fontSize: 9,
+        color: 'rgba(255, 255, 255, 0.55)',
+        letterSpacing: '0.02em',
+      }}>
+        ※表示はイメージです
       </div>
     </div>
   );
