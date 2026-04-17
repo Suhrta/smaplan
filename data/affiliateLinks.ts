@@ -1,7 +1,6 @@
 const affiliateLinks: Record<string, string> = {
-  docomo_max: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
-  docomo_mini_4gb: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
-  docomo_mini_10gb: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
+  ahamo_20gb: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
+  ahamo_100gb: "https://px.a8.net/svt/ejp?a8mat=4B1MHQ+B5A6IA+4TIO+5ZEMP",
 };
 
 const officialLinks: Record<string, string> = {
