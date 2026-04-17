@@ -93,10 +93,11 @@ ${sectionsInstruction}
 }
 
 【subtitleのルール】
-- 各セクションにsubtitleフィールドを必ず追加すること
-- subtitleはナレーション（text）の要約で、20〜30文字程度
-- 視聴者が一目で理解できる短い文にすること
-- displayTextとは異なり、文章として自然な形にすること（体言止めや「〜です」など）
+- 全セクションにsubtitleフィールドを必ず含めること（省略不可）
+- subtitleはナレーション（text）を20〜30文字に要約した自然な文
+- displayTextのコピーではなく、独立した字幕テキストとして作成すること
+- 疑問文や体言止めも可。視聴者が一目で理解できる文にすること
+- subtitleに**マークアップを使わないこと（太字強調は不要）
 
 【displayTextのルール】
 - 15文字以内。画面全体に巨大フォントで表示される
@@ -105,6 +106,7 @@ ${sectionsInstruction}
 - 意味のかたまりで区切る。単語の途中で切れないこと
 - 1セクション=1ポイントのみ。複数の情報を詰め込まない
 - 小数点の途中で改行(\\n)を入れないこと（例: ✕ "43.\\n6円" → ○ "43.6円"）
+- verdict/conclusionのdisplayTextは各選択肢を10文字以内にすること（例: "海外派→ahamo\\nLINE派→LINEMO"）
 
 sectionsの最後は必ずtype:"cta"で、スマプランへの誘導を含めること。
 各sectionのdurationの合計が${template.constraints.totalDuration}秒以内になるようにすること。
