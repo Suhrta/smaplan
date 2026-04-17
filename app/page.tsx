@@ -290,22 +290,22 @@ function PhoneMockup() {
     opacity: 0,
   };
   const progRow: React.CSSProperties = {
-    display: 'flex', gap: 4, marginBottom: 14,
+    display: 'flex', gap: 4, marginBottom: 22,
   };
   const dot = (active: boolean): React.CSSProperties => ({
     height: 4, flex: 1, borderRadius: 2,
     background: active ? '#1D4ED8' : '#E2E8F0',
   });
   const qTag: React.CSSProperties = {
-    fontSize: 10, color: '#94A3B8', fontWeight: 800, marginBottom: 4,
+    fontSize: 10, color: '#94A3B8', fontWeight: 800, marginBottom: 6,
     letterSpacing: '0.06em',
   };
   const qLabel: React.CSSProperties = {
     fontSize: 13, fontWeight: 800, color: '#0F172A',
-    marginBottom: 12, lineHeight: 1.35,
+    marginBottom: 18, lineHeight: 1.35,
   };
   const optWrap: React.CSSProperties = {
-    display: 'flex', flexDirection: 'column', gap: 7,
+    display: 'flex', flexDirection: 'column', gap: 8,
   };
   const optBase: React.CSSProperties = {
     padding: '10px 12px',
@@ -420,7 +420,7 @@ function PhoneMockup() {
           width: '100%', height: '100%',
           background: '#F7FAFC',
           borderRadius: 44,
-          padding: '26px 16px 20px',
+          padding: '48px 16px 14px',
           position: 'relative',
           overflow: 'hidden',
           display: 'flex',
@@ -445,7 +445,7 @@ function PhoneMockup() {
           }} />
           <div style={{
             fontSize: 10, color: '#94A3B8', textAlign: 'center',
-            letterSpacing: '0.18em', marginBottom: 14, fontWeight: 800,
+            letterSpacing: '0.18em', marginBottom: 22, fontWeight: 800,
           }}>
             SmaPlan
           </div>
@@ -524,52 +524,100 @@ function PhoneMockup() {
             <div className="mock-step mock-step-5" style={panelBase}>
               <div style={{
                 background: 'linear-gradient(135deg, #1D4ED8 0%, #2563EB 100%)',
-                borderRadius: 14, padding: '14px 16px', color: '#fff',
-                marginBottom: 14,
+                borderRadius: 12, padding: '11px 14px', color: '#fff',
+                marginBottom: 10,
               }}>
                 <div style={{ fontSize: 10, opacity: 0.85, fontWeight: 700 }}>乗り換えで</div>
-                <div style={{ fontSize: 22, fontWeight: 900, lineHeight: 1.1, marginTop: 2 }}>
+                <div style={{ fontSize: 20, fontWeight: 900, lineHeight: 1.1, marginTop: 2 }}>
                   年間 54,000円
                 </div>
-                <div style={{ fontSize: 12, fontWeight: 800 }}>おトク！</div>
+                <div style={{ fontSize: 11, fontWeight: 800 }}>おトク！</div>
               </div>
               <div style={{
-                fontSize: 10, fontWeight: 700, color: '#475569', marginBottom: 8,
+                fontSize: 10, fontWeight: 700, color: '#475569', marginBottom: 6,
               }}>
                 あなたに最適なプラン
               </div>
               <div style={{
-                padding: 12,
+                padding: '10px 12px',
                 background: '#fff',
                 border: '2px solid #1D4ED8',
                 borderRadius: 12,
                 boxShadow: '0 6px 16px rgba(29, 78, 216, 0.15)',
+                marginBottom: 6,
               }}>
                 <div style={{
-                  fontSize: 10, color: '#64748B', marginBottom: 4, fontWeight: 700,
+                  fontSize: 10, color: '#64748B', marginBottom: 2, fontWeight: 700,
                 }}>
                   🥇 第1位
                 </div>
                 <div style={{
-                  fontSize: 14, fontWeight: 900, color: '#0F172A', marginBottom: 4,
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
                 }}>
-                  ahamo 30GB
-                </div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
-                  <span style={{ fontSize: 22, fontWeight: 900, color: '#1D4ED8', lineHeight: 1 }}>
-                    2,970
-                  </span>
-                  <span style={{ fontSize: 10, fontWeight: 800, color: '#1D4ED8' }}>
-                    円/月
-                  </span>
+                  <div style={{ fontSize: 13, fontWeight: 900, color: '#0F172A' }}>
+                    ahamo 30GB
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: 1 }}>
+                    <span style={{ fontSize: 18, fontWeight: 900, color: '#1D4ED8', lineHeight: 1 }}>
+                      2,970
+                    </span>
+                    <span style={{ fontSize: 9, fontWeight: 800, color: '#1D4ED8' }}>
+                      円/月
+                    </span>
+                  </div>
                 </div>
               </div>
               <div style={{
-                marginTop: 8, fontSize: 9, color: '#94A3B8', textAlign: 'center',
+                display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+                padding: '7px 12px',
+                background: '#fff',
+                border: '1px solid #E2E8F0',
+                borderRadius: 10,
+                marginBottom: 4,
               }}>
-                ※目安
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>
+                  🥈 LINEMO V
+                </div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#475569' }}>
+                  2,970<span style={{ fontSize: 8, fontWeight: 700 }}>円</span>
+                </div>
+              </div>
+              <div style={{
+                display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+                padding: '7px 12px',
+                background: '#fff',
+                border: '1px solid #E2E8F0',
+                borderRadius: 10,
+              }}>
+                <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>
+                  🥉 日本通信
+                </div>
+                <div style={{ fontSize: 12, fontWeight: 800, color: '#475569' }}>
+                  1,390<span style={{ fontSize: 8, fontWeight: 700 }}>円</span>
+                </div>
               </div>
             </div>
+          </div>
+          {/* bottom footer bar (always visible) */}
+          <div style={{
+            marginTop: 10,
+            paddingTop: 9,
+            borderTop: '1px solid #E2E8F0',
+            display: 'flex',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            fontSize: 10,
+            fontWeight: 700,
+            color: '#64748B',
+            letterSpacing: '0.02em',
+            position: 'relative',
+            zIndex: 1,
+          }}>
+            <span>📱 全20プラン</span>
+            <span style={{ color: '#CBD5E1' }}>|</span>
+            <span>⚡ 30秒</span>
+            <span style={{ color: '#CBD5E1' }}>|</span>
+            <span>🔒 匿名</span>
           </div>
         </div>
       </div>
