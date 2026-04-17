@@ -27,6 +27,9 @@ function formatPlansForPrompt(plans) {
       line += `、通話:${p.call_included}`;
     }
     line += `\n  特徴: ${p.features.join("、")}`;
+    if (p.notes) {
+      line += `\n  注意点: ${p.notes}`;
+    }
     return line;
   }).join("\n");
 }
@@ -74,6 +77,8 @@ ${sectionsInstruction}
 - トーン: ${template.constraints.tone}
 - ${template.constraints.rules.join("\n- ")}
 - plans.jsonに存在するプラン名のみ使用すること。架空のプラン名を作らないこと
+- plans.jsonのnotesフィールドに各プランの最新の注意点・デメリットが記載されている。台本ではメリットだけでなくnotesに書かれたデメリットや注意点も公平に伝えること
+- 一方的にプランを持ち上げず、「こういう人には合わない」という視点も含めて信頼感のある内容にすること
 
 【出力形式】以下のJSON形式のみで返答してください（説明不要、コードブロック不要）:
 {
@@ -106,7 +111,7 @@ ${sectionsInstruction}
 - 意味のかたまりで区切る。単語の途中で切れないこと
 - 1セクション=1ポイントのみ。複数の情報を詰め込まない
 - 小数点の途中で改行(\\n)を入れないこと（例: ✕ "43.\\n6円" → ○ "43.6円"）
-- verdict/conclusionのdisplayTextは各選択肢を10文字以内にすること（例: "海外派→ahamo\\nLINE派→LINEMO"）
+- verdict/conclusionのdisplayTextは必ず「○○→プランA\\n△△→プランB」の形式にすること。各行は「ユーザータイプ→プラン名」で完結し、\\nで区切る。各行10文字以内（例: "海外派→ahamo\\nLINE派→LINEMO"）。/や→の前後で行が分断されないよう注意
 
 sectionsの最後は必ずtype:"cta"で、スマプランへの誘導を含めること。
 各sectionのdurationの合計が${template.constraints.totalDuration}秒以内になるようにすること。

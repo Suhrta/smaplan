@@ -6,8 +6,8 @@
       "title": "ahamo vs LINEMO 徹底比較",
       "description": "30GBプラン同士の比較。ahamo 30GB(2,970円) vs LINEMOベストプランV(2,970円)。同価格帯で通話・データ・海外利用の違いを解説",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T18:19:12.955Z"
     },
     {
       "id": 2,
@@ -267,6 +267,33 @@
       "title": "データたっぷり大容量プランTOP3",
       "description": "50GB以上の大容量プランランキング。楽天最強プラン無制限、ahamo大盛り110GB、日本通信50GBなど",
       "priority": 30,
+      "used": false,
+      "usedAt": null
+    },
+    {
+      "id": 31,
+      "type": "fact",
+      "title": "ahamoの電波が悪い本当の理由",
+      "description": "パケ詰まりとパケ止まりの違いを解説。都心部で繋がらない原因と対策",
+      "priority": 1,
+      "used": false,
+      "usedAt": null
+    },
+    {
+      "id": 32,
+      "type": "tips",
+      "title": "ahamo電波悪い時の3つの対策",
+      "description": "5Gオフ設定・機内モード切替・povo併用の3つの対策を紹介",
+      "priority": 2,
+      "used": false,
+      "usedAt": null
+    },
+    {
+      "id": 33,
+      "type": "comparison",
+      "title": "ahamo vs 楽天モバイル 電波対決",
+      "description": "電波の安定性で比較。都心部と地方で違う結論になる",
+      "priority": 3,
       "used": false,
       "usedAt": null
     }

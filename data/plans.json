@@ -15,6 +15,7 @@
     "bundle_discount": true,
     "features": ["データ無制限", "段階制（〜1GB/〜3GB/〜無制限）", "みんなドコモ割で最大1,210円引", "ドコモ光/home 5Gセット割で1,210円引", "長期利用割", "dカード払いで最大550円引"],
     "target": "データたっぷり・家族まとめ・ドコモ光利用中",
+    "notes": "割引なしだと8,448円と高額。割引条件（ドコモ光・家族3回線以上・dカード）を満たさないと割高",
     "affiliate_key": "docomo_max"
   },
   {
@@ -33,6 +34,7 @@
     "bundle_discount": true,
     "features": ["ドコモ光/home 5Gセット割で1,210円引", "dカード払いで最大550円引", "ドコモでんき割", "ドコモ品質の小容量プラン"],
     "target": "ドコモ品質で安く・小容量",
+    "notes": "4GBで2,750円は格安SIMの数倍。ドコモ品質にこだわらなければ割高",
     "affiliate_key": "docomo_mini_4gb"
   },
   {
@@ -51,6 +53,7 @@
     "bundle_discount": true,
     "features": ["ドコモ光/home 5Gセット割で1,210円引", "dカード払いで最大550円引", "ドコモでんき割", "ドコモ品質の中容量プラン"],
     "target": "ドコモ品質で中容量",
+    "notes": "割引なしだと3,850円。MVNO系なら同容量で半額以下",
     "affiliate_key": "docomo_mini_10gb"
   },
   {
@@ -68,6 +71,7 @@
     "bundle_discount": false,
     "features": ["5分以内の国内通話無料", "海外91の国・地域で30GBまで利用可", "dカード払いで+1GB/月", "オンライン完結"],
     "target": "中容量・速度重視・シンプル",
+    "notes": "都心部でパケ詰まり（通信混雑）の報告多数。地方では安定。NTTが5G基地局を急ピッチで増設中（2026年）",
     "affiliate_key": "ahamo_30gb"
   },
   {
@@ -85,6 +89,7 @@
     "bundle_discount": false,
     "features": ["大容量110GB", "5分以内の国内通話無料", "テザリング無料", "ドコモ回線で安定"],
     "target": "大容量・テザリング・動画たっぷり",
+    "notes": "パケ詰まり問題はahamo共通。110GBは魅力だが楽天モバイル無制限より1,672円高い",
     "affiliate_key": "ahamo_110gb"
   },
   {
@@ -102,6 +107,7 @@
     "bundle_discount": false,
     "features": ["基本料0円＋必要な時だけトッピング購入", "au回線の安定感", "使わない月は安く抑えられる", "180日以内にトッピング購入が必要"],
     "target": "小容量・トッピング自由・au品質",
+    "notes": "基本料0円だがトッピング忘れると128kbps。180日間トッピングなしで自動解約リスク",
     "affiliate_key": "povo_3gb"
   },
   {
@@ -119,6 +125,7 @@
     "bundle_discount": false,
     "features": ["au回線の中容量プラン", "基本料0円＋必要な時だけトッピング", "期間限定の大容量トッピングもあり", "180日以内にトッピング購入が必要"],
     "target": "中容量・au品質・柔軟な料金",
+    "notes": "基本料0円だがトッピング忘れると128kbps。180日間トッピングなしで自動解約リスク",
     "affiliate_key": "povo_20gb"
   },
   {
@@ -136,6 +143,7 @@
     "bundle_discount": false,
     "features": ["使った分だけ（〜3GB/〜10GBの2段階）", "LINEギガフリー（LINE利用で通信量消費なし）", "ソフトバンク回線の安定感"],
     "target": "小容量・LINEヘビー・ソフトバンク品質",
+    "notes": "LINEギガフリーが強み。ソフトバンク回線で都心部も安定",
     "affiliate_key": "linemo_best_3gb"
   },
   {
@@ -153,6 +161,7 @@
     "bundle_discount": false,
     "features": ["使った分だけ（3GB超は10GBまで定額）", "LINEギガフリー", "月によって料金が変動"],
     "target": "3〜10GB変動利用・LINEヘビー",
+    "notes": "3GB超えると自動で2,090円に上がる。使い方次第でpovoの方が安い月も",
     "affiliate_key": "linemo_best_10gb"
   },
   {
@@ -170,6 +179,7 @@
     "bundle_discount": false,
     "features": ["30GBまで定額", "5分以内の国内通話無料", "LINEギガフリー", "ソフトバンク回線の安定感"],
     "target": "中容量・通話も使う・LINEヘビー",
+    "notes": "LINEギガフリーが強み。ソフトバンク回線で都心部も安定",
     "affiliate_key": "linemo_best_v"
   },
   {
@@ -187,6 +197,7 @@
     "bundle_discount": true,
     "features": ["35GB＋10分通話込みで全部入り", "自宅セット割（au電気/UQ光）で1,100円引", "au回線の高品質", "店舗サポートあり"],
     "target": "中〜大容量・通話も使う・au品質・店舗サポート",
+    "notes": "au回線で安定。自宅セット割がないと3,828円でやや高め",
     "affiliate_key": "uq_komikomi_value"
   },
   {
@@ -205,6 +216,7 @@
     "bundle_discount": true,
     "features": ["家族割で2回線目以降1,100円引", "おうち割光セット(A)で1,650円引", "繰り越し対応", "ソフトバンク品質・店舗サポートあり"],
     "target": "小容量・家族でまとめたい・ソフトバンク光ユーザー",
+    "notes": "家族割が強い。ソフトバンク回線で安定。割引なしだと3,058円で割高",
     "affiliate_key": "ymobile_simple3_s"
   },
   {
@@ -223,6 +235,7 @@
     "bundle_discount": true,
     "features": ["家族割で2回線目以降1,100円引", "おうち割光セット(A)で1,650円引", "30GBで中〜大容量に対応", "繰り越し対応", "店舗サポートあり"],
     "target": "中〜大容量・家族でまとめたい・ソフトバンク光ユーザー",
+    "notes": "家族割が強い。ソフトバンク回線で安定。割引なしだと4,158円で格安SIMの倍以上",
     "affiliate_key": "ymobile_simple3_m"
   },
   {
@@ -240,6 +253,7 @@
     "bundle_discount": false,
     "features": ["段階制（〜3GB/1,078円、〜20GB/2,178円、無制限/3,278円）", "Rakuten Linkで通話無料", "最強家族プログラムで110円引", "楽天ポイント還元"],
     "target": "データ使用量が月により変動・通話多め・楽天経済圏",
+    "notes": "電波改善中だが地下・建物内で繋がりにくい場所あり。データ無制限は魅力",
     "affiliate_key": "rakuten_saikyo"
   },
   {
@@ -257,6 +271,7 @@
     "bundle_discount": false,
     "features": ["業界最安級", "データシェア/プレゼント可能", "eSIM対応", "端末セットが豊富", "混雑時は速度低下あり"],
     "target": "とにかく安さ重視・小容量",
+    "notes": "料金最安クラスだが昼12時台は速度低下しやすい（MVNO共通の弱点）",
     "affiliate_key": "iijmio_5gb"
   },
   {
@@ -274,6 +289,7 @@
     "bundle_discount": false,
     "features": ["20GBで業界最安級", "データシェア/プレゼント可能", "eSIM対応", "混雑時は速度低下あり"],
     "target": "安さ重視・中容量",
+    "notes": "料金最安クラスだが昼12時台は速度低下しやすい（MVNO共通の弱点）",
     "affiliate_key": "iijmio_20gb"
   },
   {
@@ -291,6 +307,7 @@
     "bundle_discount": false,
     "features": ["超過後も最大1Mbpsで使い放題", "家族割引で55円/月引", "複数回線割引", "豊富なオプションサービス"],
     "target": "中容量＋超過後も快適・3キャリア選択可",
+    "notes": "パケット放題Plusは1.5Mbps。動画視聴には不十分な場合あり",
     "affiliate_key": "mineo_mypita_15gb"
   },
   {
@@ -308,6 +325,7 @@
     "bundle_discount": false,
     "features": ["20GB＋5分通話込みで月1,390円の破格設定", "業界最安クラス", "ドコモ回線", "混雑時は速度低下あり"],
     "target": "コスパ最優先・中容量・通話もする",
+    "notes": "料金は安いがサポートが薄い。ドコモ回線。混雑時は速度低下あり",
     "affiliate_key": "nichitsu_minna_20gb"
   },
   {
@@ -325,6 +343,7 @@
     "bundle_discount": false,
     "features": ["50GB＋5分通話込みで月2,178円", "大容量を最安級で", "ドコモ回線", "混雑時は速度低下あり"],
     "target": "大容量＋通話＋コスパ",
+    "notes": "料金は安いがサポートが薄い。ドコモ回線。混雑時は速度低下あり",
     "affiliate_key": "nichitsu_50gb"
   },
   {
@@ -342,6 +361,7 @@
     "bundle_discount": false,
     "features": ["全国200店舗以上で対面サポート", "1GB刻みで選べる柔軟な容量設定", "やさしいプランでシニア向けも充実", "家族割対応"],
     "target": "店舗サポート重視・初心者・シニア",
+    "notes": "店舗サポートは安心だが料金はIIJmio等より高め。速度はMVNO並み",
     "affiliate_key": "aeon_saiteki_3gb"
   }
 ]
