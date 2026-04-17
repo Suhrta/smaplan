@@ -11,6 +11,31 @@ const VOICEVOX_URL = process.env.VOICEVOX_URL || "http://localhost:50021";
 const SPEAKER_ID = 3;
 const SPEED_SCALE = 1.3;
 
+const READING_MAP = {
+  'LINEMO': 'ラインモ',
+  'linemo': 'ラインモ',
+  'ahamo': 'アハモ',
+  'povo': 'ポヴォ',
+  'IIJmio': 'アイアイジェイミオ',
+  'mineo': 'マイネオ',
+  'UQ mobile': 'ユーキューモバイル',
+  'UQモバイル': 'ユーキューモバイル',
+  'Y!mobile': 'ワイモバイル',
+  'NURO': 'ニューロ',
+  'LIBMO': 'リブモ',
+  'J:COM': 'ジェイコム',
+  'eximo': 'エクシモ',
+  'irumo': 'イルモ',
+};
+
+function applyReadingMap(text) {
+  let result = text;
+  for (const [key, val] of Object.entries(READING_MAP)) {
+    result = result.replaceAll(key, val);
+  }
+  return result;
+}
+
 async function checkVoicevox() {
   try {
     const res = await fetch(`${VOICEVOX_URL}/version`);
@@ -96,7 +121,8 @@ export async function generateVoice(script) {
     const silencePath = path.join(audioDir, `silence_${String(i).padStart(3, "0")}.wav`);
 
     try {
-      const duration = await synthesize(section.text, wavPath);
+      const voiceText = applyReadingMap(section.text);
+      const duration = await synthesize(voiceText, wavPath);
 
       timings.push({
         index: i,
