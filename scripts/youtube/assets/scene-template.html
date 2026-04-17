@@ -82,7 +82,6 @@
     text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
 
-  /* ── Phone mockup ── */
   .phone {
     z-index: 2;
     width: 600px;
@@ -119,9 +118,7 @@
   }
   .phone-statusbar {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 44px;
     display: flex;
     justify-content: space-between;
@@ -132,14 +129,13 @@
   .phone-statusbar .time { font-size: 16px; font-weight: 700; }
   .phone-statusbar .icons { font-size: 14px; letter-spacing: 4px; }
   .phone-screen {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     overflow: hidden;
     position: relative;
   }
 
-  /* ── Shared text styles ── */
-  .big-text {
+  /* ── Text styles: Dark screen ── */
+  .dark-title {
     color: #fff;
     font-weight: 900;
     text-align: center;
@@ -147,14 +143,34 @@
     -webkit-text-stroke: 1.5px rgba(0,0,0,0.3);
     text-shadow: 0 4px 16px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3);
   }
+  .dark-title .hl { color: #F59E0B; }
+
+  /* ── Text styles: Light screen ── */
+  .light-title {
+    color: #0F172A;
+    font-weight: 900;
+    text-align: center;
+    line-height: 1.3;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.1);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .light-title .hl { color: #FF4444; }
+
+  /* ── Price text ── */
   .price-text {
     color: #FF4444;
     font-weight: 900;
     text-align: center;
     line-height: 1.1;
-    -webkit-text-stroke: 2px rgba(0,0,0,0.2);
-    text-shadow: 0 4px 20px rgba(255,68,68,0.4), 0 2px 4px rgba(0,0,0,0.3);
+    -webkit-text-stroke: 2px rgba(0,0,0,0.15);
+    text-shadow: 0 6px 24px rgba(255,68,68,0.4), 0 2px 4px rgba(0,0,0,0.3);
   }
+  .price-dark {
+    -webkit-text-stroke: 2px rgba(0,0,0,0.2);
+    text-shadow: 0 6px 24px rgba(255,68,68,0.5), 0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  /* ── Accent text ── */
   .accent-text {
     color: #F59E0B;
     font-weight: 900;
@@ -164,190 +180,56 @@
     text-shadow: 0 4px 16px rgba(245,158,11,0.4), 0 2px 4px rgba(0,0,0,0.3);
   }
 
-  /* ── Screen: dark (used by most scenes) ── */
-  .screen-dark {
-    background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 32px;
-    gap: 24px;
-  }
-  .screen-dark .phone-statusbar { color: rgba(255,255,255,0.5); }
-
-  /* ── Screen: verdict ── */
-  .screen-verdict {
-    background: #0F172A;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 56px 24px 24px;
-    gap: 0;
-  }
-  .screen-verdict .phone-statusbar { color: rgba(255,255,255,0.4); }
-  .verdict-box {
-    width: 100%;
-    border-radius: 20px;
-    padding: 32px 20px;
-    text-align: center;
-  }
-  .verdict-box-top {
-    background: linear-gradient(135deg, #1D4ED8, #2563EB);
-    border-radius: 20px 20px 0 0;
-  }
-  .verdict-vs {
-    background: #1E293B;
-    padding: 14px 0;
+  /* ── Logo ── */
+  .carrier-logo { border-radius: 12px; }
+  .logos-row {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .verdict-vs span {
-    color: #F59E0B;
-    font-size: 32px;
-    font-weight: 900;
-    letter-spacing: 6px;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  .verdict-box-bottom {
-    background: linear-gradient(135deg, #16A34A, #15803D);
-    border-radius: 0 0 20px 20px;
-  }
-  .verdict-text {
-    color: #fff;
-    font-size: 36px;
-    font-weight: 900;
-    line-height: 1.35;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  .verdict-single {
-    background: linear-gradient(135deg, #1D4ED8, #2563EB);
-    border-radius: 20px;
-    padding: 40px 28px;
-    width: 100%;
-  }
-  .verdict-single .verdict-text { font-size: 40px; }
-
-  /* ── Screen: CTA ── */
-  .screen-cta {
-    background: #F7FAFC;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-  }
-  .screen-cta .phone-statusbar { color: #475569; }
-  .cta-urlbar {
-    background: #F1F5F9;
-    margin: 52px 16px 0;
-    border-radius: 10px;
-    padding: 8px 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .cta-urlbar .lock { font-size: 14px; color: #16A34A; }
-  .cta-urlbar .url { font-size: 16px; color: #475569; font-weight: 700; }
-  .cta-content {
-    flex: 1;
-    padding: 20px 24px;
-    display: flex;
-    flex-direction: column;
     gap: 16px;
   }
-  .cta-heading {
-    color: #0F172A;
-    font-size: 32px;
+  .vs-badge {
+    color: #F59E0B;
+    font-size: 36px;
     font-weight: 900;
-    text-align: center;
-    line-height: 1.3;
-  }
-  .cta-form-item {
-    background: #fff;
-    border: 2px solid #E2E8F0;
-    border-radius: 14px;
-    padding: 14px 18px;
-  }
-  .cta-form-label {
-    color: #475569;
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .cta-form-options {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  .cta-form-option {
-    background: #EFF6FF;
-    border: 2px solid #BFDBFE;
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 15px;
-    font-weight: 700;
-    color: #1D4ED8;
-  }
-  .cta-form-option.selected {
-    background: #1D4ED8;
-    color: #fff;
-    border-color: #1D4ED8;
-  }
-  .cta-button {
-    background: #F59E0B;
-    border-radius: 16px;
-    padding: 18px 0;
-    text-align: center;
-    margin-top: 4px;
-  }
-  .cta-button span {
-    color: #0F172A;
-    font-size: 28px;
-    font-weight: 900;
-  }
-  .cta-note {
-    text-align: center;
-    color: #94A3B8;
-    font-size: 16px;
-    font-weight: 700;
-  }
-  .cta-footer {
-    background: #0F172A;
-    padding: 18px 0;
-    text-align: center;
-    margin-top: auto;
-  }
-  .cta-footer span {
-    color: #fff;
-    font-size: 24px;
-    font-weight: 900;
-    letter-spacing: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
   }
 
-  /* ── Bottom area ── */
-  .bottom-area {
-    z-index: 2;
-    text-align: center;
-    margin-top: 24px;
-    min-height: 60px;
-  }
-  .bottom-text {
-    color: rgba(255,255,255,0.7);
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.4;
-  }
+  /* ── Verdict ── */
+  .verdict-box { width: 100%; border-radius: 20px; padding: 32px 20px; text-align: center; }
+  .verdict-box-top { background: linear-gradient(135deg, #1D4ED8, #2563EB); border-radius: 20px 20px 0 0; }
+  .verdict-vs { background: #1E293B; padding: 14px 0; display: flex; align-items: center; justify-content: center; }
+  .verdict-vs span { color: #F59E0B; font-size: 32px; font-weight: 900; letter-spacing: 6px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .verdict-box-bottom { background: linear-gradient(135deg, #16A34A, #15803D); border-radius: 0 0 20px 20px; }
+  .verdict-text { color: #fff; font-size: 36px; font-weight: 900; line-height: 1.35; text-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .verdict-single { background: linear-gradient(135deg, #1D4ED8, #2563EB); border-radius: 20px; padding: 40px 28px; width: 100%; }
+  .verdict-single .verdict-text { font-size: 40px; }
+
+  /* ── CTA ── */
+  .screen-cta { background: #F7FAFC; display: flex; flex-direction: column; padding: 0; }
+  .screen-cta .phone-statusbar { color: #475569; }
+  .cta-urlbar { background: #F1F5F9; margin: 52px 16px 0; border-radius: 10px; padding: 8px 14px; display: flex; align-items: center; gap: 8px; }
+  .cta-urlbar .lock { font-size: 14px; color: #16A34A; }
+  .cta-urlbar .url { font-size: 16px; color: #475569; font-weight: 700; }
+  .cta-content { flex: 1; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; }
+  .cta-heading { color: #0F172A; font-size: 32px; font-weight: 900; text-align: center; line-height: 1.3; }
+  .cta-form-item { background: #fff; border: 2px solid #E2E8F0; border-radius: 14px; padding: 14px 18px; }
+  .cta-form-label { color: #475569; font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .cta-form-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .cta-form-option { background: #EFF6FF; border: 2px solid #BFDBFE; border-radius: 20px; padding: 6px 14px; font-size: 15px; font-weight: 700; color: #1D4ED8; }
+  .cta-form-option.selected { background: #1D4ED8; color: #fff; border-color: #1D4ED8; }
+  .cta-button { background: #F59E0B; border-radius: 16px; padding: 18px 0; text-align: center; margin-top: 4px; }
+  .cta-button span { color: #0F172A; font-size: 28px; font-weight: 900; }
+  .cta-note { text-align: center; color: #94A3B8; font-size: 16px; font-weight: 700; }
+  .cta-footer { background: #0F172A; padding: 18px 0; text-align: center; margin-top: auto; }
+  .cta-footer span { color: #fff; font-size: 24px; font-weight: 900; letter-spacing: 3px; }
+
+  .bottom-area { z-index: 2; text-align: center; margin-top: 24px; min-height: 60px; }
+  .bottom-text { color: rgba(255,255,255,0.7); font-size: 28px; font-weight: 700; line-height: 1.4; }
   .bottom-cta-btn {
-    display: inline-block;
-    background: #F59E0B;
-    color: #0F172A;
-    font-size: 32px;
-    font-weight: 900;
-    padding: 14px 48px;
-    border-radius: 40px;
-    margin-top: 12px;
-    box-shadow: 0 4px 24px rgba(245,158,11,0.3);
+    display: inline-block; background: #F59E0B; color: #0F172A;
+    font-size: 32px; font-weight: 900; padding: 14px 48px; border-radius: 40px;
+    margin-top: 12px; box-shadow: 0 4px 24px rgba(245,158,11,0.3);
   }
 </style>
 </head>
@@ -381,8 +263,11 @@ function statusBar(light) {
   return `<div class="phone-statusbar" style="color:${c}"><span class="time">9:41</span><span class="icons">📶 🔋</span></div>`;
 }
 
-function nl(text) {
-  return (text || '').replace(/\n/g, '<br>');
+function fmt(text, hlClass) {
+  const cls = hlClass || 'hl';
+  return (text || '')
+    .replace(/\n/g, '<br>')
+    .replace(/\*\*([^*]+)\*\*/g, `<span class="${cls}">$1</span>`);
 }
 
 function extractPrice(text) {
@@ -390,16 +275,81 @@ function extractPrice(text) {
   return m ? m[1].replace(/,/g, '') : '';
 }
 
+function logosHTML(logos, width, height) {
+  if (!logos || logos.length === 0) return '';
+  const w = width || 280;
+  const h = height || 84;
+  return logos.map(src =>
+    `<img src="${src}" class="carrier-logo" width="${w}" height="${h}" />`
+  ).join('');
+}
+
+function logosVsHTML(logos) {
+  if (!logos || logos.length < 2) return logosHTML(logos, 220, 66);
+  return `<div class="logos-row">
+    <img src="${logos[0]}" class="carrier-logo" width="200" height="60" />
+    <span class="vs-badge">VS</span>
+    <img src="${logos[1]}" class="carrier-logo" width="200" height="60" />
+  </div>`;
+}
+
+function setBodyBg(gradient) {
+  document.body.style.background = gradient;
+}
+
+// ── SCENE CONFIG: background per scene type ──
+const SCENE_STYLES = {
+  opening:      { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  plan_a_name:  { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%)', screenBg: '#FFFFFF', dark: false },
+  plan_b_name:  { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%)', screenBg: '#FFFFFF', dark: false },
+  plan_a:       { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%)', screenBg: '#FFFFFF', dark: false },
+  plan_b:       { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%)', screenBg: '#FFFFFF', dark: false },
+  plan_a_point: { bodyBg: 'linear-gradient(160deg, #D6E4FF 0%, #EFF6FF 100%)', screenBg: '#FFFFFF', dark: false },
+  plan_b_point: { bodyBg: 'linear-gradient(160deg, #D1FAE5 0%, #F0FDF4 100%)', screenBg: '#FFFFFF', dark: false },
+  compare:      { bodyBg: 'linear-gradient(160deg, #0C1929 0%, #1E3A5F 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  verdict:      { bodyBg: 'linear-gradient(160deg, #0C1929 0%, #111827 100%)', screenBg: '#0F172A', dark: true },
+  problem:      { bodyBg: 'linear-gradient(160deg, #F97316 0%, #EA580C 100%)', screenBg: '#FFFFFF', dark: false },
+  question:     { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  question2:    { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  reveal:       { bodyBg: 'linear-gradient(160deg, #059669 0%, #10B981 100%)', screenBg: '#FFFFFF', dark: false },
+  benefit:      { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: '#FFFFFF', dark: false },
+  benefit2:     { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: '#FFFFFF', dark: false },
+  tip1:         { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: '#FFFFFF', dark: false },
+  tip1_detail:  { bodyBg: 'linear-gradient(160deg, #D6E4FF 0%, #EFF6FF 100%)', screenBg: '#FFFFFF', dark: false },
+  tip2:         { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: '#FFFFFF', dark: false },
+  tip2_detail:  { bodyBg: 'linear-gradient(160deg, #D6E4FF 0%, #EFF6FF 100%)', screenBg: '#FFFFFF', dark: false },
+  tip3:         { bodyBg: 'linear-gradient(160deg, #F97316 0%, #EA580C 100%)', screenBg: '#FFFFFF', dark: false },
+  fact:         { bodyBg: 'linear-gradient(160deg, #F97316 0%, #EA580C 100%)', screenBg: '#FFFFFF', dark: false },
+  fact_impact:  { bodyBg: 'linear-gradient(160deg, #DC2626 0%, #B91C1C 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  detail:       { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: '#FFFFFF', dark: false },
+  solution:     { bodyBg: 'linear-gradient(160deg, #059669 0%, #10B981 100%)', screenBg: '#FFFFFF', dark: false },
+  solution_benefit: { bodyBg: 'linear-gradient(160deg, #059669 0%, #10B981 100%)', screenBg: '#FFFFFF', dark: false },
+  rank1:        { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 50%, #F59E0B 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  rank2:        { bodyBg: 'linear-gradient(160deg, #374151 0%, #6B7280 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  rank3:        { bodyBg: 'linear-gradient(160deg, #78350F 0%, #92400E 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  rank1_name:   { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 50%, #F59E0B 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  rank1_point:  { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  rank1_detail: { bodyBg: 'linear-gradient(160deg, #92400E 0%, #D97706 100%)', screenBg: 'linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', dark: true },
+  cta:          { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 50%, #1E40AF 100%)', screenBg: '#F7FAFC', dark: false },
+};
+
+function getStyle() {
+  return SCENE_STYLES[SCENE_TYPE] || { bodyBg: 'linear-gradient(160deg, #1E3A5F 0%, #1D4ED8 100%)', screenBg: '#FFFFFF', dark: false };
+}
+
 function renderOpening() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
   topArea.innerHTML = `<div class="logo-badge"><span>📱 スマプラン</span></div>`;
 
-  screen.className = 'phone-screen screen-dark';
+  screen.className = 'phone-screen';
+  screen.style.background = s.screenBg;
   screen.innerHTML = `
     ${statusBar(true)}
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:28px;">
-      <div class="big-text" style="font-size:64px;">${nl(DATA.displayText)}</div>
+      <div class="dark-title" style="font-size:64px;">${fmt(DATA.displayText)}</div>
       <div style="width:80px;height:5px;background:#F59E0B;border-radius:3px;"></div>
-      <div style="color:rgba(255,255,255,0.5);font-size:28px;font-weight:700;text-align:center;line-height:1.4;">${DATA.text ? DATA.text.slice(0, 50) : ''}${(DATA.text || '').length > 50 ? '…' : ''}</div>
+      ${DATA.logos && DATA.logos.length > 0 ? `<div class="logos-row">${logosHTML(DATA.logos, 200, 60)}</div>` : ''}
     </div>
   `;
 
@@ -407,6 +357,8 @@ function renderOpening() {
 }
 
 function renderPlanName() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
   const label = SCENE_TYPE.includes('plan_a') ? 'Plan A' : 'Plan B';
   topArea.innerHTML = `<span class="plan-label">${label}</span>`;
 
@@ -414,16 +366,18 @@ function renderPlanName() {
   const priceFormatted = price ? Number(price).toLocaleString() : '';
   const planName = DATA.planName || DATA.displayText || '';
 
-  screen.className = 'phone-screen screen-dark';
+  screen.className = 'phone-screen';
+  screen.style.background = s.screenBg;
   screen.innerHTML = `
-    ${statusBar(true)}
+    ${statusBar(false)}
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:16px;">
-      <div class="big-text" style="font-size:52px;">${nl(planName)}</div>
+      ${DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 300, 90) : ''}
+      <div class="light-title" style="font-size:48px;">${fmt(planName)}</div>
       ${priceFormatted ? `
         <div class="price-text" style="font-size:100px;">${priceFormatted}<span style="font-size:40px;">円</span></div>
-        <div style="color:rgba(255,255,255,0.5);font-size:26px;font-weight:700;">月額（税込）</div>
+        <div style="color:#64748B;font-size:26px;font-weight:700;">月額（税込）</div>
       ` : ''}
-      ${DATA.dataGb ? `<div class="accent-text" style="font-size:44px;">📱 ${DATA.dataGb}</div>` : ''}
+      ${DATA.dataGb ? `<div style="background:#EFF6FF;border:2px solid #BFDBFE;border-radius:24px;padding:8px 24px;"><span style="color:#1D4ED8;font-size:32px;font-weight:900;">📱 ${DATA.dataGb}</span></div>` : ''}
     </div>
   `;
 
@@ -431,14 +385,18 @@ function renderPlanName() {
 }
 
 function renderPlanPoint() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
   const label = SCENE_TYPE.includes('plan_a') ? 'Plan A の強み' : 'Plan B の強み';
   topArea.innerHTML = `<span class="scene-label">${label}</span>`;
 
-  screen.className = 'phone-screen screen-dark';
+  screen.className = 'phone-screen';
+  screen.style.background = s.screenBg;
   screen.innerHTML = `
-    ${statusBar(true)}
-    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;gap:20px;">
-      <div class="accent-text" style="font-size:60px;">${nl(DATA.displayText)}</div>
+    ${statusBar(false)}
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;gap:24px;">
+      ${DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 180, 54) : ''}
+      <div class="light-title" style="font-size:56px;">${fmt(DATA.displayText)}</div>
     </div>
   `;
 
@@ -446,11 +404,14 @@ function renderPlanPoint() {
 }
 
 function renderMain() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
+
   const LABEL_MAP = {
     problem: '⚠️ 注意', question: '🤔 質問', question2: '🤔 質問',
     reveal: '💡 解決策', benefit: '✨ メリット', benefit2: '✨ メリット',
     tip1: '💡 Tips', tip1_detail: '💡 詳細', tip2: '💡 Tips', tip2_detail: '💡 詳細',
-    tip3: '💡 Tips', fact: '😲 事実', fact_impact: '💥 インパクト',
+    tip3: '💡 最大の節約', fact: '😲 事実', fact_impact: '💥 インパクト',
     detail: '🔍 解説', solution: '✅ 解決策', solution_benefit: '✅ 効果',
     compare: '⚡ 比較', main: '📋 ポイント',
     rank1_point: '🏆 1位の理由', rank1_detail: '🏆 1位の魅力',
@@ -461,24 +422,31 @@ function renderMain() {
   const dt = DATA.displayText || '';
   const price = extractPrice(dt);
   const hasPrice = price && dt.includes('円');
+  const titleClass = s.dark ? 'dark-title' : 'light-title';
+  const priceExtra = s.dark ? 'price-dark' : '';
 
-  screen.className = 'phone-screen screen-dark';
+  screen.className = 'phone-screen';
+  screen.style.background = s.screenBg;
+
+  const isCompare = SCENE_TYPE === 'compare';
 
   if (hasPrice) {
     const priceFormatted = Number(price).toLocaleString();
     const textWithoutPrice = dt.replace(/([\d,]+)\s*円[^\n]*/g, '').replace(/\\n/g, ' ').trim();
     screen.innerHTML = `
-      ${statusBar(true)}
+      ${statusBar(s.dark)}
       <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:20px;">
-        ${textWithoutPrice ? `<div class="big-text" style="font-size:48px;">${nl(textWithoutPrice)}</div>` : ''}
-        <div class="price-text" style="font-size:96px;">${priceFormatted}<span style="font-size:40px;">円</span></div>
+        ${isCompare && DATA.logos ? logosVsHTML(DATA.logos) : (DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 200, 60) : '')}
+        ${textWithoutPrice ? `<div class="${titleClass}" style="font-size:48px;">${fmt(textWithoutPrice)}</div>` : ''}
+        <div class="price-text ${priceExtra}" style="font-size:96px;">${priceFormatted}<span style="font-size:40px;">円</span></div>
       </div>
     `;
   } else {
     screen.innerHTML = `
-      ${statusBar(true)}
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;gap:20px;">
-        <div class="big-text" style="font-size:56px;">${nl(dt)}</div>
+      ${statusBar(s.dark)}
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px;gap:24px;">
+        ${isCompare && DATA.logos ? logosVsHTML(DATA.logos) : (DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 200, 60) : '')}
+        <div class="${titleClass}" style="font-size:56px;">${fmt(dt)}</div>
       </div>
     `;
   }
@@ -487,16 +455,19 @@ function renderMain() {
 }
 
 function renderRank() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
   topArea.innerHTML = `<span class="scene-label">🏆 ランキング</span>`;
 
   const rank = DATA.rank || 1;
-  const rankColors = { 1: '#D97706', 2: '#9CA3AF', 3: '#92400E' };
-  const rankColor = rankColors[rank] || '#D97706';
+  const rankColors = { 1: '#F59E0B', 2: '#9CA3AF', 3: '#CD7F32' };
+  const rankColor = rankColors[rank] || '#F59E0B';
   const price = DATA.price || extractPrice(DATA.displayText);
   const priceFormatted = price ? Number(price).toLocaleString() : '';
   const planName = DATA.planName || DATA.displayText || '';
 
-  screen.className = 'phone-screen screen-dark';
+  screen.className = 'phone-screen';
+  screen.style.background = s.screenBg;
   screen.innerHTML = `
     ${statusBar(true)}
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:50px 24px;gap:12px;">
@@ -504,10 +475,9 @@ function renderRank() {
         <span style="font-size:120px;font-weight:900;color:${rankColor};line-height:1;text-shadow:0 4px 16px rgba(0,0,0,0.4);-webkit-text-stroke:2px rgba(0,0,0,0.2);">${rank}</span>
         <span style="font-size:44px;font-weight:900;color:rgba(255,255,255,0.5);">位</span>
       </div>
-      <div class="big-text" style="font-size:44px;">${nl(planName)}</div>
-      ${priceFormatted ? `
-        <div class="price-text" style="font-size:88px;">${priceFormatted}<span style="font-size:36px;">円</span></div>
-      ` : ''}
+      ${DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 240, 72) : ''}
+      <div class="dark-title" style="font-size:44px;">${fmt(planName)}</div>
+      ${priceFormatted ? `<div class="price-text price-dark" style="font-size:88px;">${priceFormatted}<span style="font-size:36px;">円</span></div>` : ''}
       ${DATA.dataGb ? `<div class="accent-text" style="font-size:36px;">📱 ${DATA.dataGb}</div>` : ''}
     </div>
   `;
@@ -516,29 +486,33 @@ function renderRank() {
 }
 
 function renderVerdict() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
   topArea.innerHTML = `<span class="scene-label">⚡ 結論</span>`;
 
-  screen.className = 'phone-screen screen-verdict';
+  screen.className = 'phone-screen';
+  screen.style.background = s.screenBg;
 
   if (DATA.right) {
     screen.innerHTML = `
       ${statusBar(true)}
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:100%;">
-        <div class="verdict-box verdict-box-top">
-          <div class="verdict-text">${nl(DATA.left)}</div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:100%;padding:56px 24px 24px;">
+        ${DATA.logos && DATA.logos.length >= 2 ? logosVsHTML(DATA.logos) : ''}
+        <div class="verdict-box verdict-box-top" style="margin-top:16px;">
+          <div class="verdict-text">${fmt(DATA.left)}</div>
         </div>
         <div class="verdict-vs"><span>VS</span></div>
         <div class="verdict-box verdict-box-bottom">
-          <div class="verdict-text">${nl(DATA.right)}</div>
+          <div class="verdict-text">${fmt(DATA.right)}</div>
         </div>
       </div>
     `;
   } else {
     screen.innerHTML = `
       ${statusBar(true)}
-      <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;">
+      <div style="flex:1;display:flex;align-items:center;justify-content:center;width:100%;padding:24px;">
         <div class="verdict-single">
-          <div class="verdict-text">${nl(DATA.left || DATA.displayText)}</div>
+          <div class="verdict-text">${fmt(DATA.left || DATA.displayText)}</div>
         </div>
       </div>
     `;
@@ -548,6 +522,8 @@ function renderVerdict() {
 }
 
 function renderCTA() {
+  const s = getStyle();
+  setBodyBg(s.bodyBg);
   topArea.innerHTML = `<div class="bottom-cta-btn">無料診断してみる →</div>`;
 
   screen.className = 'phone-screen screen-cta';
@@ -595,32 +571,19 @@ function renderCTA() {
 
 switch (SCENE_TYPE) {
   case 'opening':
-    renderOpening();
-    break;
-  case 'plan_a_name':
-  case 'plan_b_name':
-  case 'plan_a':
-  case 'plan_b':
-    renderPlanName();
-    break;
-  case 'plan_a_point':
-  case 'plan_b_point':
-    renderPlanPoint();
-    break;
-  case 'rank1':
-  case 'rank2':
-  case 'rank3':
-    renderRank();
-    break;
+    renderOpening(); break;
+  case 'plan_a_name': case 'plan_b_name': case 'plan_a': case 'plan_b':
+    renderPlanName(); break;
+  case 'plan_a_point': case 'plan_b_point':
+    renderPlanPoint(); break;
+  case 'rank1': case 'rank2': case 'rank3': case 'rank1_name':
+    renderRank(); break;
   case 'verdict':
-    renderVerdict();
-    break;
+    renderVerdict(); break;
   case 'cta':
-    renderCTA();
-    break;
+    renderCTA(); break;
   default:
-    renderMain();
-    break;
+    renderMain(); break;
 }
 </script>
 </body>

@@ -61,6 +61,47 @@ function generateSilence(durationSec, outputPath) {
   );
 }
 
+const CARRIER_LOGO_MAP = {
+  "ahamo": "ahamo.svg",
+  "povo": "povo.svg",
+  "LINEMO": "linemo.svg",
+  "linemo": "linemo.svg",
+  "楽天モバイル": "rakuten.svg",
+  "楽天最強": "rakuten.svg",
+  "楽天リンク": "rakuten.svg",
+  "Rakuten": "rakuten.svg",
+  "UQモバイル": "uqmobile.svg",
+  "UQ mobile": "uqmobile.svg",
+  "UQ": "uqmobile.svg",
+  "ワイモバイル": "ymobile.svg",
+  "Y!mobile": "ymobile.svg",
+  "IIJmio": "iijmio.svg",
+  "mineo": "mineo.svg",
+  "日本通信": "nihontsushin.svg",
+  "NURO": "nuro.svg",
+  "NUROモバイル": "nuro.svg",
+  "イオンモバイル": "aeon.svg",
+  "LIBMO": "libmo.svg",
+  "J:COM": "jcom.svg",
+  "ドコモ": "docomo.svg",
+  "docomo": "docomo.svg",
+  "eximo": "docomo.svg",
+  "au": "au.svg",
+  "ソフトバンク": "softbank.svg",
+};
+
+function detectLogos(text) {
+  const logosDir = path.join(__dirname, "assets", "logos");
+  const matched = new Set();
+  for (const [keyword, file] of Object.entries(CARRIER_LOGO_MAP)) {
+    if (text.includes(keyword)) {
+      const absPath = path.join(logosDir, file).replace(/\\/g, "/");
+      matched.add(`file:///${absPath}`);
+    }
+  }
+  return [...matched];
+}
+
 function parsePlanFromDisplay(displayText) {
   const priceMatch = displayText.match(/([\d,]+)\s*円/);
   const price = priceMatch ? priceMatch[1].replace(/,/g, "") : "";
@@ -125,7 +166,9 @@ function parseVerdict(displayText) {
 
 function buildSceneData(section) {
   const dt = section.displayText || section.text || "";
-  const base = { displayText: dt, text: section.text || "" };
+  const searchText = `${dt} ${section.text || ""}`;
+  const logos = detectLogos(searchText);
+  const base = { displayText: dt, text: section.text || "", logos };
 
   switch (section.type) {
     case "plan_a_name":

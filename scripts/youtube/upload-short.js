@@ -7,12 +7,11 @@ import dotenv from "dotenv";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, ".env") });
 
-const UMAPOCKET_VIDEO_DIR = "C:/Users/suhr5/umapocket/scripts/video";
 const COMMON_TAGS = ["スマホ", "格安SIM", "節約", "スマプラン", "料金プラン", "スマホ料金", "乗り換え"];
 
 function getYouTubeClient() {
-  const credPath = path.join(UMAPOCKET_VIDEO_DIR, "client_secret.json");
-  const tokenPath = path.join(UMAPOCKET_VIDEO_DIR, "youtube_token.json");
+  const credPath = path.join(__dirname, "client_secret.json");
+  const tokenPath = path.join(__dirname, "youtube_token.json");
 
   if (!fs.existsSync(credPath)) {
     throw new Error(`client_secret.json が見つかりません: ${credPath}`);

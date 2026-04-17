@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# youtube credentials
+scripts/youtube/client_secret.json
+scripts/youtube/youtube_token.json
