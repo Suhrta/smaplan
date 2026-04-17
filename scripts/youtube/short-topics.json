@@ -6,8 +6,8 @@
       "title": "ahamo vs LINEMO 徹底比較",
       "description": "30GBプラン同士の比較。ahamo 30GB(2,970円) vs LINEMOベストプランV(2,970円)。同価格帯で通話・データ・海外利用の違いを解説",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T04:05:13.135Z"
     },
     {
       "id": 2,
@@ -15,8 +15,8 @@
       "title": "楽天モバイル vs ahamo大盛り",
       "description": "大容量プラン比較。楽天最強プラン無制限(3,278円) vs ahamo大盛り110GB(4,950円)。料金差1,672円の価値はあるか",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T04:18:14.932Z"
     },
     {
       "id": 3,
@@ -60,8 +60,8 @@
       "title": "月5,000円以上払ってたら見て",
       "description": "大手キャリアの標準プランからサブブランドや格安SIMへの乗り換えで月3,000〜5,000円節約できる具体例を紹介",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T04:35:09.678Z"
     },
     {
       "id": 8,
@@ -69,8 +69,8 @@
       "title": "スマホ代を半額にする3つの方法",
       "description": "①プラン見直し ②不要オプション解約 ③家族割/セット割活用 の3ステップ",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T05:03:50.879Z"
     },
     {
       "id": 9,
@@ -114,8 +114,8 @@
       "title": "10秒であなたに最適なプランがわかる",
       "description": "スマプランの診断機能を直接紹介。使い方の簡単さと診断結果の価値を伝える",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T05:27:36.913Z"
     },
     {
       "id": 14,
@@ -123,8 +123,8 @@
       "title": "スマホ代、実は半額にできるかも",
       "description": "多くの人が自分に合っていないプランを使っている事実を提示し、診断への誘導",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T06:21:53.375Z"
     },
     {
       "id": 15,
@@ -168,8 +168,8 @@
       "title": "楽天モバイルの意外な落とし穴",
       "description": "楽天最強プランの段階制料金の仕組み。3GB以下なら1,078円だが、少しでも超えると2,178円になる点を解説",
       "priority": 1,
-      "used": false,
-      "usedAt": null
+      "used": true,
+      "usedAt": "2026-04-17T06:38:44.742Z"
     },
     {
       "id": 20,

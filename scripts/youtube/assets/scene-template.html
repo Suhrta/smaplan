@@ -132,6 +132,8 @@
     width: 100%; height: 100%;
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   /* ── Text styles: Dark screen ── */
@@ -420,8 +422,9 @@ function renderMain() {
   topArea.innerHTML = `<span class="scene-label">${label}</span>`;
 
   const dt = DATA.displayText || '';
-  const price = extractPrice(dt);
-  const hasPrice = price && dt.includes('円');
+  const cleanDt = dt.replace(/\*\*/g, '');
+  const price = extractPrice(cleanDt);
+  const hasPrice = price && cleanDt.includes('円');
   const titleClass = s.dark ? 'dark-title' : 'light-title';
   const priceExtra = s.dark ? 'price-dark' : '';
 
@@ -432,12 +435,12 @@ function renderMain() {
 
   if (hasPrice) {
     const priceFormatted = Number(price).toLocaleString();
-    const textWithoutPrice = dt.replace(/([\d,]+)\s*円[^\n]*/g, '').replace(/\\n/g, ' ').trim();
+    const textWithoutPrice = cleanDt.replace(/([\d,]+)\s*円[^\n]*/g, '').replace(/\\n/g, ' ').trim();
     screen.innerHTML = `
       ${statusBar(s.dark)}
       <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 24px;gap:20px;">
         ${isCompare && DATA.logos ? logosVsHTML(DATA.logos) : (DATA.logos && DATA.logos.length > 0 ? logosHTML(DATA.logos, 200, 60) : '')}
-        ${textWithoutPrice ? `<div class="${titleClass}" style="font-size:48px;">${fmt(textWithoutPrice)}</div>` : ''}
+        ${textWithoutPrice ? `<div class="${titleClass}" style="font-size:48px;">${textWithoutPrice}</div>` : ''}
         <div class="price-text ${priceExtra}" style="font-size:96px;">${priceFormatted}<span style="font-size:40px;">円</span></div>
       </div>
     `;

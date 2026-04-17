@@ -73,6 +73,7 @@ ${sectionsInstruction}
 - 合計尺: ${template.constraints.totalDuration}秒以内
 - トーン: ${template.constraints.tone}
 - ${template.constraints.rules.join("\n- ")}
+- plans.jsonに存在するプラン名のみ使用すること。架空のプラン名を作らないこと
 
 【出力形式】以下のJSON形式のみで返答してください（説明不要、コードブロック不要）:
 {
