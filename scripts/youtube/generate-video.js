@@ -92,11 +92,17 @@ const CARRIER_LOGO_MAP = {
 
 function detectLogos(text) {
   const logosDir = path.join(__dirname, "assets", "logos");
+  const officialDir = path.join(logosDir, "official");
   const matched = new Set();
   for (const [keyword, file] of Object.entries(CARRIER_LOGO_MAP)) {
     if (text.includes(keyword)) {
-      const absPath = path.join(logosDir, file).replace(/\\/g, "/");
-      matched.add(`file:///${absPath}`);
+      const baseName = file.replace(/\.svg$/, "");
+      const pngPath = path.join(officialDir, `${baseName}.png`);
+      if (fs.existsSync(pngPath)) {
+        matched.add(`file:///${pngPath.replace(/\\/g, "/")}`);
+      } else {
+        matched.add(`file:///${path.join(logosDir, file).replace(/\\/g, "/")}`);
+      }
     }
   }
   return [...matched];
@@ -168,7 +174,8 @@ function buildSceneData(section) {
   const dt = section.displayText || section.text || "";
   const searchText = `${dt} ${section.text || ""}`;
   const logos = detectLogos(searchText);
-  const base = { displayText: dt, text: section.text || "", logos };
+  const subtitle = section.subtitle || dt.replace(/\*\*/g, '').replace(/\\n/g, ' ');
+  const base = { displayText: dt, text: section.text || "", logos, subtitle };
 
   switch (section.type) {
     case "plan_a_name":

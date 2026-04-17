@@ -226,6 +226,24 @@
   .cta-footer { background: #0F172A; padding: 18px 0; text-align: center; margin-top: auto; }
   .cta-footer span { color: #fff; font-size: 24px; font-weight: 900; letter-spacing: 3px; }
 
+  .subtitle-area {
+    z-index: 2;
+    width: 600px;
+    margin-top: 16px;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 12px;
+    padding: 12px 24px;
+    text-align: center;
+    min-height: 0;
+  }
+  .subtitle-text {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
   .bottom-area { z-index: 2; text-align: center; margin-top: 24px; min-height: 60px; }
   .bottom-text { color: rgba(255,255,255,0.7); font-size: 28px; font-weight: 700; line-height: 1.4; }
   .bottom-cta-btn {
@@ -248,6 +266,8 @@
     <div class="phone-screen" id="phone-screen"></div>
   </div>
 
+  <div class="subtitle-area" id="subtitle-area"></div>
+
   <div class="bottom-area" id="bottom-area"></div>
 
   <span class="watermark">smaplan.com</span>
@@ -258,6 +278,7 @@ const DATA = JSON.parse('{{DATA}}');
 
 const topArea = document.getElementById('top-area');
 const screen = document.getElementById('phone-screen');
+const subtitleArea = document.getElementById('subtitle-area');
 const bottomArea = document.getElementById('bottom-area');
 
 function statusBar(light) {
@@ -281,17 +302,27 @@ function logosHTML(logos, width, height) {
   if (!logos || logos.length === 0) return '';
   const w = width || 280;
   const h = height || 84;
-  return logos.map(src =>
-    `<img src="${src}" class="carrier-logo" width="${w}" height="${h}" />`
-  ).join('');
+  return logos.map(src => {
+    if (src.endsWith('.png')) {
+      return `<img src="${src}" style="height:${h}px;width:auto;object-fit:contain;" />`;
+    }
+    return `<img src="${src}" class="carrier-logo" width="${w}" height="${h}" />`;
+  }).join('');
+}
+
+function logoTag(src, w, h) {
+  if (src.endsWith('.png')) {
+    return `<img src="${src}" style="height:${h}px;width:auto;object-fit:contain;" />`;
+  }
+  return `<img src="${src}" class="carrier-logo" width="${w}" height="${h}" />`;
 }
 
 function logosVsHTML(logos) {
   if (!logos || logos.length < 2) return logosHTML(logos, 220, 66);
   return `<div class="logos-row">
-    <img src="${logos[0]}" class="carrier-logo" width="200" height="60" />
+    ${logoTag(logos[0], 200, 60)}
     <span class="vs-badge">VS</span>
-    <img src="${logos[1]}" class="carrier-logo" width="200" height="60" />
+    ${logoTag(logos[1], 200, 60)}
   </div>`;
 }
 
@@ -572,6 +603,15 @@ function renderCTA() {
   bottomArea.innerHTML = `<div class="bottom-text">${DATA.displayText || 'プロフィールのリンクから！'}</div>`;
 }
 
+function showSubtitle() {
+  const sub = DATA.subtitle;
+  if (sub && SCENE_TYPE !== 'cta') {
+    subtitleArea.innerHTML = `<div class="subtitle-text">${sub}</div>`;
+  } else {
+    subtitleArea.style.display = 'none';
+  }
+}
+
 switch (SCENE_TYPE) {
   case 'opening':
     renderOpening(); break;
@@ -588,6 +628,7 @@ switch (SCENE_TYPE) {
   default:
     renderMain(); break;
 }
+showSubtitle();
 </script>
 </body>
 </html>
