@@ -129,14 +129,12 @@ button {
 }
 
 .sp-block {
-  padding: 120px 0;
+  padding: 100px 0;
 }
 @media (max-width: 768px) {
-  .sp-block { padding: 72px 0; }
+  .sp-block { padding: 64px 0; }
 }
 
-.sp-block-accent { background: var(--accent-light); }
-.sp-block-gray { background: #EEF3FB; }
 .sp-block-dark { background: #0F172A; color: #fff; }
 
 .sp-hero-block {
@@ -144,7 +142,7 @@ button {
   display: flex;
   align-items: center;
   padding: 56px 0 72px;
-  background: linear-gradient(180deg, #EBF2FF 0%, #FFFFFF 85%);
+  background: linear-gradient(180deg, #EEF3FB 0%, #fff 100%);
 }
 @media (max-width: 720px) {
   .sp-hero-block { min-height: auto; padding: 48px 0 64px; }
@@ -154,20 +152,33 @@ button {
   font-size: clamp(30px, 5vw, 52px);
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--text-main);
-  text-align: center;
+  color: #111;
+  text-align: left;
   margin: 0 0 16px;
   line-height: 1.3;
 }
+.sp-h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: #2D5CC5;
+  margin-top: 16px;
+  border-radius: 2px;
+}
 .sp-h2-sub {
-  font-size: clamp(14px, 2vw, 18px);
-  color: var(--text-sub);
-  text-align: center;
-  margin: 0 0 64px;
+  font-size: clamp(14px, 1.5vw, 15px);
+  color: #666;
+  text-align: left;
+  margin: 0 0 56px;
   line-height: 1.7;
 }
-.sp-block-dark .sp-h2 { color: #fff; }
-.sp-block-dark .sp-h2-sub { color: rgba(255, 255, 255, 0.8); }
+.sp-h2-center { text-align: center; }
+.sp-h2-center::after { margin-left: auto; margin-right: auto; }
+.sp-h2-center + .sp-h2-sub { text-align: center; }
+.sp-block-dark .sp-h2 { color: #fff; text-align: center; }
+.sp-block-dark .sp-h2::after { margin: 16px auto 0; }
+.sp-block-dark .sp-h2-sub { color: rgba(255, 255, 255, 0.8); text-align: center; }
 @media (max-width: 768px) {
   .sp-h2-sub { margin-bottom: 40px; }
 }
@@ -249,10 +260,10 @@ button {
 /* Before/After staged animation cards */
 .sp-ba-row {
   background: #fff;
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
   border: 0.5px solid #D6E0F0;
-  box-shadow: 0 4px 20px rgba(45, 92, 197, 0.06);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
 }
 .sp-ba-cards {
   display: flex;

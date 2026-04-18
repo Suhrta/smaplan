@@ -1167,7 +1167,7 @@ export default function Home() {
         </section>
 
         {/* ── 競合比較セクション ── */}
-        <section className="sp-block sp-block-accent sp-section-fade">
+        <section className="sp-block sp-section-fade" style={{ background: '#fff' }}>
           <div className="sp-container">
             <h2 className="sp-h2">
               スマホプラン選び、<br />
@@ -1181,7 +1181,7 @@ export default function Home() {
               <div style={{
                 background: '#fff', border: '1px solid var(--border)',
                 borderRadius: 24, padding: '56px 40px', textAlign: 'center',
-                boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                boxShadow: '0 2px 16px rgba(0, 0, 0, 0.06)',
               }}>
                 <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-muted)', marginBottom: 20, letterSpacing: '0.05em' }}>
                   自分で調べる
@@ -1253,7 +1253,7 @@ export default function Home() {
         </section>
 
         {/* ── FEATURES セクション ── */}
-        <section className="sp-block sp-section-fade">
+        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #fff 0%, #F5F8FF 100%)' }}>
           <div className="sp-container">
             <h2 className="sp-h2">
               スマプランの3つの強み
@@ -1269,9 +1269,9 @@ export default function Home() {
                   className="sp-feature"
                   style={{
                     padding: '56px 40px', background: '#fff',
-                    border: '1px solid var(--border)', borderRadius: 20,
+                    border: '1px solid var(--border)', borderRadius: 24,
                     textAlign: 'center',
-                    boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
+                    boxShadow: '0 2px 16px rgba(0, 0, 0, 0.06)',
                   }}
                 >
                   <div style={{
@@ -1296,13 +1296,13 @@ export default function Home() {
         </section>
 
         {/* ── BEFORE / AFTER セクション ── */}
-        <section className="sp-block sp-block-gray sp-section-fade">
+        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #F5F8FF 0%, #EEF3FB 100%)', padding: '140px 0' }}>
           <div className="sp-container">
-            <h2 className="sp-h2">
+            <h2 className="sp-h2 sp-h2-center">
               乗り換えると<br />
               こんなに変わる
             </h2>
-            <p className="sp-h2-sub">
+            <p className="sp-h2-sub" style={{ textAlign: 'center' }}>
               プラン見直しだけで、年間数万円の節約も可能
             </p>
 
@@ -1329,7 +1329,7 @@ export default function Home() {
         </section>
 
         {/* ── FINAL CTA（ダーク） ── */}
-        <section className="sp-block sp-block-dark sp-section-fade" style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}>
+        <section className="sp-block sp-block-dark sp-section-fade" style={{ padding: '140px 0' }}>
           <div className="sp-container" style={{ textAlign: 'center' }}>
             <div style={{
               display: 'inline-block',
@@ -1375,7 +1375,7 @@ export default function Home() {
         </section>
 
         {/* ── 対応キャリア + FAQ ── */}
-        <section className="sp-block sp-section-fade">
+        <section className="sp-block sp-section-fade" style={{ background: '#fff', padding: '80px 0' }}>
           <div className="sp-container">
             <div style={{
               fontSize: 13, fontWeight: 800, color: 'var(--text-muted)',
@@ -1402,7 +1402,7 @@ export default function Home() {
               ))}
             </div>
 
-            <h2 className="sp-h2">
+            <h2 className="sp-h2 sp-h2-center">
               よくある質問
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 40 }}>
