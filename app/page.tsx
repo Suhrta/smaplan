@@ -645,7 +645,7 @@ function PhoneMockup() {
               }}>
                 <div style={{ fontSize: 10, opacity: 0.85, fontWeight: 700 }}>乗り換えで</div>
                 <div style={{ fontSize: 20, fontWeight: 900, lineHeight: 1.1, marginTop: 2 }}>
-                  年間 54,000円
+                  年間 52,140円
                 </div>
                 <div style={{ fontSize: 11, fontWeight: 800 }}>おトク！</div>
               </div>
@@ -1063,11 +1063,11 @@ export default function Home() {
           .sp-faq-q { flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
           .sp-faq-answer { padding: 0 28px 24px 70px; font-size: 15px; line-height: 1.9; color: var(--text-sub); margin: 0; }
           .sp-hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+          .sp-hero-text { text-align: left; }
+          .sp-hero-text .sp-hero-cta-wrap { align-items: flex-start; }
           .sp-hero-mock { display: block; transform: scale(0.81); transform-origin: top center; margin-bottom: -108px; }
           @media (min-width: 900px) {
-            .sp-hero-grid { grid-template-columns: 1.15fr 0.85fr; gap: 56px; }
-            .sp-hero-text { text-align: left; }
-            .sp-hero-text .sp-hero-cta-wrap { align-items: flex-start; }
+            .sp-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; }
             .sp-hero-mock { transform: none; margin-bottom: 0; }
           }
         `}</style>
@@ -1081,7 +1081,7 @@ export default function Home() {
         <section className="sp-hero-block">
           <div className="sp-container">
             <div className="sp-hero-grid">
-              <div className="sp-hero-text" style={{ textAlign: 'center' }}>
+              <div className="sp-hero-text">
                 <div style={{
                   display: 'inline-flex', alignItems: 'center', gap: 6,
                   padding: '6px 14px', borderRadius: 999,
@@ -1111,7 +1111,7 @@ export default function Home() {
                 </p>
                 <div className="sp-hero-cta-wrap" style={{
                   display: 'flex', flexDirection: 'column',
-                  alignItems: 'center', gap: 18,
+                  alignItems: 'flex-start', gap: 18,
                 }}>
                   <button onClick={startDiagnose} className="sp-cta-pill">
                     診断スタート
@@ -1122,12 +1122,6 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-                <p style={{
-                  fontSize: 11, color: 'var(--text-muted)',
-                  margin: '32px 0 0', lineHeight: 1.7,
-                }}>
-                  ※ドコモ eximo → ahamo 乗り換え時の当サイト試算（割引適用前の基本料金比較）
-                </p>
               </div>
               <div className="sp-hero-mock">
                 <PhoneMockup />
