@@ -1253,7 +1253,7 @@ export default function Home() {
         </section>
 
         {/* ── FEATURES セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #fff 0%, #F5F8FF 100%)' }}>
+        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #fff 0%, #EEF3FB 100%)' }}>
           <div className="sp-container">
             <h2 className="sp-h2">
               スマプランの3つの強み
@@ -1268,9 +1268,9 @@ export default function Home() {
                   key={f.title}
                   className="sp-feature"
                   style={{
-                    padding: '56px 40px', background: '#fff',
+                    padding: '48px 32px', background: '#fff',
                     border: '1px solid var(--border)', borderRadius: 24,
-                    textAlign: 'center',
+                    textAlign: 'left',
                     boxShadow: '0 2px 16px rgba(0, 0, 0, 0.06)',
                   }}
                 >
@@ -1296,7 +1296,7 @@ export default function Home() {
         </section>
 
         {/* ── BEFORE / AFTER セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #F5F8FF 0%, #EEF3FB 100%)', padding: '140px 0' }}>
+        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #EEF3FB 0%, #E3ECF8 100%)', padding: '140px 0' }}>
           <div className="sp-container">
             <h2 className="sp-h2 sp-h2-center">
               乗り換えると<br />
@@ -1375,7 +1375,7 @@ export default function Home() {
         </section>
 
         {/* ── 対応キャリア + FAQ ── */}
-        <section className="sp-block sp-section-fade" style={{ background: '#fff', padding: '80px 0' }}>
+        <section className="sp-block sp-section-fade" style={{ background: '#fff', padding: '56px 0 80px' }}>
           <div className="sp-container">
             <div style={{
               fontSize: 13, fontWeight: 800, color: 'var(--text-muted)',
