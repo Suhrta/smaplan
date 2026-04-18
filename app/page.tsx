@@ -89,7 +89,7 @@ function BeforeAfterCard(props: BAExample) {
   const savingValue = useCountUp(annualSaving, stage >= 4, 900);
 
   const specRow = (label: string, value: string) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'var(--text-sub)' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 16, color: 'var(--text-sub)' }}>
       <span style={{ color: '#94A3B8', fontWeight: 600, flexShrink: 0, width: 56 }}>{label}</span>
       <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>{value}</span>
     </div>
@@ -115,7 +115,7 @@ function BeforeAfterCard(props: BAExample) {
           <div style={{ fontSize: 11, fontWeight: 800, color: '#94A3B8', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
             Before
           </div>
-          <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>
             {before.carrier}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
@@ -130,7 +130,7 @@ function BeforeAfterCard(props: BAExample) {
           </div>
           <div className="sp-ba-price" style={{ color: 'var(--text-main)' }}>
             {before.monthly_cost.toLocaleString()}
-            <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 4, color: 'var(--text-sub)' }}>円/月</span>
+            <span style={{ fontSize: 16, fontWeight: 700, marginLeft: 4, color: 'var(--text-sub)' }}>円/月</span>
           </div>
         </div>
 
@@ -147,7 +147,7 @@ function BeforeAfterCard(props: BAExample) {
           <div style={{ fontSize: 11, fontWeight: 800, color: '#2D5CC5', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
             After
           </div>
-          <div style={{ fontSize: 20, fontWeight: 700, color: '#2D5CC5', marginBottom: 20 }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: '#2D5CC5', marginBottom: 20 }}>
             {after.carrier}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
@@ -162,7 +162,7 @@ function BeforeAfterCard(props: BAExample) {
           </div>
           <div className="sp-ba-price" style={{ color: '#2D5CC5' }}>
             {after.monthly_cost.toLocaleString()}
-            <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 4, color: '#94A3B8' }}>円/月</span>
+            <span style={{ fontSize: 16, fontWeight: 700, marginLeft: 4, color: '#94A3B8' }}>円/月</span>
           </div>
         </div>
       </div>
@@ -170,7 +170,7 @@ function BeforeAfterCard(props: BAExample) {
       {/* ── SAVING BANNER ── */}
       <div className={`sp-ba-saving-banner sp-ba-stage sp-ba-stage-saving${stage >= 4 ? ' visible' : ''}`}>
         <span style={{ fontSize: 13, color: '#5A7BB5' }}>年間 </span>
-        <span style={{ fontSize: 'clamp(36px, 8vw, 48px)', fontWeight: 900, color: '#2D5CC5', letterSpacing: '-0.02em' }}>
+        <span style={{ fontSize: 'clamp(44px, 10vw, 60px)', fontWeight: 900, color: '#2D5CC5', letterSpacing: '-0.02em' }}>
           {stage >= 4 ? savingValue.toLocaleString() : '0'}
         </span>
         <span style={{ fontSize: 13, color: '#5A7BB5' }}> 円おトク</span>
@@ -1084,8 +1084,8 @@ export default function Home() {
           .sp-cta { transition: transform 0.18s ease, box-shadow 0.18s ease; }
           .sp-cta:hover { transform: scale(1.05); box-shadow: 0 10px 24px rgba(29, 78, 216, 0.35); }
           .sp-cta:active { transform: scale(1.02); }
-          .sp-feature { transition: transform 0.22s ease, box-shadow 0.22s ease; }
-          .sp-feature:hover { transform: translateY(-4px); box-shadow: 0 16px 36px rgba(15, 23, 42, 0.1); }
+          .sp-feature { transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; }
+          .sp-feature:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(15, 23, 42, 0.10), 0 8px 16px rgba(15, 23, 42, 0.06); border-color: rgba(45, 92, 197, 0.25) !important; }
           .sp-faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; transition: background 0.15s ease; }
           .sp-faq-item[open] { background: var(--accent-light); border-color: var(--accent-border); }
           .sp-faq-summary { list-style: none; cursor: pointer; padding: 24px 28px; display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 700; color: var(--text-main); outline: none; }
@@ -1179,9 +1179,12 @@ export default function Home() {
 
             <div className="sp-compare-grid-v2">
               <div style={{
-                background: '#fff', border: '1px solid var(--border)',
+                background: 'rgba(255, 255, 255, 0.7)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.8)',
                 borderRadius: 24, padding: '56px 40px', textAlign: 'center',
-                boxShadow: '0 2px 16px rgba(0, 0, 0, 0.06)',
+                boxShadow: '0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)',
               }}>
                 <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-muted)', marginBottom: 20, letterSpacing: '0.05em' }}>
                   自分で調べる
@@ -1206,10 +1209,10 @@ export default function Home() {
                 </div>
               </div>
               <div style={{
-                background: 'linear-gradient(135deg, var(--accent) 0%, #2563EB 100%)',
+                background: 'linear-gradient(135deg, #3B6BDB 0%, #2D5CC5 50%, #1E3A8A 100%)',
                 borderRadius: 24, padding: '56px 40px', textAlign: 'center',
                 color: '#fff', position: 'relative',
-                boxShadow: '0 20px 50px rgba(29, 78, 216, 0.35)',
+                boxShadow: '0 24px 56px rgba(29, 78, 216, 0.30), 0 8px 20px rgba(29, 78, 216, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
               }}>
                 <div style={{
                   position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%)',
@@ -1268,10 +1271,14 @@ export default function Home() {
                   key={f.title}
                   className="sp-feature"
                   style={{
-                    padding: '48px 32px', background: '#fff',
-                    border: '1px solid var(--border)', borderRadius: 24,
+                    padding: '48px 32px',
+                    background: 'rgba(255, 255, 255, 0.7)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.8)',
+                    borderRadius: 24,
                     textAlign: 'left',
-                    boxShadow: '0 2px 16px rgba(0, 0, 0, 0.06)',
+                    boxShadow: '0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)',
                   }}
                 >
                   <div style={{

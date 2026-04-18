@@ -218,7 +218,7 @@ button {
 }
 
 .sp-ba-price {
-  font-size: 32px;
+  font-size: 44px;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -250,11 +250,13 @@ button {
 
 /* Before/After staged animation cards */
 .sp-ba-row {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 24px;
   overflow: hidden;
-  border: 0.5px solid #D6E0F0;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.10), 0 2px 8px rgba(15, 23, 42, 0.05);
 }
 .sp-ba-cards {
   display: flex;
@@ -292,13 +294,13 @@ button {
 .sp-ba-before-card {
   flex: 1;
   padding: 32px 28px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
   text-align: left;
 }
 .sp-ba-after-card {
   flex: 1;
   padding: 32px 28px;
-  background: #F5F8FF;
+  background: rgba(237, 243, 255, 0.6);
   text-align: left;
 }
 .sp-ba-arrow-center {
@@ -327,7 +329,7 @@ button {
 }
 .sp-ba-tip {
   display: inline-block;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.5;
   padding: 6px 10px;
