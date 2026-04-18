@@ -50,13 +50,39 @@ function useCountUp(target: number, active: boolean, duration = 800) {
 }
 
 type BAExample = {
-  beforeCarrier: string; beforeCost: number;
-  afterCarrier: string; afterCost: number;
-  data: string; note: string;
+  beforeId: string; afterId: string;
+  beforeData: string; afterData: string;
+  beforeCall: string; afterCall: string;
+  beforeDataTip: string; beforeCallTip: string;
+  afterDataTip: string; afterCallTip: string;
+  dataChange: string; note: string;
 };
 
+function BASpecRow({ label, value, tip, tipColor }: { label: string; value: string; tip: string; tipColor: string }) {
+  return (
+    <div style={{ marginBottom: 8 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 600, minWidth: 36 }}>{label}</span>
+        <span style={{ fontSize: 16, fontWeight: 700, color: 'var(--text-main)' }}>{value}</span>
+      </div>
+      {tip && (
+        <div style={{
+          fontSize: 13, fontWeight: 600, lineHeight: 1.5,
+          padding: '4px 10px', borderRadius: 8, marginTop: 4, marginLeft: 44,
+          background: tipColor === 'orange' ? 'var(--warning-light)' : '#EFF6FF',
+          color: tipColor === 'orange' ? 'var(--warning)' : '#1D4ED8',
+        }}>
+          {tip}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function BeforeAfterCard({ example, index }: { example: BAExample; index: number }) {
-  const saving = (example.beforeCost - example.afterCost) * 12;
+  const before = getPlan(example.beforeId);
+  const after = getPlan(example.afterId);
+  const saving = (before.monthly_cost - after.monthly_cost) * 12;
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -73,6 +99,11 @@ function BeforeAfterCard({ example, index }: { example: BAExample; index: number
 
   const savingVal = useCountUp(saving, inView, 900);
 
+  const sideStyle = (isAfter: boolean): React.CSSProperties => ({
+    flex: 1, padding: '28px 24px',
+    background: isAfter ? 'var(--accent-light)' : '#fff',
+  });
+
   return (
     <div ref={ref} style={{
       background: '#fff',
@@ -82,53 +113,62 @@ function BeforeAfterCard({ example, index }: { example: BAExample; index: number
       transform: inView ? 'translateY(0)' : 'translateY(20px)',
       transition: `all 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s`,
     }}>
-      <div style={{
-        display: 'grid', gridTemplateColumns: '1fr auto 1fr',
-        alignItems: 'center',
-      }}>
+      <div className="sp-ba-cards">
         {/* Before */}
-        <div style={{ padding: '32px 28px' }}>
+        <div style={sideStyle(false)}>
           <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: 8 }}>BEFORE</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12 }}>{example.beforeCarrier}</div>
-          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)' }}>
-            {example.beforeCost.toLocaleString()}<span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12 }}>{before.carrier}</div>
+          <BASpecRow label="データ" value={example.beforeData} tip={example.beforeDataTip} tipColor="orange" />
+          <BASpecRow label="通話" value={example.beforeCall} tip={example.beforeCallTip} tipColor="orange" />
+          <div style={{ marginTop: 16 }}>
+            <span style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)' }}>
+              {before.monthly_cost.toLocaleString()}
+            </span>
+            <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
           </div>
         </div>
 
         {/* Arrow */}
-        <div style={{
-          width: 40, height: 40, borderRadius: '50%',
-          background: 'var(--accent)', display: 'flex',
-          alignItems: 'center', justifyContent: 'center',
-          flexShrink: 0,
-        }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14m0 0l-6-6m6 6l-6 6" />
-          </svg>
+        <div className="sp-ba-arrow-center">
+          <div style={{
+            width: 40, height: 40, borderRadius: '50%',
+            background: 'var(--accent)', display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0,
+          }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+            </svg>
+          </div>
         </div>
 
         {/* After */}
-        <div style={{ padding: '32px 28px', background: 'var(--accent-light)' }}>
+        <div style={sideStyle(true)}>
           <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: 8 }}>AFTER</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--accent)', marginBottom: 12 }}>{example.afterCarrier}</div>
-          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)' }}>
-            {example.afterCost.toLocaleString()}<span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--accent)', marginBottom: 12 }}>{after.carrier}</div>
+          <BASpecRow label="データ" value={example.afterData} tip={example.afterDataTip} tipColor="blue" />
+          <BASpecRow label="通話" value={example.afterCall} tip={example.afterCallTip} tipColor="blue" />
+          <div style={{ marginTop: 16 }}>
+            <span style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)' }}>
+              {after.monthly_cost.toLocaleString()}
+            </span>
+            <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
           </div>
         </div>
       </div>
 
-      {/* Saving bar */}
+      {/* Saving banner */}
       <div style={{
-        background: 'var(--accent-light)', borderTop: '1px solid var(--accent-border)',
+        background: '#F5F8FF', borderTop: '0.5px solid #E3ECF8',
         padding: '16px 28px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         flexWrap: 'wrap', gap: 8,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 13, color: 'var(--text-sub)', fontWeight: 500 }}>{example.data}</span>
+          <span style={{ fontSize: 13, color: 'var(--text-sub)', fontWeight: 500 }}>{example.dataChange}</span>
           <span style={{
             fontSize: 12, padding: '3px 10px', borderRadius: 6,
-            background: '#eefbf4', color: '#0d9f5f', fontWeight: 600,
+            background: '#EFF6FF', color: '#1D4ED8', fontWeight: 600,
           }}>{example.note}</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
@@ -970,9 +1010,30 @@ export default function Home() {
 
   if (view === 'landing') {
     const baExamples: BAExample[] = [
-      { beforeCarrier: 'ドコモ eximo', beforeCost: 7315, afterCarrier: 'ahamo', afterCost: 2970, data: '無制限 → 20GB', note: 'Wi-Fi併用なら20GBで十分' },
-      { beforeCarrier: 'Y!mobile S', beforeCost: 2365, afterCarrier: 'IIJmio 5GB', afterCost: 990, data: '5GB → 5GB', note: '同じ容量を半額以下で' },
-      { beforeCarrier: 'ahamo 110GB', beforeCost: 4950, afterCarrier: '楽天モバイル', afterCost: 3278, data: '110GB → 無制限', note: '無制限で通話も無料' },
+      {
+        beforeId: 'docomo_max', afterId: 'ahamo_30gb',
+        beforeData: '無制限', afterData: '30GB',
+        beforeCall: '5分かけ放題(880円)', afterCall: '5分かけ放題(込み)',
+        beforeDataTip: '実際は月10GB前後しか使ってない…', beforeCallTip: '',
+        afterDataTip: 'Wi-Fi併用なら30GBで十分', afterCallTip: '5分無料が最初から込み',
+        dataChange: '無制限 → 30GB', note: 'Wi-Fi併用なら30GBで十分',
+      },
+      {
+        beforeId: 'ymobile_simple3_s', afterId: 'iijmio_5gb',
+        beforeData: '5GB', afterData: '5GB',
+        beforeCall: 'なし', afterCall: 'なし',
+        beforeDataTip: '割引なしだと3,058円…', beforeCallTip: '',
+        afterDataTip: '同じ容量を約1/3の価格で', afterCallTip: '',
+        dataChange: '5GB → 5GB', note: '同じ容量を約1/3の価格で',
+      },
+      {
+        beforeId: 'ahamo_110gb', afterId: 'rakuten_saikyo',
+        beforeData: '110GB', afterData: '無制限',
+        beforeCall: '5分かけ放題(込み)', afterCall: 'Rakuten Link無料',
+        beforeDataTip: '110GBも使い切れていない', beforeCallTip: '',
+        afterDataTip: 'データ無制限で気にせず使える', afterCallTip: '通話も完全無料',
+        dataChange: '110GB → 無制限', note: '無制限で通話も無料',
+      },
     ];
     const carrierBadges = [
       { name: 'ドコモ', bg: '#CC0033' },
@@ -1118,7 +1179,7 @@ export default function Home() {
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
               {baExamples.map((ex, i) => (
-                <BeforeAfterCard key={`${ex.beforeCarrier}-${ex.afterCarrier}`} example={ex} index={i} />
+                <BeforeAfterCard key={`${ex.beforeId}-${ex.afterId}`} example={ex} index={i} />
               ))}
             </div>
 
