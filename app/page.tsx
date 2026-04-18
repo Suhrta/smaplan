@@ -24,6 +24,161 @@ function getPlan(id: string): Plan {
   return plans.find(p => p.id === id)!;
 }
 
+function useCountUp(target: number, active: boolean, duration = 800) {
+  const [value, setValue] = useState(0);
+  const startRef = useRef<number | null>(null);
+  const fromRef = useRef(0);
+
+  useEffect(() => {
+    if (!active) { fromRef.current = target; return; }
+    const from = fromRef.current || target * 3;
+    startRef.current = null;
+    let raf: number;
+    const step = (ts: number) => {
+      if (!startRef.current) startRef.current = ts;
+      const elapsed = ts - startRef.current;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.round(from + (target - from) * eased));
+      if (progress < 1) raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [active, target, duration]);
+
+  return active ? value : 0;
+}
+
+type BAExample = {
+  beforeId: string; afterId: string;
+  beforeData: string; afterData: string;
+  beforeCall: string; afterCall: string;
+  beforeDataTip: string; beforeCallTip: string;
+  afterDataTip: string; afterCallTip: string;
+};
+
+function BeforeAfterCard(props: BAExample) {
+  const { beforeId, afterId, beforeData, afterData, beforeCall, afterCall, beforeDataTip, beforeCallTip, afterDataTip, afterCallTip } = props;
+  const before = getPlan(beforeId);
+  const after = getPlan(afterId);
+  const annualSaving = (before.monthly_cost - after.monthly_cost) * 12;
+
+  const ref = useRef<HTMLDivElement>(null);
+  const [stage, setStage] = useState(0);
+  const firedRef = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !firedRef.current) {
+          firedRef.current = true;
+          setStage(1);
+          setTimeout(() => setStage(2), 400);
+          setTimeout(() => setStage(3), 800);
+          setTimeout(() => setStage(4), 1300);
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const savingValue = useCountUp(annualSaving, stage >= 4, 900);
+
+  const specRow = (label: string, value: string) => (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'var(--text-sub)' }}>
+      <span style={{ color: '#94A3B8', fontWeight: 600, flexShrink: 0, width: 56 }}>{label}</span>
+      <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>{value}</span>
+    </div>
+  );
+
+  const orangeTip = (text: string) => (
+    <div className="sp-ba-tip" style={{ background: '#FFF7ED', color: '#A0700A' }}>
+      💡 {text}
+    </div>
+  );
+
+  const blueTip = (text: string) => (
+    <div className="sp-ba-tip" style={{ background: '#EEF3FB', color: '#2D5CC5' }}>
+      ✓ {text}
+    </div>
+  );
+
+  return (
+    <div ref={ref} className="sp-ba-row">
+      <div className="sp-ba-cards">
+        {/* ── BEFORE ── */}
+        <div className={`sp-ba-before-card sp-ba-stage sp-ba-stage-before${stage >= 1 ? ' visible' : ''}`}>
+          <div style={{ fontSize: 11, fontWeight: 800, color: '#94A3B8', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
+            Before
+          </div>
+          <div style={{ fontSize: 20, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>
+            {before.carrier}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
+            <div>
+              {specRow('データ', beforeData)}
+              {orangeTip(beforeDataTip)}
+            </div>
+            <div>
+              {specRow('通話', beforeCall)}
+              {orangeTip(beforeCallTip)}
+            </div>
+          </div>
+          <div className="sp-ba-price" style={{ color: 'var(--text-main)' }}>
+            {before.monthly_cost.toLocaleString()}
+            <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 4, color: 'var(--text-sub)' }}>円/月</span>
+          </div>
+        </div>
+
+        {/* ── ARROW ── */}
+        <div className={`sp-ba-arrow-center sp-ba-stage sp-ba-stage-arrow${stage >= 2 ? ' visible' : ''}`}>
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+            <circle cx="22" cy="22" r="22" fill="#2D5CC5" />
+            <path d="M17 22h10m0 0l-4-4m4 4l-4 4" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+
+        {/* ── AFTER ── */}
+        <div className={`sp-ba-after-card sp-ba-stage sp-ba-stage-after${stage >= 3 ? ' visible' : ''}`}>
+          <div style={{ fontSize: 11, fontWeight: 800, color: '#2D5CC5', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
+            After
+          </div>
+          <div style={{ fontSize: 20, fontWeight: 700, color: '#2D5CC5', marginBottom: 20 }}>
+            {after.carrier}
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
+            <div>
+              {specRow('データ', afterData)}
+              {blueTip(afterDataTip)}
+            </div>
+            <div>
+              {specRow('通話', afterCall)}
+              {blueTip(afterCallTip)}
+            </div>
+          </div>
+          <div className="sp-ba-price" style={{ color: '#2D5CC5' }}>
+            {after.monthly_cost.toLocaleString()}
+            <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 4, color: '#94A3B8' }}>円/月</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── SAVING BANNER ── */}
+      <div className={`sp-ba-saving-banner sp-ba-stage sp-ba-stage-saving${stage >= 4 ? ' visible' : ''}`}>
+        <span style={{ fontSize: 13, color: '#5A7BB5' }}>無駄をカットして年間 </span>
+        <span style={{ fontSize: 'clamp(36px, 8vw, 48px)', fontWeight: 900, color: '#2D5CC5', letterSpacing: '-0.02em' }}>
+          {stage >= 4 ? savingValue.toLocaleString() : '0'}
+        </span>
+        <span style={{ fontSize: 13, color: '#5A7BB5' }}> 円おトク</span>
+      </div>
+    </div>
+  );
+}
+
 type Question = {
   key: string;
   label: string;
@@ -209,7 +364,7 @@ function OptionButton({
 
 function BotIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M12 8V4H8" />
       <rect width="16" height="12" x="4" y="8" rx="2" />
       <path d="M2 14h2" />
@@ -222,7 +377,7 @@ function BotIcon() {
 
 function ScaleIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
       <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
       <path d="M7 21h10" />
@@ -234,7 +389,7 @@ function ScaleIcon() {
 
 function PiggyBankIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8.4 2.8 1 3.5V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.5c1.1.1 2.4.1 3.5 0V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-1.7c1.2-.8 2.2-1.8 2.5-3.3H21a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-.5C20 6.5 19.5 5 19 5Z" />
       <path d="M16 11h.01" />
     </svg>
@@ -242,9 +397,9 @@ function PiggyBankIcon() {
 }
 
 const FEATURES = [
-  { Icon: BotIcon, title: 'AI診断', body: '10問に答えるだけで、AIがあなたの使い方を分析' },
-  { Icon: ScaleIcon, title: '中立・全キャリア対応', body: '大手キャリアから格安SIMまで20プランから公平に比較' },
-  { Icon: PiggyBankIcon, title: '年間節約額がわかる', body: '現在の料金と比較して「いくらお得か」を具体的に表示' },
+  { Icon: BotIcon, title: 'AI診断', body: '10問答えるだけでAIが使い方を分析' },
+  { Icon: ScaleIcon, title: '中立・全キャリア対応', body: '大手から格安SIMまで全20プランを公平に比較' },
+  { Icon: PiggyBankIcon, title: '年間節約額がわかる', body: '今の料金と比べていくらお得か具体的に表示' },
 ] as const;
 
 const FAQ_ITEMS = [
@@ -887,25 +1042,32 @@ export default function Home() {
 
   if (view === 'landing') {
     const baExamples = [
-      { beforeId: 'docomo_max', afterId: 'ahamo_30gb' },
-      { beforeId: 'ymobile_simple3_s', afterId: 'iijmio_5gb' },
-      { beforeId: 'ahamo_110gb', afterId: 'rakuten_saikyo' },
-    ];
-    const personas = [
       {
-        icon: '👤', label: '20代 一人暮らし',
-        data: '月20GB', call: '通話少なめ',
-        planId: 'ahamo_30gb', saving: '約5.4万円',
+        beforeId: 'docomo_max', afterId: 'ahamo_30gb',
+        beforeData: '無制限', afterData: '20GB',
+        beforeCall: '5分かけ放題', afterCall: '5分かけ放題',
+        beforeDataTip: '実はWi-Fiがあれば月20GBで足りているかも',
+        beforeCallTip: 'LINE通話で足りていませんか？',
+        afterDataTip: '普段使いには十分な容量',
+        afterCallTip: '短い通話もしっかりカバー',
       },
       {
-        icon: '👨\u200D👩\u200D👧\u200D👦', label: '家族4人',
-        data: '月10GB', call: '通話あり',
-        planId: 'uq_komikomi_value', saving: '約8.2万円',
+        beforeId: 'ymobile_simple3_s', afterId: 'iijmio_5gb',
+        beforeData: '5GB', afterData: '5GB',
+        beforeCall: 'なし', afterCall: 'なし',
+        beforeDataTip: '大手キャリアの回線品質に月額料金を払いすぎかも',
+        beforeCallTip: '同じプランでも格安SIMなら半額以下に',
+        afterDataTip: '同じ5GBを大幅に安く使える',
+        afterCallTip: 'LINE通話メインなら通話オプション不要',
       },
       {
-        icon: '👴', label: 'シニア夫婦',
-        data: '月3GB', call: '通話多め',
-        planId: 'iijmio_5gb', saving: '約6.1万円',
+        beforeId: 'ahamo_110gb', afterId: 'rakuten_saikyo',
+        beforeData: '110GB', afterData: '無制限',
+        beforeCall: '5分かけ放題', afterCall: '専用アプリで無料',
+        beforeDataTip: '110GBも毎月使い切れていますか？',
+        beforeCallTip: '月額オプション料を払い続けていませんか？',
+        afterDataTip: '無制限だから容量を気にしなくてOK',
+        afterCallTip: 'Rakuten Linkで国内通話が無料',
       },
     ];
     const carrierBadges = [
@@ -962,18 +1124,19 @@ export default function Home() {
                   AIが30秒で最適プラン診断
                 </div>
                 <h1 style={{
-                  fontSize: 'clamp(40px, 8vw, 68px)',
+                  fontSize: 'clamp(44px, 8vw, 80px)',
                   fontWeight: 900, lineHeight: 1.15,
-                  margin: '0 0 24px', color: 'var(--text-main)',
+                  margin: '0 0 28px', color: 'var(--text-main)',
                   letterSpacing: '-0.02em',
                 }}>
-                  <span style={{ color: 'var(--accent)' }}>年間5万円</span><br />
+                  年間<span style={{ fontSize: '1.4em', color: '#2D5CC5' }}>5</span>万円
+                  <br />
                   安くなるかも
                 </h1>
                 <p style={{
-                  fontSize: 'clamp(16px, 2.2vw, 18px)',
+                  fontSize: 'clamp(16px, 2.2vw, 20px)',
                   color: 'var(--text-sub)',
-                  margin: '0 0 40px', lineHeight: 1.75,
+                  margin: '0 0 44px', lineHeight: 1.75,
                 }}>
                   10問・30秒の無料AI診断で<br />
                   あなたに最適なプランが見つかる
@@ -1017,7 +1180,7 @@ export default function Home() {
             <div className="sp-compare-grid-v2">
               <div style={{
                 background: '#fff', border: '1px solid var(--border)',
-                borderRadius: 24, padding: '48px 32px', textAlign: 'center',
+                borderRadius: 24, padding: '56px 40px', textAlign: 'center',
                 boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
               }}>
                 <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-muted)', marginBottom: 20, letterSpacing: '0.05em' }}>
@@ -1031,12 +1194,12 @@ export default function Home() {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 18, textAlign: 'left' }}>
                   {[
-                    { icon: '🔍', text: '比較サイトを何個も巡回' },
-                    { icon: '🧮', text: '割引計算が複雑' },
-                    { icon: '😩', text: '結局どれがいいかわからない' },
+                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D5CC5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>, text: '比較サイトを何個も巡回' },
+                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D5CC5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/><path d="M8 18h6"/></svg>, text: '割引計算が複雑' },
+                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D5CC5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>, text: '結局どれがいいかわからない' },
                   ].map((item, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: 'var(--text-sub)' }}>
-                      <span style={{ fontSize: 20, flexShrink: 0 }}>{item.icon}</span>
+                      <span style={{ flexShrink: 0, display: 'flex' }}>{item.icon}</span>
                       {item.text}
                     </div>
                   ))}
@@ -1044,7 +1207,7 @@ export default function Home() {
               </div>
               <div style={{
                 background: 'linear-gradient(135deg, var(--accent) 0%, #2563EB 100%)',
-                borderRadius: 24, padding: '48px 32px', textAlign: 'center',
+                borderRadius: 24, padding: '56px 40px', textAlign: 'center',
                 color: '#fff', position: 'relative',
                 boxShadow: '0 20px 50px rgba(29, 78, 216, 0.35)',
               }}>
@@ -1068,12 +1231,12 @@ export default function Home() {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 18, textAlign: 'left' }}>
                   {[
-                    { icon: '🤖', text: 'AIが自動で最適プラン計算' },
-                    { icon: '⚖️', text: '全20プランから公平に比較' },
-                    { icon: '😊', text: '1つに絞って提案' },
+                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>, text: 'AIが自動で最適プラン計算' },
+                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>, text: '全20プランから公平に比較' },
+                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>, text: '1つに絞って提案' },
                   ].map((item, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: '#fff', fontWeight: 600 }}>
-                      <span style={{ fontSize: 20, flexShrink: 0 }}>{item.icon}</span>
+                      <span style={{ flexShrink: 0, display: 'flex' }}>{item.icon}</span>
                       {item.text}
                     </div>
                   ))}
@@ -1105,27 +1268,25 @@ export default function Home() {
                   key={f.title}
                   className="sp-feature"
                   style={{
-                    padding: '44px 32px', background: '#fff',
+                    padding: '56px 40px', background: '#fff',
                     border: '1px solid var(--border)', borderRadius: 20,
                     textAlign: 'center',
                     boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
                   }}
                 >
                   <div style={{
-                    width: 72, height: 72, borderRadius: 20,
+                    width: 80, height: 80, borderRadius: 20,
                     background: 'var(--accent-light)',
                     color: 'var(--accent)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     margin: '0 auto 24px',
-                    transform: 'scale(1.4)',
-                    transformOrigin: 'center',
                   }}>
                     <f.Icon />
                   </div>
-                  <div style={{ fontSize: 20, fontWeight: 800, color: 'var(--text-main)', marginBottom: 14 }}>
+                  <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-main)', marginBottom: 14 }}>
                     {f.title}
                   </div>
-                  <div style={{ fontSize: 15, color: 'var(--text-sub)', lineHeight: 1.75 }}>
+                  <div style={{ fontSize: 16, color: 'var(--text-sub)', lineHeight: 1.75 }}>
                     {f.body}
                   </div>
                 </div>
@@ -1145,72 +1306,10 @@ export default function Home() {
               プラン見直しだけで、年間数万円の節約も可能
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-              {baExamples.map(({ beforeId, afterId }, idx) => {
-                const before = getPlan(beforeId);
-                const after = getPlan(afterId);
-                const annualSaving = (before.monthly_cost - after.monthly_cost) * 12;
-                return (
-                  <div key={idx} style={{
-                    background: '#fff',
-                    borderRadius: 24,
-                    overflow: 'hidden',
-                    boxShadow: '0 12px 40px rgba(15, 23, 42, 0.08)',
-                  }}>
-                    <div className="sp-ba-cards">
-                      <div style={{ flex: 1, padding: '40px 24px', textAlign: 'center' }}>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-muted)', letterSpacing: '0.2em', marginBottom: 14 }}>
-                          BEFORE
-                        </div>
-                        <div style={{ fontSize: 15, color: 'var(--text-sub)', marginBottom: 14, fontWeight: 600 }}>
-                          {before.carrier}
-                        </div>
-                        <div className="sp-ba-price" style={{ color: 'var(--text-main)' }}>
-                          {before.monthly_cost.toLocaleString()}
-                          <span style={{ fontSize: '0.4em', fontWeight: 700, marginLeft: 4 }}>円/月</span>
-                        </div>
-                      </div>
-                      <div className="sp-ba-arrow" style={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 36, color: 'var(--accent)', fontWeight: 900,
-                        flexShrink: 0,
-                      }}>
-                        →
-                      </div>
-                      <div style={{
-                        flex: 1, padding: '40px 24px', textAlign: 'center',
-                        background: 'var(--accent-light)',
-                      }}>
-                        <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--accent)', letterSpacing: '0.2em', marginBottom: 14 }}>
-                          AFTER
-                        </div>
-                        <div style={{ fontSize: 15, color: 'var(--text-sub)', marginBottom: 14, fontWeight: 600 }}>
-                          {after.carrier}
-                        </div>
-                        <div className="sp-ba-price" style={{ color: 'var(--accent)' }}>
-                          {after.monthly_cost.toLocaleString()}
-                          <span style={{ fontSize: '0.4em', fontWeight: 700, marginLeft: 4 }}>円/月</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div style={{
-                      background: 'linear-gradient(135deg, #16A34A 0%, #22C55E 100%)',
-                      padding: '32px 24px', textAlign: 'center',
-                      color: '#fff',
-                    }}>
-                      <div style={{ fontSize: 14, marginBottom: 10, opacity: 0.95, fontWeight: 600 }}>
-                        この例では
-                      </div>
-                      <div className="sp-ba-saving" style={{ color: '#fff' }}>
-                        年間{annualSaving.toLocaleString()}円
-                      </div>
-                      <div style={{ fontSize: 16, fontWeight: 800, marginTop: 6 }}>
-                        おトクに
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 64 }}>
+              {baExamples.map((ex) => (
+                <BeforeAfterCard key={`${ex.beforeId}-${ex.afterId}`} {...ex} />
+              ))}
             </div>
 
             <div style={{
@@ -1229,109 +1328,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── PERSONA セクション ── */}
-        <section className="sp-block sp-section-fade">
-          <div className="sp-container">
-            <h2 className="sp-h2">
-              あなたに近い人の<br />
-              診断結果
-            </h2>
-            <p className="sp-h2-sub">
-              ペルソナ別のおすすめプラン例
-            </p>
-
-            <div className="sp-persona-grid">
-              {personas.map((p, i) => {
-                const plan = getPlan(p.planId);
-                return (
-                  <button
-                    key={i}
-                    onClick={startDiagnose}
-                    className="sp-persona-card"
-                    style={{
-                      background: '#fff',
-                      border: '2px solid var(--border)',
-                      borderRadius: 24,
-                      padding: '44px 28px',
-                      textAlign: 'center',
-                      cursor: 'pointer',
-                      width: '100%',
-                      fontFamily: 'inherit',
-                      boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)',
-                    }}
-                  >
-                    <div style={{ fontSize: 56, marginBottom: 16, lineHeight: 1 }}>{p.icon}</div>
-                    <div style={{
-                      fontSize: 18, fontWeight: 800, color: 'var(--text-main)', marginBottom: 20,
-                    }}>
-                      {p.label}
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginBottom: 28 }}>
-                      <span style={{
-                        fontSize: 12, padding: '5px 12px', borderRadius: 999,
-                        background: 'var(--bg)', color: 'var(--text-sub)',
-                        border: '1px solid var(--border)', fontWeight: 600,
-                      }}>{p.data}</span>
-                      <span style={{
-                        fontSize: 12, padding: '5px 12px', borderRadius: 999,
-                        background: 'var(--bg)', color: 'var(--text-sub)',
-                        border: '1px solid var(--border)', fontWeight: 600,
-                      }}>{p.call}</span>
-                    </div>
-                    <div style={{ height: 1, background: 'var(--border)', margin: '0 0 24px' }} />
-                    <div style={{
-                      fontSize: 11, color: 'var(--text-muted)', fontWeight: 800,
-                      letterSpacing: '0.15em', marginBottom: 8,
-                    }}>
-                      おすすめプラン
-                    </div>
-                    <div style={{
-                      fontSize: 17, fontWeight: 800, color: 'var(--accent)', marginBottom: 8,
-                    }}>
-                      {plan.carrier}
-                    </div>
-                    <div style={{
-                      fontSize: 32, fontWeight: 900, color: 'var(--accent)',
-                      lineHeight: 1.1, marginBottom: 24,
-                      letterSpacing: '-0.01em',
-                    }}>
-                      {plan.monthly_cost.toLocaleString()}
-                      <span style={{ fontSize: 14, fontWeight: 700 }}>円/月</span>
-                    </div>
-                    <div style={{
-                      padding: '16px 16px',
-                      background: 'var(--success-light)',
-                      borderRadius: 14,
-                    }}>
-                      <div style={{ fontSize: 12, color: 'var(--text-sub)', marginBottom: 4, fontWeight: 600 }}>
-                        年間節約額
-                      </div>
-                      <div style={{
-                        fontSize: 26, fontWeight: 900, color: 'var(--success)',
-                        lineHeight: 1.1,
-                      }}>
-                        {p.saving}
-                      </div>
-                      <div style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 4 }}>
-                        ※目安
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div style={{
-              marginTop: 32, fontSize: 12, color: 'var(--text-sub)',
-              lineHeight: 1.9, textAlign: 'center',
-            }}>
-              ※節約額は一般的な利用パターンからの目安です。実際の金額はご利用状況により異なります
-            </div>
-          </div>
-        </section>
-
         {/* ── FINAL CTA（ダーク） ── */}
-        <section className="sp-block sp-block-dark sp-section-fade">
+        <section className="sp-block sp-block-dark sp-section-fade" style={{ padding: 'clamp(80px, 12vw, 140px) 0' }}>
           <div className="sp-container" style={{ textAlign: 'center' }}>
             <div style={{
               display: 'inline-block',
@@ -1342,15 +1340,15 @@ export default function Home() {
               letterSpacing: '0.05em',
               border: '1px solid rgba(255, 255, 255, 0.15)',
             }}>
-              完全無料・個人情報不要
+              完全無料・登録不要
             </div>
             <h2 style={{
-              fontSize: 'clamp(36px, 6.5vw, 56px)',
+              fontSize: 'clamp(36px, 7vw, 64px)',
               fontWeight: 900, lineHeight: 1.2,
               margin: '0 0 20px', color: '#fff',
               letterSpacing: '-0.02em',
             }}>
-              今すぐ<br style={{ display: 'inline' }} />
+              今すぐ<br />
               無料診断
             </h2>
             <p style={{
@@ -1361,14 +1359,17 @@ export default function Home() {
               30秒で、あなたにぴったりの<br />
               スマホプランが見つかる
             </p>
-            <button onClick={startDiagnose} className="sp-cta-pill sp-cta-pill-light">
+            <button onClick={startDiagnose} className="sp-cta-pill">
               診断スタート →
             </button>
             <div style={{
-              marginTop: 24, fontSize: 13,
-              color: 'rgba(255, 255, 255, 0.55)', fontWeight: 500,
+              display: 'flex', justifyContent: 'center', flexWrap: 'wrap',
+              gap: '8px 24px', marginTop: 32,
+              fontSize: 13, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600,
             }}>
-              ⚡ 30秒で完了 ／ 📱 全20プラン対応
+              <span>📋 診断結果はその場で表示</span>
+              <span>🔓 登録不要</span>
+              <span>📱 全キャリア対応</span>
             </div>
           </div>
         </section>
@@ -1383,12 +1384,12 @@ export default function Home() {
               対応キャリア
             </div>
             <div style={{
-              display: 'flex', flexWrap: 'wrap', gap: 12,
+              display: 'flex', flexWrap: 'wrap', gap: 16,
               justifyContent: 'center', marginBottom: 96,
             }}>
               {carrierBadges.map(c => (
                 <span key={c.name} style={{
-                  padding: '10px 22px',
+                  padding: '14px 32px',
                   background: c.bg,
                   color: '#fff',
                   borderRadius: 999,
@@ -1420,7 +1421,7 @@ export default function Home() {
 
         {/* ── FOOTER ── */}
         <footer style={{
-          padding: '56px 0 40px',
+          padding: '64px 0 48px',
           background: '#0F172A',
           color: 'rgba(255,255,255,0.7)',
         }}>
