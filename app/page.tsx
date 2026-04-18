@@ -169,7 +169,7 @@ function BeforeAfterCard(props: BAExample) {
 
       {/* ── SAVING BANNER ── */}
       <div className={`sp-ba-saving-banner sp-ba-stage sp-ba-stage-saving${stage >= 4 ? ' visible' : ''}`}>
-        <span style={{ fontSize: 13, color: '#5A7BB5' }}>無駄をカットして年間 </span>
+        <span style={{ fontSize: 13, color: '#5A7BB5' }}>年間 </span>
         <span style={{ fontSize: 'clamp(36px, 8vw, 48px)', fontWeight: 900, color: '#2D5CC5', letterSpacing: '-0.02em' }}>
           {stage >= 4 ? savingValue.toLocaleString() : '0'}
         </span>
