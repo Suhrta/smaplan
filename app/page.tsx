@@ -50,130 +50,95 @@ function useCountUp(target: number, active: boolean, duration = 800) {
 }
 
 type BAExample = {
-  beforeId: string; afterId: string;
-  beforeData: string; afterData: string;
-  beforeCall: string; afterCall: string;
-  beforeDataTip: string; beforeCallTip: string;
-  afterDataTip: string; afterCallTip: string;
+  beforeCarrier: string; beforeCost: number;
+  afterCarrier: string; afterCost: number;
+  data: string; note: string;
 };
 
-function BeforeAfterCard(props: BAExample) {
-  const { beforeId, afterId, beforeData, afterData, beforeCall, afterCall, beforeDataTip, beforeCallTip, afterDataTip, afterCallTip } = props;
-  const before = getPlan(beforeId);
-  const after = getPlan(afterId);
-  const annualSaving = (before.monthly_cost - after.monthly_cost) * 12;
-
+function BeforeAfterCard({ example, index }: { example: BAExample; index: number }) {
+  const saving = (example.beforeCost - example.afterCost) * 12;
   const ref = useRef<HTMLDivElement>(null);
-  const [stage, setStage] = useState(0);
-  const firedRef = useRef(false);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !firedRef.current) {
-          firedRef.current = true;
-          setStage(1);
-          setTimeout(() => setStage(2), 400);
-          setTimeout(() => setStage(3), 800);
-          setTimeout(() => setStage(4), 1300);
-        }
-      },
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); io.unobserve(el); } },
       { threshold: 0.15 },
     );
-    observer.observe(el);
-    return () => observer.disconnect();
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
 
-  const savingValue = useCountUp(annualSaving, stage >= 4, 900);
-
-  const specRow = (label: string, value: string) => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 16, color: 'var(--text-sub)' }}>
-      <span style={{ color: '#94A3B8', fontWeight: 600, flexShrink: 0, width: 56 }}>{label}</span>
-      <span style={{ fontWeight: 700, color: 'var(--text-main)' }}>{value}</span>
-    </div>
-  );
-
-  const orangeTip = (text: string) => (
-    <div className="sp-ba-tip" style={{ background: '#FFF7ED', color: '#A0700A' }}>
-      💡 {text}
-    </div>
-  );
-
-  const blueTip = (text: string) => (
-    <div className="sp-ba-tip" style={{ background: 'var(--accent-light)', color: 'var(--accent)' }}>
-      ✓ {text}
-    </div>
-  );
+  const savingVal = useCountUp(saving, inView, 900);
 
   return (
-    <div ref={ref} className="sp-ba-row">
-      <div className="sp-ba-cards">
-        {/* ── BEFORE ── */}
-        <div className={`sp-ba-before-card sp-ba-stage sp-ba-stage-before${stage >= 1 ? ' visible' : ''}`}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
-            Before
-          </div>
-          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>
-            {before.carrier}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
-            <div>
-              {specRow('データ', beforeData)}
-              {orangeTip(beforeDataTip)}
-            </div>
-            <div>
-              {specRow('通話', beforeCall)}
-              {orangeTip(beforeCallTip)}
-            </div>
-          </div>
-          <div className="sp-ba-price" style={{ color: 'var(--text-main)' }}>
-            {before.monthly_cost.toLocaleString()}
-            <span style={{ fontSize: 16, fontWeight: 700, marginLeft: 4, color: 'var(--text-sub)' }}>円/月</span>
+    <div ref={ref} style={{
+      background: '#fff',
+      border: '1px solid var(--border)',
+      borderRadius: 20, overflow: 'hidden',
+      opacity: inView ? 1 : 0,
+      transform: inView ? 'translateY(0)' : 'translateY(20px)',
+      transition: `all 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s`,
+    }}>
+      <div style={{
+        display: 'grid', gridTemplateColumns: '1fr auto 1fr',
+        alignItems: 'center',
+      }}>
+        {/* Before */}
+        <div style={{ padding: '32px 28px' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: 8 }}>BEFORE</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12 }}>{example.beforeCarrier}</div>
+          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)' }}>
+            {example.beforeCost.toLocaleString()}<span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
           </div>
         </div>
 
-        {/* ── ARROW ── */}
-        <div className={`sp-ba-arrow-center sp-ba-stage sp-ba-stage-arrow${stage >= 2 ? ' visible' : ''}`}>
-          <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-            <circle cx="22" cy="22" r="22" fill="var(--accent)" />
-            <path d="M17 22h10m0 0l-4-4m4 4l-4 4" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {/* Arrow */}
+        <div style={{
+          width: 40, height: 40, borderRadius: '50%',
+          background: 'var(--accent)', display: 'flex',
+          alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0,
+        }}>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14m0 0l-6-6m6 6l-6 6" />
           </svg>
         </div>
 
-        {/* ── AFTER ── */}
-        <div className={`sp-ba-after-card sp-ba-stage sp-ba-stage-after${stage >= 3 ? ' visible' : ''}`}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
-            After
-          </div>
-          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)', marginBottom: 20 }}>
-            {after.carrier}
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
-            <div>
-              {specRow('データ', afterData)}
-              {blueTip(afterDataTip)}
-            </div>
-            <div>
-              {specRow('通話', afterCall)}
-              {blueTip(afterCallTip)}
-            </div>
-          </div>
-          <div className="sp-ba-price" style={{ color: 'var(--accent)' }}>
-            {after.monthly_cost.toLocaleString()}
-            <span style={{ fontSize: 16, fontWeight: 700, marginLeft: 4, color: '#94A3B8' }}>円/月</span>
+        {/* After */}
+        <div style={{ padding: '32px 28px', background: 'var(--accent-light)' }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: 8 }}>AFTER</div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--accent)', marginBottom: 12 }}>{example.afterCarrier}</div>
+          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)' }}>
+            {example.afterCost.toLocaleString()}<span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
           </div>
         </div>
       </div>
 
-      {/* ── SAVING BANNER ── */}
-      <div className={`sp-ba-saving-banner sp-ba-stage sp-ba-stage-saving${stage >= 4 ? ' visible' : ''}`}>
-        <span style={{ fontSize: 13, color: 'var(--text-sub)' }}>年間 </span>
-        <span style={{ fontSize: 'clamp(44px, 10vw, 60px)', fontWeight: 900, color: 'var(--accent)', letterSpacing: '-0.02em' }}>
-          {stage >= 4 ? savingValue.toLocaleString() : '0'}
-        </span>
-        <span style={{ fontSize: 13, color: 'var(--text-sub)' }}> 円おトク</span>
+      {/* Saving bar */}
+      <div style={{
+        background: 'var(--accent-light)', borderTop: '1px solid var(--accent-border)',
+        padding: '16px 28px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        flexWrap: 'wrap', gap: 8,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <span style={{ fontSize: 13, color: 'var(--text-sub)', fontWeight: 500 }}>{example.data}</span>
+          <span style={{
+            fontSize: 12, padding: '3px 10px', borderRadius: 6,
+            background: '#eefbf4', color: '#0d9f5f', fontWeight: 600,
+          }}>{example.note}</span>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4 }}>
+          <span style={{ fontSize: 13, color: 'var(--text-sub)' }}>年間</span>
+          <span style={{
+            fontSize: 28, fontWeight: 800, color: 'var(--accent)',
+            letterSpacing: '-0.02em',
+          }}>{savingVal > 0 ? savingVal.toLocaleString() : saving.toLocaleString()}</span>
+          <span style={{ fontSize: 13, color: 'var(--text-sub)' }}>円おトク</span>
+        </div>
       </div>
     </div>
   );
@@ -1004,34 +969,10 @@ export default function Home() {
   const heroCount = useCountUp(52140, view === 'landing', 900);
 
   if (view === 'landing') {
-    const baExamples = [
-      {
-        beforeId: 'docomo_max', afterId: 'ahamo_30gb',
-        beforeData: '無制限', afterData: '20GB',
-        beforeCall: '5分かけ放題', afterCall: '5分かけ放題',
-        beforeDataTip: '実はWi-Fiがあれば月20GBで足りているかも',
-        beforeCallTip: 'LINE通話で足りていませんか？',
-        afterDataTip: '普段使いには十分な容量',
-        afterCallTip: '短い通話もしっかりカバー',
-      },
-      {
-        beforeId: 'ymobile_simple3_s', afterId: 'iijmio_5gb',
-        beforeData: '5GB', afterData: '5GB',
-        beforeCall: 'なし', afterCall: 'なし',
-        beforeDataTip: '大手キャリアの回線品質に月額料金を払いすぎかも',
-        beforeCallTip: '同じプランでも格安SIMなら半額以下に',
-        afterDataTip: '同じ5GBを大幅に安く使える',
-        afterCallTip: 'LINE通話メインなら通話オプション不要',
-      },
-      {
-        beforeId: 'ahamo_110gb', afterId: 'rakuten_saikyo',
-        beforeData: '110GB', afterData: '無制限',
-        beforeCall: '5分かけ放題', afterCall: '専用アプリで無料',
-        beforeDataTip: '110GBも毎月使い切れていますか？',
-        beforeCallTip: '月額オプション料を払い続けていませんか？',
-        afterDataTip: '無制限だから容量を気にしなくてOK',
-        afterCallTip: 'Rakuten Linkで国内通話が無料',
-      },
+    const baExamples: BAExample[] = [
+      { beforeCarrier: 'ドコモ eximo', beforeCost: 7315, afterCarrier: 'ahamo', afterCost: 2970, data: '無制限 → 20GB', note: 'Wi-Fi併用なら20GBで十分' },
+      { beforeCarrier: 'Y!mobile S', beforeCost: 2365, afterCarrier: 'IIJmio 5GB', afterCost: 990, data: '5GB → 5GB', note: '同じ容量を半額以下で' },
+      { beforeCarrier: 'ahamo 110GB', beforeCost: 4950, afterCarrier: '楽天モバイル', afterCost: 3278, data: '110GB → 無制限', note: '無制限で通話も無料' },
     ];
     const carrierBadges = [
       { name: 'ドコモ', bg: '#CC0033' },
@@ -1165,7 +1106,7 @@ export default function Home() {
         </section>
 
         {/* ── BEFORE / AFTER セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, var(--bg-soft) 0%, #eeedf8 100%)', padding: '140px 0' }}>
+        <section className="sp-block sp-section-fade" style={{ padding: '100px 0 120px' }}>
           <div className="sp-container">
             <h2 className="sp-h2">
               乗り換えると<br />
@@ -1175,25 +1116,17 @@ export default function Home() {
               プラン見直しだけで、年間数万円の節約も可能
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 64 }}>
-              {baExamples.map((ex) => (
-                <BeforeAfterCard key={`${ex.beforeId}-${ex.afterId}`} {...ex} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              {baExamples.map((ex, i) => (
+                <BeforeAfterCard key={`${ex.beforeCarrier}-${ex.afterCarrier}`} example={ex} index={i} />
               ))}
             </div>
 
-            <div style={{
-              marginTop: 32, fontSize: 12, color: 'var(--text-sub)',
-              lineHeight: 1.9, textAlign: 'center',
+            <p style={{
+              fontSize: 11, color: 'var(--text-muted)', textAlign: 'center', marginTop: 20, lineHeight: 1.7,
             }}>
-              ※料金は税込。割引適用前の標準価格での比較です<br />
-              ※実際の節約額はご利用状況・適用中の割引により異なります
-            </div>
-
-            <div style={{ textAlign: 'center', marginTop: 48 }}>
-              <button onClick={startDiagnose} className="sp-cta-pill">
-                あなたの節約額を診断する →
-              </button>
-            </div>
+              ※料金は税込・割引適用前の標準価格。実際の節約額はご利用状況により異なります
+            </p>
           </div>
         </section>
 
