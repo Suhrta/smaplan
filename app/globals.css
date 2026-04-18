@@ -1,14 +1,15 @@
 :root {
-  --bg: #F7FAFC;
-  --bg-card: #FFFFFF;
-  --text-main: #0F172A;
-  --text-sub: #475569;
-  --text-muted: #64748B;
-  --accent: #1D4ED8;
-  --accent-hover: #1E40AF;
-  --accent-light: #EFF6FF;
-  --accent-border: #BFDBFE;
-  --border: #E2E8F0;
+  --bg: #ffffff;
+  --bg-card: #ffffff;
+  --bg-soft: #f8f9fc;
+  --text-main: #1a1f36;
+  --text-sub: #4a5168;
+  --text-muted: #8890a4;
+  --accent: #4338ca;
+  --accent-hover: #3730a3;
+  --accent-light: #f0f0ff;
+  --accent-border: #c7c4f3;
+  --border: #e8eaf0;
   --success: #16A34A;
   --success-light: #DCFCE7;
   --warning: #B45309;
@@ -142,27 +143,27 @@ button {
   display: flex;
   align-items: center;
   padding: 56px 0 72px;
-  background: linear-gradient(180deg, #EEF3FB 0%, #fff 100%);
+  background: linear-gradient(180deg, var(--bg-soft) 0%, #fff 100%);
 }
 @media (max-width: 720px) {
   .sp-hero-block { min-height: auto; padding: 48px 0 64px; }
 }
 
 .sp-h2 {
-  font-size: clamp(30px, 5vw, 52px);
-  font-weight: 800;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
   letter-spacing: -0.01em;
-  color: #111;
-  text-align: left;
-  margin: 0 0 16px;
+  color: var(--text-main);
+  text-align: center;
+  margin: 0 0 12px;
   line-height: 1.3;
-  border-left: 4px solid #2D5CC5;
-  padding-left: 16px;
+  border-left: none;
+  padding-left: 0;
 }
 .sp-h2-sub {
-  font-size: clamp(14px, 1.5vw, 15px);
-  color: #666;
-  text-align: left;
+  font-size: 15px;
+  color: var(--text-sub);
+  text-align: center;
   margin: 0 0 48px;
   line-height: 1.7;
 }
@@ -187,7 +188,7 @@ button {
   font-size: 18px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 10px 28px rgba(29, 78, 216, 0.32);
+  box-shadow: 0 8px 28px rgba(67, 56, 202, 0.15);
   letter-spacing: 0.02em;
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -195,7 +196,7 @@ button {
 }
 .sp-cta-pill:hover {
   transform: scale(1.03);
-  box-shadow: 0 14px 36px rgba(29, 78, 216, 0.42);
+  box-shadow: 0 14px 36px rgba(67, 56, 202, 0.25);
 }
 .sp-cta-pill:active { transform: scale(1.01); }
 .sp-cta-pill-light {
@@ -250,13 +251,11 @@ button {
 
 /* Before/After staged animation cards */
 .sp-ba-row {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 24px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.10), 0 2px 8px rgba(15, 23, 42, 0.05);
+  box-shadow: none;
 }
 .sp-ba-cards {
   display: flex;
@@ -294,13 +293,13 @@ button {
 .sp-ba-before-card {
   flex: 1;
   padding: 32px 28px;
-  background: rgba(255, 255, 255, 0.6);
+  background: #fff;
   text-align: left;
 }
 .sp-ba-after-card {
   flex: 1;
   padding: 32px 28px;
-  background: rgba(237, 243, 255, 0.6);
+  background: var(--accent-light);
   text-align: left;
 }
 .sp-ba-arrow-center {
@@ -322,8 +321,8 @@ button {
   }
 }
 .sp-ba-saving-banner {
-  background: #F5F8FF;
-  border-top: 0.5px solid #D6E0F0;
+  background: var(--accent-light);
+  border-top: 1px solid var(--accent-border);
   padding: 20px 24px;
   text-align: center;
 }

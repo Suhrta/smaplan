@@ -102,7 +102,7 @@ function BeforeAfterCard(props: BAExample) {
   );
 
   const blueTip = (text: string) => (
-    <div className="sp-ba-tip" style={{ background: '#EEF3FB', color: '#2D5CC5' }}>
+    <div className="sp-ba-tip" style={{ background: 'var(--accent-light)', color: 'var(--accent)' }}>
       ✓ {text}
     </div>
   );
@@ -112,7 +112,7 @@ function BeforeAfterCard(props: BAExample) {
       <div className="sp-ba-cards">
         {/* ── BEFORE ── */}
         <div className={`sp-ba-before-card sp-ba-stage sp-ba-stage-before${stage >= 1 ? ' visible' : ''}`}>
-          <div style={{ fontSize: 11, fontWeight: 800, color: '#94A3B8', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: '#94A3B8', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
             Before
           </div>
           <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)', marginBottom: 20 }}>
@@ -137,17 +137,17 @@ function BeforeAfterCard(props: BAExample) {
         {/* ── ARROW ── */}
         <div className={`sp-ba-arrow-center sp-ba-stage sp-ba-stage-arrow${stage >= 2 ? ' visible' : ''}`}>
           <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-            <circle cx="22" cy="22" r="22" fill="#2D5CC5" />
+            <circle cx="22" cy="22" r="22" fill="var(--accent)" />
             <path d="M17 22h10m0 0l-4-4m4 4l-4 4" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
 
         {/* ── AFTER ── */}
         <div className={`sp-ba-after-card sp-ba-stage sp-ba-stage-after${stage >= 3 ? ' visible' : ''}`}>
-          <div style={{ fontSize: 11, fontWeight: 800, color: '#2D5CC5', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.15em', marginBottom: 16, textTransform: 'uppercase' as const }}>
             After
           </div>
-          <div style={{ fontSize: 28, fontWeight: 700, color: '#2D5CC5', marginBottom: 20 }}>
+          <div style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)', marginBottom: 20 }}>
             {after.carrier}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
@@ -160,7 +160,7 @@ function BeforeAfterCard(props: BAExample) {
               {blueTip(afterCallTip)}
             </div>
           </div>
-          <div className="sp-ba-price" style={{ color: '#2D5CC5' }}>
+          <div className="sp-ba-price" style={{ color: 'var(--accent)' }}>
             {after.monthly_cost.toLocaleString()}
             <span style={{ fontSize: 16, fontWeight: 700, marginLeft: 4, color: '#94A3B8' }}>円/月</span>
           </div>
@@ -169,11 +169,11 @@ function BeforeAfterCard(props: BAExample) {
 
       {/* ── SAVING BANNER ── */}
       <div className={`sp-ba-saving-banner sp-ba-stage sp-ba-stage-saving${stage >= 4 ? ' visible' : ''}`}>
-        <span style={{ fontSize: 13, color: '#5A7BB5' }}>年間 </span>
-        <span style={{ fontSize: 'clamp(44px, 10vw, 60px)', fontWeight: 900, color: '#2D5CC5', letterSpacing: '-0.02em' }}>
+        <span style={{ fontSize: 13, color: 'var(--text-sub)' }}>年間 </span>
+        <span style={{ fontSize: 'clamp(44px, 10vw, 60px)', fontWeight: 900, color: 'var(--accent)', letterSpacing: '-0.02em' }}>
           {stage >= 4 ? savingValue.toLocaleString() : '0'}
         </span>
-        <span style={{ fontSize: 13, color: '#5A7BB5' }}> 円おトク</span>
+        <span style={{ fontSize: 13, color: 'var(--text-sub)' }}> 円おトク</span>
       </div>
     </div>
   );
@@ -362,45 +362,6 @@ function OptionButton({
   );
 }
 
-function BotIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M12 8V4H8" />
-      <rect width="16" height="12" x="4" y="8" rx="2" />
-      <path d="M2 14h2" />
-      <path d="M20 14h2" />
-      <path d="M15 13v2" />
-      <path d="M9 13v2" />
-    </svg>
-  );
-}
-
-function ScaleIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-      <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
-      <path d="M7 21h10" />
-      <path d="M12 3v18" />
-      <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
-    </svg>
-  );
-}
-
-function PiggyBankIcon() {
-  return (
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8.4 2.8 1 3.5V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.5c1.1.1 2.4.1 3.5 0V17a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-1.7c1.2-.8 2.2-1.8 2.5-3.3H21a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1h-.5C20 6.5 19.5 5 19 5Z" />
-      <path d="M16 11h.01" />
-    </svg>
-  );
-}
-
-const FEATURES = [
-  { Icon: BotIcon, title: 'AI診断', body: '10問答えるだけでAIが使い方を分析' },
-  { Icon: ScaleIcon, title: '中立・全キャリア対応', body: '大手から格安SIMまで全20プランを公平に比較' },
-  { Icon: PiggyBankIcon, title: '年間節約額がわかる', body: '今の料金と比べていくらお得か具体的に表示' },
-] as const;
 
 const FAQ_ITEMS = [
   {
@@ -1075,14 +1036,19 @@ export default function Home() {
       { name: 'au', bg: '#EB5505' },
       { name: 'ソフトバンク', bg: '#E60012' },
       { name: '楽天モバイル', bg: '#BF0000' },
-      { name: '格安SIM', bg: '#475569' },
+      { name: 'ahamo', bg: '#1D4ED8' },
+      { name: 'LINEMO', bg: '#06C755' },
+      { name: 'Y!mobile', bg: '#E60033' },
+      { name: 'UQモバイル', bg: '#E66A00' },
+      { name: 'IIJmio', bg: '#333' },
+      { name: 'mineo', bg: '#69B027' },
     ];
     return (
       <div style={{ background: '#fff' }}>
         <style>{`
           @keyframes mockPop { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
           .sp-cta { transition: transform 0.18s ease, box-shadow 0.18s ease; }
-          .sp-cta:hover { transform: scale(1.05); box-shadow: 0 10px 24px rgba(29, 78, 216, 0.35); }
+          .sp-cta:hover { transform: scale(1.05); box-shadow: 0 10px 24px rgba(67, 56, 202, 0.25); }
           .sp-cta:active { transform: scale(1.02); }
           .sp-feature { transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; }
           .sp-feature:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(15, 23, 42, 0.10), 0 8px 16px rgba(15, 23, 42, 0.06); border-color: rgba(45, 92, 197, 0.25) !important; }
@@ -1114,22 +1080,13 @@ export default function Home() {
           <div className="sp-container">
             <div className="sp-hero-grid">
               <div className="sp-hero-text" style={{ textAlign: 'center' }}>
-                <div style={{
-                  display: 'inline-block',
-                  padding: '7px 16px', borderRadius: 999,
-                  background: 'var(--accent-light)', color: 'var(--accent)',
-                  fontSize: 13, fontWeight: 800, marginBottom: 24,
-                  letterSpacing: '0.05em',
-                }}>
-                  AIが30秒で最適プラン診断
-                </div>
                 <h1 style={{
                   fontSize: 'clamp(44px, 8vw, 80px)',
-                  fontWeight: 900, lineHeight: 1.15,
+                  fontWeight: 700, lineHeight: 1.15,
                   margin: '0 0 28px', color: 'var(--text-main)',
                   letterSpacing: '-0.02em',
                 }}>
-                  年間<span style={{ fontSize: '1.4em', color: '#2D5CC5' }}>5</span>万円
+                  年間<span style={{ fontSize: '1.4em', fontWeight: 800, color: 'var(--accent)' }}>5</span>万円
                   <br />
                   安くなるかも
                 </h1>
@@ -1148,8 +1105,10 @@ export default function Home() {
                   <button onClick={startDiagnose} className="sp-cta-pill">
                     診断スタート →
                   </button>
-                  <div style={{ fontSize: 13, color: 'var(--text-sub)', fontWeight: 600 }}>
-                    ⚡ 30秒で完了 ／ 📱 全20プラン ／ 🔒 個人情報不要
+                  <div style={{ display: 'flex', gap: 28, fontSize: 13, color: 'var(--text-sub)', fontWeight: 600 }}>
+                    <span><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>全20プラン対応</span>
+                    <span><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>個人情報不要</span>
+                    <span><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>完全無料</span>
                   </div>
                 </div>
                 <p style={{
@@ -1166,136 +1125,34 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── 競合比較セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: '#fff' }}>
+        {/* ── 使い方セクション ── */}
+        <section className="sp-block sp-section-fade" style={{ background: 'var(--bg-soft)' }}>
           <div className="sp-container">
-            <h2 className="sp-h2">
-              スマホプラン選び、<br />
-              もう自分で悩まない
-            </h2>
-            <p className="sp-h2-sub">
-              AI診断なら、時間も手間も10分の1以下
-            </p>
-
-            <div className="sp-compare-grid-v2">
-              <div style={{
-                background: 'rgba(255, 255, 255, 0.7)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(255, 255, 255, 0.8)',
-                borderRadius: 24, padding: '56px 40px', textAlign: 'center',
-                boxShadow: '0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)',
-              }}>
-                <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-muted)', marginBottom: 20, letterSpacing: '0.05em' }}>
-                  自分で調べる
-                </div>
-                <div className="sp-big-num" style={{ color: 'var(--text-sub)', marginBottom: 10 }}>
-                  2〜3時間
-                </div>
-                <div style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 36 }}>
-                  かかる目安
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 18, textAlign: 'left' }}>
-                  {[
-                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D5CC5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>, text: '比較サイトを何個も巡回' },
-                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D5CC5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h4"/><path d="M8 18h6"/></svg>, text: '割引計算が複雑' },
-                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2D5CC5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>, text: '結局どれがいいかわからない' },
-                  ].map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: 'var(--text-sub)' }}>
-                      <span style={{ flexShrink: 0, display: 'flex' }}>{item.icon}</span>
-                      {item.text}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div style={{
-                background: 'linear-gradient(135deg, #3B6BDB 0%, #2D5CC5 50%, #1E3A8A 100%)',
-                borderRadius: 24, padding: '56px 40px', textAlign: 'center',
-                color: '#fff', position: 'relative',
-                boxShadow: '0 24px 56px rgba(29, 78, 216, 0.30), 0 8px 20px rgba(29, 78, 216, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-              }}>
-                <div style={{
-                  position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%)',
-                  background: '#fff', color: 'var(--accent)',
-                  fontSize: 13, fontWeight: 800, padding: '7px 20px',
-                  borderRadius: 999, whiteSpace: 'nowrap',
-                  boxShadow: '0 4px 12px rgba(15, 23, 42, 0.15)',
-                }}>
-                  ⭐ おすすめ
-                </div>
-                <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 20, letterSpacing: '0.05em', opacity: 0.9 }}>
-                  スマプランで診断
-                </div>
-                <div className="sp-big-num" style={{ color: '#fff', marginBottom: 10 }}>
-                  30秒
-                </div>
-                <div style={{ fontSize: 14, color: '#fff', opacity: 0.85, marginBottom: 36 }}>
-                  10問に答えるだけ
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 18, textAlign: 'left' }}>
-                  {[
-                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>, text: 'AIが自動で最適プラン計算' },
-                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg>, text: '全20プランから公平に比較' },
-                    { icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>, text: '1つに絞って提案' },
-                  ].map((item, i) => (
-                    <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: '#fff', fontWeight: 600 }}>
-                      <span style={{ flexShrink: 0, display: 'flex' }}>{item.icon}</span>
-                      {item.text}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div style={{ textAlign: 'center', marginTop: 56 }}>
-              <button onClick={startDiagnose} className="sp-cta-pill">
-                無料で診断してみる →
-              </button>
-            </div>
-          </div>
-        </section>
-
-        {/* ── FEATURES セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #fff 0%, #EEF3FB 100%)' }}>
-          <div className="sp-container">
-            <h2 className="sp-h2">
-              スマプランの3つの強み
-            </h2>
-            <p className="sp-h2-sub">
-              たった30秒で、あなたにぴったりの1つが見つかる
-            </p>
-
+            <h2 className="sp-h2">使い方はシンプル</h2>
+            <p className="sp-h2-sub">たった30秒、3ステップで完了</p>
             <div className="sp-feature-grid">
-              {FEATURES.map(f => (
-                <div
-                  key={f.title}
-                  className="sp-feature"
-                  style={{
-                    padding: '48px 32px',
-                    background: 'rgba(255, 255, 255, 0.7)',
-                    backdropFilter: 'blur(16px)',
-                    WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.8)',
-                    borderRadius: 24,
-                    textAlign: 'left',
-                    boxShadow: '0 4px 24px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.04)',
-                  }}
-                >
+              {[
+                { num: '01', title: '質問に答える', desc: '使い方やこだわりなど、10問に答えるだけ', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
+                { num: '02', title: 'プランを比較', desc: '全20プランから最適なものを自動で選定', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> },
+                { num: '03', title: '節約額がわかる', desc: '今より年間いくらお得か具体的に表示', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M15.5 9.5c-.3-1-1.5-1.5-3.5-1.5s-3.1.8-3.1 2c0 2.4 6.1 1.2 6.1 4 0 1.3-1.5 2-3.5 2s-3.2-.5-3.5-1.5"/></svg> },
+              ].map((s) => (
+                <div key={s.num} style={{
+                  background: '#fff',
+                  border: '1px solid var(--border)',
+                  borderRadius: 20, padding: '40px 28px',
+                  textAlign: 'center',
+                }}>
+                  <div style={{ marginBottom: 16, color: 'var(--accent)', display: 'flex', justifyContent: 'center' }}>
+                    {s.icon}
+                  </div>
                   <div style={{
-                    width: 80, height: 80, borderRadius: 20,
-                    background: 'var(--accent-light)',
-                    color: 'var(--accent)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    margin: '0 auto 24px',
-                  }}>
-                    <f.Icon />
-                  </div>
-                  <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-main)', marginBottom: 14 }}>
-                    {f.title}
-                  </div>
-                  <div style={{ fontSize: 16, color: 'var(--text-sub)', lineHeight: 1.75 }}>
-                    {f.body}
-                  </div>
+                    fontSize: 12, fontWeight: 700, color: 'var(--accent)',
+                    letterSpacing: '0.08em', marginBottom: 8,
+                  }}>STEP {s.num}</div>
+                  <div style={{
+                    fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 10,
+                  }}>{s.title}</div>
+                  <div style={{ fontSize: 14, color: 'var(--text-sub)', lineHeight: 1.7 }}>{s.desc}</div>
                 </div>
               ))}
             </div>
@@ -1303,13 +1160,13 @@ export default function Home() {
         </section>
 
         {/* ── BEFORE / AFTER セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, #EEF3FB 0%, #E3ECF8 100%)', padding: '140px 0' }}>
+        <section className="sp-block sp-section-fade" style={{ background: 'linear-gradient(180deg, var(--bg-soft) 0%, #eeedf8 100%)', padding: '140px 0' }}>
           <div className="sp-container">
-            <h2 className="sp-h2 sp-h2-center">
+            <h2 className="sp-h2">
               乗り換えると<br />
               こんなに変わる
             </h2>
-            <p className="sp-h2-sub" style={{ textAlign: 'center' }}>
+            <p className="sp-h2-sub">
               プラン見直しだけで、年間数万円の節約も可能
             </p>
 
@@ -1336,14 +1193,14 @@ export default function Home() {
         </section>
 
         {/* ── FINAL CTA（ダーク） ── */}
-        <section className="sp-block sp-block-dark sp-section-fade" style={{ padding: '140px 0' }}>
+        <section className="sp-block sp-block-dark sp-section-fade" style={{ background: '#0f1629', padding: '140px 0' }}>
           <div className="sp-container" style={{ textAlign: 'center' }}>
             <div style={{
               display: 'inline-block',
               padding: '7px 18px', borderRadius: 999,
               background: 'rgba(255, 255, 255, 0.08)',
               color: '#93C5FD',
-              fontSize: 13, fontWeight: 800, marginBottom: 28,
+              fontSize: 13, fontWeight: 700, marginBottom: 28,
               letterSpacing: '0.05em',
               border: '1px solid rgba(255, 255, 255, 0.15)',
             }}>
@@ -1351,7 +1208,7 @@ export default function Home() {
             </div>
             <h2 style={{
               fontSize: 'clamp(36px, 7vw, 64px)',
-              fontWeight: 900, lineHeight: 1.2,
+              fontWeight: 700, lineHeight: 1.2,
               margin: '0 0 20px', color: '#fff',
               letterSpacing: '-0.02em',
             }}>
@@ -1374,9 +1231,9 @@ export default function Home() {
               gap: '8px 24px', marginTop: 32,
               fontSize: 13, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600,
             }}>
-              <span>📋 診断結果はその場で表示</span>
-              <span>🔓 登録不要</span>
-              <span>📱 全キャリア対応</span>
+              <span>登録不要</span>
+              <span>全キャリア対応</span>
+              <span>結果はその場で表示</span>
             </div>
           </div>
         </section>
@@ -1385,7 +1242,7 @@ export default function Home() {
         <section className="sp-block sp-section-fade" style={{ background: '#fff', padding: '56px 0 80px' }}>
           <div className="sp-container">
             <div style={{
-              fontSize: 13, fontWeight: 800, color: 'var(--text-muted)',
+              fontSize: 13, fontWeight: 700, color: 'var(--text-muted)',
               letterSpacing: '0.2em', textAlign: 'center', marginBottom: 28,
             }}>
               対応キャリア
@@ -1396,20 +1253,26 @@ export default function Home() {
             }}>
               {carrierBadges.map(c => (
                 <span key={c.name} style={{
-                  padding: '14px 32px',
-                  background: c.bg,
-                  color: '#fff',
-                  borderRadius: 999,
-                  fontSize: 14, fontWeight: 700,
-                  boxShadow: `0 4px 12px ${c.bg}33`,
-                  letterSpacing: '0.02em',
+                  padding: '8px 18px', borderRadius: 999,
+                  background: '#fff', border: '1px solid var(--border)',
+                  fontSize: 13, fontWeight: 600, color: 'var(--text-main)',
+                  display: 'flex', alignItems: 'center', gap: 6,
                 }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: c.bg, flexShrink: 0 }} />
                   {c.name}
                 </span>
               ))}
+              <span style={{
+                padding: '8px 18px', borderRadius: 999,
+                background: '#fff', border: '1px solid var(--border)',
+                fontSize: 13, fontWeight: 600, color: 'var(--text-muted)',
+                display: 'flex', alignItems: 'center', gap: 6,
+              }}>
+                + 他10プラン
+              </span>
             </div>
 
-            <h2 className="sp-h2 sp-h2-center">
+            <h2 className="sp-h2">
               よくある質問
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 40 }}>
