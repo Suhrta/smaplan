@@ -1001,6 +1001,8 @@ export default function Home() {
     );
   }
 
+  const heroCount = useCountUp(52140, view === 'landing', 900);
+
   if (view === 'landing') {
     const baExamples = [
       {
@@ -1080,42 +1082,51 @@ export default function Home() {
           <div className="sp-container">
             <div className="sp-hero-grid">
               <div className="sp-hero-text" style={{ textAlign: 'center' }}>
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 6,
+                  padding: '6px 14px', borderRadius: 999,
+                  background: 'var(--accent-light)', border: '1px solid var(--accent-border)',
+                  fontSize: 12, fontWeight: 500, color: 'var(--accent)',
+                  marginBottom: 28,
+                }}>
+                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0d9f5f' }} />
+                  30秒で無料診断
+                </div>
                 <h1 style={{
-                  fontSize: 'clamp(44px, 8vw, 80px)',
-                  fontWeight: 700, lineHeight: 1.15,
-                  margin: '0 0 28px', color: 'var(--text-main)',
+                  fontSize: 'clamp(32px, 5vw, 52px)',
+                  fontWeight: 700, lineHeight: 1.3,
+                  margin: '0 0 20px', color: 'var(--text-main)',
                   letterSpacing: '-0.02em',
                 }}>
-                  年間<span style={{ fontSize: '1.4em', fontWeight: 800, color: 'var(--accent)' }}>5</span>万円
-                  <br />
-                  安くなるかも
+                  スマホ代、<br />
+                  年間<span style={{ fontWeight: 800, color: 'var(--accent)' }}>{heroCount > 0 ? heroCount.toLocaleString() : '52,140'}</span>円<br />
+                  節約できるかも。
                 </h1>
                 <p style={{
-                  fontSize: 'clamp(16px, 2.2vw, 20px)',
-                  color: 'var(--text-sub)',
-                  margin: '0 0 44px', lineHeight: 1.75,
+                  fontSize: 16, color: 'var(--text-sub)',
+                  margin: '0 0 36px', lineHeight: 1.8,
                 }}>
-                  10問・30秒の無料AI診断で<br />
-                  あなたに最適なプランが見つかる
+                  10問答えるだけで、全20プランから<br />
+                  あなたにぴったりの1つを提案します。
                 </p>
                 <div className="sp-hero-cta-wrap" style={{
                   display: 'flex', flexDirection: 'column',
                   alignItems: 'center', gap: 18,
                 }}>
                   <button onClick={startDiagnose} className="sp-cta-pill">
-                    診断スタート →
+                    診断スタート
                   </button>
-                  <div style={{ display: 'flex', gap: 28, fontSize: 13, color: 'var(--text-sub)', fontWeight: 600 }}>
-                    <span><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>全20プラン対応</span>
-                    <span><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>個人情報不要</span>
-                    <span><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>完全無料</span>
+                  <div style={{ display: 'flex', gap: 28, fontSize: 13, color: 'var(--text-muted)', fontWeight: 500 }}>
+                    {['全20プラン対応', '個人情報不要', '完全無料'].map(t => (
+                      <span key={t}><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>{t}</span>
+                    ))}
                   </div>
                 </div>
                 <p style={{
-                  fontSize: 12, color: 'var(--text-muted)',
+                  fontSize: 11, color: 'var(--text-muted)',
                   margin: '32px 0 0', lineHeight: 1.7,
                 }}>
-                  ※ドコモ eximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合の当サイト試算
+                  ※ドコモ eximo → ahamo 乗り換え時の当サイト試算（割引適用前の基本料金比較）
                 </p>
               </div>
               <div className="sp-hero-mock">
@@ -1193,43 +1204,29 @@ export default function Home() {
         </section>
 
         {/* ── FINAL CTA（ダーク） ── */}
-        <section className="sp-block sp-block-dark sp-section-fade" style={{ background: '#0f1629', padding: '140px 0' }}>
+        <section className="sp-block sp-block-dark sp-section-fade" style={{ background: '#0f1629', padding: '120px 0' }}>
           <div className="sp-container" style={{ textAlign: 'center' }}>
-            <div style={{
-              display: 'inline-block',
-              padding: '7px 18px', borderRadius: 999,
-              background: 'rgba(255, 255, 255, 0.08)',
-              color: '#93C5FD',
-              fontSize: 13, fontWeight: 700, marginBottom: 28,
-              letterSpacing: '0.05em',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-            }}>
-              完全無料・登録不要
-            </div>
             <h2 style={{
-              fontSize: 'clamp(36px, 7vw, 64px)',
-              fontWeight: 700, lineHeight: 1.2,
-              margin: '0 0 20px', color: '#fff',
+              fontSize: 'clamp(28px, 5vw, 48px)',
+              fontWeight: 700, lineHeight: 1.3,
+              margin: '0 0 16px', color: '#fff',
               letterSpacing: '-0.02em',
             }}>
-              今すぐ<br />
-              無料診断
+              今すぐ無料診断
             </h2>
             <p style={{
-              fontSize: 'clamp(15px, 2vw, 18px)',
-              color: 'rgba(255, 255, 255, 0.8)',
-              margin: '0 0 48px', lineHeight: 1.75,
+              fontSize: 16, color: 'rgba(255, 255, 255, 0.65)',
+              margin: '0 0 40px', lineHeight: 1.8,
             }}>
-              30秒で、あなたにぴったりの<br />
-              スマホプランが見つかる
+              30秒で、あなたにぴったりのプランが見つかる
             </p>
             <button onClick={startDiagnose} className="sp-cta-pill">
-              診断スタート →
+              診断スタート
             </button>
             <div style={{
               display: 'flex', justifyContent: 'center', flexWrap: 'wrap',
-              gap: '8px 24px', marginTop: 32,
-              fontSize: 13, color: 'rgba(255, 255, 255, 0.6)', fontWeight: 600,
+              gap: 24, marginTop: 28,
+              fontSize: 13, color: 'rgba(255, 255, 255, 0.45)', fontWeight: 500,
             }}>
               <span>登録不要</span>
               <span>全キャリア対応</span>
@@ -1239,17 +1236,17 @@ export default function Home() {
         </section>
 
         {/* ── 対応キャリア + FAQ ── */}
-        <section className="sp-block sp-section-fade" style={{ background: '#fff', padding: '56px 0 80px' }}>
-          <div className="sp-container">
+        <section className="sp-block sp-section-fade" style={{ background: 'var(--bg-soft)' }}>
+          <div className="sp-container" style={{ textAlign: 'center' }}>
             <div style={{
-              fontSize: 13, fontWeight: 700, color: 'var(--text-muted)',
-              letterSpacing: '0.2em', textAlign: 'center', marginBottom: 28,
+              fontSize: 12, fontWeight: 700, color: 'var(--text-muted)',
+              letterSpacing: '0.15em', textAlign: 'center', marginBottom: 24,
             }}>
-              対応キャリア
+              対応キャリア・プラン
             </div>
             <div style={{
-              display: 'flex', flexWrap: 'wrap', gap: 16,
-              justifyContent: 'center', marginBottom: 96,
+              display: 'flex', flexWrap: 'wrap', gap: 10,
+              justifyContent: 'center', maxWidth: 640, margin: '0 auto',
             }}>
               {carrierBadges.map(c => (
                 <span key={c.name} style={{
@@ -1271,11 +1268,14 @@ export default function Home() {
                 + 他10プラン
               </span>
             </div>
+          </div>
+        </section>
 
-            <h2 className="sp-h2">
-              よくある質問
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 40 }}>
+        {/* ── FAQ ── */}
+        <section className="sp-block sp-section-fade" style={{ background: '#fff' }}>
+          <div className="sp-container">
+            <h2 className="sp-h2">よくある質問</h2>
+            <div style={{ maxWidth: 700, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8 }}>
               {FAQ_ITEMS.map((item, i) => (
                 <details key={i} className="sp-faq-item">
                   <summary className="sp-faq-summary">
@@ -1291,8 +1291,8 @@ export default function Home() {
 
         {/* ── FOOTER ── */}
         <footer style={{
-          padding: '64px 0 48px',
-          background: '#0F172A',
+          padding: '48px 0 36px',
+          background: '#0a0e1a',
           color: 'rgba(255,255,255,0.7)',
         }}>
           <div className="sp-container" style={{
