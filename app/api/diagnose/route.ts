@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
 import plans from '@/data/plans.json';
 import blogPosts from '@/data/blog-posts.json';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -159,6 +160,14 @@ ${JSON.stringify(plans, null, 0)}
 }`;
 
 export async function POST(req: NextRequest) {
+  const rl = checkRateLimit(req, 'diagnose');
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: '短時間に多くのリクエストを受け取りました。しばらく経ってから再度お試しください。' },
+      { status: 429, headers: { 'Retry-After': String(rl.retryAfterSec) } },
+    );
+  }
+
   const body = await req.json();
   const answers: Answers = body.answers ?? body;
 

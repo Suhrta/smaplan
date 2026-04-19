@@ -355,7 +355,7 @@ const FAQ_ITEMS = [
   },
   {
     question: 'スマホの料金プランを見直すとどれくらい節約できますか？',
-    answer: '例えば、ドコモのeximo（月額7,315円）からahamo（月額2,970円）に乗り換えた場合、年間約52,000円の節約になります（当サイト試算・割引適用前の基本料金で比較）。実際の節約額はご利用状況により異なります。',
+    answer: '例えば、ドコモの大容量プラン（月額8,000円台）からahamo（月額2,970円）に乗り換えた場合、月額料金の差だけで年間数万円規模の差が生じます（当サイト試算・割引適用前の基本料金で比較）。実際の節約額はご利用状況や適用される割引により異なります。',
   },
   {
     question: '個人情報の入力は必要ですか？',
@@ -1098,6 +1098,12 @@ export default function Home() {
                       <span key={t}><span style={{ color: '#0d9f5f', marginRight: 4 }}>✓</span>{t}</span>
                     ))}
                   </div>
+                  <p style={{
+                    fontSize: 11, color: 'var(--text-muted)',
+                    margin: '4px 0 0', lineHeight: 1.6,
+                  }}>
+                    ※当社シミュレーションによる試算例です。実際の節約額はご利用状況により異なります。
+                  </p>
                 </div>
               </div>
               <div className="sp-hero-mock">
@@ -1161,7 +1167,7 @@ export default function Home() {
             <p style={{
               fontSize: 11, color: 'var(--text-muted)', textAlign: 'center', marginTop: 20, lineHeight: 1.7,
             }}>
-              ※料金は税込・割引適用前の標準価格。実際の節約額はご利用状況により異なります
+              ※2026年4月時点の公式料金に基づく参考値です（税込・割引適用前の標準価格）。最新の料金は各事業者の公式サイトをご確認ください。実際の節約額はご利用状況により異なります。
             </p>
           </div>
         </section>
@@ -1286,7 +1292,7 @@ export default function Home() {
               </Link>
             </div>
             <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>
-              © 2026 スマートプラン
+              © {new Date().getFullYear()} スマートプラン
             </div>
           </div>
         </footer>
@@ -1561,7 +1567,7 @@ export default function Home() {
                 <a
                   href={rec.affiliate_key ? getLink(rec.affiliate_key) : '#'}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="nofollow noopener sponsored"
                   onClick={() => track('affiliate_click', {
                     plan_name: rec.plan_name,
                     carrier: rec.carrier,
@@ -1652,7 +1658,7 @@ export default function Home() {
           marginTop: 32,
         }}>
           <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
+            href={`https://x.com/intent/post?text=${encodeURIComponent(shareText)}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{

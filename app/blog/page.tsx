@@ -4,11 +4,11 @@ import posts from '@/data/blog-posts.json';
 import { SiteHeader } from '../components/SiteHeader';
 
 export const metadata: Metadata = {
-  title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマプラン',
+  title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマートプラン',
   description: 'スマホ料金の節約術、格安SIMへの乗り換え手順、キャリア比較など、スマホ料金にまつわる役立つ記事をまとめています。',
   alternates: { canonical: 'https://smaplan.com/blog' },
   openGraph: {
-    title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマプラン',
+    title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマートプラン',
     description: 'スマホ料金にまつわる役立つ記事をまとめています。',
     url: 'https://smaplan.com/blog',
     type: 'website',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマプラン',
+    title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマートプラン',
     description: 'スマホ料金にまつわる役立つ記事をまとめています。',
     images: ['/og-image.png'],
   },

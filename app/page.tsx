@@ -273,8 +273,25 @@ export default function PortalPage() {
               ブログ
             </Link>
           </div>
+          <div style={{
+            display: 'flex', gap: 20, flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}>
+            <Link href="/legal/privacy" style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>
+              プライバシーポリシー
+            </Link>
+            <Link href="/legal/terms" style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>
+              利用規約
+            </Link>
+            <Link href="/legal/about" style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>
+              運営者情報
+            </Link>
+          </div>
+          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', lineHeight: 1.6 }}>
+            本サイトはアフィリエイト広告（PR）を含みます。掲載情報は各事業者の公開情報に基づきますが、最新性・正確性を保証するものではありません。
+          </div>
           <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>
-            © 2026 スマートプラン
+            © {new Date().getFullYear()} スマートプラン
           </div>
         </div>
       </footer>

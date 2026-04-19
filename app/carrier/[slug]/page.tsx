@@ -263,7 +263,7 @@ export default async function CarrierDetailPage({
         <a
           href={affiliateHref}
           target="_blank"
-          rel="sponsored noopener"
+          rel="nofollow noopener sponsored"
           style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             width: '100%', minHeight: 48,

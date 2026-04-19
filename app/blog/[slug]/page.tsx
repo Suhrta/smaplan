@@ -31,7 +31,7 @@ export async function generateMetadata(
   const { slug } = await params;
   const post = findPost(slug);
   if (!post) return {};
-  const title = `${post.title} | スマプラン`;
+  const title = `${post.title} | スマートプラン`;
   const ogImage = `/blog/${post.slug}.png`;
   return {
     title,
@@ -315,10 +315,10 @@ export default async function BlogDetailPage({
     description: post.description,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
-    author: { '@type': 'Organization', name: 'スマプラン' },
+    author: { '@type': 'Organization', name: 'スマートプラン' },
     publisher: {
       '@type': 'Organization',
-      name: 'スマプラン',
+      name: 'スマートプラン',
       logo: { '@type': 'ImageObject', url: 'https://smaplan.com/og-image.png' },
     },
     mainEntityOfPage: {

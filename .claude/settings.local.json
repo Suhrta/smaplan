@@ -57,7 +57,11 @@
       "Bash(python3 -c \"import json,sys; posts=json.load\\(sys.stdin\\); [print\\(f'{p[\\\\\"slug\\\\\"]:40s} headerImage={p.get\\(\\\\\"headerImage\\\\\",\\\\\"\\(none\\)\\\\\"\\)}'\\) for p in posts]\")",
       "Bash(python3 *)",
       "Bash(npx --yes sharp-cli --version)",
-      "Bash(npx sharp-cli *)"
+      "Bash(npx sharp-cli *)",
+      "Bash(gh api *)",
+      "Bash(npx vercel *)",
+      "Bash(vercel ls *)",
+      "Bash(iconv -f utf-8 -t utf-8)"
     ]
   }
 }

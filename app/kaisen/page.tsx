@@ -221,7 +221,7 @@ const KAISEN_FAQ_ITEMS = [
   },
   {
     question: 'スマホとのセット割はどれくらいお得ですか？',
-    answer: 'ドコモ・au・ソフトバンクのスマホをお使いの場合、対応する光回線とのセット割で毎月550〜1,100円割引されます。家族全員に適用されるため、4人家族なら最大で月額4,400円、年間52,800円の節約になります。',
+    answer: 'ドコモ・au・ソフトバンクのスマホをお使いの場合、対応する光回線とのセット割で毎月550〜1,100円の割引が適用されます。家族全員に適用されるプランが多いため、世帯人数が多いほど割引効果は大きくなります。具体的な割引額は各事業者の最新条件をご確認ください。',
   },
   {
     question: '個人情報の入力は必要ですか？',
@@ -890,6 +890,12 @@ export default function KaisenPage() {
                       </span>
                     ))}
                   </div>
+                  <p style={{
+                    fontSize: 11, color: 'var(--text-muted)',
+                    margin: '4px 0 0', lineHeight: 1.6,
+                  }}>
+                    ※当社シミュレーションによる試算例です。実際の節約額はご利用状況により異なります。
+                  </p>
                 </div>
               </div>
 
@@ -977,7 +983,7 @@ export default function KaisenPage() {
             <p style={{
               fontSize: 11, color: 'var(--text-muted)', textAlign: 'center', marginTop: 20, lineHeight: 1.7,
             }}>
-              ※料金は税込・割引適用前の標準価格。実際の節約額はご利用状況により異なります
+              ※2026年4月時点の公式料金に基づく参考値です（税込・割引適用前の標準価格）。最新の料金は各事業者の公式サイトをご確認ください。実際の節約額はご利用状況により異なります。
             </p>
           </div>
         </section>
@@ -1084,7 +1090,7 @@ export default function KaisenPage() {
               <Link href="/smaho" style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontWeight: 500 }}>スマホ診断</Link>
               <Link href="/blog" style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontWeight: 500 }}>ブログ</Link>
             </div>
-            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>© 2026 スマートプラン</div>
+            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>© {new Date().getFullYear()} スマートプラン</div>
           </div>
         </footer>
       </div>
@@ -1353,7 +1359,7 @@ export default function KaisenPage() {
             display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginTop: 32,
           }}>
             <a
-              href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
+              href={`https://x.com/intent/post?text=${encodeURIComponent(shareText)}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{

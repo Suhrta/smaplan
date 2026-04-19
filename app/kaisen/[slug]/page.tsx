@@ -46,7 +46,7 @@ export async function generateMetadata(
   const { slug } = await params;
   const plan = findPlan(slug);
   if (!plan) return {};
-  const title = `${plan.name}のメリット・デメリット | スマートプラン`;
+  const title = `${plan.name}のメリット・デメリット | 回線プラン`;
   const description = `${plan.provider_parent}「${plan.name}」（戸建て月${plan.monthly_cost_house.toLocaleString()}円 / マンション月${plan.monthly_cost_mansion.toLocaleString()}円 / 最大${plan.max_speed}）のメリット・デメリットを中立的に解説。AIが最適な回線プランを無料で診断します。`;
   return {
     title,
@@ -88,8 +88,8 @@ export default async function KaisenDetailPage({
     '@type': 'Article',
     headline: `${plan.name}のメリット・デメリット`,
     description: content.summary,
-    author: { '@type': 'Organization', name: 'スマートプラン' },
-    publisher: { '@type': 'Organization', name: 'スマートプラン' },
+    author: { '@type': 'Organization', name: '回線プラン' },
+    publisher: { '@type': 'Organization', name: '回線プラン' },
     mainEntityOfPage: `https://smaplan.com/kaisen/${plan.id}`,
     about: {
       '@type': 'Product',

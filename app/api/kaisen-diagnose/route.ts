@@ -1,6 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { NextRequest, NextResponse } from 'next/server';
 import plans from '@/data/kaisen-plans.json';
+import { checkRateLimit } from '@/lib/rateLimit';
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -38,7 +39,7 @@ type DiagnoseResult = {
 
 const VALID_KEYS = new Set(plans.map(p => p.id));
 
-const SYSTEM_PROMPT = `あなたはインターネット回線の専門家「スマートプラン」のAIアドバイザーです。
+const SYSTEM_PROMPT = `あなたはインターネット回線の専門家「回線プラン」のAIアドバイザーです。
 ユーザーの10問診断の回答に基づき、以下の回線プランデータベースから最適なプランを3つ選んでください。
 
 ## ルール
@@ -102,6 +103,14 @@ ${JSON.stringify(plans, null, 0)}
 }`;
 
 export async function POST(req: NextRequest) {
+  const rl = checkRateLimit(req, 'kaisen-diagnose');
+  if (!rl.allowed) {
+    return NextResponse.json(
+      { error: '短時間に多くのリクエストを受け取りました。しばらく経ってから再度お試しください。' },
+      { status: 429, headers: { 'Retry-After': String(rl.retryAfterSec) } },
+    );
+  }
+
   const body = await req.json();
   const answers: Answers = body.answers ?? body;
 
