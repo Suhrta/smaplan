@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
 import Link from 'next/link';
 import { getKaisenLink, getKaisenImpression } from '@/data/kaisenAffiliateLinks';
 import { track } from '@/lib/analytics';
 import { SiteHeader, LogoHeader } from '@/app/components/SiteHeader';
+import { FadeIn } from '@/app/components/FadeIn';
 
 function useCountUp(target: number, active: boolean, duration = 800) {
   const [value, setValue] = useState(0);
@@ -146,7 +147,7 @@ function LoadingMessage() {
     return () => clearInterval(timer);
   }, []);
   return (
-    <p style={{ color: 'var(--text-sub)', fontSize: 15, animation: 'fadeInMsg 0.5s ease' }}>
+    <p className="text-[15px] text-[#555] animate-[fadeInMsg_0.5s_ease]">
       {LOADING_MESSAGES[idx]}
     </p>
   );
@@ -154,11 +155,7 @@ function LoadingMessage() {
 
 function ErrorBanner({ message }: { message: string }) {
   return (
-    <div style={{
-      marginBottom: 16, padding: '12px 16px',
-      background: 'var(--danger-light)', border: '1px solid #FCA5A5',
-      borderRadius: 8, color: '#991B1B', fontSize: 13,
-    }}>
+    <div className="mb-4 rounded-lg border border-[#FCA5A5] bg-[#FEE2E2] px-4 py-3 text-[13px] text-[#991B1B]">
       {message}
     </div>
   );
@@ -176,32 +173,29 @@ function OptionButton({
     <button
       type="button"
       onClick={onClick}
-      style={{
-        display: 'flex', alignItems: 'center', gap: 12,
-        width: '100%', minHeight: 56,
-        padding: '14px 18px',
-        background: selected ? 'var(--accent-light)' : 'var(--bg-card)',
-        border: selected ? '2px solid var(--accent)' : '2px solid var(--border)',
-        borderRadius: 12,
-        color: selected ? 'var(--accent)' : 'var(--text-main)',
-        fontSize: 15, fontWeight: selected ? 600 : 500,
-        cursor: 'pointer',
-        textAlign: 'left',
-        transition: 'all 0.15s ease',
-      }}
+      className={`flex w-full items-center gap-3 rounded-xl border-2 px-[18px] py-3.5 text-left text-[15px] transition-all duration-150 ${
+        selected
+          ? 'border-[#4338ca] bg-[#f8f7ff] font-semibold text-[#4338ca]'
+          : 'border-[#e8e8e8] bg-white font-medium text-[#111] hover:border-[#c4b5fd] hover:bg-[#faf9ff]'
+      }`}
+      style={{ minHeight: 56 }}
     >
-      <span style={{
-        flexShrink: 0,
-        width: 20, height: 20,
-        borderRadius: multi ? 4 : '50%',
-        border: selected ? '2px solid var(--accent)' : '2px solid var(--border)',
-        background: selected ? 'var(--accent)' : 'transparent',
-        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-        color: '#fff', fontSize: 13, lineHeight: 1,
-      }}>
-        {selected && (multi ? '✓' : '●')}
+      <span
+        className={`flex h-5 w-5 shrink-0 items-center justify-center text-[13px] leading-none text-white ${
+          multi ? 'rounded' : 'rounded-full'
+        } ${
+          selected
+            ? 'border-2 border-[#4338ca] bg-[#4338ca]'
+            : 'border-2 border-[#e8e8e8] bg-transparent'
+        }`}
+      >
+        {selected && (
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        )}
       </span>
-      <span style={{ flex: 1 }}>{label}</span>
+      <span className="flex-1">{label}</span>
     </button>
   );
 }
@@ -263,385 +257,290 @@ function KaisenBACard({ example, saving, index }: { example: KaisenBAExample; sa
     return () => io.disconnect();
   }, []);
 
-  const sideStyle = (isAfter: boolean): React.CSSProperties => ({
-    flex: 1, padding: '28px 24px',
-    background: isAfter ? 'var(--accent-light)' : '#fff',
-  });
-
   return (
-    <div ref={ref} style={{
-      background: '#fff',
-      border: '1px solid var(--border)',
-      borderRadius: 20, overflow: 'hidden',
-      opacity: inView ? 1 : 0,
-      transform: inView ? 'translateY(0)' : 'translateY(20px)',
-      transition: `all 0.6s cubic-bezier(0.22,1,0.36,1) ${index * 0.1}s`,
-    }}>
+    <div
+      ref={ref}
+      className="overflow-hidden rounded-2xl border border-[#e8e8e8] bg-white transition-all duration-600"
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'translateY(0)' : 'translateY(20px)',
+        transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)',
+        transitionDelay: `${index * 100}ms`,
+      }}
+    >
       <div className="sp-ba-cards">
-        {/* Before */}
-        <div style={sideStyle(false)}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.1em', marginBottom: 8 }}>BEFORE</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 12 }}>{example.beforeName}</div>
+        <div className="flex-1 bg-white p-7">
+          <div className="mb-2 text-[11px] font-bold tracking-[0.1em] text-[#888]">BEFORE</div>
+          <div className="mb-3 text-lg font-bold text-[#111]">{example.beforeName}</div>
           <div>
-            <span style={{ fontSize: 28, fontWeight: 700, color: 'var(--text-main)' }}>
-              {example.beforeCost.toLocaleString()}
-            </span>
-            <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
+            <span className="text-[28px] font-bold text-[#111]">{example.beforeCost.toLocaleString()}</span>
+            <span className="ml-0.5 text-base font-semibold text-[#555]">円/月</span>
           </div>
         </div>
 
-        {/* Arrow */}
         <div className="sp-ba-arrow-center">
-          <div style={{
-            width: 40, height: 40, borderRadius: '50%',
-            background: 'var(--accent)', display: 'flex',
-            alignItems: 'center', justifyContent: 'center',
-            flexShrink: 0,
-          }}>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full" style={{ background: 'linear-gradient(135deg, #4338ca, #6366f1)' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14m0 0l-6-6m6 6l-6 6" />
             </svg>
           </div>
         </div>
 
-        {/* After */}
-        <div style={sideStyle(true)}>
-          <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: 8 }}>AFTER</div>
-          <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--accent)', marginBottom: 12 }}>{example.afterName}</div>
+        <div className="flex-1 bg-[#f8f7ff] p-7">
+          <div className="mb-2 text-[11px] font-bold tracking-[0.1em] text-[#4338ca]">AFTER</div>
+          <div className="mb-3 text-lg font-bold text-[#4338ca]">{example.afterName}</div>
           <div>
-            <span style={{ fontSize: 28, fontWeight: 700, color: 'var(--accent)' }}>
-              {example.afterCost.toLocaleString()}
-            </span>
-            <span style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-sub)', marginLeft: 2 }}>円/月</span>
+            <span className="text-[28px] font-bold text-[#4338ca]">{example.afterCost.toLocaleString()}</span>
+            <span className="ml-0.5 text-base font-semibold text-[#555]">円/月</span>
           </div>
         </div>
       </div>
 
-      {/* Saving banner */}
-      <div style={{
-        background: '#F5F8FF', borderTop: '0.5px solid #E3ECF8',
-        padding: '18px 28px',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        flexWrap: 'wrap', gap: 12,
-      }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          <div style={{ fontSize: 14, color: '#555' }}>
-            {example.detail}
-            {example.detailComment && (<>（<span style={{ color: '#2D5CC5' }}>{example.detailComment}</span>）</>)}
-          </div>
+      <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#e8e8e8] bg-[#f8f7ff] px-7 py-[18px]">
+        <div className="text-sm text-[#555]">
+          {example.detail}
+          {example.detailComment && (<>（<span className="text-[#4338ca]">{example.detailComment}</span>）</>)}
         </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, flexShrink: 0 }}>
-          <span style={{ fontSize: 14, color: '#888' }}>年間</span>
-          <span style={{
-            fontSize: 'clamp(44px, 10vw, 60px)', fontWeight: 800, color: '#2D5CC5',
-            letterSpacing: '-0.02em', lineHeight: 1,
-          }}>{saving.toLocaleString()}</span>
-          <span style={{ fontSize: 14, color: '#888' }}>円おトク</span>
+        <div className="flex shrink-0 items-baseline gap-1">
+          <span className="text-sm text-[#888]">年間</span>
+          <span className="text-[clamp(44px,10vw,60px)] font-extrabold leading-none tracking-tight" style={{ background: 'linear-gradient(135deg, #4338ca, #7c3aed)', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            {saving.toLocaleString()}
+          </span>
+          <span className="text-sm text-[#888]">円おトク</span>
         </div>
       </div>
     </div>
   );
 }
 
-function WifiIcon({ x, y }: { x: number; y: number }) {
-  return (
-    <g transform={`translate(${x}, ${y})`}>
-      <path d="M-6,0 Q0,-8 6,0" stroke="#4338ca" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
-      <path d="M-4,3 Q0,-2 4,3" stroke="#4338ca" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.45" />
-      <circle cx="0" cy="6" r="2" fill="#4338ca" opacity="0.7" />
-    </g>
-  );
-}
+function KaisenPhoneMockup() {
+  const panelBase = "absolute inset-0 flex flex-col opacity-0";
+  const optBase = "rounded-[10px] border border-[#E2E8F0] bg-white px-3 py-2.5 text-[11px] font-bold text-[#475569]";
 
-function HouseIllustration() {
   return (
     <div aria-hidden="true">
-      <svg viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', maxWidth: 400, margin: '0 auto', display: 'block' }}
+      <style>{`
+        @keyframes mockStep1 {
+          0%, 18% { opacity: 1; transform: translateY(0); }
+          20%, 100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes mockStep2 {
+          0%, 20% { opacity: 0; transform: translateY(6px); }
+          22%, 38% { opacity: 1; transform: translateY(0); }
+          40%, 100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes mockStep3 {
+          0%, 40% { opacity: 0; transform: translateY(6px); }
+          42%, 58% { opacity: 1; transform: translateY(0); }
+          60%, 100% { opacity: 0; transform: translateY(-6px); }
+        }
+        @keyframes mockStep4 {
+          0%, 60% { opacity: 0; }
+          62%, 71% { opacity: 1; }
+          73%, 100% { opacity: 0; }
+        }
+        @keyframes mockStep5 {
+          0%, 73% { opacity: 0; transform: translateY(6px) scale(0.97); }
+          76%, 98% { opacity: 1; transform: translateY(0) scale(1); }
+          100% { opacity: 0; transform: translateY(0) scale(1); }
+        }
+        @keyframes mockHi1 {
+          0%, 4% { background: #fff; border-color: #E2E8F0; color: #475569; }
+          7%, 18% { background: #f8f7ff; border-color: #4338ca; color: #4338ca; }
+          20%, 100% { background: #fff; border-color: #E2E8F0; color: #475569; }
+        }
+        @keyframes mockHi2 {
+          0%, 24% { background: #fff; border-color: #E2E8F0; color: #475569; }
+          27%, 38% { background: #f8f7ff; border-color: #4338ca; color: #4338ca; }
+          40%, 100% { background: #fff; border-color: #E2E8F0; color: #475569; }
+        }
+        @keyframes mockHi3 {
+          0%, 44% { background: #fff; border-color: #E2E8F0; color: #475569; }
+          47%, 58% { background: #f8f7ff; border-color: #4338ca; color: #4338ca; }
+          60%, 100% { background: #fff; border-color: #E2E8F0; color: #475569; }
+        }
+        @keyframes mockSpin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+        @keyframes mockPop { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .mock-step { animation-duration: 15s; animation-timing-function: ease-in-out; animation-iteration-count: infinite; }
+        .mock-step-1 { animation-name: mockStep1; }
+        .mock-step-2 { animation-name: mockStep2; }
+        .mock-step-3 { animation-name: mockStep3; }
+        .mock-step-4 { animation-name: mockStep4; }
+        .mock-step-5 { animation-name: mockStep5; }
+        .mock-hi { animation-duration: 15s; animation-timing-function: ease-out; animation-iteration-count: infinite; }
+        .mock-hi-1 { animation-name: mockHi1; }
+        .mock-hi-2 { animation-name: mockHi2; }
+        .mock-hi-3 { animation-name: mockHi3; }
+        .mock-spin { animation: mockSpin 1.2s linear infinite; }
+        @media (prefers-reduced-motion: reduce) {
+          .mock-step, .mock-hi, .mock-spin { animation: none !important; }
+          .mock-step-1, .mock-step-2, .mock-step-3, .mock-step-4 { opacity: 0 !important; }
+          .mock-step-5 { opacity: 1 !important; transform: none !important; }
+        }
+      `}</style>
+      <div
+        className="relative mx-auto h-[560px] w-[272px] rounded-[48px] p-[5px] animate-[mockPop_0.6s_ease_both]"
+        style={{
+          background: 'linear-gradient(135deg, #4A5568 0%, #1A202C 45%, #2D3748 100%)',
+          boxShadow: '0 30px 80px rgba(15, 23, 42, 0.35), 0 12px 28px rgba(15, 23, 42, 0.22), 0 4px 10px rgba(15, 23, 42, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.06), inset 0 2px 3px rgba(255, 255, 255, 0.14), inset 0 -2px 3px rgba(0, 0, 0, 0.3)',
+        }}
       >
-        <defs>
-          <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#4338ca" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#4338ca" stopOpacity="0.08" />
-          </linearGradient>
-          <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#eef0ff" />
-            <stop offset="100%" stopColor="#f8f9fe" />
-          </linearGradient>
-          <radialGradient id="wifiGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#4338ca" stopOpacity="0.1" />
-            <stop offset="60%" stopColor="#4338ca" stopOpacity="0.04" />
-            <stop offset="100%" stopColor="#4338ca" stopOpacity="0" />
-          </radialGradient>
-        </defs>
+        <div aria-hidden="true" className="absolute -left-0.5 top-[108px] h-8 w-[3px] rounded-l-sm" style={{ background: 'linear-gradient(90deg, #2D3748, #4A5568)' }} />
+        <div aria-hidden="true" className="absolute -left-0.5 top-[152px] h-[54px] w-[3px] rounded-l-sm" style={{ background: 'linear-gradient(90deg, #2D3748, #4A5568)' }} />
+        <div aria-hidden="true" className="absolute -left-0.5 top-[216px] h-[54px] w-[3px] rounded-l-sm" style={{ background: 'linear-gradient(90deg, #2D3748, #4A5568)' }} />
+        <div aria-hidden="true" className="absolute -right-0.5 top-[172px] h-20 w-[3px] rounded-r-sm" style={{ background: 'linear-gradient(90deg, #4A5568, #2D3748)' }} />
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-[44px] bg-[#F7FAFC] px-4 pb-3.5 pt-12">
+          <div aria-hidden="true" className="absolute left-1/2 top-[7px] z-[3] h-4 w-[60px] -translate-x-1/2 rounded-[10px] bg-[#0B0F19]" style={{ boxShadow: 'inset 0 0 0 1px rgba(255, 255, 255, 0.04)' }} />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[2] rounded-[44px]" style={{ background: 'linear-gradient(125deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 28%, rgba(255, 255, 255, 0) 52%, rgba(255, 255, 255, 0.08) 88%, rgba(255, 255, 255, 0.16) 100%)', mixBlendMode: 'overlay' }} />
+          <div className="mb-[22px] text-center text-[10px] font-extrabold tracking-[0.18em] text-[#94A3B8]">
+            回線プラン
+          </div>
+          <div className="relative flex-1">
+            {/* Q1: 住居タイプ */}
+            <div className={`mock-step mock-step-1 ${panelBase}`}>
+              <div className="mb-[22px] flex gap-1">
+                <div className="h-1 flex-1 rounded-sm bg-[#4338ca]" />
+                <div className="h-1 flex-1 rounded-sm bg-[#E2E8F0]" />
+                <div className="h-1 flex-1 rounded-sm bg-[#E2E8F0]" />
+              </div>
+              <div className="mb-1.5 text-[10px] font-extrabold tracking-[0.06em] text-[#94A3B8]">Q1</div>
+              <div className="mb-[18px] text-[13px] font-extrabold leading-[1.35] text-[#0F172A]">住居タイプは？</div>
+              <div className="flex flex-col gap-2">
+                <div className={`mock-hi mock-hi-1 ${optBase}`}>戸建て</div>
+                <div className={optBase}>マンション</div>
+              </div>
+            </div>
 
-        {/* ══ WiFi Concentric Pulse Circles (behind everything) ══ */}
-        <circle className="wifi-ring" cx="200" cy="290" r="40" fill="none" stroke="#a5b4fc" strokeWidth="2"
-          style={{ animation: 'ringPulse 4s ease-out infinite', transformOrigin: '200px 290px' }} />
-        <circle className="wifi-ring" cx="200" cy="290" r="80" fill="none" stroke="#a5b4fc" strokeWidth="1.5"
-          style={{ animation: 'ringPulse 4s ease-out 0.8s infinite', transformOrigin: '200px 290px' }} />
-        <circle className="wifi-ring" cx="200" cy="290" r="120" fill="none" stroke="#a5b4fc" strokeWidth="1"
-          style={{ animation: 'ringPulse 4s ease-out 1.6s infinite', transformOrigin: '200px 290px' }} />
-        <circle className="wifi-ring" cx="200" cy="290" r="160" fill="none" stroke="#c7d2fe" strokeWidth="0.8"
-          style={{ animation: 'ringPulse 4s ease-out 2.4s infinite', transformOrigin: '200px 290px' }} />
+            {/* Q2: 用途 */}
+            <div className={`mock-step mock-step-2 ${panelBase}`}>
+              <div className="mb-[22px] flex gap-1">
+                <div className="h-1 flex-1 rounded-sm bg-[#4338ca]" />
+                <div className="h-1 flex-1 rounded-sm bg-[#4338ca]" />
+                <div className="h-1 flex-1 rounded-sm bg-[#E2E8F0]" />
+              </div>
+              <div className="mb-1.5 text-[10px] font-extrabold tracking-[0.06em] text-[#94A3B8]">Q2</div>
+              <div className="mb-[18px] text-[13px] font-extrabold leading-[1.35] text-[#0F172A]">主な用途は？</div>
+              <div className="flex flex-col gap-2">
+                <div className={optBase}>動画視聴</div>
+                <div className={`mock-hi mock-hi-2 ${optBase}`}>テレワーク</div>
+                <div className={optBase}>オンラインゲーム</div>
+              </div>
+            </div>
 
-        {/* ══ WiFi Glow behind router ══ */}
-        <circle cx="200" cy="290" r="100" fill="url(#wifiGlow)" />
+            {/* Q3: 重視 */}
+            <div className={`mock-step mock-step-3 ${panelBase}`}>
+              <div className="mb-[22px] flex gap-1">
+                <div className="h-1 flex-1 rounded-sm bg-[#4338ca]" />
+                <div className="h-1 flex-1 rounded-sm bg-[#4338ca]" />
+                <div className="h-1 flex-1 rounded-sm bg-[#4338ca]" />
+              </div>
+              <div className="mb-1.5 text-[10px] font-extrabold tracking-[0.06em] text-[#94A3B8]">Q3</div>
+              <div className="mb-[18px] text-[13px] font-extrabold leading-[1.35] text-[#0F172A]">一番重視するのは？</div>
+              <div className="flex flex-col gap-2">
+                <div className={`mock-hi mock-hi-3 ${optBase}`}>料金の安さ</div>
+                <div className={optBase}>通信速度</div>
+                <div className={optBase}>手軽さ</div>
+              </div>
+            </div>
 
-        {/* ══ Roof ══ */}
-        <polygon points="200,18 16,140 384,140" fill="url(#roofGrad)" />
-        <polyline points="200,18 16,140 384,140 200,18"
-          stroke="#4338ca" strokeWidth="4" strokeLinejoin="round" fill="none" opacity="0.65" />
-        {/* chimney */}
-        <rect x="286" y="46" width="28" height="54" rx="4" fill="#e8eaf6" stroke="#4338ca" strokeWidth="2.5" opacity="0.4" />
-        <rect x="283" y="40" width="34" height="8" rx="3" fill="#e8eaf6" stroke="#4338ca" strokeWidth="2" opacity="0.35" />
+            {/* Loading */}
+            <div className={`mock-step mock-step-4 ${panelBase} !items-center !justify-center gap-4`}>
+              <div className="mock-spin h-[42px] w-[42px] rounded-full border-3 border-[#E2E8F0] border-t-[#4338ca]" />
+              <div className="text-center text-xs font-extrabold leading-[1.5] text-[#475569]">
+                あなたに最適な<br />回線を分析中...
+              </div>
+            </div>
 
-        {/* ══ Walls ══ */}
-        <rect x="36" y="140" width="328" height="280" rx="4" fill="url(#wallGrad)" stroke="#4338ca" strokeWidth="3.5" opacity="0.5" />
-
-        {/* ══ Floor divider (1F/2F) ══ */}
-        <line x1="36" y1="280" x2="364" y2="280" stroke="#4338ca" strokeWidth="2.5" opacity="0.2" />
-        <text x="46" y="158" fontSize="10" fontWeight="700" fill="#4338ca" opacity="0.2" fontFamily="system-ui,sans-serif">2F</text>
-        <text x="46" y="298" fontSize="10" fontWeight="700" fill="#4338ca" opacity="0.2" fontFamily="system-ui,sans-serif">1F</text>
-
-        {/* ══ Room dividers ══ */}
-        <line x1="200" y1="140" x2="200" y2="280" stroke="#4338ca" strokeWidth="1.5" opacity="0.15" strokeDasharray="6 4" />
-        <line x1="200" y1="280" x2="200" y2="420" stroke="#4338ca" strokeWidth="1.5" opacity="0.15" strokeDasharray="6 4" />
-
-        {/* ══ Windows ══ */}
-        {/* 2F left window */}
-        <rect x="60" y="152" width="36" height="30" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2" opacity="0.3" />
-        <line x1="78" y1="152" x2="78" y2="182" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
-        <line x1="60" y1="167" x2="96" y2="167" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
-        {/* 2F right window */}
-        <rect x="304" y="152" width="36" height="30" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2" opacity="0.3" />
-        <line x1="322" y1="152" x2="322" y2="182" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
-        <line x1="304" y1="167" x2="340" y2="167" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
-
-        {/* ══ Door (1F center) ══ */}
-        <rect x="178" y="370" width="44" height="50" rx="4" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2.5" opacity="0.3" />
-        <circle cx="210" cy="398" r="3" fill="#4338ca" opacity="0.3" />
-        <rect x="190" y="364" width="20" height="8" rx="3" fill="#c7d2fe" opacity="0.15" />
-
-        {/* ═══════════════════════════════════════════════ */}
-        {/* ══ 2F LEFT ROOM – Study / Office ══ */}
-        {/* ═══════════════════════════════════════════════ */}
-
-        {/* ── Desk ── */}
-        <g transform="translate(58, 198)">
-          <rect x="0" y="38" width="90" height="6" rx="2" fill="#4338ca" opacity="0.25" />
-          <rect x="6" y="44" width="6" height="24" rx="2" fill="#4338ca" opacity="0.15" />
-          <rect x="78" y="44" width="6" height="24" rx="2" fill="#4338ca" opacity="0.15" />
-        </g>
-
-        {/* ── Desktop PC (monitor + tower) ── */}
-        <g transform="translate(64, 178)">
-          {/* monitor */}
-          <rect x="0" y="0" width="54" height="34" rx="4" fill="#4338ca" opacity="0.4" />
-          <rect x="4" y="4" width="46" height="26" rx="2" fill="#c7d2fe" opacity="0.5" />
-          {/* screen content */}
-          <rect x="8" y="9" width="28" height="3" rx="1.5" fill="#4338ca" opacity="0.2" />
-          <rect x="8" y="15" width="20" height="3" rx="1.5" fill="#4338ca" opacity="0.15" />
-          <rect x="8" y="21" width="24" height="3" rx="1.5" fill="#4338ca" opacity="0.1" />
-          {/* stand */}
-          <rect x="21" y="34" width="12" height="4" rx="1" fill="#4338ca" opacity="0.3" />
-          <rect x="14" y="36" width="26" height="3" rx="1.5" fill="#4338ca" opacity="0.2" />
-          {/* tower */}
-          <rect x="62" y="10" width="18" height="28" rx="3" fill="#4338ca" opacity="0.3" />
-          <circle cx="71" cy="18" r="2" fill="#0d9f5f" opacity="0.6" />
-          <rect x="65" y="26" width="12" height="2" rx="1" fill="#4338ca" opacity="0.15" />
-          <rect x="65" y="31" width="12" height="2" rx="1" fill="#4338ca" opacity="0.1" />
-        </g>
-        <WifiIcon x={100} y={172} />
-
-        {/* ── Chair ── */}
-        <g transform="translate(88, 256)">
-          <rect x="0" y="0" width="22" height="6" rx="3" fill="#4338ca" opacity="0.12" />
-          <rect x="4" y="-14" width="14" height="16" rx="3" fill="#4338ca" opacity="0.08" />
-        </g>
-
-        {/* ═══════════════════════════════════════════════ */}
-        {/* ══ 2F RIGHT ROOM – Bedroom ══ */}
-        {/* ═══════════════════════════════════════════════ */}
-
-        {/* ── Bed ── */}
-        <g transform="translate(220, 222)">
-          <rect x="0" y="0" width="90" height="44" rx="6" fill="#4338ca" opacity="0.08" />
-          <rect x="0" y="0" width="90" height="10" rx="5" fill="#4338ca" opacity="0.12" />
-          {/* pillow */}
-          <rect x="6" y="4" width="24" height="10" rx="5" fill="#c7d2fe" opacity="0.3" />
-          {/* blanket */}
-          <rect x="4" y="16" width="82" height="24" rx="4" fill="#a5b4fc" opacity="0.12" />
-        </g>
-
-        {/* ── Smartphone on bedside ── */}
-        <g transform="translate(326, 230)">
-          <rect x="0" y="0" width="18" height="32" rx="4" fill="#4338ca" opacity="0.45" />
-          <rect x="3" y="4" width="12" height="22" rx="2" fill="#c7d2fe" opacity="0.5" />
-          <circle cx="9" cy="28" r="1.5" fill="#4338ca" opacity="0.2" />
-        </g>
-        <WifiIcon x={338} y={222} />
-
-        {/* ── Bedside table ── */}
-        <g transform="translate(320, 250)">
-          <rect x="0" y="0" width="26" height="16" rx="3" fill="#4338ca" opacity="0.12" />
-          <rect x="2" y="16" width="5" height="8" rx="1" fill="#4338ca" opacity="0.08" />
-          <rect x="19" y="16" width="5" height="8" rx="1" fill="#4338ca" opacity="0.08" />
-        </g>
-
-        {/* ── Plant (2F right) ── */}
-        <g transform="translate(224, 194)">
-          <rect x="6" y="20" width="14" height="16" rx="3" fill="#4338ca" opacity="0.15" />
-          {/* leaves */}
-          <ellipse cx="13" cy="14" rx="10" ry="10" fill="#22c55e" opacity="0.2" />
-          <ellipse cx="8" cy="10" rx="7" ry="8" fill="#22c55e" opacity="0.15" />
-          <ellipse cx="18" cy="12" rx="6" ry="7" fill="#16a34a" opacity="0.12" />
-          <line x1="13" y1="20" x2="13" y2="12" stroke="#22c55e" strokeWidth="2" opacity="0.2" />
-        </g>
-
-        {/* ═══════════════════════════════════════════════ */}
-        {/* ══ 1F LEFT ROOM – Living Room ══ */}
-        {/* ═══════════════════════════════════════════════ */}
-
-        {/* ── Sofa ── */}
-        <g transform="translate(50, 344)">
-          <rect x="0" y="8" width="80" height="32" rx="8" fill="#4338ca" opacity="0.1" />
-          <rect x="-6" y="2" width="14" height="40" rx="6" fill="#4338ca" opacity="0.08" />
-          <rect x="72" y="2" width="14" height="40" rx="6" fill="#4338ca" opacity="0.08" />
-          {/* cushions */}
-          <rect x="8" y="12" width="28" height="20" rx="5" fill="#a5b4fc" opacity="0.1" />
-          <rect x="42" y="12" width="28" height="20" rx="5" fill="#a5b4fc" opacity="0.08" />
-        </g>
-
-        {/* ── TV with stand ── */}
-        <g transform="translate(52, 290)">
-          {/* TV cabinet */}
-          <rect x="-4" y="44" width="90" height="20" rx="4" fill="#4338ca" opacity="0.1" />
-          {/* TV */}
-          <rect x="0" y="0" width="82" height="44" rx="4" fill="#4338ca" opacity="0.4" />
-          <rect x="4" y="4" width="74" height="36" rx="3" fill="#c7d2fe" opacity="0.5" />
-          {/* play button */}
-          <polygon points="34,16 34,30 46,23" fill="#4338ca" opacity="0.25" />
-          {/* stand */}
-          <rect x="34" y="44" width="14" height="4" rx="1" fill="#4338ca" opacity="0.2" />
-        </g>
-        <WifiIcon x={93} y={284} />
-
-        {/* ── Tablet on sofa ── */}
-        <g transform="translate(72, 340)">
-          <rect x="0" y="0" width="30" height="20" rx="3" fill="#4338ca" opacity="0.35" />
-          <rect x="3" y="3" width="24" height="14" rx="2" fill="#c7d2fe" opacity="0.4" />
-        </g>
-        <WifiIcon x={87} y={334} />
-
-        {/* ═══════════════════════════════════════════════ */}
-        {/* ══ 1F RIGHT ROOM – Work / Play ══ */}
-        {/* ═══════════════════════════════════════════════ */}
-
-        {/* ── Desk ── */}
-        <g transform="translate(220, 340)">
-          <rect x="0" y="0" width="100" height="6" rx="2" fill="#4338ca" opacity="0.22" />
-          <rect x="6" y="6" width="6" height="28" rx="2" fill="#4338ca" opacity="0.12" />
-          <rect x="88" y="6" width="6" height="28" rx="2" fill="#4338ca" opacity="0.12" />
-        </g>
-
-        {/* ── Laptop ── */}
-        <g transform="translate(232, 312)">
-          {/* base */}
-          <rect x="0" y="22" width="52" height="8" rx="2" fill="#4338ca" opacity="0.35" />
-          {/* screen */}
-          <rect x="4" y="0" width="44" height="22" rx="3" fill="#4338ca" opacity="0.4" />
-          <rect x="8" y="4" width="36" height="14" rx="2" fill="#c7d2fe" opacity="0.5" />
-          {/* code lines */}
-          <rect x="12" y="7" width="22" height="2" rx="1" fill="#4338ca" opacity="0.2" />
-          <rect x="12" y="12" width="16" height="2" rx="1" fill="#4338ca" opacity="0.15" />
-        </g>
-        <WifiIcon x={260} y={306} />
-
-        {/* ── Game Console ── */}
-        <g transform="translate(302, 350)">
-          <rect x="0" y="0" width="36" height="22" rx="4" fill="#4338ca" opacity="0.3" />
-          <rect x="4" y="4" width="28" height="14" rx="2" fill="#c7d2fe" opacity="0.35" />
-          <circle cx="18" cy="11" r="4" fill="#4338ca" opacity="0.15" />
-          {/* controller */}
-          <rect x="6" y="24" width="24" height="10" rx="5" fill="#4338ca" opacity="0.2" />
-          <circle cx="13" cy="29" r="2" fill="#4338ca" opacity="0.12" />
-          <circle cx="23" cy="29" r="2" fill="#4338ca" opacity="0.12" />
-        </g>
-        <WifiIcon x={320} y={344} />
-
-        {/* ── Printer (under desk) ── */}
-        <g transform="translate(222, 374)">
-          <rect x="0" y="0" width="34" height="18" rx="3" fill="#4338ca" opacity="0.2" />
-          <rect x="4" y="-4" width="26" height="6" rx="2" fill="#4338ca" opacity="0.12" />
-          <rect x="8" y="10" width="18" height="3" rx="1" fill="#c7d2fe" opacity="0.3" />
-          <circle cx="28" cy="6" r="2" fill="#0d9f5f" opacity="0.4" />
-        </g>
-        <WifiIcon x={239} y={364} />
-
-        {/* ── Plant (1F right corner) ── */}
-        <g transform="translate(348, 376)">
-          <rect x="0" y="20" width="16" height="20" rx="3" fill="#4338ca" opacity="0.12" />
-          <ellipse cx="8" cy="14" rx="12" ry="12" fill="#22c55e" opacity="0.18" />
-          <ellipse cx="4" cy="10" rx="8" ry="10" fill="#22c55e" opacity="0.12" />
-          <ellipse cx="14" cy="12" rx="7" ry="8" fill="#16a34a" opacity="0.1" />
-          <line x1="8" y1="20" x2="8" y2="10" stroke="#22c55e" strokeWidth="2" opacity="0.15" />
-        </g>
-
-        {/* ── Shelf on 1F left wall ── */}
-        <g transform="translate(140, 296)">
-          <rect x="0" y="0" width="40" height="4" rx="1" fill="#4338ca" opacity="0.2" />
-          {/* books */}
-          <rect x="4" y="-16" width="6" height="16" rx="1" fill="#4338ca" opacity="0.15" />
-          <rect x="12" y="-12" width="5" height="12" rx="1" fill="#a5b4fc" opacity="0.2" />
-          <rect x="19" y="-14" width="6" height="14" rx="1" fill="#4338ca" opacity="0.12" />
-          <rect x="27" y="-10" width="5" height="10" rx="1" fill="#a5b4fc" opacity="0.15" />
-        </g>
-
-        {/* ═══════════════════════════════════════════════ */}
-        {/* ══ ROUTER (center of house, on 1F floor line) ══ */}
-        {/* ═══════════════════════════════════════════════ */}
-        <g transform="translate(182, 268)">
-          {/* router body */}
-          <rect x="0" y="12" width="36" height="24" rx="5" fill="#4338ca" opacity="0.9" />
-          {/* antennas */}
-          <line x1="10" y1="12" x2="6" y2="0" stroke="#4338ca" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
-          <line x1="26" y1="12" x2="30" y2="0" stroke="#4338ca" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
-          {/* LEDs */}
-          <circle cx="11" cy="28" r="3" fill="#0d9f5f" />
-          <circle cx="25" cy="28" r="3" fill="#0d9f5f" opacity="0.5" />
-          {/* ventilation */}
-          <rect x="8" y="20" width="20" height="1.5" rx="0.75" fill="#fff" opacity="0.15" />
-          <rect x="8" y="24" width="20" height="1.5" rx="0.75" fill="#fff" opacity="0.1" />
-        </g>
-      </svg>
-
-      {/* ── Bottom badges ── */}
-      <div style={{
-        display: 'flex', justifyContent: 'center', gap: 18,
-        marginTop: 10, fontSize: 11, fontWeight: 600, color: '#94A3B8',
-        letterSpacing: '0.02em',
-      }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#94A3B8" strokeWidth="1.2"/><path d="M5 8h6" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round"/><path d="M8 5v6" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round"/></svg>
-          全14プラン
-        </span>
-        <span style={{ color: '#CBD5E1' }}>|</span>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M13 8A5 5 0 0 0 3 8" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round"/><path d="M8 3v5l3 3" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          30秒
-        </span>
-        <span style={{ color: '#CBD5E1' }}>|</span>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" rx="1.5" stroke="#94A3B8" strokeWidth="1.2"/><path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="#94A3B8" strokeWidth="1.2" strokeLinecap="round"/></svg>
-          匿名
-        </span>
+            {/* Result */}
+            <div className={`mock-step mock-step-5 ${panelBase}`}>
+              <div className="mb-2.5 rounded-xl px-3.5 py-[11px] text-white" style={{ background: 'linear-gradient(135deg, #4338ca 0%, #6366f1 100%)' }}>
+                <div className="text-[10px] font-bold opacity-85">乗り換えで</div>
+                <div className="mt-0.5 text-xl font-black leading-[1.1]">年間 36,000円</div>
+                <div className="text-[11px] font-extrabold">おトク！</div>
+              </div>
+              <div className="mb-1.5 text-[10px] font-bold text-[#475569]">あなたに最適な回線</div>
+              <div className="mb-1.5 rounded-xl border-2 border-[#4338ca] bg-white p-3 shadow-[0_6px_16px_rgba(67,56,202,0.15)]">
+                <div className="mb-0.5 text-[10px] font-bold text-[#64748B]">第1位</div>
+                <div className="flex items-baseline justify-between">
+                  <div className="text-[13px] font-black text-[#0F172A]">GMOとくとくBB光</div>
+                  <div className="flex items-baseline gap-px">
+                    <span className="text-lg font-black leading-none text-[#4338ca]">4,818</span>
+                    <span className="text-[9px] font-extrabold text-[#4338ca]">円/月</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mb-1 flex items-baseline justify-between rounded-[10px] border border-[#E2E8F0] bg-white px-3 py-[7px]">
+                <div className="text-[11px] font-bold text-[#0F172A]">2位 ドコモ光</div>
+                <div className="text-xs font-extrabold text-[#475569]">5,720<span className="text-[8px] font-bold">円</span></div>
+              </div>
+              <div className="flex items-baseline justify-between rounded-[10px] border border-[#E2E8F0] bg-white px-3 py-[7px]">
+                <div className="text-[11px] font-bold text-[#0F172A]">3位 NURO光</div>
+                <div className="text-xs font-extrabold text-[#475569]">5,200<span className="text-[8px] font-bold">円</span></div>
+              </div>
+            </div>
+          </div>
+          <div className="relative z-[1] mt-2.5 flex items-center justify-around border-t border-[#E2E8F0] pt-[9px] text-[10px] font-bold tracking-[0.02em] text-[#64748B]">
+            <span className="flex items-center gap-1">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+              全14プラン
+            </span>
+            <span className="text-[#CBD5E1]">|</span>
+            <span className="flex items-center gap-1">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              30秒
+            </span>
+            <span className="text-[#CBD5E1]">|</span>
+            <span className="flex items-center gap-1">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              匿名
+            </span>
+          </div>
+        </div>
       </div>
-
-      <div style={{ marginTop: 6, textAlign: 'center', fontSize: 9, color: '#B0B8C8' }}>
+      <div className="mt-2 text-center text-[9px] text-[#9CA3AF]">
         ※表示はイメージです
       </div>
     </div>
+  );
+}
+
+function SectionHeading({ children, sub }: { children: ReactNode; sub?: string }) {
+  return (
+    <div className="mb-12 text-center">
+      <h2 className="text-[clamp(24px,4vw,36px)] font-bold leading-[1.3] tracking-tight text-[#111]">
+        {children}
+      </h2>
+      {sub && (
+        <p className="mt-3 text-[15px] leading-relaxed text-[#555]">{sub}</p>
+      )}
+    </div>
+  );
+}
+
+function GradientCTA({ onClick, children, variant = 'primary' }: {
+  onClick: () => void;
+  children: ReactNode;
+  variant?: 'primary' | 'light';
+}) {
+  if (variant === 'light') {
+    return (
+      <button
+        onClick={onClick}
+        className="inline-flex items-center justify-center rounded-full bg-white px-14 py-[22px] text-lg font-extrabold text-[#4338ca] shadow-[0_10px_28px_rgba(0,0,0,0.25)] transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_14px_36px_rgba(0,0,0,0.35)] active:scale-[1.01]"
+        style={{ minHeight: 64 }}
+      >
+        {children}
+      </button>
+    );
+  }
+  return (
+    <button
+      onClick={onClick}
+      className="inline-flex items-center justify-center rounded-full px-14 py-[22px] text-lg font-extrabold text-white shadow-[0_8px_28px_rgba(67,56,202,0.15)] transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_14px_36px_rgba(67,56,202,0.25)] hover:brightness-110 active:scale-[1.01]"
+      style={{ background: 'linear-gradient(135deg, #4338ca, #6366f1)', minHeight: 64 }}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -669,16 +568,6 @@ export default function KaisenPage() {
       { threshold: 0.15 },
     );
     io.observe(el);
-    return () => io.disconnect();
-  }, [view]);
-
-  useEffect(() => {
-    const els = document.querySelectorAll('.sp-section-fade');
-    if (!els.length) return;
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('sp-visible'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    els.forEach(el => io.observe(el));
     return () => io.disconnect();
   }, [view]);
 
@@ -781,23 +670,24 @@ export default function KaisenPage() {
 
   const heroCount = useCountUp(36000, heroInView, 900);
 
+  // ── Loading ──
   if (loading) {
     return (
-      <main style={{
-        minHeight: '100vh', display: 'flex', flexDirection: 'column',
-        alignItems: 'center', justifyContent: 'center', gap: 24, padding: 24,
-      }}>
+      <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-6">
         <style>{`
           @keyframes pulse { 0%,100%{transform:scale(1);opacity:0.9} 50%{transform:scale(1.15);opacity:1} }
           @keyframes fadeInMsg { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
         `}</style>
-        <div style={{ display: 'flex', gap: 10 }}>
+        <div className="flex gap-2.5">
           {[0, 0.15, 0.3].map((d, i) => (
-            <span key={i} style={{
-              width: 14, height: 14, borderRadius: '50%',
-              background: 'var(--accent)',
-              animation: `pulse 1.1s ease-in-out ${d}s infinite`,
-            }} />
+            <span
+              key={i}
+              className="h-3.5 w-3.5 rounded-full"
+              style={{
+                background: 'linear-gradient(135deg, #4338ca, #6366f1)',
+                animation: `pulse 1.1s ease-in-out ${d}s infinite`,
+              }}
+            />
           ))}
         </div>
         <LoadingMessage />
@@ -805,35 +695,27 @@ export default function KaisenPage() {
     );
   }
 
+  // ── Landing ──
   if (view === 'landing') {
+    const lineBadges = [
+      { name: 'ドコモ光', bg: '#CC0033' },
+      { name: 'ソフトバンク光', bg: '#E60012' },
+      { name: 'auひかり', bg: '#EB5505' },
+      { name: 'NURO光', bg: '#1D4ED8' },
+      { name: '楽天ひかり', bg: '#BF0000' },
+      { name: 'GMOとくとくBB光', bg: '#333' },
+      { name: 'ビッグローブ光', bg: '#E66A00' },
+      { name: 'おてがる光', bg: '#4A9BD9' },
+      { name: 'So-net光', bg: '#0070BA' },
+      { name: 'ドコモ home 5G', bg: '#CC0033' },
+      { name: 'ソフトバンクエアー', bg: '#E60012' },
+      { name: 'WiMAX', bg: '#EB5505' },
+      { name: 'WiMAX モバイル', bg: '#EB5505' },
+      { name: '楽天ポケットWiFi', bg: '#BF0000' },
+    ];
+
     return (
-      <div style={{ background: '#fff' }}>
-        <style>{`
-          .kaisen-hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
-          .kaisen-hero-text { text-align: left; }
-          .kaisen-hero-text .kaisen-hero-cta-wrap { align-items: flex-start; }
-          .kaisen-hero-illust { display: block; transform: scale(0.9); transform-origin: top center; margin-bottom: -40px; }
-          @media (min-width: 900px) {
-            .kaisen-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; }
-            .kaisen-hero-illust { transform: none; margin-bottom: 0; }
-          }
-          @keyframes ringPulse {
-            0% { opacity: 0.5; transform: scale(0.85); }
-            50% { opacity: 0.25; transform: scale(1); }
-            100% { opacity: 0; transform: scale(1.15); }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .wifi-ring { animation: none !important; opacity: 0.15 !important; }
-          }
-          .sp-faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; transition: background 0.15s ease; }
-          .sp-faq-item[open] { background: var(--accent-light); border-color: var(--accent-border); }
-          .sp-faq-summary { list-style: none; cursor: pointer; padding: 24px 28px; display: flex; align-items: center; gap: 14px; font-size: 16px; font-weight: 700; color: var(--text-main); outline: none; }
-          .sp-faq-summary::-webkit-details-marker { display: none; }
-          .sp-faq-summary::after { content: '▾'; margin-left: auto; color: var(--accent); transition: transform 0.2s ease; font-size: 16px; }
-          .sp-faq-item[open] .sp-faq-summary::after { transform: rotate(180deg); }
-          .sp-faq-q { flex-shrink: 0; width: 28px; height: 28px; border-radius: 8px; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
-          .sp-faq-answer { padding: 0 28px 24px 70px; font-size: 15px; line-height: 1.9; color: var(--text-sub); margin: 0; }
-        `}</style>
+      <div className="bg-white">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(KAISEN_FAQ_JSON_LD) }}
@@ -841,118 +723,91 @@ export default function KaisenPage() {
         <SiteHeader />
 
         {/* ── HERO ── */}
-        <section ref={heroRef} className="sp-hero-block">
-          <div className="sp-container">
-            <div className="kaisen-hero-grid">
-              <div className="kaisen-hero-text">
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 6,
-                  padding: '6px 14px', borderRadius: 999,
-                  background: 'var(--accent-light)', border: '1px solid var(--accent-border)',
-                  fontSize: 12, fontWeight: 500, color: 'var(--accent)',
-                  marginBottom: 28,
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0d9f5f' }} />
-                  30秒で無料診断
-                </div>
-                <h1 style={{
-                  fontSize: 'clamp(32px, 5vw, 52px)',
-                  fontWeight: 700, lineHeight: 1.3,
-                  margin: '0 0 20px', color: 'var(--text-main)',
-                  letterSpacing: '-0.02em',
-                }}>
-                  ネット回線代、<br />
-                  年間<span style={{ fontWeight: 800, color: 'var(--accent)' }}>{heroCount.toLocaleString()}</span>円<br />
-                  節約できるかも。
-                </h1>
-                <p style={{
-                  fontSize: 16, color: 'var(--text-sub)',
-                  margin: '0 0 36px', lineHeight: 1.8,
-                }}>
-                  10問答えるだけで、全14プランから<br />
-                  あなたにぴったりの1つを提案します。
-                </p>
-                <div className="kaisen-hero-cta-wrap" style={{
-                  display: 'flex', flexDirection: 'column',
-                  alignItems: 'flex-start', gap: 18,
-                }}>
-                  <button onClick={startDiagnose} className="sp-cta-pill">
-                    回線診断スタート
-                  </button>
-                  <div style={{ display: 'flex', gap: 24, fontSize: 13, color: 'var(--text-muted)', fontWeight: 500 }}>
-                    {['光回線9社', '個人情報不要', '完全無料'].map(t => (
-                      <span key={t} style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                          <circle cx="8" cy="8" r="7" stroke="#0d9f5f" strokeWidth="1.5" />
-                          <path d="M5 8.2 7 10.2 11 6" stroke="#0d9f5f" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        {t}
-                      </span>
-                    ))}
+        <section
+          ref={heroRef}
+          className="relative overflow-hidden"
+          style={{ background: 'linear-gradient(135deg, #f8f7ff 0%, #ede9fe 40%, #ffffff 100%)' }}
+        >
+          <div className="mx-auto max-w-[1200px] px-8 pt-14 pb-18 md:px-8 md:pt-20 md:pb-24">
+            <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
+              <div>
+                <FadeIn>
+                  <div className="mb-7 inline-flex items-center gap-1.5 rounded-full border border-[#c4b5fd] bg-[#f8f7ff] px-3.5 py-1.5 text-xs font-medium text-[#4338ca]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#0d9f5f]" />
+                    30秒で無料診断
                   </div>
-                  <p style={{
-                    fontSize: 11, color: 'var(--text-muted)',
-                    margin: '4px 0 0', lineHeight: 1.6,
-                  }}>
-                    ※当社シミュレーションによる試算例です。実際の節約額はご利用状況により異なります。
+                </FadeIn>
+                <FadeIn delayMs={80}>
+                  <h1 className="mb-5 text-[clamp(32px,5vw,52px)] font-bold leading-[1.3] tracking-tight text-[#111]">
+                    ネット回線代、<br />
+                    年間<span className="font-extrabold" style={{ background: 'linear-gradient(135deg, #4338ca, #7c3aed)', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{heroCount.toLocaleString()}</span>円<br />
+                    節約できるかも。
+                  </h1>
+                </FadeIn>
+                <FadeIn delayMs={160}>
+                  <p className="mb-9 text-base leading-[1.8] text-[#555]">
+                    10問答えるだけで、全14プランから<br />
+                    あなたにぴったりの1つを提案します。
                   </p>
+                </FadeIn>
+                <FadeIn delayMs={240}>
+                  <div className="flex flex-col items-start gap-[18px]">
+                    <GradientCTA onClick={startDiagnose}>回線診断スタート</GradientCTA>
+                    <div className="flex gap-6 text-[13px] font-medium text-[#888]">
+                      {['光回線9社', '個人情報不要', '完全無料'].map(t => (
+                        <span key={t} className="flex items-center gap-1">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d9f5f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="mt-1 text-[11px] leading-relaxed text-[#888]">
+                      ※当社シミュレーションによる試算例です。実際の節約額はご利用状況により異なります。
+                    </p>
+                  </div>
+                </FadeIn>
+              </div>
+              <FadeIn delayMs={300}>
+                <div className="origin-top-center scale-[0.81] md:mb-0 md:scale-100 md:transform-none" style={{ marginBottom: -108 }}>
+                  <KaisenPhoneMockup />
                 </div>
-              </div>
-
-              {/* ── 右カラム：家イラスト ── */}
-              <div className="kaisen-hero-illust">
-                <HouseIllustration />
-              </div>
+              </FadeIn>
             </div>
           </div>
         </section>
 
-        {/* ── 使い方セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'var(--bg-soft)' }}>
-          <div className="sp-container">
-            <h2 className="sp-h2">使い方はシンプル</h2>
-            <p className="sp-h2-sub">たった30秒、3ステップで完了</p>
-            <div className="sp-feature-grid">
+        {/* ── 使い方 ── */}
+        <FadeIn as="section" className="bg-[#f8f8fa] py-24 md:py-28">
+          <div className="mx-auto max-w-[1200px] px-8">
+            <SectionHeading sub="たった30秒、3ステップで完了">使い方はシンプル</SectionHeading>
+            <div className="grid gap-5 md:grid-cols-3 md:gap-8">
               {[
-                { title: '質問に答える', desc: '住居タイプや用途など、10問に答えるだけ', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
-                { title: '回線を比較', desc: '光回線からモバイルWiFiまで全14プランを自動で選定', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> },
-                { title: '節約額がわかる', desc: 'スマホ割やキャッシュバック込みで具体的に表示', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M15.5 9.5c-.3-1-1.5-1.5-3.5-1.5s-3.1.8-3.1 2c0 2.4 6.1 1.2 6.1 4 0 1.3-1.5 2-3.5 2s-3.2-.5-3.5-1.5"/></svg> },
-              ].map((s, i) => (
-                <div key={i} style={{
-                  background: '#fff', border: '1px solid var(--border)',
-                  borderRadius: 20, padding: '40px 28px', textAlign: 'center',
-                }}>
-                  <div style={{ marginBottom: 16, color: 'var(--accent)', display: 'flex', justifyContent: 'center' }}>
-                    {s.icon}
-                  </div>
-                  <div style={{
-                    fontSize: 12, fontWeight: 700, color: 'var(--accent)',
-                    letterSpacing: '0.08em', marginBottom: 8,
-                  }}>STEP 0{i + 1}</div>
-                  <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)', marginBottom: 10 }}>
-                    {s.title}
-                  </div>
-                  <div style={{ fontSize: 14, color: 'var(--text-sub)', lineHeight: 1.7 }}>
-                    {s.desc}
-                  </div>
+                { num: '01', title: '質問に答える', desc: '住居タイプや用途など、10問に答えるだけ', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
+                { num: '02', title: '回線を比較', desc: '光回線からモバイルWiFiまで全14プランを自動で選定', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> },
+                { num: '03', title: '節約額がわかる', desc: 'スマホ割やキャッシュバック込みで具体的に表示', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M15.5 9.5c-.3-1-1.5-1.5-3.5-1.5s-3.1.8-3.1 2c0 2.4 6.1 1.2 6.1 4 0 1.3-1.5 2-3.5 2s-3.2-.5-3.5-1.5"/></svg> },
+              ].map((s) => (
+                <div
+                  key={s.num}
+                  className="rounded-2xl border border-[#e8e8e8] bg-white p-10 text-center transition-all duration-200 hover:-translate-y-1.5 hover:border-[rgba(67,56,202,0.25)] hover:shadow-[0_20px_40px_rgba(15,23,42,0.10),0_8px_16px_rgba(15,23,42,0.06)]"
+                  style={{ transitionTimingFunction: 'cubic-bezier(0.22,1,0.36,1)' }}
+                >
+                  <div className="mb-4 flex justify-center text-[#4338ca]">{s.icon}</div>
+                  <div className="mb-2 text-xs font-bold tracking-[0.08em] text-[#4338ca]">STEP {s.num}</div>
+                  <div className="mb-2.5 text-lg font-bold text-[#111]">{s.title}</div>
+                  <div className="text-sm leading-relaxed text-[#555]">{s.desc}</div>
                 </div>
               ))}
             </div>
           </div>
-        </section>
+        </FadeIn>
 
-        {/* ── BEFORE / AFTER セクション ── */}
-        <section className="sp-block sp-section-fade" style={{ padding: '100px 0 120px' }}>
-          <div className="sp-container">
-            <h2 className="sp-h2">
-              見直すと<br />
-              こんなに変わる
-            </h2>
-            <p className="sp-h2-sub">
-              回線を乗り換えるだけで、年間数万円の節約も可能
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+        {/* ── BEFORE / AFTER ── */}
+        <FadeIn as="section" className="py-24 md:py-28">
+          <div className="mx-auto max-w-[1200px] px-8">
+            <SectionHeading sub="回線を乗り換えるだけで、年間数万円の節約も可能">
+              見直すと<br />こんなに変わる
+            </SectionHeading>
+            <div className="flex flex-col gap-6">
               {[
                 {
                   beforeName: '大手光回線（戸建て）', beforeCost: 6500,
@@ -974,207 +829,140 @@ export default function KaisenPage() {
                 },
               ].map((ex, i) => {
                 const saving = (ex.beforeCost - ex.afterCost) * 12;
-                return (
-                  <KaisenBACard key={i} example={ex} saving={saving} index={i} />
-                );
+                return <KaisenBACard key={i} example={ex} saving={saving} index={i} />;
               })}
             </div>
-
-            <p style={{
-              fontSize: 11, color: 'var(--text-muted)', textAlign: 'center', marginTop: 20, lineHeight: 1.7,
-            }}>
+            <p className="mt-5 text-center text-[11px] leading-relaxed text-[#888]">
               ※2026年4月時点の公式料金に基づく参考値です（税込・割引適用前の標準価格）。最新の料金は各事業者の公式サイトをご確認ください。実際の節約額はご利用状況により異なります。
             </p>
           </div>
-        </section>
+        </FadeIn>
 
-        {/* ── FINAL CTA（ダーク） ── */}
-        <section className="sp-block sp-block-dark sp-section-fade" style={{ background: '#0f1629', padding: '120px 0' }}>
-          <div className="sp-container" style={{ textAlign: 'center' }}>
-            <h2 style={{
-              fontSize: 'clamp(28px, 5vw, 48px)',
-              fontWeight: 700, lineHeight: 1.3,
-              margin: '0 0 16px', color: '#fff',
-              letterSpacing: '-0.02em',
-            }}>
+        {/* ── FINAL CTA ── */}
+        <FadeIn as="section" className="relative overflow-hidden py-28 md:py-32">
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%)' }} />
+          <div className="relative mx-auto max-w-[1200px] px-8 text-center">
+            <h2 className="mb-4 text-[clamp(28px,5vw,48px)] font-bold leading-[1.3] tracking-tight text-white">
               今すぐ無料診断
             </h2>
-            <p style={{
-              fontSize: 16, color: 'rgba(255, 255, 255, 0.65)',
-              margin: '0 0 40px', lineHeight: 1.8,
-            }}>
+            <p className="mb-10 text-base leading-[1.8] text-white/65">
               30秒で、あなたにぴったりの回線が見つかる
             </p>
-            <button onClick={startDiagnose} className="sp-cta-pill">
-              回線診断スタート
-            </button>
-            <div style={{
-              display: 'flex', justifyContent: 'center', flexWrap: 'wrap',
-              gap: 24, marginTop: 28,
-              fontSize: 13, color: 'rgba(255, 255, 255, 0.45)', fontWeight: 500,
-            }}>
+            <GradientCTA onClick={startDiagnose} variant="light">回線診断スタート</GradientCTA>
+            <div className="mt-7 flex flex-wrap justify-center gap-6 text-[13px] font-medium text-white/45">
               <span>登録不要</span>
               <span>全14プラン対応</span>
               <span>結果はその場で表示</span>
             </div>
           </div>
-        </section>
+        </FadeIn>
 
-        {/* ── 対応回線一覧 ── */}
-        <section className="sp-block sp-section-fade" style={{ background: 'var(--bg-soft)' }}>
-          <div className="sp-container" style={{ textAlign: 'center' }}>
-            <div style={{
-              fontSize: 12, fontWeight: 700, color: 'var(--text-muted)',
-              letterSpacing: '0.15em', textAlign: 'center', marginBottom: 24,
-            }}>
+        {/* ── 対応回線 ── */}
+        <FadeIn as="section" className="bg-[#f8f8fa] py-24 md:py-28">
+          <div className="mx-auto max-w-[1200px] px-8 text-center">
+            <div className="mb-6 text-xs font-bold tracking-[0.15em] text-[#888]">
               対応回線・プラン
             </div>
-            <div style={{
-              display: 'flex', flexWrap: 'wrap', gap: 10,
-              justifyContent: 'center', maxWidth: 700, margin: '0 auto',
-            }}>
-              {[
-                { name: 'ドコモ光', bg: '#CC0033', type: '光' },
-                { name: 'ソフトバンク光', bg: '#E60012', type: '光' },
-                { name: 'auひかり', bg: '#EB5505', type: '光' },
-                { name: 'NURO光', bg: '#1D4ED8', type: '光' },
-                { name: '楽天ひかり', bg: '#BF0000', type: '光' },
-                { name: 'GMOとくとくBB光', bg: '#333', type: '光' },
-                { name: 'ビッグローブ光', bg: '#E66A00', type: '光' },
-                { name: 'おてがる光', bg: '#4A9BD9', type: '光' },
-                { name: 'So-net光', bg: '#0070BA', type: '光' },
-                { name: 'ドコモ home 5G', bg: '#CC0033', type: 'HR' },
-                { name: 'ソフトバンクエアー', bg: '#E60012', type: 'HR' },
-                { name: 'WiMAX', bg: '#EB5505', type: 'HR' },
-                { name: 'WiMAX モバイル', bg: '#EB5505', type: 'WiFi' },
-                { name: '楽天ポケットWiFi', bg: '#BF0000', type: 'WiFi' },
-              ].map(c => (
-                <span key={c.name} style={{
-                  padding: '8px 18px', borderRadius: 999,
-                  background: '#fff', border: '1px solid var(--border)',
-                  fontSize: 13, fontWeight: 600, color: 'var(--text-main)',
-                  display: 'flex', alignItems: 'center', gap: 6,
-                }}>
-                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: c.bg, flexShrink: 0 }} />
+            <div className="mx-auto flex max-w-[700px] flex-wrap justify-center gap-2.5">
+              {lineBadges.map(c => (
+                <span key={c.name} className="flex items-center gap-1.5 rounded-full border border-[#e8e8e8] bg-white px-[18px] py-2 text-[13px] font-semibold text-[#111]">
+                  <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: c.bg }} />
                   {c.name}
                 </span>
               ))}
             </div>
           </div>
-        </section>
+        </FadeIn>
 
         {/* ── FAQ ── */}
-        <section className="sp-block sp-section-fade" style={{ background: '#fff' }}>
-          <div className="sp-container">
-            <h2 className="sp-h2">よくある質問</h2>
-            <div style={{ maxWidth: 700, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        <FadeIn as="section" className="bg-white py-24 md:py-28">
+          <div className="mx-auto max-w-[1200px] px-8">
+            <SectionHeading>よくある質問</SectionHeading>
+            <div className="mx-auto flex max-w-[700px] flex-col gap-2">
               {KAISEN_FAQ_ITEMS.map((item, i) => (
                 <details key={i} className="sp-faq-item">
                   <summary className="sp-faq-summary">
                     <span className="sp-faq-q" aria-hidden="true">Q</span>
-                    <span style={{ flex: 1 }}>{item.question}</span>
+                    <span className="flex-1">{item.question}</span>
                   </summary>
                   <p className="sp-faq-answer">{item.answer}</p>
                 </details>
               ))}
             </div>
           </div>
-        </section>
+        </FadeIn>
 
-        {/* Footer */}
-        <footer style={{ padding: '48px 0 36px', background: '#0a0e1a', color: 'rgba(255,255,255,0.7)' }}>
-          <div className="sp-container" style={{
-            textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'center',
-          }}>
-            <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', justifyContent: 'center' }}>
-              <Link href="/smaho" style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontWeight: 500 }}>スマホ診断</Link>
-              <Link href="/blog" style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontWeight: 500 }}>ブログ</Link>
+        {/* ── FOOTER ── */}
+        <footer className="border-t border-[#e8e8e8] bg-white py-12">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-8 text-center">
+            <div className="flex flex-wrap justify-center gap-7">
+              <Link href="/smaho" className="text-sm font-medium text-[#555] no-underline hover:text-[#4338ca]">
+                スマホ診断
+              </Link>
+              <Link href="/blog" className="text-sm font-medium text-[#555] no-underline hover:text-[#4338ca]">
+                ブログ
+              </Link>
             </div>
-            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>© {new Date().getFullYear()} スマートプラン</div>
+            <div className="text-xs text-[#888]">
+              &copy; {new Date().getFullYear()} スマートプラン
+            </div>
           </div>
         </footer>
       </div>
     );
   }
 
+  // ── Result ──
   if (view === 'result' && result) {
     const topRec = result.recommendations[0];
-    const shareText = `AIが私にぴったりのネット回線を診断してくれた！\n1位: ${topRec?.name}（${topRec?.type}）\n月額${topRec?.monthly_cost.toLocaleString()}円\n\nあなたも試してみて👇\nhttps://smaplan.com/kaisen`;
+    const shareText = `AIが私にぴったりのネット回線を診断してくれた！\n1位: ${topRec?.name}（${topRec?.type}）\n月額${topRec?.monthly_cost.toLocaleString()}円\n\nあなたも試してみて\nhttps://smaplan.com/kaisen`;
 
     return (
       <>
         <SiteHeader />
-        <main style={{ maxWidth: 560, margin: '0 auto', padding: '20px 20px 40px' }}>
-          <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 12 }}>
-            <button onClick={resetAll} style={{
-              padding: '6px 14px', background: 'transparent',
-              border: '1px solid var(--border)', borderRadius: 8,
-              cursor: 'pointer', fontSize: 12, color: 'var(--text-sub)',
-            }}>← やり直す</button>
+        <main className="mx-auto max-w-[560px] px-5 pt-5 pb-10">
+          <div className="mb-3 flex justify-end">
+            <button onClick={resetAll} className="rounded-lg border border-[#e8e8e8] bg-transparent px-3.5 py-1.5 text-xs text-[#555] transition-colors hover:bg-[#f8f8fa]">
+              ← やり直す
+            </button>
           </div>
 
           {error && <ErrorBanner message={error} />}
 
           {/* Header Banner */}
-          <div style={{
-            background: 'linear-gradient(135deg, var(--accent) 0%, #2563EB 100%)',
-            color: '#fff', borderRadius: 16, padding: '28px 20px',
-            textAlign: 'center', marginBottom: 24,
-            boxShadow: '0 8px 24px rgba(29, 78, 216, 0.3)',
-          }}>
-            <div style={{ fontSize: 13, opacity: 0.9, marginBottom: 6 }}>あなたにおすすめの回線</div>
-            <div style={{ fontSize: 24, fontWeight: 800, lineHeight: 1.2, marginBottom: 4 }}>
+          <div className="mb-6 rounded-2xl p-7 text-center text-white shadow-[0_8px_24px_rgba(67,56,202,0.3)]" style={{ background: 'linear-gradient(135deg, #4338ca 0%, #6366f1 100%)' }}>
+            <div className="mb-1.5 text-[13px] opacity-90">あなたにおすすめの回線</div>
+            <div className="mb-1 text-2xl font-extrabold leading-[1.2]">
               {topRec?.name}
             </div>
-            <div style={{ fontSize: 14, opacity: 0.85 }}>
+            <div className="text-sm opacity-85">
               {topRec?.type} ・ 月額 {topRec?.monthly_cost.toLocaleString()}円
             </div>
           </div>
 
           {/* Summary */}
-          <div style={{
-            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24,
-          }}>
-            <div style={{
-              padding: 16, background: 'var(--bg-card)',
-              border: '1px solid var(--border)', borderRadius: 12,
-            }}>
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>住居タイプ</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)' }}>
-                {result.housing_type}
-              </div>
+          <div className="mb-6 grid grid-cols-2 gap-3">
+            <div className="rounded-xl border border-[#e8e8e8] bg-white p-4">
+              <div className="mb-1 text-[11px] text-[#888]">住居タイプ</div>
+              <div className="text-lg font-bold text-[#111]">{result.housing_type}</div>
             </div>
-            <div style={{
-              padding: 16, background: 'var(--bg-card)',
-              border: '1px solid var(--border)', borderRadius: 12,
-            }}>
-              <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4 }}>比較回線数</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--text-main)' }}>
-                全14プラン
-              </div>
+            <div className="rounded-xl border border-[#e8e8e8] bg-white p-4">
+              <div className="mb-1 text-[11px] text-[#888]">比較回線数</div>
+              <div className="text-lg font-bold text-[#111]">全14プラン</div>
             </div>
           </div>
 
-          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-sub)', marginBottom: 12 }}>
-            おすすめ回線 TOP 3
-          </div>
+          <div className="mb-3 text-sm font-bold text-[#555]">おすすめ回線 TOP 3</div>
 
-          {/* Recommendation Table */}
-          <div style={{
-            overflowX: 'auto', marginBottom: 20,
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border)', borderRadius: 12,
-          }}>
-            <table style={{
-              width: '100%', borderCollapse: 'collapse',
-              fontSize: 13, tableLayout: 'fixed',
-            }}>
+          {/* Table */}
+          <div className="mb-5 overflow-x-auto rounded-xl border border-[#e8e8e8] bg-white">
+            <table className="w-full border-collapse text-[13px]" style={{ tableLayout: 'fixed' }}>
               <thead>
-                <tr style={{ background: 'var(--bg)' }}>
-                  <th style={{ padding: '10px 8px', textAlign: 'left', fontSize: 11, fontWeight: 700, color: 'var(--text-sub)', borderBottom: '1px solid var(--border)', width: '35%' }}>回線名</th>
-                  <th style={{ padding: '10px 6px', textAlign: 'center', fontSize: 11, fontWeight: 700, color: 'var(--text-sub)', borderBottom: '1px solid var(--border)', width: '22%' }}>タイプ</th>
-                  <th style={{ padding: '10px 6px', textAlign: 'right', fontSize: 11, fontWeight: 700, color: 'var(--text-sub)', borderBottom: '1px solid var(--border)', width: '20%' }}>月額</th>
-                  <th style={{ padding: '10px 8px', textAlign: 'right', fontSize: 11, fontWeight: 700, color: 'var(--text-sub)', borderBottom: '1px solid var(--border)', width: '23%' }}>最大速度</th>
+                <tr className="bg-[#f8f8fa]">
+                  <th className="border-b border-[#e8e8e8] px-2 py-2.5 text-left text-[11px] font-bold text-[#555]" style={{ width: '35%' }}>回線名</th>
+                  <th className="border-b border-[#e8e8e8] px-1.5 py-2.5 text-center text-[11px] font-bold text-[#555]" style={{ width: '22%' }}>タイプ</th>
+                  <th className="border-b border-[#e8e8e8] px-1.5 py-2.5 text-right text-[11px] font-bold text-[#555]" style={{ width: '20%' }}>月額</th>
+                  <th className="border-b border-[#e8e8e8] px-2 py-2.5 text-right text-[11px] font-bold text-[#555]" style={{ width: '23%' }}>最大速度</th>
                 </tr>
               </thead>
               <tbody>
@@ -1183,41 +971,13 @@ export default function KaisenPage() {
                   const isTop = i === 0;
                   return (
                     <tr key={i}>
-                      <td style={{
-                        padding: '12px 8px', fontSize: 13, fontWeight: 600,
-                        color: 'var(--text-main)',
-                        borderBottom: isLast ? 'none' : '1px solid var(--border)',
-                      }}>
-                        <span style={{
-                          fontSize: 11, fontWeight: 700,
-                          color: isTop ? 'var(--accent)' : 'var(--text-muted)',
-                          marginRight: 6,
-                        }}>
-                          {rec.rank}位
-                        </span>
+                      <td className={`px-2 py-3 text-[13px] font-semibold text-[#111] ${isLast ? '' : 'border-b border-[#e8e8e8]'}`}>
+                        <span className={`mr-1.5 text-[11px] font-bold ${isTop ? 'text-[#4338ca]' : 'text-[#888]'}`}>{rec.rank}位</span>
                         {rec.name}
                       </td>
-                      <td style={{
-                        padding: '12px 6px', textAlign: 'center',
-                        fontSize: 11, color: 'var(--text-sub)',
-                        borderBottom: isLast ? 'none' : '1px solid var(--border)',
-                      }}>
-                        {rec.type}
-                      </td>
-                      <td style={{
-                        padding: '12px 6px', textAlign: 'right',
-                        fontSize: 13, fontWeight: 700, color: 'var(--accent)',
-                        borderBottom: isLast ? 'none' : '1px solid var(--border)',
-                      }}>
-                        {rec.monthly_cost.toLocaleString()}円
-                      </td>
-                      <td style={{
-                        padding: '12px 8px', textAlign: 'right',
-                        fontSize: 12, color: 'var(--text-sub)',
-                        borderBottom: isLast ? 'none' : '1px solid var(--border)',
-                      }}>
-                        {rec.max_speed}
-                      </td>
+                      <td className={`px-1.5 py-3 text-center text-[11px] text-[#555] ${isLast ? '' : 'border-b border-[#e8e8e8]'}`}>{rec.type}</td>
+                      <td className={`px-1.5 py-3 text-right text-[13px] font-bold text-[#4338ca] ${isLast ? '' : 'border-b border-[#e8e8e8]'}`}>{rec.monthly_cost.toLocaleString()}円</td>
+                      <td className={`px-2 py-3 text-right text-xs text-[#555] ${isLast ? '' : 'border-b border-[#e8e8e8]'}`}>{rec.max_speed}</td>
                     </tr>
                   );
                 })}
@@ -1226,85 +986,58 @@ export default function KaisenPage() {
           </div>
 
           {/* Detailed Cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 24 }}>
+          <div className="mb-6 flex flex-col gap-4">
             {result.recommendations.map((rec, i) => {
               const isTop = i === 0;
               return (
-                <div key={i} style={{
-                  background: 'var(--bg-card)',
-                  border: isTop ? '2px solid var(--accent)' : '1px solid var(--border)',
-                  borderRadius: 14, position: 'relative', overflow: 'hidden',
-                  boxShadow: isTop ? '0 10px 28px rgba(29, 78, 216, 0.16)' : 'none',
-                }}>
+                <div
+                  key={i}
+                  className={`relative overflow-hidden rounded-2xl bg-white transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+                    isTop
+                      ? 'border-2 border-[#4338ca] shadow-[0_10px_28px_rgba(67,56,202,0.16)]'
+                      : 'border border-[#e8e8e8]'
+                  }`}
+                >
                   {isTop && (
-                    <div style={{
-                      background: 'var(--accent)', color: '#fff',
-                      padding: '8px 16px', fontSize: 12, fontWeight: 800,
-                      letterSpacing: '0.06em', textAlign: 'center',
-                    }}>
-                      ⭐ 最もおすすめ
+                    <div className="px-4 py-2 text-center text-xs font-extrabold tracking-[0.06em] text-white" style={{ background: 'linear-gradient(135deg, #4338ca, #6366f1)' }}>
+                      最もおすすめ
                     </div>
                   )}
-                  <div style={{ padding: 20 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-                      <span style={{
-                        fontSize: 12, fontWeight: 700,
-                        background: isTop ? 'var(--accent)' : 'var(--text-sub)',
-                        color: '#fff', padding: '3px 12px', borderRadius: 20,
-                      }}>
-                        {rec.rank === 1 ? '🥇 1位' : rec.rank === 2 ? '🥈 2位' : '🥉 3位'}
+                  <div className="p-5">
+                    <div className="mb-3 flex items-center gap-2">
+                      <span className={`rounded-full px-3 py-[3px] text-xs font-bold text-white ${isTop ? '' : 'bg-[#555]'}`} style={isTop ? { background: 'linear-gradient(135deg, #4338ca, #6366f1)' } : undefined}>
+                        {rec.rank}位
                       </span>
-                      <span style={{
-                        fontSize: 11, padding: '3px 10px', borderRadius: 6,
-                        background: 'var(--bg)', border: '1px solid var(--border)',
-                        color: 'var(--text-sub)', fontWeight: 600,
-                      }}>
+                      <span className="rounded-md border border-[#e8e8e8] bg-[#f8f8fa] px-2.5 py-[3px] text-[11px] font-semibold text-[#555]">
                         {rec.type}
                       </span>
                     </div>
 
-                    <div style={{
-                      fontSize: isTop ? 20 : 18, fontWeight: 700,
-                      color: 'var(--text-main)', marginBottom: 12,
-                    }}>
+                    <div className={`mb-3 font-bold text-[#111] ${isTop ? 'text-xl' : 'text-lg'}`}>
                       {rec.name}
                     </div>
 
-                    <div style={{
-                      display: 'flex', alignItems: 'baseline', gap: 8,
-                      padding: '12px 14px', background: 'var(--accent-light)',
-                      borderRadius: 10, marginBottom: 12,
-                    }}>
-                      <span style={{ fontSize: isTop ? 30 : 26, fontWeight: 800, color: 'var(--accent)' }}>
+                    <div className="mb-3 flex items-baseline gap-2 rounded-[10px] bg-[#f8f7ff] px-3.5 py-3">
+                      <span className={`font-extrabold text-[#4338ca] ${isTop ? 'text-[30px]' : 'text-[26px]'}`}>
                         {rec.monthly_cost.toLocaleString()}
                       </span>
-                      <span style={{ fontSize: 13, color: 'var(--accent)', fontWeight: 600 }}>円/月</span>
+                      <span className="text-[13px] font-semibold text-[#4338ca]">円/月</span>
                     </div>
 
-                    <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 12 }}>
-                      <span style={{
-                        fontSize: 12, padding: '4px 10px',
-                        background: 'var(--bg)', color: 'var(--text-sub)',
-                        borderRadius: 6, border: '1px solid var(--border)',
-                      }}>
-                        ⚡ {rec.max_speed}
+                    <div className="mb-3 flex flex-wrap gap-1.5">
+                      <span className="flex items-center gap-1 rounded-md border border-[#e8e8e8] bg-[#f8f8fa] px-2.5 py-1 text-xs text-[#555]">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        {rec.max_speed}
                       </span>
                       {rec.cashback && rec.cashback !== 'なし' && (
-                        <span style={{
-                          fontSize: 12, padding: '4px 10px',
-                          background: 'var(--success-light)', color: 'var(--success)',
-                          borderRadius: 6, border: '1px solid #BBF7D0',
-                          fontWeight: 600,
-                        }}>
-                          🎁 キャッシュバック特典あり
+                        <span className="flex items-center gap-1 rounded-md border border-[#BBF7D0] bg-[#DCFCE7] px-2.5 py-1 text-xs font-semibold text-[#16A34A]">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/><path d="M12 12V3"/><path d="m8 7 4-4 4 4"/></svg>
+                          キャッシュバック特典あり
                         </span>
                       )}
                     </div>
 
-                    <p style={{
-                      fontSize: 14, color: 'var(--text-main)', lineHeight: 1.7,
-                      margin: '0 0 16px',
-                    }}>
+                    <p className="mb-4 text-sm leading-relaxed text-[#111]">
                       {rec.reason}
                     </p>
 
@@ -1317,21 +1050,17 @@ export default function KaisenPage() {
                         type: rec.type,
                         rank: rec.rank,
                       })}
-                      style={{
-                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                        width: '100%', minHeight: 48,
-                        background: isTop ? 'var(--accent)' : 'var(--bg-card)',
-                        color: isTop ? '#fff' : 'var(--accent)',
-                        border: isTop ? 'none' : '2px solid var(--accent)',
-                        borderRadius: 10, textDecoration: 'none',
-                        fontSize: 15, fontWeight: 700,
-                        boxShadow: isTop ? '0 4px 12px rgba(29, 78, 216, 0.25)' : 'none',
-                      }}
+                      className={`flex w-full items-center justify-center rounded-xl py-3 text-[15px] font-bold no-underline transition-all duration-200 hover:brightness-110 ${
+                        isTop
+                          ? 'text-white shadow-[0_4px_12px_rgba(67,56,202,0.25)]'
+                          : 'border-2 border-[#4338ca] bg-white text-[#4338ca] hover:bg-[#f8f7ff]'
+                      }`}
+                      style={isTop ? { background: 'linear-gradient(135deg, #4338ca, #6366f1)', minHeight: 48 } : { minHeight: 48 }}
                     >
                       公式サイトへ →
                     </a>
                     {rec.affiliate_key && getKaisenImpression(rec.affiliate_key) && (
-                      <img src={getKaisenImpression(rec.affiliate_key)!} width={1} height={1} alt="" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
+                      <img src={getKaisenImpression(rec.affiliate_key)!} width={1} height={1} alt="" className="pointer-events-none absolute opacity-0" />
                     )}
                   </div>
                 </div>
@@ -1341,52 +1070,38 @@ export default function KaisenPage() {
 
           {/* Advice */}
           {result.advice && (
-            <div style={{
-              padding: '18px 20px', background: 'var(--bg-card)',
-              border: '1px solid var(--border)', borderRadius: 12, marginBottom: 24,
-            }}>
-              <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--accent)', marginBottom: 8 }}>
-                💡 AIからのアドバイス
+            <div className="mb-6 rounded-2xl border border-[#e8e8e8] bg-white p-5">
+              <div className="mb-2 flex items-center gap-1.5 text-[13px] font-bold text-[#4338ca]">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
+                AIからのアドバイス
               </div>
-              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.8, color: 'var(--text-main)' }}>
+              <p className="text-sm leading-[1.8] text-[#111]">
                 {result.advice}
               </p>
             </div>
           )}
 
           {/* Actions */}
-          <div style={{
-            display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, marginTop: 32,
-          }}>
+          <div className="mt-8 flex flex-col items-center gap-3">
             <a
               href={`https://x.com/intent/post?text=${encodeURIComponent(shareText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 8,
-                padding: '12px 28px', minHeight: 48,
-                background: '#000', color: '#fff', borderRadius: 10,
-                fontSize: 14, fontWeight: 700, textDecoration: 'none',
-              }}
+              className="inline-flex items-center gap-2 rounded-[10px] bg-black px-7 py-3 text-sm font-bold text-white no-underline transition-opacity hover:opacity-80"
+              style={{ minHeight: 48 }}
             >
               𝕏 結果をシェアする
             </a>
             <button
               onClick={() => { track('kaisen_retry_diagnose'); resetAll(); }}
-              style={{
-                padding: '10px 24px', minHeight: 44,
-                background: 'transparent', color: 'var(--text-sub)',
-                border: '1px solid var(--border)', borderRadius: 10,
-                fontSize: 14, fontWeight: 600, cursor: 'pointer',
-              }}
+              className="rounded-[10px] border border-[#e8e8e8] bg-transparent px-6 py-2.5 text-sm font-semibold text-[#555] transition-colors hover:bg-[#f8f8fa]"
+              style={{ minHeight: 44 }}
             >
               もう一度診断する
             </button>
             <Link
               href="/smaho"
-              style={{
-                fontSize: 13, color: 'var(--accent)', textDecoration: 'none', fontWeight: 600,
-              }}
+              className="text-[13px] font-semibold text-[#4338ca] no-underline transition-opacity hover:opacity-70"
             >
               スマホプラン診断も試す →
             </Link>
@@ -1396,7 +1111,7 @@ export default function KaisenPage() {
     );
   }
 
-  // Diagnose view
+  // ── Diagnose ──
   const remaining = QUESTIONS.length - step - 1;
   const percent = Math.round(((step + 1) / QUESTIONS.length) * 100);
 
@@ -1406,89 +1121,65 @@ export default function KaisenPage() {
     : q.options;
 
   return (
-    <main style={{ maxWidth: 560, margin: '0 auto', padding: '0 20px 40px' }}>
+    <main className="mx-auto max-w-[560px] px-5 pb-10">
       <LogoHeader compact />
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, marginBottom: 10 }}>
+      <div className="mb-2.5 flex items-center gap-1">
         {QUESTIONS.map((_, i) => (
-          <div key={i} style={{
-            flex: 1, height: 6, borderRadius: 3,
-            background: i <= step ? 'var(--accent)' : 'var(--border)',
-            transition: 'background 0.3s',
-          }} />
+          <div
+            key={i}
+            className="h-1.5 flex-1 rounded-[3px] transition-colors duration-300"
+            style={{ background: i <= step ? 'linear-gradient(135deg, #4338ca, #6366f1)' : '#e8e8e8' }}
+          />
         ))}
       </div>
-      <div style={{
-        marginBottom: 20, fontSize: 12, color: 'var(--text-sub)',
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8,
-      }}>
+      <div className="mb-5 flex items-center justify-between gap-2 text-xs text-[#555]">
         <span>質問 {step + 1} / {QUESTIONS.length}（{percent}% 完了）</span>
-        <span style={{ display: 'inline-flex', gap: 10 }}>
+        <span className="inline-flex gap-2.5">
           {q.multi && <span>複数選択可</span>}
           {remaining > 0 && remaining <= 3 && (
-            <span style={{ color: 'var(--success)', fontWeight: 700 }}>あと{remaining}問！</span>
+            <span className="font-bold text-[#16A34A]">あと{remaining}問！</span>
           )}
         </span>
       </div>
 
-      <h2 style={{
-        fontSize: 22, fontWeight: 700, color: 'var(--text-main)',
-        margin: '0 0 20px', lineHeight: 1.5,
-        display: 'flex', alignItems: 'flex-start', gap: 10,
-      }}>
-        <span style={{
-          flexShrink: 0,
-          display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-          width: 32, height: 32, borderRadius: 8,
-          background: 'var(--accent)', color: '#fff',
-          fontSize: 13, fontWeight: 800, letterSpacing: '0.02em',
-          marginTop: 2,
-        }}>Q{step + 1}</span>
-        <span style={{ flex: 1 }}>{q.label}</span>
+      <h2 className="mb-5 flex items-start gap-2.5 text-[22px] font-bold leading-[1.5] text-[#111]">
+        <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[13px] font-extrabold tracking-[0.02em] text-white" style={{ background: 'linear-gradient(135deg, #4338ca, #6366f1)' }}>
+          Q{step + 1}
+        </span>
+        <span className="flex-1">{q.label}</span>
       </h2>
 
       {isPrefectureQuestion && (
-        <div style={{ marginBottom: 12 }}>
+        <div className="mb-3">
           <input
             type="text"
             placeholder="都道府県を検索..."
             value={prefectureFilter}
             onChange={e => setPrefectureFilter(e.target.value)}
-            style={{
-              width: '100%', padding: '12px 16px',
-              border: '2px solid var(--border)', borderRadius: 10,
-              fontSize: 15, color: 'var(--text-main)',
-              background: 'var(--bg-card)', outline: 'none',
-            }}
+            className="w-full rounded-xl border-2 border-[#e8e8e8] bg-white px-4 py-3 text-[15px] text-[#111] outline-none placeholder:text-[#ccc] focus:border-[#c4b5fd]"
           />
         </div>
       )}
 
-      <div style={{
-        display: isPrefectureQuestion ? 'grid' : 'flex',
-        gridTemplateColumns: isPrefectureQuestion ? 'repeat(auto-fill, minmax(130px, 1fr))' : undefined,
-        flexDirection: isPrefectureQuestion ? undefined : 'column',
-        gap: 10,
-        marginBottom: 24,
-        maxHeight: isPrefectureQuestion ? 400 : undefined,
-        overflowY: isPrefectureQuestion ? 'auto' : undefined,
-      }}>
+      <div
+        className={`mb-6 ${
+          isPrefectureQuestion
+            ? 'grid max-h-[400px] grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-2.5 overflow-y-auto'
+            : 'flex flex-col gap-2.5'
+        }`}
+      >
         {filteredOptions.map(opt => (
           isPrefectureQuestion ? (
             <button
               key={opt}
               type="button"
               onClick={() => toggle(q.key, opt, q.multi)}
-              style={{
-                padding: '10px 12px',
-                background: isSelected(q.key, opt) ? 'var(--accent-light)' : 'var(--bg-card)',
-                border: isSelected(q.key, opt) ? '2px solid var(--accent)' : '2px solid var(--border)',
-                borderRadius: 10,
-                color: isSelected(q.key, opt) ? 'var(--accent)' : 'var(--text-main)',
-                fontSize: 14, fontWeight: isSelected(q.key, opt) ? 600 : 500,
-                cursor: 'pointer', textAlign: 'center',
-                transition: 'all 0.15s ease',
-              }}
+              className={`rounded-xl border-2 px-3 py-2.5 text-center text-sm transition-all duration-150 ${
+                isSelected(q.key, opt)
+                  ? 'border-[#4338ca] bg-[#f8f7ff] font-semibold text-[#4338ca]'
+                  : 'border-[#e8e8e8] bg-white font-medium text-[#111] hover:border-[#c4b5fd] hover:bg-[#faf9ff]'
+              }`}
             >
               {opt}
             </button>
@@ -1506,15 +1197,11 @@ export default function KaisenPage() {
 
       {error && <ErrorBanner message={error} />}
 
-      <div style={{ display: 'flex', gap: 10 }}>
+      <div className="flex gap-2.5">
         <button
           onClick={handleBack}
-          style={{
-            flex: '0 0 auto', padding: '14px 20px', minHeight: 52,
-            background: 'transparent', color: 'var(--text-sub)',
-            border: '1px solid var(--border)', borderRadius: 10,
-            cursor: 'pointer', fontSize: 15, fontWeight: 600,
-          }}
+          className="shrink-0 rounded-xl border border-[#e8e8e8] bg-transparent px-5 py-3.5 text-[15px] font-semibold text-[#555] transition-colors hover:bg-[#f8f8fa]"
+          style={{ minHeight: 52 }}
         >
           {step === 0 ? '← トップへ' : '← 戻る'}
         </button>
@@ -1522,17 +1209,19 @@ export default function KaisenPage() {
           <button
             onClick={handleNext}
             disabled={!canNext()}
+            className={`flex-1 rounded-xl border-none py-3.5 text-[15px] font-bold transition-all duration-150 ${
+              canNext()
+                ? 'text-white shadow-[0_4px_12px_rgba(67,56,202,0.2)] hover:brightness-110'
+                : 'cursor-default text-[#888]'
+            }`}
             style={{
-              flex: 1, padding: '14px', minHeight: 52,
-              background: canNext() ? 'var(--accent)' : 'var(--border)',
-              color: canNext() ? '#fff' : 'var(--text-muted)',
-              border: 'none', borderRadius: 10,
-              cursor: canNext() ? 'pointer' : 'default',
-              fontSize: 15, fontWeight: 700,
-              transition: 'all 0.15s',
+              background: canNext()
+                ? 'linear-gradient(135deg, #4338ca, #6366f1)'
+                : '#e8e8e8',
+              minHeight: 52,
             }}
           >
-            {step < QUESTIONS.length - 1 ? '次へ →' : 'AIに診断してもらう 🤖'}
+            {step < QUESTIONS.length - 1 ? '次へ →' : 'AIに診断してもらう'}
           </button>
         )}
       </div>
