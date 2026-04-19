@@ -4,55 +4,37 @@ type AffiliateEntry = {
 };
 
 const kaisenAffiliateLinks: Record<string, AffiliateEntry> = {
-  // ドコモ光 → GMOとくとくBB経由
   docomo_hikari: {
-    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+ATYY0I+50+54LG41",
-    impression: "https://www12.a8.net/0.gif?a8mat=4B1OTT+ATYY0I+50+54LG41",
+    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AUKDMA+3SPO+NU729",
+    impression: "https://www11.a8.net/0.gif?a8mat=4B1OTT+AUKDMA+3SPO+NU729",
   },
-  // ソフトバンク光 → GMOとくとくBB経由
   softbank_hikari: {
-    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AWY41E+50+742JA9",
-    impression: "https://www16.a8.net/0.gif?a8mat=4B1OTT+AWY41E+50+742JA9",
+    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B1PKVM+348K+1BNYOX",
+    impression: "https://www19.a8.net/0.gif?a8mat=4B1OTT+B1PKVM+348K+1BNYOX",
   },
-  // auひかり → GMOとくとくBB経由
   au_hikari: {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AVR8TU+50+64C3K1",
     impression: "https://www13.a8.net/0.gif?a8mat=4B1OTT+AVR8TU+50+64C3K1",
   },
-  // GMOとくとくBB光
   gmobb_hikari: {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B8US4Y+50+3IBBPD",
     impression: "https://www18.a8.net/0.gif?a8mat=4B1OTT+B8US4Y+50+3IBBPD",
   },
-  // ビッグローブ光
   biglobe_hikari: {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AWCOFM+3HKU+1BNYOX",
     impression: "https://www10.a8.net/0.gif?a8mat=4B1OTT+AWCOFM+3HKU+1BNYOX",
   },
-  // ソフトバンクエアー → GMOとくとくBB経由(ソフトバンク光/エアー共通)
   softbank_air: {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+ARL7LE+3SPO+3N1I8Y",
     impression: "https://www10.a8.net/0.gif?a8mat=4B1OTT+ARL7LE+3SPO+3N1I8Y",
   },
-  // WiMAX ホームルーター → BIGLOBE WiMAX +5G
   wimax_home: {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B5VM42+B4+2BHEG1",
     impression: "https://www14.a8.net/0.gif?a8mat=4B1OTT+B5VM42+B4+2BHEG1",
   },
-  // WiMAX モバイル → BIGLOBE WiMAX +5G
   wimax_mobile: {
-    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B5VM42+B4+2BHEG1",
-    impression: "https://www14.a8.net/0.gif?a8mat=4B1OTT+B5VM42+B4+2BHEG1",
-  },
-  // ドコモ home 5G → GMOとくとくBB経由(ドコモ光と同一代理店)
-  docomo_home5g: {
-    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+ATYY0I+50+54LG41",
-    impression: "https://www12.a8.net/0.gif?a8mat=4B1OTT+ATYY0I+50+54LG41",
-  },
-  // 楽天ひかり → GMOとくとくBB光で代替(楽天ひかり専用なし)
-  rakuten_hikari: {
-    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B8US4Y+50+3IBBPD",
-    impression: "https://www18.a8.net/0.gif?a8mat=4B1OTT+B8US4Y+50+3IBBPD",
+    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B72HBM+1QFI+2NCKJ6",
+    impression: "https://www12.a8.net/0.gif?a8mat=4B1OTT+B72HBM+1QFI+2NCKJ6",
   },
 };
 
