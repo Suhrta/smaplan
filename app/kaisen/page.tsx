@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { getKaisenLink } from '@/data/kaisenAffiliateLinks';
+import { getKaisenLink, getKaisenImpression } from '@/data/kaisenAffiliateLinks';
 import { track } from '@/lib/analytics';
 import { SiteHeader, LogoHeader } from '@/app/components/SiteHeader';
 
@@ -1305,7 +1305,7 @@ export default function KaisenPage() {
                     <a
                       href={rec.affiliate_key ? getKaisenLink(rec.affiliate_key) : '#'}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="nofollow noopener sponsored"
                       onClick={() => track('kaisen_affiliate_click', {
                         name: rec.name,
                         type: rec.type,
@@ -1322,8 +1322,11 @@ export default function KaisenPage() {
                         boxShadow: isTop ? '0 4px 12px rgba(29, 78, 216, 0.25)' : 'none',
                       }}
                     >
-                      詳細を見る →
+                      公式サイトへ →
                     </a>
+                    {rec.affiliate_key && getKaisenImpression(rec.affiliate_key) && (
+                      <img src={getKaisenImpression(rec.affiliate_key)!} width={1} height={1} alt="" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
+                    )}
                   </div>
                 </div>
               );

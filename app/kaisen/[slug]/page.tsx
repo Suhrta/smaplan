@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import plans from '@/data/kaisen-plans.json';
 import contents from '@/data/kaisen-contents.json';
-import { getKaisenLink } from '@/data/kaisenAffiliateLinks';
+import { getKaisenLink, getKaisenImpression } from '@/data/kaisenAffiliateLinks';
 import { SiteHeader } from '../../components/SiteHeader';
 
 type Plan = (typeof plans)[number];
@@ -81,6 +81,7 @@ export default async function KaisenDetailPage({
 
   const related = plans.filter(p => p.type === plan.type && p.id !== plan.id && targetPlans.includes(p.id)).slice(0, 6);
   const affiliateHref = getKaisenLink(plan.id);
+  const impressionSrc = getKaisenImpression(plan.id);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -318,7 +319,7 @@ export default async function KaisenDetailPage({
         <a
           href={affiliateHref}
           target="_blank"
-          rel="sponsored noopener"
+          rel="nofollow noopener sponsored"
           style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             width: '100%', minHeight: 48,
@@ -328,8 +329,11 @@ export default async function KaisenDetailPage({
             fontSize: 15, fontWeight: 700,
           }}
         >
-          公式サイトで詳細を見る
+          公式サイトで詳細を見る →
         </a>
+        {impressionSrc && (
+          <img src={impressionSrc} width={1} height={1} alt="" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
+        )}
       </section>
 
       {related.length > 0 && (
