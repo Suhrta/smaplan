@@ -15,13 +15,13 @@ const notoSansJP = Noto_Sans_JP({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smaplan.com"),
-  title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
-  description: "10の質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断し、年間いくら節約できるかお伝えします。全キャリア対応・無料・登録不要。",
+  title: "スマートプラン | AIがあなたの固定費を見直します",
+  description: "スマホ料金もネット回線も、10の質問に答えるだけ。AIがあなたに最適なプランを診断し、年間いくら節約できるかお伝えします。無料・登録不要。",
   openGraph: {
-    title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
-    description: "10の質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
+    title: "スマートプラン | AIがあなたの固定費を見直します",
+    description: "スマホ料金もネット回線も、AIが最適なプランを診断します。",
     url: "https://smaplan.com",
-    siteName: "スマプラン",
+    siteName: "スマートプラン",
     locale: "ja_JP",
     type: "website",
     images: [
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "スマプラン - AIがあなたに最適なスマホプランを無料診断",
+        alt: "スマートプラン - AIがあなたの固定費を見直します",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "スマプラン | AIがあなたに最適なスマホ料金プランを無料診断",
-    description: "10の質問に答えるだけ。AIがあなたの使い方にぴったりのスマホプランを診断します。",
+    title: "スマートプラン | AIがあなたの固定費を見直します",
+    description: "スマホ料金もネット回線も、AIが最適なプランを診断します。",
     images: ["/og-image.png"],
   },
   verification: {

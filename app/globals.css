@@ -1,3 +1,9 @@
+.sp-portal-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.10), 0 8px 16px rgba(15, 23, 42, 0.06);
+  border-color: rgba(45, 92, 197, 0.25) !important;
+}
+
 :root {
   --bg: #ffffff;
   --bg-card: #ffffff;

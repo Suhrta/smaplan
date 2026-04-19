@@ -5,16 +5,19 @@ export function SiteHeader() {
     <header className="sp-site-header">
       <div className="sp-site-header-inner">
         <Link href="/" className="sp-site-logo">
-          <span>スマプラン</span>
-          <span className="sp-site-logo-en">SmaPlan</span>
+          <span>スマートプラン</span>
+          <span className="sp-site-logo-en">SmartPlan</span>
         </Link>
         <nav className="sp-site-nav" aria-label="グローバル">
-          <Link href="/carriers" className="sp-nav-link">
-            <span className="sp-nav-label-full">プラン一覧</span>
-            <span className="sp-nav-label-short">プラン</span>
+          <Link href="/smaho" className="sp-nav-link">
+            <span className="sp-nav-label-full">スマホ診断</span>
+            <span className="sp-nav-label-short">スマホ</span>
+          </Link>
+          <Link href="/kaisen" className="sp-nav-link">
+            <span className="sp-nav-label-full">回線診断</span>
+            <span className="sp-nav-label-short">回線</span>
           </Link>
           <Link href="/blog" className="sp-nav-link">ブログ</Link>
-          <Link href="/" className="sp-nav-cta">無料診断</Link>
         </nav>
       </div>
     </header>
@@ -37,9 +40,9 @@ export function LogoHeader({ compact = false }: { compact?: boolean }) {
           textDecoration: 'none',
         }}
       >
-        <span>スマプラン</span>
+        <span>スマートプラン</span>
         <span style={{ fontSize: compact ? 11 : 12, color: 'var(--text-sub)', fontWeight: 500 }}>
-          SmaPlan
+          SmartPlan
         </span>
       </Link>
     </div>
