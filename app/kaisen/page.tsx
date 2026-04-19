@@ -779,6 +779,8 @@ export default function KaisenPage() {
     else setView('landing');
   }
 
+  const heroCount = useCountUp(36000, heroInView, 900);
+
   if (loading) {
     return (
       <main style={{
@@ -802,8 +804,6 @@ export default function KaisenPage() {
       </main>
     );
   }
-
-  const heroCount = useCountUp(36000, heroInView, 900);
 
   if (view === 'landing') {
     return (

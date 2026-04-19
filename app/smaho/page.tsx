@@ -954,6 +954,20 @@ export default function Home() {
     else setView('landing');
   }
 
+  const heroRef = useRef<HTMLElement>(null);
+  const [heroInView, setHeroInView] = useState(false);
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setHeroInView(true); io.unobserve(el); } },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [view]);
+  const heroCount = useCountUp(52140, heroInView, 900);
+
   if (loading) {
     return (
       <main style={{
@@ -977,20 +991,6 @@ export default function Home() {
       </main>
     );
   }
-
-  const heroRef = useRef<HTMLElement>(null);
-  const [heroInView, setHeroInView] = useState(false);
-  useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setHeroInView(true); io.unobserve(el); } },
-      { threshold: 0.15 },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [view]);
-  const heroCount = useCountUp(52140, heroInView, 900);
 
   if (view === 'landing') {
     const baExamples: BAExample[] = [
