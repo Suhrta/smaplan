@@ -343,148 +343,276 @@ function KaisenBACard({ example, saving, index }: { example: KaisenBAExample; sa
   );
 }
 
+function WifiIcon({ x, y }: { x: number; y: number }) {
+  return (
+    <g transform={`translate(${x}, ${y})`}>
+      <path d="M-6,0 Q0,-8 6,0" stroke="#4338ca" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
+      <path d="M-4,3 Q0,-2 4,3" stroke="#4338ca" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.45" />
+      <circle cx="0" cy="6" r="2" fill="#4338ca" opacity="0.7" />
+    </g>
+  );
+}
+
 function HouseIllustration() {
   return (
     <div aria-hidden="true">
-      <svg viewBox="0 0 360 420" fill="none" xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', maxWidth: 360, margin: '0 auto', display: 'block' }}
+      <svg viewBox="0 0 400 480" fill="none" xmlns="http://www.w3.org/2000/svg"
+        style={{ width: '100%', maxWidth: 400, margin: '0 auto', display: 'block' }}
       >
         <defs>
           <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#4338ca" stopOpacity="0.18" />
-            <stop offset="100%" stopColor="#4338ca" stopOpacity="0.06" />
+            <stop offset="0%" stopColor="#4338ca" stopOpacity="0.22" />
+            <stop offset="100%" stopColor="#4338ca" stopOpacity="0.08" />
           </linearGradient>
           <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#f0f2ff" />
-            <stop offset="100%" stopColor="#fafbfd" />
+            <stop offset="0%" stopColor="#eef0ff" />
+            <stop offset="100%" stopColor="#f8f9fe" />
           </linearGradient>
+          <radialGradient id="wifiGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#4338ca" stopOpacity="0.1" />
+            <stop offset="60%" stopColor="#4338ca" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#4338ca" stopOpacity="0" />
+          </radialGradient>
         </defs>
 
-        {/* ── Roof ── */}
-        <polygon points="180,20 20,135 340,135" fill="url(#roofGrad)" />
-        <polyline points="180,20 20,135 340,135 180,20"
-          stroke="#4338ca" strokeWidth="3.5" strokeLinejoin="round" fill="none" opacity="0.6" />
+        {/* ══ WiFi Concentric Pulse Circles (behind everything) ══ */}
+        <circle className="wifi-ring" cx="200" cy="290" r="40" fill="none" stroke="#a5b4fc" strokeWidth="2"
+          style={{ animation: 'ringPulse 4s ease-out infinite', transformOrigin: '200px 290px' }} />
+        <circle className="wifi-ring" cx="200" cy="290" r="80" fill="none" stroke="#a5b4fc" strokeWidth="1.5"
+          style={{ animation: 'ringPulse 4s ease-out 0.8s infinite', transformOrigin: '200px 290px' }} />
+        <circle className="wifi-ring" cx="200" cy="290" r="120" fill="none" stroke="#a5b4fc" strokeWidth="1"
+          style={{ animation: 'ringPulse 4s ease-out 1.6s infinite', transformOrigin: '200px 290px' }} />
+        <circle className="wifi-ring" cx="200" cy="290" r="160" fill="none" stroke="#c7d2fe" strokeWidth="0.8"
+          style={{ animation: 'ringPulse 4s ease-out 2.4s infinite', transformOrigin: '200px 290px' }} />
+
+        {/* ══ WiFi Glow behind router ══ */}
+        <circle cx="200" cy="290" r="100" fill="url(#wifiGlow)" />
+
+        {/* ══ Roof ══ */}
+        <polygon points="200,18 16,140 384,140" fill="url(#roofGrad)" />
+        <polyline points="200,18 16,140 384,140 200,18"
+          stroke="#4338ca" strokeWidth="4" strokeLinejoin="round" fill="none" opacity="0.65" />
         {/* chimney */}
-        <rect x="252" y="48" width="26" height="50" rx="3" fill="#eef0f8" stroke="#4338ca" strokeWidth="2" opacity="0.45" />
+        <rect x="286" y="46" width="28" height="54" rx="4" fill="#e8eaf6" stroke="#4338ca" strokeWidth="2.5" opacity="0.4" />
+        <rect x="283" y="40" width="34" height="8" rx="3" fill="#e8eaf6" stroke="#4338ca" strokeWidth="2" opacity="0.35" />
 
-        {/* ── Walls ── */}
-        <rect x="40" y="135" width="280" height="230" rx="4" fill="url(#wallGrad)" stroke="#4338ca" strokeWidth="3" opacity="0.45" />
+        {/* ══ Walls ══ */}
+        <rect x="36" y="140" width="328" height="280" rx="4" fill="url(#wallGrad)" stroke="#4338ca" strokeWidth="3.5" opacity="0.5" />
 
-        {/* ── Floor divider ── */}
-        <line x1="40" y1="248" x2="320" y2="248" stroke="#4338ca" strokeWidth="1.5" opacity="0.2" />
-        {/* ── Room divider (upper) ── */}
-        <line x1="185" y1="135" x2="185" y2="248" stroke="#4338ca" strokeWidth="1.5" opacity="0.2" />
-        {/* ── Room divider (lower) ── */}
-        <line x1="172" y1="248" x2="172" y2="365" stroke="#4338ca" strokeWidth="1.5" opacity="0.2" />
+        {/* ══ Floor divider (1F/2F) ══ */}
+        <line x1="36" y1="280" x2="364" y2="280" stroke="#4338ca" strokeWidth="2.5" opacity="0.2" />
+        <text x="46" y="158" fontSize="10" fontWeight="700" fill="#4338ca" opacity="0.2" fontFamily="system-ui,sans-serif">2F</text>
+        <text x="46" y="298" fontSize="10" fontWeight="700" fill="#4338ca" opacity="0.2" fontFamily="system-ui,sans-serif">1F</text>
 
-        {/* ── Window (2F left) ── */}
-        <rect x="68" y="148" width="32" height="26" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="1.5" opacity="0.3" />
-        <line x1="84" y1="148" x2="84" y2="174" stroke="#4338ca" strokeWidth="1" opacity="0.15" />
-        <line x1="68" y1="161" x2="100" y2="161" stroke="#4338ca" strokeWidth="1" opacity="0.15" />
+        {/* ══ Room dividers ══ */}
+        <line x1="200" y1="140" x2="200" y2="280" stroke="#4338ca" strokeWidth="1.5" opacity="0.15" strokeDasharray="6 4" />
+        <line x1="200" y1="280" x2="200" y2="420" stroke="#4338ca" strokeWidth="1.5" opacity="0.15" strokeDasharray="6 4" />
 
-        {/* ── Window (2F right) ── */}
-        <rect x="258" y="148" width="32" height="26" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="1.5" opacity="0.3" />
-        <line x1="274" y1="148" x2="274" y2="174" stroke="#4338ca" strokeWidth="1" opacity="0.15" />
-        <line x1="258" y1="161" x2="290" y2="161" stroke="#4338ca" strokeWidth="1" opacity="0.15" />
+        {/* ══ Windows ══ */}
+        {/* 2F left window */}
+        <rect x="60" y="152" width="36" height="30" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2" opacity="0.3" />
+        <line x1="78" y1="152" x2="78" y2="182" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
+        <line x1="60" y1="167" x2="96" y2="167" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
+        {/* 2F right window */}
+        <rect x="304" y="152" width="36" height="30" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2" opacity="0.3" />
+        <line x1="322" y1="152" x2="322" y2="182" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
+        <line x1="304" y1="167" x2="340" y2="167" stroke="#4338ca" strokeWidth="1.2" opacity="0.15" />
 
-        {/* ── Door (1F) ── */}
-        <rect x="152" y="318" width="34" height="47" rx="3" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2" opacity="0.25" />
-        <circle cx="177" cy="344" r="2.5" fill="#4338ca" opacity="0.3" />
+        {/* ══ Door (1F center) ══ */}
+        <rect x="178" y="370" width="44" height="50" rx="4" fill="#c7d2fe" stroke="#4338ca" strokeWidth="2.5" opacity="0.3" />
+        <circle cx="210" cy="398" r="3" fill="#4338ca" opacity="0.3" />
+        <rect x="190" y="364" width="20" height="8" rx="3" fill="#c7d2fe" opacity="0.15" />
 
-        {/* ──── Router (center, 1F) ──── */}
-        <g transform="translate(157, 264)">
-          <rect x="0" y="10" width="28" height="20" rx="4" fill="#4338ca" opacity="0.85" />
-          <line x1="7" y1="10" x2="5" y2="0" stroke="#4338ca" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
-          <line x1="21" y1="10" x2="23" y2="0" stroke="#4338ca" strokeWidth="2.5" strokeLinecap="round" opacity="0.6" />
-          <circle cx="9" cy="22" r="2.5" fill="#0d9f5f" />
-          <circle cx="19" cy="22" r="2.5" fill="#0d9f5f" opacity="0.5" />
+        {/* ═══════════════════════════════════════════════ */}
+        {/* ══ 2F LEFT ROOM – Study / Office ══ */}
+        {/* ═══════════════════════════════════════════════ */}
+
+        {/* ── Desk ── */}
+        <g transform="translate(58, 198)">
+          <rect x="0" y="38" width="90" height="6" rx="2" fill="#4338ca" opacity="0.25" />
+          <rect x="6" y="44" width="6" height="24" rx="2" fill="#4338ca" opacity="0.15" />
+          <rect x="78" y="44" width="6" height="24" rx="2" fill="#4338ca" opacity="0.15" />
         </g>
 
-        {/* ──── WiFi waves from router ──── */}
-        <g className="wifi-wave" style={{ animation: 'wifiPulse1 3s ease-in-out infinite' }}>
-          <path d="M163,260 Q171,250 179,260" stroke="#4338ca" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.6" />
-        </g>
-        <g className="wifi-wave" style={{ animation: 'wifiPulse2 3s ease-in-out 0.4s infinite' }}>
-          <path d="M156,252 Q171,238 186,252" stroke="#4338ca" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.45" />
-        </g>
-        <g className="wifi-wave" style={{ animation: 'wifiPulse3 3s ease-in-out 0.8s infinite' }}>
-          <path d="M149,244 Q171,226 193,244" stroke="#4338ca" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.3" />
-        </g>
-
-        {/* ──── Signal dots radiating to devices ──── */}
-        {/* to PC (upper-left) */}
-        <circle className="signal-dot" cx="140" cy="240" r="3" fill="#4338ca" opacity="0.5"
-          style={{ animation: 'signalToPC 2.5s ease-out infinite' }} />
-        {/* to smartphone (upper-right) */}
-        <circle className="signal-dot" cx="200" cy="240" r="3" fill="#4338ca" opacity="0.5"
-          style={{ animation: 'signalToPhone 2.5s ease-out 0.6s infinite' }} />
-        {/* to TV (lower-right) */}
-        <circle className="signal-dot" cx="200" cy="290" r="3" fill="#4338ca" opacity="0.5"
-          style={{ animation: 'signalToTV 2.5s ease-out 1.2s infinite' }} />
-        {/* to tablet (lower-left) */}
-        <circle className="signal-dot" cx="140" cy="290" r="3" fill="#4338ca" opacity="0.5"
-          style={{ animation: 'signalToTablet 2.5s ease-out 1.8s infinite' }} />
-
-        {/* ──── 2F 左 – デスク＋ノートPC ──── */}
-        <g transform="translate(62, 172)">
-          {/* desk */}
-          <rect x="0" y="36" width="76" height="5" rx="2" fill="#4338ca" opacity="0.2" />
-          <rect x="8" y="41" width="5" height="22" rx="2" fill="#4338ca" opacity="0.12" />
-          <rect x="63" y="41" width="5" height="22" rx="2" fill="#4338ca" opacity="0.12" />
-          {/* laptop base */}
-          <rect x="10" y="24" width="56" height="12" rx="3" fill="#4338ca" opacity="0.35" />
-          {/* laptop screen */}
-          <rect x="13" y="2" width="50" height="22" rx="3" fill="#4338ca" opacity="0.25" />
-          <rect x="17" y="6" width="42" height="14" rx="2" fill="#c7d2fe" opacity="0.4" />
-          {/* screen content lines */}
-          <rect x="21" y="10" width="24" height="2" rx="1" fill="#4338ca" opacity="0.2" />
-          <rect x="21" y="15" width="18" height="2" rx="1" fill="#4338ca" opacity="0.15" />
-          {/* WiFi indicator */}
-          <circle cx="38" cy="-2" r="3.5" fill="#0d9f5f" opacity="0.7" />
-        </g>
-
-        {/* ──── 2F 右 – スマホ ──── */}
-        <g transform="translate(212, 168)">
-          {/* person silhouette */}
-          <circle cx="26" cy="12" r="12" fill="#4338ca" opacity="0.1" />
-          <rect x="14" y="26" width="24" height="34" rx="10" fill="#4338ca" opacity="0.08" />
-          {/* smartphone */}
-          <rect x="40" y="24" width="22" height="38" rx="5" fill="#4338ca" opacity="0.35" />
-          <rect x="43" y="29" width="16" height="26" rx="2" fill="#c7d2fe" opacity="0.35" />
-          {/* screen dot */}
-          <circle cx="51" cy="60" r="2" fill="#4338ca" opacity="0.15" />
-          {/* WiFi indicator */}
-          <circle cx="51" cy="20" r="3.5" fill="#0d9f5f" opacity="0.7" />
-        </g>
-
-        {/* ──── 1F 右 – TV ──── */}
-        <g transform="translate(196, 278)">
-          {/* TV stand */}
-          <rect x="16" y="50" width="48" height="5" rx="2" fill="#4338ca" opacity="0.15" />
-          <rect x="36" y="44" width="8" height="6" rx="2" fill="#4338ca" opacity="0.12" />
-          {/* TV */}
-          <rect x="2" y="4" width="76" height="40" rx="4" fill="#4338ca" opacity="0.3" />
-          <rect x="6" y="8" width="68" height="32" rx="3" fill="#c7d2fe" opacity="0.35" />
-          {/* play icon */}
-          <polygon points="34,18 34,34 48,26" fill="#4338ca" opacity="0.25" />
-          {/* WiFi indicator */}
-          <circle cx="40" cy="-2" r="3.5" fill="#0d9f5f" opacity="0.7" />
-        </g>
-
-        {/* ──── 1F 左 – タブレット on ソファ ──── */}
-        <g transform="translate(50, 290)">
-          {/* sofa */}
-          <rect x="0" y="24" width="80" height="30" rx="8" fill="#4338ca" opacity="0.08" />
-          <rect x="-6" y="16" width="14" height="38" rx="6" fill="#4338ca" opacity="0.07" />
-          <rect x="72" y="16" width="14" height="38" rx="6" fill="#4338ca" opacity="0.07" />
-          {/* tablet */}
-          <rect x="18" y="8" width="40" height="26" rx="4" fill="#4338ca" opacity="0.35" />
-          <rect x="22" y="12" width="32" height="18" rx="2" fill="#c7d2fe" opacity="0.35" />
+        {/* ── Desktop PC (monitor + tower) ── */}
+        <g transform="translate(64, 178)">
+          {/* monitor */}
+          <rect x="0" y="0" width="54" height="34" rx="4" fill="#4338ca" opacity="0.4" />
+          <rect x="4" y="4" width="46" height="26" rx="2" fill="#c7d2fe" opacity="0.5" />
           {/* screen content */}
-          <rect x="26" y="16" width="20" height="2" rx="1" fill="#4338ca" opacity="0.2" />
-          <rect x="26" y="21" width="14" height="2" rx="1" fill="#4338ca" opacity="0.15" />
-          {/* WiFi indicator */}
-          <circle cx="38" cy="4" r="3.5" fill="#0d9f5f" opacity="0.7" />
+          <rect x="8" y="9" width="28" height="3" rx="1.5" fill="#4338ca" opacity="0.2" />
+          <rect x="8" y="15" width="20" height="3" rx="1.5" fill="#4338ca" opacity="0.15" />
+          <rect x="8" y="21" width="24" height="3" rx="1.5" fill="#4338ca" opacity="0.1" />
+          {/* stand */}
+          <rect x="21" y="34" width="12" height="4" rx="1" fill="#4338ca" opacity="0.3" />
+          <rect x="14" y="36" width="26" height="3" rx="1.5" fill="#4338ca" opacity="0.2" />
+          {/* tower */}
+          <rect x="62" y="10" width="18" height="28" rx="3" fill="#4338ca" opacity="0.3" />
+          <circle cx="71" cy="18" r="2" fill="#0d9f5f" opacity="0.6" />
+          <rect x="65" y="26" width="12" height="2" rx="1" fill="#4338ca" opacity="0.15" />
+          <rect x="65" y="31" width="12" height="2" rx="1" fill="#4338ca" opacity="0.1" />
+        </g>
+        <WifiIcon x={100} y={172} />
+
+        {/* ── Chair ── */}
+        <g transform="translate(88, 256)">
+          <rect x="0" y="0" width="22" height="6" rx="3" fill="#4338ca" opacity="0.12" />
+          <rect x="4" y="-14" width="14" height="16" rx="3" fill="#4338ca" opacity="0.08" />
+        </g>
+
+        {/* ═══════════════════════════════════════════════ */}
+        {/* ══ 2F RIGHT ROOM – Bedroom ══ */}
+        {/* ═══════════════════════════════════════════════ */}
+
+        {/* ── Bed ── */}
+        <g transform="translate(220, 222)">
+          <rect x="0" y="0" width="90" height="44" rx="6" fill="#4338ca" opacity="0.08" />
+          <rect x="0" y="0" width="90" height="10" rx="5" fill="#4338ca" opacity="0.12" />
+          {/* pillow */}
+          <rect x="6" y="4" width="24" height="10" rx="5" fill="#c7d2fe" opacity="0.3" />
+          {/* blanket */}
+          <rect x="4" y="16" width="82" height="24" rx="4" fill="#a5b4fc" opacity="0.12" />
+        </g>
+
+        {/* ── Smartphone on bedside ── */}
+        <g transform="translate(326, 230)">
+          <rect x="0" y="0" width="18" height="32" rx="4" fill="#4338ca" opacity="0.45" />
+          <rect x="3" y="4" width="12" height="22" rx="2" fill="#c7d2fe" opacity="0.5" />
+          <circle cx="9" cy="28" r="1.5" fill="#4338ca" opacity="0.2" />
+        </g>
+        <WifiIcon x={338} y={222} />
+
+        {/* ── Bedside table ── */}
+        <g transform="translate(320, 250)">
+          <rect x="0" y="0" width="26" height="16" rx="3" fill="#4338ca" opacity="0.12" />
+          <rect x="2" y="16" width="5" height="8" rx="1" fill="#4338ca" opacity="0.08" />
+          <rect x="19" y="16" width="5" height="8" rx="1" fill="#4338ca" opacity="0.08" />
+        </g>
+
+        {/* ── Plant (2F right) ── */}
+        <g transform="translate(224, 194)">
+          <rect x="6" y="20" width="14" height="16" rx="3" fill="#4338ca" opacity="0.15" />
+          {/* leaves */}
+          <ellipse cx="13" cy="14" rx="10" ry="10" fill="#22c55e" opacity="0.2" />
+          <ellipse cx="8" cy="10" rx="7" ry="8" fill="#22c55e" opacity="0.15" />
+          <ellipse cx="18" cy="12" rx="6" ry="7" fill="#16a34a" opacity="0.12" />
+          <line x1="13" y1="20" x2="13" y2="12" stroke="#22c55e" strokeWidth="2" opacity="0.2" />
+        </g>
+
+        {/* ═══════════════════════════════════════════════ */}
+        {/* ══ 1F LEFT ROOM – Living Room ══ */}
+        {/* ═══════════════════════════════════════════════ */}
+
+        {/* ── Sofa ── */}
+        <g transform="translate(50, 344)">
+          <rect x="0" y="8" width="80" height="32" rx="8" fill="#4338ca" opacity="0.1" />
+          <rect x="-6" y="2" width="14" height="40" rx="6" fill="#4338ca" opacity="0.08" />
+          <rect x="72" y="2" width="14" height="40" rx="6" fill="#4338ca" opacity="0.08" />
+          {/* cushions */}
+          <rect x="8" y="12" width="28" height="20" rx="5" fill="#a5b4fc" opacity="0.1" />
+          <rect x="42" y="12" width="28" height="20" rx="5" fill="#a5b4fc" opacity="0.08" />
+        </g>
+
+        {/* ── TV with stand ── */}
+        <g transform="translate(52, 290)">
+          {/* TV cabinet */}
+          <rect x="-4" y="44" width="90" height="20" rx="4" fill="#4338ca" opacity="0.1" />
+          {/* TV */}
+          <rect x="0" y="0" width="82" height="44" rx="4" fill="#4338ca" opacity="0.4" />
+          <rect x="4" y="4" width="74" height="36" rx="3" fill="#c7d2fe" opacity="0.5" />
+          {/* play button */}
+          <polygon points="34,16 34,30 46,23" fill="#4338ca" opacity="0.25" />
+          {/* stand */}
+          <rect x="34" y="44" width="14" height="4" rx="1" fill="#4338ca" opacity="0.2" />
+        </g>
+        <WifiIcon x={93} y={284} />
+
+        {/* ── Tablet on sofa ── */}
+        <g transform="translate(72, 340)">
+          <rect x="0" y="0" width="30" height="20" rx="3" fill="#4338ca" opacity="0.35" />
+          <rect x="3" y="3" width="24" height="14" rx="2" fill="#c7d2fe" opacity="0.4" />
+        </g>
+        <WifiIcon x={87} y={334} />
+
+        {/* ═══════════════════════════════════════════════ */}
+        {/* ══ 1F RIGHT ROOM – Work / Play ══ */}
+        {/* ═══════════════════════════════════════════════ */}
+
+        {/* ── Desk ── */}
+        <g transform="translate(220, 340)">
+          <rect x="0" y="0" width="100" height="6" rx="2" fill="#4338ca" opacity="0.22" />
+          <rect x="6" y="6" width="6" height="28" rx="2" fill="#4338ca" opacity="0.12" />
+          <rect x="88" y="6" width="6" height="28" rx="2" fill="#4338ca" opacity="0.12" />
+        </g>
+
+        {/* ── Laptop ── */}
+        <g transform="translate(232, 312)">
+          {/* base */}
+          <rect x="0" y="22" width="52" height="8" rx="2" fill="#4338ca" opacity="0.35" />
+          {/* screen */}
+          <rect x="4" y="0" width="44" height="22" rx="3" fill="#4338ca" opacity="0.4" />
+          <rect x="8" y="4" width="36" height="14" rx="2" fill="#c7d2fe" opacity="0.5" />
+          {/* code lines */}
+          <rect x="12" y="7" width="22" height="2" rx="1" fill="#4338ca" opacity="0.2" />
+          <rect x="12" y="12" width="16" height="2" rx="1" fill="#4338ca" opacity="0.15" />
+        </g>
+        <WifiIcon x={260} y={306} />
+
+        {/* ── Game Console ── */}
+        <g transform="translate(302, 350)">
+          <rect x="0" y="0" width="36" height="22" rx="4" fill="#4338ca" opacity="0.3" />
+          <rect x="4" y="4" width="28" height="14" rx="2" fill="#c7d2fe" opacity="0.35" />
+          <circle cx="18" cy="11" r="4" fill="#4338ca" opacity="0.15" />
+          {/* controller */}
+          <rect x="6" y="24" width="24" height="10" rx="5" fill="#4338ca" opacity="0.2" />
+          <circle cx="13" cy="29" r="2" fill="#4338ca" opacity="0.12" />
+          <circle cx="23" cy="29" r="2" fill="#4338ca" opacity="0.12" />
+        </g>
+        <WifiIcon x={320} y={344} />
+
+        {/* ── Printer (under desk) ── */}
+        <g transform="translate(222, 374)">
+          <rect x="0" y="0" width="34" height="18" rx="3" fill="#4338ca" opacity="0.2" />
+          <rect x="4" y="-4" width="26" height="6" rx="2" fill="#4338ca" opacity="0.12" />
+          <rect x="8" y="10" width="18" height="3" rx="1" fill="#c7d2fe" opacity="0.3" />
+          <circle cx="28" cy="6" r="2" fill="#0d9f5f" opacity="0.4" />
+        </g>
+        <WifiIcon x={239} y={364} />
+
+        {/* ── Plant (1F right corner) ── */}
+        <g transform="translate(348, 376)">
+          <rect x="0" y="20" width="16" height="20" rx="3" fill="#4338ca" opacity="0.12" />
+          <ellipse cx="8" cy="14" rx="12" ry="12" fill="#22c55e" opacity="0.18" />
+          <ellipse cx="4" cy="10" rx="8" ry="10" fill="#22c55e" opacity="0.12" />
+          <ellipse cx="14" cy="12" rx="7" ry="8" fill="#16a34a" opacity="0.1" />
+          <line x1="8" y1="20" x2="8" y2="10" stroke="#22c55e" strokeWidth="2" opacity="0.15" />
+        </g>
+
+        {/* ── Shelf on 1F left wall ── */}
+        <g transform="translate(140, 296)">
+          <rect x="0" y="0" width="40" height="4" rx="1" fill="#4338ca" opacity="0.2" />
+          {/* books */}
+          <rect x="4" y="-16" width="6" height="16" rx="1" fill="#4338ca" opacity="0.15" />
+          <rect x="12" y="-12" width="5" height="12" rx="1" fill="#a5b4fc" opacity="0.2" />
+          <rect x="19" y="-14" width="6" height="14" rx="1" fill="#4338ca" opacity="0.12" />
+          <rect x="27" y="-10" width="5" height="10" rx="1" fill="#a5b4fc" opacity="0.15" />
+        </g>
+
+        {/* ═══════════════════════════════════════════════ */}
+        {/* ══ ROUTER (center of house, on 1F floor line) ══ */}
+        {/* ═══════════════════════════════════════════════ */}
+        <g transform="translate(182, 268)">
+          {/* router body */}
+          <rect x="0" y="12" width="36" height="24" rx="5" fill="#4338ca" opacity="0.9" />
+          {/* antennas */}
+          <line x1="10" y1="12" x2="6" y2="0" stroke="#4338ca" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
+          <line x1="26" y1="12" x2="30" y2="0" stroke="#4338ca" strokeWidth="3" strokeLinecap="round" opacity="0.7" />
+          {/* LEDs */}
+          <circle cx="11" cy="28" r="3" fill="#0d9f5f" />
+          <circle cx="25" cy="28" r="3" fill="#0d9f5f" opacity="0.5" />
+          {/* ventilation */}
+          <rect x="8" y="20" width="20" height="1.5" rx="0.75" fill="#fff" opacity="0.15" />
+          <rect x="8" y="24" width="20" height="1.5" rx="0.75" fill="#fff" opacity="0.1" />
         </g>
       </svg>
 
@@ -689,50 +817,13 @@ export default function KaisenPage() {
             .kaisen-hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 56px; }
             .kaisen-hero-illust { transform: none; margin-bottom: 0; }
           }
-          @keyframes wifiPulse1 {
-            0%, 100% { opacity: 0; transform: translateY(0) scale(0.85); }
-            20% { opacity: 0.8; }
-            50% { opacity: 0.5; transform: translateY(-8px) scale(1); }
-            80% { opacity: 0; transform: translateY(-16px) scale(1.05); }
-          }
-          @keyframes wifiPulse2 {
-            0%, 100% { opacity: 0; transform: translateY(0) scale(0.85); }
-            25% { opacity: 0.6; }
-            55% { opacity: 0.35; transform: translateY(-10px) scale(1); }
-            85% { opacity: 0; transform: translateY(-18px) scale(1.05); }
-          }
-          @keyframes wifiPulse3 {
-            0%, 100% { opacity: 0; transform: translateY(0) scale(0.85); }
-            30% { opacity: 0.5; }
-            60% { opacity: 0.25; transform: translateY(-7px) scale(1); }
-            90% { opacity: 0; transform: translateY(-14px) scale(1.05); }
-          }
-          @keyframes signalToPC {
-            0% { cx: 171; cy: 268; opacity: 0; r: 2; }
-            15% { opacity: 0.6; r: 3; }
-            80% { cx: 100; cy: 200; opacity: 0.2; r: 2; }
-            100% { cx: 100; cy: 200; opacity: 0; r: 1; }
-          }
-          @keyframes signalToPhone {
-            0% { cx: 171; cy: 268; opacity: 0; r: 2; }
-            15% { opacity: 0.6; r: 3; }
-            80% { cx: 255; cy: 200; opacity: 0.2; r: 2; }
-            100% { cx: 255; cy: 200; opacity: 0; r: 1; }
-          }
-          @keyframes signalToTV {
-            0% { cx: 171; cy: 280; opacity: 0; r: 2; }
-            15% { opacity: 0.6; r: 3; }
-            80% { cx: 240; cy: 310; opacity: 0.2; r: 2; }
-            100% { cx: 240; cy: 310; opacity: 0; r: 1; }
-          }
-          @keyframes signalToTablet {
-            0% { cx: 171; cy: 280; opacity: 0; r: 2; }
-            15% { opacity: 0.6; r: 3; }
-            80% { cx: 90; cy: 310; opacity: 0.2; r: 2; }
-            100% { cx: 90; cy: 310; opacity: 0; r: 1; }
+          @keyframes ringPulse {
+            0% { opacity: 0.5; transform: scale(0.85); }
+            50% { opacity: 0.25; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.15); }
           }
           @media (prefers-reduced-motion: reduce) {
-            .wifi-wave, .signal-dot { animation: none !important; opacity: 0.3 !important; }
+            .wifi-ring { animation: none !important; opacity: 0.15 !important; }
           }
           .sp-faq-item { background: #fff; border: 1px solid var(--border); border-radius: 16px; transition: background 0.15s ease; }
           .sp-faq-item[open] { background: var(--accent-light); border-color: var(--accent-border); }
