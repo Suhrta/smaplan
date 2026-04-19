@@ -157,17 +157,13 @@ function extractFeatures(text) {
 }
 
 function parseVerdict(displayText) {
+  const nlParts = displayText.split(/\\n|\n/);
+  if (nlParts.length >= 2) {
+    return { left: nlParts[0].trim(), right: nlParts[1].trim() };
+  }
   const parts = displayText.split(/\s*[/／]\s*/);
   if (parts.length >= 2) {
     return { left: parts[0].trim(), right: parts[1].trim() };
-  }
-  const arrowParts = displayText.split(/→/);
-  if (arrowParts.length >= 3) {
-    const mid = Math.ceil(arrowParts.length / 2);
-    return {
-      left: arrowParts.slice(0, mid).join("→").trim(),
-      right: arrowParts.slice(mid).join("→").trim(),
-    };
   }
   return { left: displayText, right: "" };
 }

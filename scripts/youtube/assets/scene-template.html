@@ -532,8 +532,10 @@ function renderVerdict() {
   screen.style.background = s.screenBg;
 
   if (DATA.right) {
-    const leftSize = (DATA.left || '').length > 12 ? '28px' : '36px';
-    const rightSize = (DATA.right || '').length > 12 ? '28px' : '36px';
+    const leftLen = (DATA.left || '').replace(/\*\*/g, '').length;
+    const rightLen = (DATA.right || '').replace(/\*\*/g, '').length;
+    const leftSize = leftLen > 12 ? '24px' : leftLen > 10 ? '28px' : '36px';
+    const rightSize = rightLen > 12 ? '24px' : rightLen > 10 ? '28px' : '36px';
     screen.innerHTML = `
       ${statusBar(true)}
       <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;width:100%;padding:56px 24px 24px;">
