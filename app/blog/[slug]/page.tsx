@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import posts from '@/data/blog-posts.json';
 import { SiteHeader } from '../../components/SiteHeader';
 
-type Post = (typeof posts)[number] & { headerImage?: string };
+type Post = (typeof posts)[number];
 
 export const dynamicParams = false;
 
@@ -32,7 +32,7 @@ export async function generateMetadata(
   const post = findPost(slug);
   if (!post) return {};
   const title = `${post.title} | スマプラン`;
-  const ogImage = (post as Post).headerImage ?? `/blog/${post.slug}.png`;
+  const ogImage = `/blog/${post.slug}.png`;
   return {
     title,
     description: post.description,
@@ -347,7 +347,7 @@ export default async function BlogDetailPage({
 
       <article>
         <img
-          src={(post as Post).headerImage ?? `/blog/${post.slug}.png`}
+          src={`/blog/${post.slug}.png`}
           alt={post.title}
           width={1200}
           height={630}

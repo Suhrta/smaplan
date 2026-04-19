@@ -65,7 +65,6 @@
   },
   {
     "slug": "hikari-comparison",
-    "headerImage": "/blog/hikari-comparison.svg",
     "title": "光回線おすすめ7社を徹底比較【2026年最新】料金・速度・キャッシュバック",
     "description": "光回線7社（ドコモ光・ソフトバンク光・auひかり・NURO光・GMOとくとくBB光・楽天ひかり・ビッグローブ光）を料金・速度・キャッシュバックで徹底比較。スマホ別おすすめも解説。",
     "category": "comparison",
@@ -74,7 +73,6 @@
   },
   {
     "slug": "hikari-vs-home-router",
-    "headerImage": "/blog/hikari-vs-home-router.svg",
     "title": "光回線とホームルーターどっちがいい？速度・料金・工事の違いを比較",
     "description": "光回線とホームルーターの違いを速度・料金・工事の有無・向いている人で徹底比較。2026年最新のおすすめ回線も紹介。自分に合うのはどちらかがわかる比較記事。",
     "category": "comparison",
@@ -83,7 +81,6 @@
   },
   {
     "slug": "internet-cost-average",
-    "headerImage": "/blog/internet-cost-average.svg",
     "title": "自宅のネット回線代の平均はいくら？相場と節約のコツ",
     "description": "自宅のインターネット回線にかかる費用の平均額を光回線・ホームルーター・モバイルWiFi別に解説。月額を下げるための具体的な節約方法も2026年最新データで紹介します。",
     "category": "knowledge",
@@ -92,7 +89,6 @@
   },
   {
     "slug": "home-router-ranking",
-    "headerImage": "/blog/home-router-ranking.svg",
     "title": "ホームルーターおすすめ3社比較｜ドコモhome5G・ソフトバンクエアー・WiMAX",
     "description": "工事不要のホームルーター3社（ドコモhome5G・ソフトバンクエアー・WiMAX）を速度・料金・セット割で徹底比較。自分に合う1台がわかる2026年最新ランキング。",
     "category": "comparison",
@@ -101,7 +97,6 @@
   },
   {
     "slug": "smartphone-set-discount",
-    "headerImage": "/blog/smartphone-set-discount.svg",
     "title": "スマホセット割とは？光回線×スマホの最強組み合わせを解説",
     "description": "光回線とスマホのセット割を徹底解説。ドコモ光・ソフトバンク光・auひかりなど主要回線のセット割対象スマホ・割引額・適用条件を2026年最新情報でまとめます。",
     "category": "guide",
@@ -110,7 +105,6 @@
   },
   {
     "slug": "internet-line-beginners",
-    "headerImage": "/blog/internet-line-beginners.svg",
     "title": "初めてのネット回線選び｜光回線・ホームルーター・モバイルWiFiの違い",
     "description": "初めて自宅のネット回線を契約する人向けに、光回線・ホームルーター・モバイルWiFiの違いをわかりやすく解説。選び方のポイントや初心者が陥りやすい失敗例も紹介。",
     "category": "guide",
