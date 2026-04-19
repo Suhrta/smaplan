@@ -65,7 +65,7 @@ export default function BlogIndexPage() {
             }}
           >
             <img
-              src={`/blog/${post.slug}.png`}
+              src={(post as typeof post & { headerImage?: string }).headerImage ?? `/blog/${post.slug}.png`}
               alt=""
               width={88}
               height={88}
