@@ -2,23 +2,9 @@ import Link from 'next/link';
 
 function AffiliateDisclosure() {
   return (
-    <div
-      style={{
-        background: '#f3f4fa',
-        borderBottom: '1px solid var(--border)',
-        padding: '5px 16px',
-        textAlign: 'center',
-        fontSize: 11,
-        lineHeight: 1.5,
-        color: 'var(--text-muted)',
-        letterSpacing: '0.01em',
-      }}
-    >
+    <div className="border-b border-[#f0f0f0] bg-[#fafafa] px-4 py-1 text-center text-[11px] leading-[1.5] text-[#888]">
       本サイトはアフィリエイト広告（PR）を含みます。
-      <Link
-        href="/legal/about"
-        style={{ color: 'var(--text-sub)', textDecoration: 'underline', marginLeft: 6 }}
-      >
+      <Link href="/legal/about" className="ml-1.5 text-[#555] underline underline-offset-2">
         運営者情報
       </Link>
     </div>
@@ -27,23 +13,25 @@ function AffiliateDisclosure() {
 
 export function SiteHeader() {
   return (
-    <header className="sp-site-header">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-[12px]">
       <AffiliateDisclosure />
-      <div className="sp-site-header-inner">
-        <Link href="/" className="sp-site-logo">
-          <span>スマートプラン</span>
-          <span className="sp-site-logo-en">SmartPlan</span>
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between border-b border-[#e8e8e8] px-6 md:px-8">
+        <Link href="/" className="inline-flex items-center gap-2 no-underline">
+          <span className="block h-1.5 w-1.5 rounded-full bg-[#4338ca]" />
+          <span className="text-[15px] font-medium tracking-[0.01em] text-[#111]">スマートプラン</span>
         </Link>
-        <nav className="sp-site-nav" aria-label="グローバル">
-          <Link href="/smaho" className="sp-nav-link">
-            <span className="sp-nav-label-full">スマホ診断</span>
-            <span className="sp-nav-label-short">スマホ</span>
+        <nav aria-label="グローバル" className="flex items-center gap-1">
+          <Link href="/smaho" className="px-3 py-2 text-sm text-[#555] transition-colors hover:text-[#4338ca]">
+            <span className="hidden sm:inline">スマホ診断</span>
+            <span className="inline sm:hidden">スマホ</span>
           </Link>
-          <Link href="/kaisen" className="sp-nav-link">
-            <span className="sp-nav-label-full">回線診断</span>
-            <span className="sp-nav-label-short">回線</span>
+          <Link href="/kaisen" className="px-3 py-2 text-sm text-[#555] transition-colors hover:text-[#4338ca]">
+            <span className="hidden sm:inline">回線診断</span>
+            <span className="inline sm:hidden">回線</span>
           </Link>
-          <Link href="/blog" className="sp-nav-link">ブログ</Link>
+          <Link href="/blog" className="px-3 py-2 text-sm text-[#555] transition-colors hover:text-[#4338ca]">
+            ブログ
+          </Link>
         </nav>
       </div>
     </header>
@@ -54,23 +42,11 @@ export function LogoHeader({ compact = false }: { compact?: boolean }) {
   return (
     <>
       <AffiliateDisclosure />
-      <div style={{ textAlign: 'center', padding: compact ? '20px 0 12px' : '28px 0 20px' }}>
-        <Link
-          href="/"
-          style={{
-            display: 'inline-flex',
-            alignItems: 'baseline',
-            gap: 6,
-            fontSize: compact ? 22 : 26,
-            fontWeight: 700,
-            color: 'var(--accent)',
-            letterSpacing: '0.02em',
-            textDecoration: 'none',
-          }}
-        >
-          <span>スマートプラン</span>
-          <span style={{ fontSize: compact ? 11 : 12, color: 'var(--text-sub)', fontWeight: 500 }}>
-            SmartPlan
+      <div className={`text-center ${compact ? 'py-5' : 'py-7'}`}>
+        <Link href="/" className="inline-flex items-center gap-2 no-underline">
+          <span className="block h-1.5 w-1.5 rounded-full bg-[#4338ca]" />
+          <span className={`font-medium tracking-[0.01em] text-[#111] ${compact ? 'text-[17px]' : 'text-[19px]'}`}>
+            スマートプラン
           </span>
         </Link>
       </div>
