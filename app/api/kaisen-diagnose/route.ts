@@ -73,7 +73,7 @@ const SYSTEM_PROMPT = `あなたはインターネット回線の専門家「ス
 - Q10の重視ポイント:
   - 料金の安さ → monthly_costが低いプラン優先
   - 速度 → typical_speedが高いプラン優先
-  - キャッシュバック → cashback額が大きいプラン優先
+  - キャッシュバック → キャッシュバック特典があるプラン優先
   - 手軽さ → 工事不要のホームルーター・モバイルWiFi優先
 - 3つの推薦は異なるタイプまたは異なる事業者から選ぶこと
 - affiliate_key は必ずプランデータベースの id と完全一致させること
@@ -92,7 +92,7 @@ ${JSON.stringify(plans, null, 0)}
       "monthly_cost": 月額料金(数値、住居タイプに応じた金額),
       "max_speed": "最大速度",
       "reason": "このプランをおすすめする理由（80〜120文字）",
-      "cashback": "キャッシュバック情報",
+      "cashback": "キャッシュバックあり or 特典あり or なし（具体的な金額は記載しない）",
       "affiliate_key": "plans.jsonのid（必ず存在するidのみ）"
     },
     { "rank": 2, ... },

@@ -198,7 +198,7 @@ export default async function KaisenDetailPage({
             borderRadius: 8, marginBottom: 12,
             fontSize: 13, color: '#92400e', fontWeight: 600,
           }}>
-            {plan.cashback}
+            🎁 キャッシュバック特典あり — 詳細は公式サイトへ
           </div>
         )}
 

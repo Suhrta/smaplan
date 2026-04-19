@@ -1290,7 +1290,7 @@ export default function KaisenPage() {
                           borderRadius: 6, border: '1px solid #BBF7D0',
                           fontWeight: 600,
                         }}>
-                          🎁 {rec.cashback}
+                          🎁 キャッシュバック特典あり
                         </span>
                       )}
                     </div>
