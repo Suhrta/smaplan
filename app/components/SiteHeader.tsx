@@ -19,7 +19,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between border-b border-[#e8e8e8] px-6 md:px-8">
         <Link href="/" className="inline-flex items-center gap-2 no-underline">
           <Image src="/logo-24.png" alt="" width={24} height={24} className="block" />
-          <span className="text-[15px] font-medium tracking-[0.01em] text-[#111]">スマートプラン</span>
+          <span className="text-[24px] font-black tracking-[-1px]" style={{ background: 'linear-gradient(135deg, #4338ca, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>スマートプラン</span>
         </Link>
         <nav aria-label="グローバル" className="flex items-center gap-1">
           <Link href="/smaho" className="px-3 py-2 text-sm text-[#555] transition-colors hover:text-[#4338ca]">
@@ -46,7 +46,7 @@ export function LogoHeader({ compact = false }: { compact?: boolean }) {
       <div className={`text-center ${compact ? 'py-5' : 'py-7'}`}>
         <Link href="/" className="inline-flex items-center gap-2 no-underline">
           <Image src="/logo-24.png" alt="" width={24} height={24} className="block" />
-          <span className={`font-medium tracking-[0.01em] text-[#111] ${compact ? 'text-[17px]' : 'text-[19px]'}`}>
+          <span className={`font-black tracking-[-1px] ${compact ? 'text-[22px]' : 'text-[24px]'}`} style={{ background: 'linear-gradient(135deg, #4338ca, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             スマートプラン
           </span>
         </Link>
