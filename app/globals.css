@@ -447,3 +447,13 @@ button {
 @media (min-width: 640px) {
   .sp-result-table-wrap { display: block; }
 }
+
+/* Savings chart perspective (desktop only) */
+.chart-perspective {
+  will-change: transform;
+}
+@media (min-width: 768px) {
+  .chart-perspective {
+    transform: perspective(1000px) rotateY(-2deg) translateY(calc(var(--scroll-y, 0) * 0.04px));
+  }
+}

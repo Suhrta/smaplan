@@ -49,8 +49,8 @@ export default function PortalPage() {
             'linear-gradient(135deg, #f8f7ff 0%, #ede9fe 40%, #ffffff 100%)',
         }}
       >
-        <div className="relative mx-auto max-w-6xl px-6 pt-20 pb-24 md:px-8 md:pt-32 md:pb-28">
-          <div className="grid items-center gap-16 md:grid-cols-2 md:gap-10 lg:gap-16">
+        <div className="relative mx-auto max-w-6xl px-4 pt-14 pb-16 sm:px-6 md:px-8 md:pt-32 md:pb-28">
+          <div className="grid items-center gap-10 md:grid-cols-2 md:gap-10 lg:gap-16">
             <div>
               <FadeIn>
                 <div className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#4338ca]">
@@ -58,7 +58,7 @@ export default function PortalPage() {
                 </div>
               </FadeIn>
               <FadeIn delayMs={80}>
-                <h1 className="mt-6 text-[44px] leading-[1.1] text-[#111] md:text-[56px] lg:text-[64px]">
+                <h1 className="mt-6 text-[32px] leading-[1.15] text-[#111] sm:text-[44px] md:text-[56px] lg:text-[64px]">
                   固定費、ちゃんと<br />見直してますか？
                 </h1>
               </FadeIn>
@@ -70,10 +70,10 @@ export default function PortalPage() {
                 </p>
               </FadeIn>
               <FadeIn delayMs={240}>
-                <div className="mt-9 flex flex-wrap items-center gap-3">
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                   <Link
                     href="/smaho"
-                    className="inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium text-white shadow-[0_4px_16px_rgba(67,56,202,0.2)] transition-all duration-200 hover:shadow-[0_6px_20px_rgba(67,56,202,0.3)] hover:brightness-110"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium text-white shadow-[0_4px_16px_rgba(67,56,202,0.2)] transition-all duration-200 hover:shadow-[0_6px_20px_rgba(67,56,202,0.3)] hover:brightness-110"
                     style={{
                       background: 'linear-gradient(135deg, #4338ca, #6366f1)',
                     }}
@@ -83,7 +83,7 @@ export default function PortalPage() {
                   </Link>
                   <Link
                     href="/kaisen"
-                    className="inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium text-white shadow-[0_4px_16px_rgba(67,56,202,0.2)] transition-all duration-200 hover:shadow-[0_6px_20px_rgba(67,56,202,0.3)] hover:brightness-110"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium text-white shadow-[0_4px_16px_rgba(67,56,202,0.2)] transition-all duration-200 hover:shadow-[0_6px_20px_rgba(67,56,202,0.3)] hover:brightness-110"
                     style={{
                       background: 'linear-gradient(135deg, #4338ca, #6366f1)',
                     }}
@@ -105,7 +105,7 @@ export default function PortalPage() {
       </section>
 
       {/* ──────────────── SERVICE CARDS ──────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
+      <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 md:px-8 md:py-32">
         <FadeIn>
           <div className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#888]">
             Services
@@ -144,8 +144,8 @@ export default function PortalPage() {
           background: 'linear-gradient(180deg, #fafafe 0%, #ffffff 100%)',
         }}
       >
-        <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28">
-          <div className="grid gap-12 text-center md:grid-cols-3">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 md:px-8 md:py-28">
+          <div className="grid grid-cols-3 gap-4 text-center sm:gap-12">
             {[
               { num: '34', caption: '比較できるプラン' },
               { num: '30', unit: '秒', caption: 'たったこれだけ' },
@@ -155,7 +155,7 @@ export default function PortalPage() {
                 <div className="flex flex-col items-center">
                   <div className="flex items-baseline gap-1">
                     <span
-                      className="text-[64px] font-medium leading-none tracking-[-0.03em] md:text-[88px]"
+                      className="text-[40px] font-medium leading-none tracking-[-0.03em] sm:text-[64px] md:text-[88px]"
                       style={{
                         background:
                           'linear-gradient(135deg, #4338ca, #7c3aed)',
@@ -167,7 +167,7 @@ export default function PortalPage() {
                       {s.num}
                     </span>
                     {s.unit && (
-                      <span className="text-[20px] font-medium text-[#555] md:text-[24px]">
+                      <span className="text-[14px] font-medium text-[#555] sm:text-[20px] md:text-[24px]">
                         {s.unit}
                       </span>
                     )}
@@ -182,7 +182,7 @@ export default function PortalPage() {
 
       {/* ──────────────── HOW IT WORKS ──────────────── */}
       <section
-        className="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32"
+        className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 md:px-8 md:py-32"
         style={{
           background: 'linear-gradient(180deg, #f8f7ff 0%, #ffffff 100%)',
         }}
@@ -250,7 +250,7 @@ export default function PortalPage() {
           background: 'linear-gradient(180deg, #fafafe 0%, #ffffff 100%)',
         }}
       >
-        <div className="mx-auto max-w-4xl px-6 py-24 md:px-8 md:py-32">
+        <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 md:px-8 md:py-32">
           <FadeIn>
             <div className="text-[11px] font-medium uppercase tracking-[0.3em] text-[#888]">
               Journal
@@ -302,7 +302,7 @@ export default function PortalPage() {
 
       {/* ──────────────── FOOTER ──────────────── */}
       <footer className="border-t border-[#e8e8e8] bg-white">
-        <div className="mx-auto max-w-6xl px-6 py-12 md:px-8">
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 md:px-8">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <Link href="/" className="inline-flex items-center gap-2 no-underline">
               <span className="block h-1.5 w-1.5 rounded-full bg-[#4338ca]" />
@@ -341,7 +341,7 @@ function ServiceCard({ href, label, title, description, icon }: ServiceCardProps
   return (
     <Link
       href={href}
-      className="group relative block overflow-hidden rounded-2xl border border-[#e8e8e8] bg-white p-10 no-underline transition-all duration-300 hover:-translate-y-1 hover:border-[#c4b5fd] hover:shadow-[0_4px_20px_rgba(67,56,202,0.08)]"
+      className="group relative block overflow-hidden rounded-2xl border border-[#e8e8e8] bg-white p-6 no-underline transition-all duration-300 hover:-translate-y-1 hover:border-[#c4b5fd] hover:shadow-[0_4px_20px_rgba(67,56,202,0.08)] sm:p-10"
     >
       <div
         className="absolute inset-x-0 top-0 h-[2px]"

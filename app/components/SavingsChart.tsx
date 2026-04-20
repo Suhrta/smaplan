@@ -139,7 +139,7 @@ export function SavingsChart() {
   });
 
   return (
-    <div ref={ref} className="mx-auto w-full max-w-[680px]">
+    <div ref={ref} className="mx-auto w-full max-w-[280px] sm:max-w-[480px] md:max-w-[680px]">
       <div
         className="text-center transition-all duration-500"
         style={{
@@ -147,18 +147,12 @@ export function SavingsChart() {
           transform: showHeadline ? 'scale(1)' : 'scale(0.85)',
         }}
       >
-        <div className="mb-4 text-[20px] font-bold text-[#111] md:text-[24px]">
+        <div className="mb-3 text-[16px] font-bold text-[#111] sm:mb-4 sm:text-[20px] md:text-[24px]">
           年間 約<span className="text-[#4338ca]">63,000</span>円 節約
         </div>
       </div>
 
-      <div
-        style={{
-          transform:
-            'perspective(1000px) rotateY(-2deg) translateY(calc(var(--scroll-y, 0) * 0.04px))',
-          willChange: 'transform',
-        }}
-      >
+      <div className="chart-perspective">
         <svg
           viewBox="0 0 680 360"
           className="block h-auto w-full"
