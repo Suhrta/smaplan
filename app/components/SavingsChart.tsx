@@ -167,7 +167,7 @@ export function SavingsChart() {
           className="block h-auto w-full"
           style={{
             filter:
-              'drop-shadow(0 20px 60px rgba(67, 56, 202, 0.1)) drop-shadow(0 8px 24px rgba(67, 56, 202, 0.06))',
+              'drop-shadow(0 8px 40px rgba(67, 56, 202, 0.12)) drop-shadow(0 20px 60px rgba(67, 56, 202, 0.1))',
           }}
           aria-hidden
         >
@@ -178,13 +178,18 @@ export function SavingsChart() {
             </linearGradient>
           </defs>
 
+          {/* White background circle */}
+          <circle cx={CX} cy={CY} r={OUTER_R} fill="white" />
+          {/* Outer purple border */}
+          <circle cx={CX} cy={CY} r={OUTER_R} fill="none" stroke="rgba(67,56,202,0.15)" strokeWidth="1" />
+
           {/* Gray arc (savings) */}
           <circle
             cx={CX}
             cy={CY}
             r={R}
             fill="none"
-            stroke="#e0e0e0"
+            stroke="#d1d5db"
             strokeWidth={STROKE_W}
             strokeDasharray={`${grayLen} ${CIRC - grayLen}`}
             strokeDashoffset={-blueLen}
