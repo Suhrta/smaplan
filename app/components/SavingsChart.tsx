@@ -14,8 +14,7 @@ const OUTER_R = R + STROKE_W / 2;
 const RIGHT_LABEL_Y1 = 135;
 const RIGHT_LABEL_Y2 = 228;
 
-const STEP_LABEL_Y1 = 138;
-const STEP_LABEL_Y2 = 210;
+const LEFT_LABEL_Y = CY;
 
 function donutEdgeX(cy: number, y: number, outerR: number, side: 'right' | 'left') {
   const dy = y - cy;
@@ -124,14 +123,12 @@ export function SavingsChart() {
       'stroke-dasharray 1000ms cubic-bezier(.22,.61,.36,1), stroke-dashoffset 1000ms cubic-bezier(.22,.61,.36,1)',
   };
 
-  const isSmaho = phase === 'smaho' || phase === 'kaisen';
   const isKaisen = phase === 'kaisen';
 
   const rEdgeX1 = donutEdgeX(CY, RIGHT_LABEL_Y1, OUTER_R, 'right');
   const rEdgeX2 = donutEdgeX(CY, RIGHT_LABEL_Y2, OUTER_R, 'right');
 
-  const lEdgeX1 = donutEdgeX(CY, STEP_LABEL_Y1, OUTER_R, 'left');
-  const lEdgeX2 = donutEdgeX(CY, STEP_LABEL_Y2, OUTER_R, 'left');
+  const lEdgeX = donutEdgeX(CY, LEFT_LABEL_Y, OUTER_R, 'left');
 
   const LEADER_END_R = 510;
   const LEADER_END_L = 165;
@@ -214,9 +211,8 @@ export function SavingsChart() {
           <line x1={rEdgeX1} y1={RIGHT_LABEL_Y1} x2={LEADER_END_R} y2={RIGHT_LABEL_Y1} stroke="#c4c4c4" strokeWidth="2" />
           <line x1={rEdgeX2} y1={RIGHT_LABEL_Y2} x2={LEADER_END_R} y2={RIGHT_LABEL_Y2} stroke="#c4c4c4" strokeWidth="2" />
 
-          {/* Left leader lines for step labels */}
-          <line x1={lEdgeX1} y1={STEP_LABEL_Y1} x2={LEADER_END_L} y2={STEP_LABEL_Y1} stroke="#c4c4c4" strokeWidth="2" style={fadeIn(isSmaho)} />
-          <line x1={lEdgeX2} y1={STEP_LABEL_Y2} x2={LEADER_END_L} y2={STEP_LABEL_Y2} stroke="#c4c4c4" strokeWidth="2" style={fadeIn(isKaisen)} />
+          {/* Left leader line */}
+          <line x1={lEdgeX} y1={LEFT_LABEL_Y} x2={LEADER_END_L} y2={LEFT_LABEL_Y} stroke="#c4c4c4" strokeWidth="2" style={fadeIn(isKaisen)} />
 
           {/* Right labels */}
           <foreignObject x="516" y={RIGHT_LABEL_Y1 - 16} width="164" height="56">
@@ -226,33 +222,24 @@ export function SavingsChart() {
             <LabelBlock color="#4338ca" title="ネット回線" sub="¥4,783/月" />
           </foreignObject>
 
-          {/* Left step labels */}
-          <foreignObject x="0" y={STEP_LABEL_Y1 - 18} width="165" height="44" style={fadeIn(isSmaho)}>
-            <StepLabel text="スマホ見直しで" amount="-¥4,345/月" />
-          </foreignObject>
-          <foreignObject x="0" y={STEP_LABEL_Y2 - 18} width="165" height="44" style={fadeIn(isKaisen)}>
-            <StepLabel text="回線見直しで" amount="-¥902/月" />
+          {/* Left savings label */}
+          <foreignObject x="0" y={LEFT_LABEL_Y - 28} width="165" height="60" style={fadeIn(isKaisen)}>
+            <div className="whitespace-nowrap text-right">
+              <div className="text-[24px] font-bold leading-none" style={{ background: 'linear-gradient(135deg, #4338ca, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>-¥5,247/月</div>
+              <div className="mt-1.5 text-[14px] font-medium text-[#888]">節約</div>
+            </div>
           </foreignObject>
 
           {/* Center */}
-          <foreignObject x={CX - 100} y={CY - 46} width="200" height="92">
+          <foreignObject x={CX - 100} y={CY - 36} width="200" height="72">
             <div className="flex h-full flex-col items-center justify-center text-center">
-              <div className="text-[10px] font-semibold tracking-[0.24em] text-[#888]">
-                {phase === 'before' ? '見直し前' : '見直し後'}
-              </div>
-              <div className="mt-1 flex items-baseline text-[#111]">
-                <span className="mr-1 text-[12px] font-medium text-[#555]">月</span>
-                <span className="text-[14px] font-medium">¥</span>
-                <span className="text-[30px] font-bold leading-none tracking-[-0.02em] tabular-nums">
+              <div className="flex items-baseline text-[#111]">
+                <span className="text-[16px] font-bold">¥</span>
+                <span className="text-[36px] font-bold leading-none tracking-[-0.02em] tabular-nums">
                   {amount.toLocaleString()}
                 </span>
               </div>
-              <div
-                className="mt-1.5 text-[11px] font-bold text-[#4338ca] transition-opacity duration-700"
-                style={{ opacity: isKaisen ? 1 : 0 }}
-              >
-                -¥5,247 / 月 節約
-              </div>
+              <div className="mt-1 text-[14px] font-medium text-[#888]">/月</div>
             </div>
           </foreignObject>
         </svg>
@@ -277,19 +264,10 @@ function LabelBlock({
   return (
     <div className="whitespace-nowrap">
       <div className="flex items-center gap-2">
-        <span aria-hidden className="block h-2.5 w-2.5 rounded-full" style={{ background: color }} />
-        <span className="text-[24px] font-bold leading-none text-[#111]">{title}</span>
+        <span aria-hidden className="block h-3.5 w-3.5 rounded-full" style={{ background: color }} />
+        <span className="text-[20px] font-bold leading-none text-[#111]">{title}</span>
       </div>
-      <div className="mt-1 pl-[18px] text-[16px] font-medium text-[#555]">{sub}</div>
-    </div>
-  );
-}
-
-function StepLabel({ text, amount }: { text: string; amount: string }) {
-  return (
-    <div className="whitespace-nowrap text-right">
-      <div className="text-[13px] font-bold text-[#555]">{text}</div>
-      <div className="text-[15px] font-bold text-[#4338ca]">{amount}</div>
+      <div className="mt-1.5 pl-[22px] text-[16px] font-medium text-[#555]">{sub}</div>
     </div>
   );
 }
