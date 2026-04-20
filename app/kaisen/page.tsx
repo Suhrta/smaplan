@@ -668,7 +668,7 @@ export default function KaisenPage() {
     else setView('landing');
   }
 
-  const heroCount = useCountUp(36000, heroInView, 900);
+  const heroCount = useCountUp(40000, heroInView, 900);
 
   // ── Loading ──
   if (loading) {
@@ -739,9 +739,9 @@ export default function KaisenPage() {
                 </FadeIn>
                 <FadeIn delayMs={80}>
                   <h1 className="mb-5 text-[clamp(32px,5vw,52px)] font-bold leading-[1.3] tracking-tight text-[#111]">
-                    ネット回線代、<br />
-                    年間<span className="font-extrabold" style={{ background: 'linear-gradient(135deg, #4338ca, #7c3aed)', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{heroCount.toLocaleString()}</span>円<br />
-                    節約できるかも。
+                    ネット回線、<br />
+                    初年度 最大<span className="font-extrabold" style={{ background: 'linear-gradient(135deg, #4338ca, #7c3aed)', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{heroCount.toLocaleString()}</span>円<br />
+                    おトク。
                   </h1>
                 </FadeIn>
                 <FadeIn delayMs={160}>
@@ -762,7 +762,7 @@ export default function KaisenPage() {
                       ))}
                     </div>
                     <p className="mt-1 text-[11px] leading-relaxed text-[#888]">
-                      ※当社シミュレーションによる試算例です。実際の節約額はご利用状況により異なります。
+                      ※月額差+キャッシュバック特典を含む初年度の試算例です。特典内容は時期により変動します。
                     </p>
                   </div>
                 </FadeIn>

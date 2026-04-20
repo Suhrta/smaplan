@@ -147,11 +147,11 @@ export default function PortalPage() {
         <div className="mx-auto max-w-6xl px-6 py-20 md:px-8 md:py-28">
           <div className="grid gap-12 text-center md:grid-cols-3">
             {[
-              { num: '34', label: 'PLANS', caption: '掲載プラン数' },
-              { num: '30', unit: 'sec', label: 'TIME', caption: '診断所要時間' },
-              { num: '0', unit: '円', label: 'COST', caption: '登録不要・無料' },
+              { num: '34', caption: '比較できるプラン' },
+              { num: '30', unit: '秒', caption: 'たったこれだけ' },
+              { num: '0', unit: '円', caption: '完全無料' },
             ].map((s, i) => (
-              <FadeIn key={s.label} delayMs={i * 100}>
+              <FadeIn key={s.num} delayMs={i * 100}>
                 <div className="flex flex-col items-center">
                   <div className="flex items-baseline gap-1">
                     <span
@@ -171,9 +171,6 @@ export default function PortalPage() {
                         {s.unit}
                       </span>
                     )}
-                  </div>
-                  <div className="mt-4 text-[11px] font-medium uppercase tracking-[0.3em] text-[#4338ca]">
-                    {s.label}
                   </div>
                   <div className="mt-2 text-sm text-[#888]">{s.caption}</div>
                 </div>
