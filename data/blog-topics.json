@@ -4,265 +4,543 @@
     "title": "スマホ料金を節約する5つの方法【最新】",
     "priority": 1,
     "category": "guide",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "how-to-switch",
     "title": "格安SIMへの乗り換え手順を完全解説【初心者向け】",
     "priority": 1,
     "category": "guide",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "average-cost",
     "title": "スマホ代の平均はいくら？年代別の料金相場を解説",
     "priority": 1,
     "category": "knowledge",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "carrier-comparison",
     "title": "大手キャリアvs格安SIM 料金・速度・サポートを徹底比較",
     "priority": 1,
     "category": "comparison",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "docomo-expensive",
     "title": "ドコモの料金が高いと感じたら？見直しポイント5選",
     "priority": 1,
     "category": "guide",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "ahamo-vs-linemo",
     "title": "ahamo vs LINEMO どっちがいい？料金・速度・特徴を比較",
     "priority": 1,
     "category": "comparison",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "uqmobile-vs-ymobile",
     "title": "UQモバイル vs ワイモバイル 徹底比較",
     "priority": 1,
     "category": "comparison",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "family-plan-comparison",
     "title": "家族向けスマホプランを比較！最安の組み合わせは？",
     "priority": 1,
     "category": "comparison",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "mnp-guide-2026",
     "title": "MNP（乗り換え）のやり方を完全解説【最新】",
     "priority": 1,
     "category": "guide",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "sim-switch-timing",
     "title": "格安SIMに乗り換えるベストなタイミングはいつ？",
     "priority": 1,
     "category": "guide",
-    "generated": true
+    "generated": true,
+    "type": "smaho"
   },
   {
     "slug": "smartphone-cost-reduction",
     "title": "固定費を削減！スマホ代を半額にする具体的ステップ",
     "priority": 1,
     "category": "guide",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "couple-plan-optimization",
     "title": "カップル・夫婦のスマホ代を最適化する方法",
     "priority": 1,
     "category": "guide",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "kakuyasu-sim-demerit",
     "title": "格安SIMのデメリット・注意点まとめ【乗り換え前に確認】",
     "priority": 1,
     "category": "knowledge",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "ahamo-bad-signal-2026",
     "title": "ahamoの電波が悪い？パケ詰まりの原因と対策【最新】",
     "priority": 2,
     "category": "brand-comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "ahamo-alternative-plans",
     "title": "ahamo電波悪いなら乗り換えるべき？おすすめ代替プラン3選",
     "priority": 3,
     "category": "switching-tips",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "docomo-pake-zumari-2026",
     "title": "ドコモ回線のパケ詰まりはいつ解消？5G基地局増設の最新状況",
     "priority": 4,
     "category": "plan-pricing",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "rakuten-mobile-review",
     "title": "楽天モバイルの評判は？メリット・デメリットを正直レビュー",
     "priority": 2,
     "category": "review",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "iijmio-review",
     "title": "IIJmioの評判は？実際に使って分かったメリット・デメリット",
     "priority": 2,
     "category": "review",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "mineo-review",
     "title": "mineoの評判・口コミまとめ。パケット放題Plusは使える？",
     "priority": 2,
     "category": "review",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "nuro-mobile-review",
     "title": "NUROモバイルの評判は？速度・料金を徹底解説",
     "priority": 2,
     "category": "review",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "povo-guide",
     "title": "povo2.0の使い方・トッピング活用術",
     "priority": 2,
     "category": "guide",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "iphone-cheapest-plan",
     "title": "iPhoneを最安で使えるプランは？キャリア別比較",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "student-discount-sim",
     "title": "学生におすすめの格安SIM・スマホプラン",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "senior-smartphone-plan",
     "title": "シニア向けスマホプランのおすすめと選び方",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "call-free-plans",
     "title": "通話かけ放題の格安SIMを比較！最安はどこ？",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "data-unlimited-plans",
     "title": "データ無制限プランを比較！本当に使い放題のキャリアは？",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "speed-comparison-2026",
     "title": "格安SIM通信速度ランキング【最新実測】",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "android-cheapest-plan",
     "title": "Androidスマホを安く使えるおすすめプラン",
     "priority": 2,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "esim-guide",
     "title": "eSIMとは？メリット・デメリットと対応キャリアまとめ",
     "priority": 3,
     "category": "knowledge",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "dual-sim-guide",
     "title": "デュアルSIMとは？活用方法とおすすめの組み合わせ",
     "priority": 3,
     "category": "knowledge",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "wifi-vs-mobile-data",
     "title": "自宅Wi-Fiとモバイルデータどっちがお得？",
     "priority": 3,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "smartphone-insurance",
     "title": "スマホ保険・補償サービスは必要？各社比較と選び方",
     "priority": 3,
     "category": "knowledge",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "overseas-roaming-comparison",
     "title": "海外旅行でスマホを使うには？ローミング・eSIM比較",
     "priority": 3,
     "category": "comparison",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "data-saving-tips",
     "title": "スマホのデータ通信量を節約する10のコツ",
     "priority": 3,
     "category": "guide",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "5g-vs-4g",
     "title": "5Gは必要？4Gとの違いと選び方",
     "priority": 3,
     "category": "knowledge",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "communication-cost-household-average",
     "title": "世帯の通信費の平均は？月いくらが適正かを解説",
     "priority": 3,
     "category": "knowledge",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "campaign-watch",
     "title": "スマホ乗り換えキャンペーンの活用術【損しないコツ】",
     "priority": 3,
     "category": "guide",
-    "generated": false
+    "generated": false,
+    "type": "smaho"
   },
   {
     "slug": "payment-method-choice",
     "title": "スマホ料金の支払い方法、クレカ・口座振替・キャリア決済の違い",
     "priority": 3,
     "category": "knowledge",
+    "generated": false,
+    "type": "smaho"
+  },
+  {
+    "slug": "hikari-how-to-choose",
+    "title": "光回線の選び方ガイド【初心者向け・失敗しないポイント】",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-switch-steps",
+    "title": "光回線の乗り換え手順を完全解説【工事から開通まで】",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-construction-guide",
+    "title": "光回線の工事って何をする？流れ・時間・費用をまとめて解説",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-speed-improve",
+    "title": "ネット回線が遅い？速度改善のためにできる10のこと",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-mansion-guide",
+    "title": "マンションの光回線はどう選ぶ？戸建てとの違いと注意点",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "docomo-hikari-review",
+    "title": "ドコモ光の評判・口コミまとめ。速度・料金・メリットを正直レビュー",
+    "priority": 1,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "au-hikari-review",
+    "title": "auひかりの評判は？速度・料金・エリアを徹底レビュー",
+    "priority": 1,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "nuro-hikari-review",
+    "title": "NURO光の評判は？2Gbpsの実力と注意点を正直レビュー",
+    "priority": 2,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "softbank-hikari-review",
+    "title": "ソフトバンク光の評判は？メリット・デメリットを徹底解説",
+    "priority": 2,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "gmo-hikari-review",
+    "title": "GMOとくとくBB光の評判は？安さの理由と実際の速度をレビュー",
+    "priority": 1,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "rakuten-hikari-review",
+    "title": "楽天ひかりの評判は？楽天経済圏ユーザー向けのメリットと注意点",
+    "priority": 2,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "biglobe-hikari-review",
+    "title": "ビッグローブ光の評判・口コミまとめ。auユーザーにおすすめ？",
+    "priority": 2,
+    "category": "review",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-vs-home-router",
+    "title": "光回線 vs ホームルーター どっちがいい？速度・料金・工事を徹底比較",
+    "priority": 1,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "docomo-hikari-vs-au-hikari",
+    "title": "ドコモ光 vs auひかり 料金・速度・割引を比較【どっちがお得？】",
+    "priority": 1,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "nuro-vs-au-hikari",
+    "title": "NURO光 vs auひかり どっちが速い？料金・エリア・速度を比較",
+    "priority": 2,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-collabo-comparison",
+    "title": "光コラボ主要10社を比較！料金・速度・特典で選ぶベスト回線",
+    "priority": 1,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-cheapest-ranking",
+    "title": "光回線の最安ランキング【戸建て・マンション別】",
+    "priority": 2,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-speed-ranking",
+    "title": "光回線の速度ランキング【実測データで比較】",
+    "priority": 2,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-set-discount-guide",
+    "title": "スマホセット割の活用法！光回線×スマホで通信費を最安にするコツ",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-cashback-caution",
+    "title": "光回線キャッシュバックの落とし穴！申請忘れを防ぐ注意点まとめ",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-campaign-2026",
+    "title": "光回線の乗り換えキャンペーン比較【最新おすすめ】",
+    "priority": 2,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-slow-reasons",
+    "title": "光回線なのに遅い？原因と対処法をわかりやすく解説",
+    "priority": 1,
+    "category": "knowledge",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "wifi-trouble-fix",
+    "title": "WiFiが繋がらない・不安定な時の対処法【初心者向け】",
+    "priority": 1,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "ipv6-guide",
+    "title": "IPv6（IPoE）って何？光回線が速くなる仕組みを簡単に解説",
+    "priority": 2,
+    "category": "knowledge",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "router-how-to-choose",
+    "title": "Wi-Fiルーターの選び方ガイド。スペックの見方と予算別おすすめ",
+    "priority": 2,
+    "category": "guide",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-collabo-explained",
+    "title": "光コラボとは？フレッツ光との違いをわかりやすく解説",
+    "priority": 2,
+    "category": "knowledge",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-contract-trap",
+    "title": "光回線の解約金・違約金まとめ。契約前に知っておくべきこと",
+    "priority": 2,
+    "category": "knowledge",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "home-5g-vs-hikari",
+    "title": "ドコモ home 5G vs 光回線 どっちがいい？速度・料金・工事を比較",
+    "priority": 2,
+    "category": "comparison",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "internet-cost-average",
+    "title": "ネット回線の月額料金の平均は？相場と節約ポイントを解説",
+    "priority": 2,
+    "category": "knowledge",
+    "type": "kaisen",
+    "generated": false
+  },
+  {
+    "slug": "hikari-moving-guide",
+    "title": "引っ越し時のネット回線手続きガイド。継続・乗り換えどっちがお得？",
+    "priority": 2,
+    "category": "guide",
+    "type": "kaisen",
     "generated": false
   }
 ]

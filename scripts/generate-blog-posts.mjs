@@ -11,6 +11,7 @@ const ROOT = resolve(__dirname, '..');
 const TOPICS_PATH = resolve(ROOT, 'data', 'blog-topics.json');
 const POSTS_PATH = resolve(ROOT, 'data', 'blog-posts.json');
 const PLANS_PATH = resolve(ROOT, 'data', 'plans.json');
+const KAISEN_PLANS_PATH = resolve(ROOT, 'data', 'kaisen-plans.json');
 
 function loadEnv(path) {
   if (!existsSync(path)) return;
@@ -63,6 +64,16 @@ function buildPlansContext(plans) {
     .join('\n');
 }
 
+function buildKaisenPlansContext(plans) {
+  return plans
+    .map(p => {
+      const house = p.monthly_cost_house?.toLocaleString() ?? '—';
+      const mansion = p.monthly_cost_mansion?.toLocaleString() ?? '—';
+      return `- ${p.name}: 戸建て月${house}円 / マンション月${mansion}円 / ${p.max_speed} / ${p.target}`;
+    })
+    .join('\n');
+}
+
 const TONE_INSTRUCTIONS = {
   comparison: `# 記事タイプ: 比較記事
 - 客観的なデータと事実に基づいて比較する
@@ -88,9 +99,16 @@ const TONE_INSTRUCTIONS = {
 
 function buildPrompt(topic, plansContext) {
   const tone = TONE_INSTRUCTIONS[topic.category] || TONE_INSTRUCTIONS.knowledge;
-  return `あなたは日本のスマートフォン料金事情に詳しいライターです。以下のテーマでSEO記事を書いてください。
+  const isKaisen = topic.type === 'kaisen';
+  const writerRole = isKaisen
+    ? 'あなたは日本のインターネット回線事情に詳しいライターです。'
+    : 'あなたは日本のスマートフォン料金事情に詳しいライターです。';
+  const planLabel = isKaisen
+    ? '主要光回線・ホームルーター一覧'
+    : '主要スマホプラン一覧';
+  return `${writerRole}以下のテーマでSEO記事を書いてください。
 
-# 参考: 2026年4月時点の主要プラン一覧（料金引用時はこのデータを使う）
+# 参考: 2026年4月時点の${planLabel}（料金引用時はこのデータを使う）
 ${plansContext}
 
 # 記事情報
@@ -192,30 +210,58 @@ async function main() {
   if (!Array.isArray(plans) || plans.length === 0) {
     throw new Error(`no plans found at ${PLANS_PATH}`);
   }
-  const plansContext = buildPlansContext(plans);
+  const smahoPlansContext = buildPlansContext(plans);
+
+  const kaisenPlans = await readJson(KAISEN_PLANS_PATH, []);
+  if (!Array.isArray(kaisenPlans) || kaisenPlans.length === 0) {
+    throw new Error(`no kaisen plans found at ${KAISEN_PLANS_PATH}`);
+  }
+  const kaisenPlansContext = buildKaisenPlansContext(kaisenPlans);
 
   const posts = await readJson(POSTS_PATH, []);
   if (!Array.isArray(posts)) {
     throw new Error(`blog-posts.json is not an array`);
   }
 
-  const pending = topics
+  const sortByPriority = (arr) => arr.sort((a, b) => {
+    if (a.priority !== b.priority) return a.priority - b.priority;
+    return a.originalIndex - b.originalIndex;
+  });
+
+  const allPending = topics
     .map((t, originalIndex) => ({ ...t, originalIndex }))
-    .filter(t => !t.generated)
-    .sort((a, b) => {
-      if (a.priority !== b.priority) return a.priority - b.priority;
-      return a.originalIndex - b.originalIndex;
-    });
+    .filter(t => !t.generated);
+
+  const smahoPending = sortByPriority(allPending.filter(t => t.type !== 'kaisen'));
+  const kaisenPending = sortByPriority(allPending.filter(t => t.type === 'kaisen'));
 
   if (args.count === 0) {
-    console.log(`Pending topics: ${pending.length}`);
-    for (const t of pending.slice(0, 10)) {
-      console.log(`  [p${t.priority}] ${t.slug} (${t.category}) — ${t.title}`);
+    console.log(`Pending topics: ${allPending.length} (smaho: ${smahoPending.length}, kaisen: ${kaisenPending.length})`);
+    for (const t of allPending.slice(0, 10)) {
+      console.log(`  [p${t.priority}/${t.type}] ${t.slug} (${t.category}) — ${t.title}`);
     }
     return;
   }
 
-  const target = pending.slice(0, args.count);
+  // Alternate smaho/kaisen picks
+  const target = [];
+  let si = 0, ki = 0;
+  let nextType = 'smaho';
+  while (target.length < args.count) {
+    if (nextType === 'smaho' && si < smahoPending.length) {
+      target.push(smahoPending[si++]);
+      nextType = 'kaisen';
+    } else if (nextType === 'kaisen' && ki < kaisenPending.length) {
+      target.push(kaisenPending[ki++]);
+      nextType = 'smaho';
+    } else if (si < smahoPending.length) {
+      target.push(smahoPending[si++]);
+    } else if (ki < kaisenPending.length) {
+      target.push(kaisenPending[ki++]);
+    } else {
+      break;
+    }
+  }
   if (target.length === 0) {
     console.log('No pending topics. All generated.');
     return;
@@ -234,13 +280,16 @@ async function main() {
 
   try {
     for (const topic of target) {
-      console.log(`\ngenerating [p${topic.priority}/${topic.category}] ${topic.slug} (${topic.title})...`);
-      const { description, content } = await generateOne(client, topic, plansContext);
+      const topicType = topic.type || 'smaho';
+      const ctx = topicType === 'kaisen' ? kaisenPlansContext : smahoPlansContext;
+      console.log(`\ngenerating [p${topic.priority}/${topicType}/${topic.category}] ${topic.slug} (${topic.title})...`);
+      const { description, content } = await generateOne(client, topic, ctx);
       const post = {
         slug: topic.slug,
         title: topic.title,
         description,
         category: topic.category,
+        type: topicType,
         publishedAt: todayIso(),
         content,
       };
