@@ -56,6 +56,7 @@ async function main() {
       .replace(/\n+/g, ' ')
       .slice(0, 200);
 
+    const previewUrl = `${siteUrl}/api/preview-draft?id=${id}&token=${approveToken}`;
     const approveUrl = `${siteUrl}/api/approve-draft?id=${id}&token=${approveToken}&action=approve`;
     const rejectUrl = `${siteUrl}/api/approve-draft?id=${id}&token=${approveToken}&action=reject`;
 
@@ -78,7 +79,7 @@ async function main() {
         { name: 'プレビュー', value: preview + '…', inline: false },
         {
           name: 'アクション',
-          value: `[✅ 承認して公開](${approveUrl})\n[❌ 却下](${rejectUrl})`,
+          value: `[👁️ 記事をプレビュー](${previewUrl})\n[✅ 承認して公開](${approveUrl})\n[❌ 却下](${rejectUrl})`,
           inline: false,
         },
       ],
