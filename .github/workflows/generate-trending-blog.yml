@@ -1,0 +1,61 @@
+name: Generate trending blog drafts
+
+on:
+  schedule:
+    # 毎週木曜 00:00 UTC = JST 木曜 09:00
+    - cron: '0 0 * * 4'
+  workflow_dispatch:
+    inputs:
+      count:
+        description: '生成するトレンド記事数'
+        required: false
+        default: '3'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  generate-trending:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch trending topics
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/fetch-trending-topics.mjs ${{ github.event.inputs.count || '3' }}
+
+      - name: Generate trending blog drafts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate-trending-blog.mjs
+
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          APPROVE_TOKEN: ${{ secrets.APPROVE_TOKEN }}
+          SITE_URL: ${{ secrets.SITE_URL }}
+        run: node scripts/notify-discord.mjs
+
+      - name: Commit drafts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/drafts/ data/trending-topics.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "chore: add trending blog drafts via GitHub Actions"
+          git push
