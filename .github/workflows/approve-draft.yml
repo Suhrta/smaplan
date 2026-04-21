@@ -1,0 +1,53 @@
+name: Approve draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      draft_id:
+        description: 'ドラフトID（16文字hex）'
+        required: true
+        type: string
+      action:
+        description: 'approve または reject'
+        required: true
+        default: 'approve'
+        type: choice
+        options:
+          - approve
+          - reject
+
+permissions:
+  contents: write
+
+jobs:
+  process-draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Process draft
+        run: node scripts/process-draft.mjs ${{ github.event.inputs.draft_id }} ${{ github.event.inputs.action }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/blog-posts.json data/drafts/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          ACTION="${{ github.event.inputs.action }}"
+          DRAFT_ID="${{ github.event.inputs.draft_id }}"
+          if [ "$ACTION" = "approve" ]; then
+            git commit -m "chore: approve draft ${DRAFT_ID} → publish to blog-posts.json"
+          else
+            git commit -m "chore: reject draft ${DRAFT_ID}"
+          fi
+          git push
