@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#BFDBFE"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Type icon -->
+  <g transform="translate(96, 153)">
+        <rect x="10" y="0" width="40" height="72" rx="8" fill="#1D4ED8" opacity="0.1" stroke="#1D4ED8" stroke-width="2" opacity="0.2"/>
+        <rect x="16" y="10" width="28" height="44" rx="4" fill="#1D4ED8" opacity="0.06"/>
+        <circle cx="30" cy="62" r="3" fill="#1D4ED8" opacity="0.15"/>
+      </g>
+
+  <!-- Badge -->
+  <rect x="96" y="180" width="106" height="36" rx="18" fill="#1D4ED8" stroke="#1D4ED8" stroke-width="2"/>
+  <text x="114" y="204" font-family="system-ui,sans-serif" font-size="16" font-weight="800" fill="#FFFFFF" letter-spacing="0.18em">GUIDE</text>
+
+  <!-- Title -->
+  <g>
+    <text x="96" y="257" font-family="'Noto Sans JP',system-ui,sans-serif" font-size="58" font-weight="900" fill="#0F172A" letter-spacing="0.01em">MNP（乗り換え）のやり方を完</text>
+    <text x="96" y="335.3" font-family="'Noto Sans JP',system-ui,sans-serif" font-size="58" font-weight="900" fill="#0F172A" letter-spacing="0.01em">全解説【最新】</text>
+  </g>
+
+  <!-- Brand -->
+  <g transform="translate(1200, 630)">
+    <circle cx="-82" cy="-42" r="18" fill="#1D4ED8" opacity="0.12"/>
+    <text x="-82" y="-35" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" font-weight="900" fill="#1D4ED8" opacity="0.5">S</text>
+    <text x="-52" y="-47" font-family="system-ui,sans-serif" font-size="16" font-weight="800" fill="#1D4ED8" opacity="0.5" letter-spacing="0.04em">SmaPlan</text>
+    <text x="-52" y="-31" font-family="system-ui,sans-serif" font-size="10" font-weight="500" fill="#1D4ED8" opacity="0.35" letter-spacing="0.06em">smaplan.com</text>
+  </g>
+</svg>

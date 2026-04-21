@@ -1,7 +1,21 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import posts from '@/data/blog-posts.json';
 import { SiteHeader } from '../components/SiteHeader';
+
+type Post = (typeof posts)[number];
+
+function getImageSrc(post: Post): string {
+  const pngPath = resolve(process.cwd(), 'public', 'blog', `${post.slug}.png`);
+  if (existsSync(pngPath)) return `/blog/${post.slug}.png`;
+  const svgPath = resolve(process.cwd(), 'public', 'blog', `${post.slug}.svg`);
+  if (existsSync(svgPath)) return `/blog/${post.slug}.svg`;
+  const type = ('type' in post ? (post as Post & { type?: string }).type : undefined) || 'smaho';
+  if (type === 'kaisen') return '/blog/fallback-kaisen.svg';
+  return '/blog/fallback-smaho.svg';
+}
 
 export const metadata: Metadata = {
   title: 'ブログ｜スマホ料金・節約・乗り換えの最新情報 | スマートプラン',
@@ -65,7 +79,7 @@ export default function BlogIndexPage() {
             }}
           >
             <img
-              src={`/blog/${post.slug}.png`}
+              src={getImageSrc(post)}
               alt=""
               width={88}
               height={88}

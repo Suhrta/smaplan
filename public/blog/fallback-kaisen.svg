@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1D4ED8"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- WiFi arcs -->
+  <path d="M600 340 Q600 340 600 340" fill="none" stroke="#fff" stroke-width="0" opacity="0"/>
+  <path d="M510 260 A120 120 0 0 1 690 260" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.2"/>
+  <path d="M540 290 A80 80 0 0 1 660 290" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.28"/>
+  <path d="M565 318 A45 45 0 0 1 635 318" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity="0.38"/>
+  <circle cx="600" cy="350" r="12" fill="#fff" opacity="0.45"/>
+  <!-- Globe ring -->
+  <circle cx="600" cy="310" r="110" fill="none" stroke="#fff" stroke-width="2" opacity="0.08"/>
+  <ellipse cx="600" cy="310" rx="60" ry="110" fill="none" stroke="#fff" stroke-width="1.5" opacity="0.06"/>
+  <!-- Speed lines -->
+  <rect x="490" y="420" width="60" height="4" rx="2" fill="#fff" opacity="0.1"/>
+  <rect x="570" y="420" width="80" height="4" rx="2" fill="#fff" opacity="0.15"/>
+  <rect x="670" y="420" width="40" height="4" rx="2" fill="#fff" opacity="0.1"/>
+  <!-- Brand -->
+  <text x="600" y="490" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="800" fill="#fff" opacity="0.5" letter-spacing="0.08em">SmaPlan</text>
+  <text x="600" y="515" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="500" fill="#fff" opacity="0.35" letter-spacing="0.06em">smaplan.com</text>
+</svg>

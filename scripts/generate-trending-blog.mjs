@@ -4,6 +4,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
 import Anthropic from '@anthropic-ai/sdk';
+import { generateHeaderImageSvg } from './lib/blog-image-svg.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -210,7 +211,13 @@ async function main() {
       const draftPath = resolve(DRAFTS_DIR, `${id}.json`);
       await writeFile(draftPath, JSON.stringify(draft, null, 2) + '\n', 'utf-8');
       drafts.push(draft);
+
+      const imgPath = await generateHeaderImageSvg({
+        slug: topic.slug, title: topic.title,
+        category: topic.category, type: topic.type || 'smaho',
+      });
       console.log(`  ✓ saved draft: ${id} (${topic.slug})`);
+      console.log(`  ✓ image: ${imgPath}`);
     } catch (e) {
       console.error(`  ✗ failed: ${topic.slug}: ${e.message}`);
     }

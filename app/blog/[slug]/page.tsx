@@ -1,10 +1,22 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 import posts from '@/data/blog-posts.json';
 import { SiteHeader } from '../../components/SiteHeader';
 
 type Post = (typeof posts)[number];
+
+function getImageSrc(post: Post): string {
+  const pngPath = resolve(process.cwd(), 'public', 'blog', `${post.slug}.png`);
+  if (existsSync(pngPath)) return `/blog/${post.slug}.png`;
+  const svgPath = resolve(process.cwd(), 'public', 'blog', `${post.slug}.svg`);
+  if (existsSync(svgPath)) return `/blog/${post.slug}.svg`;
+  const type = ('type' in post ? (post as Post & { type?: string }).type : undefined) || 'smaho';
+  if (type === 'kaisen') return '/blog/fallback-kaisen.svg';
+  return '/blog/fallback-smaho.svg';
+}
 
 export const dynamicParams = false;
 
@@ -32,7 +44,7 @@ export async function generateMetadata(
   const post = findPost(slug);
   if (!post) return {};
   const title = `${post.title} | スマートプラン`;
-  const ogImage = `/blog/${post.slug}.png`;
+  const ogImage = getImageSrc(post);
   return {
     title,
     description: post.description,
@@ -306,6 +318,7 @@ export default async function BlogDetailPage({
   const midCtaH2Index = h2List.length >= 3 ? 2 : 0;
   const minutes = readingMinutes(post.content);
 
+  const imageSrc = getImageSrc(post);
   const related = posts.filter(p => p.slug !== slug).slice(0, 3);
 
   const articleSchema = {
@@ -347,7 +360,7 @@ export default async function BlogDetailPage({
 
       <article>
         <img
-          src={`/blog/${post.slug}.png`}
+          src={imageSrc}
           alt={post.title}
           width={1200}
           height={630}
