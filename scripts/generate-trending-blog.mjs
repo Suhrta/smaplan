@@ -4,7 +4,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { randomBytes } from 'node:crypto';
 import Anthropic from '@anthropic-ai/sdk';
-import { generateHeaderImageSvg } from './lib/blog-image-svg.mjs';
+import puppeteer from 'puppeteer';
+import { generateHeaderImage } from './lib/blog-image.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -185,8 +186,14 @@ async function main() {
   const client = new Anthropic({ apiKey });
   await mkdir(DRAFTS_DIR, { recursive: true });
 
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+
   const drafts = [];
 
+  try {
   for (const topic of topics) {
     const ctx = topic.type === 'kaisen' ? kaisenCtx : smahoCtx;
     console.log(`\nGenerating [${topic.type}/${topic.category}] ${topic.slug}...`);
@@ -212,17 +219,22 @@ async function main() {
       await writeFile(draftPath, JSON.stringify(draft, null, 2) + '\n', 'utf-8');
       drafts.push(draft);
 
-      const imgPath = await generateHeaderImageSvg({
-        slug: topic.slug, title: topic.title,
-        category: topic.category, type: topic.type || 'smaho',
+      await generateHeaderImage({
+        browser,
+        slug: topic.slug,
+        title: topic.title,
+        category: topic.category,
       });
       console.log(`  ✓ saved draft: ${id} (${topic.slug})`);
-      console.log(`  ✓ image: ${imgPath}`);
+      console.log(`  ✓ image: public/blog/${topic.slug}.png`);
     } catch (e) {
       console.error(`  ✗ failed: ${topic.slug}: ${e.message}`);
     }
 
     await sleep(300);
+  }
+  } finally {
+    await browser.close();
   }
 
   const manifestPath = resolve(DRAFTS_DIR, '_latest.json');

@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 import Anthropic from '@anthropic-ai/sdk';
 import puppeteer from 'puppeteer';
 import { generateHeaderImage } from './lib/blog-image.mjs';
-import { generateHeaderImageSvg } from './lib/blog-image-svg.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
@@ -306,14 +305,6 @@ async function main() {
           category: topic.category,
         });
         console.log(`  ✓ image: public/blog/${topic.slug}.png`);
-      } else {
-        await generateHeaderImageSvg({
-          slug: topic.slug,
-          title: topic.title,
-          category: topic.category,
-          type: topicType,
-        });
-        console.log(`  ✓ image: public/blog/${topic.slug}.svg`);
       }
 
       topics[topic.originalIndex] = {
