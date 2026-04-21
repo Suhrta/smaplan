@@ -1,9 +1,12 @@
 import { mkdir } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const IMAGES_DIR = resolve(__dirname, '..', '..', 'public', 'blog');
+const ICON_PATH = resolve(__dirname, '..', '..', 'public', 'icon-192.png');
+const ICON_B64 = `data:image/png;base64,${readFileSync(ICON_PATH).toString('base64')}`;
 
 const TEMPLATES = {
   comparison: {
@@ -12,8 +15,6 @@ const TEMPLATES = {
     badgeStyle: 'background: rgba(255,255,255,0.15); color: #FFFFFF; border: 2px solid rgba(255,255,255,0.45);',
     badgeText: 'COMPARISON',
     brandColor: '#FFFFFF',
-    brandSColor: '#1D4ED8',
-    brandSBg: '#FFFFFF',
   },
   review: {
     bg: 'linear-gradient(135deg, #0F172A 0%, #334155 100%)',
@@ -21,8 +22,6 @@ const TEMPLATES = {
     badgeStyle: 'background: rgba(29, 78, 216, 0.18); color: #93C5FD; border: 2px solid #1D4ED8;',
     badgeText: 'REVIEW',
     brandColor: '#FFFFFF',
-    brandSColor: '#FFFFFF',
-    brandSBg: '#1D4ED8',
   },
   guide: {
     bg: 'linear-gradient(135deg, #EFF6FF 0%, #BFDBFE 100%)',
@@ -30,8 +29,6 @@ const TEMPLATES = {
     badgeStyle: 'background: #1D4ED8; color: #FFFFFF; border: 2px solid #1D4ED8;',
     badgeText: 'GUIDE',
     brandColor: '#1D4ED8',
-    brandSColor: '#FFFFFF',
-    brandSBg: '#1D4ED8',
   },
   knowledge: {
     bg: 'linear-gradient(135deg, #EFF6FF 0%, #BFDBFE 100%)',
@@ -39,8 +36,6 @@ const TEMPLATES = {
     badgeStyle: 'background: #1D4ED8; color: #FFFFFF; border: 2px solid #1D4ED8;',
     badgeText: 'KNOWLEDGE',
     brandColor: '#1D4ED8',
-    brandSColor: '#FFFFFF',
-    brandSBg: '#1D4ED8',
   },
 };
 
@@ -123,20 +118,12 @@ function buildHtml(title, category) {
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       color: ${t.brandColor};
     }
-    .brand-s {
+    .brand-icon {
       width: 44px; height: 44px;
-      border-radius: 50%;
-      background: ${t.brandSBg};
-      color: ${t.brandSColor};
-      font-weight: 900;
-      font-size: 28px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      letter-spacing: -0.04em;
+      object-fit: contain;
     }
     .brand-text {
       display: flex;
@@ -146,7 +133,7 @@ function buildHtml(title, category) {
     .brand-name {
       font-size: 22px;
       font-weight: 800;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
     }
     .brand-url {
       font-size: 13px;
@@ -166,9 +153,9 @@ function buildHtml(title, category) {
     </div>
     <div class="bottom">
       <div class="brand">
-        <span class="brand-s">S</span>
+        <img class="brand-icon" src="${ICON_B64}" alt="" />
         <span class="brand-text">
-          <span class="brand-name">SmaPlan</span>
+          <span class="brand-name">スマートプラン</span>
           <span class="brand-url">smaplan.com</span>
         </span>
       </div>
