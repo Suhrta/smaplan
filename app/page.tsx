@@ -147,7 +147,7 @@ export default function PortalPage() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 md:px-8 md:py-28">
           <div className="grid grid-cols-3 gap-4 text-center sm:gap-12">
             {[
-              { num: '34', caption: '比較できるプラン' },
+              { num: '36', caption: '比較できるプラン' },
               { num: '30', unit: '秒', caption: 'たったこれだけ' },
               { num: '0', unit: '円', caption: '完全無料' },
             ].map((s, i) => (

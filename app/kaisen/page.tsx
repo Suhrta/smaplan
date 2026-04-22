@@ -482,7 +482,7 @@ function KaisenPhoneMockup() {
           <div className="relative z-[1] mt-2.5 flex items-center justify-around border-t border-[#E2E8F0] pt-[9px] text-[10px] font-bold tracking-[0.02em] text-[#64748B]">
             <span className="flex items-center gap-1">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
-              全14プラン
+              全16プラン
             </span>
             <span className="text-[#CBD5E1]">|</span>
             <span className="flex items-center gap-1">
@@ -746,7 +746,7 @@ export default function KaisenPage() {
                 </FadeIn>
                 <FadeIn delayMs={160}>
                   <p className="mb-9 text-base leading-[1.8] text-[#555]">
-                    10問答えるだけで、全14プランから<br />
+                    10問答えるだけで、全16プランから<br />
                     あなたにぴったりの1つを提案します。
                   </p>
                 </FadeIn>
@@ -754,7 +754,7 @@ export default function KaisenPage() {
                   <div className="flex flex-col items-start gap-[18px]">
                     <GradientCTA onClick={startDiagnose}>回線診断スタート</GradientCTA>
                     <div className="flex gap-6 text-[13px] font-medium text-[#888]">
-                      {['光回線9社', '個人情報不要', '完全無料'].map(t => (
+                      {['光回線10社', '個人情報不要', '完全無料'].map(t => (
                         <span key={t} className="flex items-center gap-1">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d9f5f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
                           {t}
@@ -783,7 +783,7 @@ export default function KaisenPage() {
             <div className="grid gap-5 md:grid-cols-3 md:gap-8">
               {[
                 { num: '01', title: '質問に答える', desc: '住居タイプや用途など、10問に答えるだけ', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
-                { num: '02', title: '回線を比較', desc: '光回線からモバイルWiFiまで全14プランを自動で選定', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> },
+                { num: '02', title: '回線を比較', desc: '光回線からモバイルWiFiまで全16プランを自動で選定', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> },
                 { num: '03', title: '節約額がわかる', desc: 'スマホ割やキャッシュバック込みで具体的に表示', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v12"/><path d="M15.5 9.5c-.3-1-1.5-1.5-3.5-1.5s-3.1.8-3.1 2c0 2.4 6.1 1.2 6.1 4 0 1.3-1.5 2-3.5 2s-3.2-.5-3.5-1.5"/></svg> },
               ].map((s) => (
                 <div
@@ -851,7 +851,7 @@ export default function KaisenPage() {
             <GradientCTA onClick={startDiagnose} variant="light">回線診断スタート</GradientCTA>
             <div className="mt-7 flex flex-wrap justify-center gap-6 text-[13px] font-medium text-white/45">
               <span>登録不要</span>
-              <span>全14プラン対応</span>
+              <span>全16プラン対応</span>
               <span>結果はその場で表示</span>
             </div>
           </div>
@@ -948,7 +948,7 @@ export default function KaisenPage() {
             </div>
             <div className="rounded-xl border border-[#e8e8e8] bg-white p-4">
               <div className="mb-1 text-[11px] text-[#888]">比較回線数</div>
-              <div className="text-lg font-bold text-[#111]">全14プラン</div>
+              <div className="text-lg font-bold text-[#111]">全16プラン</div>
             </div>
           </div>
 
