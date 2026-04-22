@@ -36,6 +36,14 @@ const kaisenAffiliateLinks: Record<string, AffiliateEntry> = {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B72HBM+1QFI+2NCKJ6",
     impression: "https://www12.a8.net/0.gif?a8mat=4B1OTT+B72HBM+1QFI+2NCKJ6",
   },
+  eo_hikari: {
+    link: "https://h.accesstrade.net/sp/cc?rk=0100q48c00or4w",
+    impression: "",
+  },
+  plaio_wimax: {
+    link: "https://h.accesstrade.net/sp/cc?rk=0100pzk500or4w",
+    impression: "",
+  },
 };
 
 const kaisenOfficialLinks: Record<string, string> = {
@@ -53,6 +61,8 @@ const kaisenOfficialLinks: Record<string, string> = {
   wimax_home: "https://www.uqwimax.jp/wimax/",
   wimax_mobile: "https://www.uqwimax.jp/wimax/",
   rakuten_pocket_wifi: "https://network.mobile.rakuten.co.jp/product/internet/rakuten-wifi-pocket/",
+  eo_hikari: "https://eonet.jp/",
+  plaio_wimax: "https://plaio.net/",
 };
 
 export function getKaisenLink(id: string): string {

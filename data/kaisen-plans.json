@@ -250,5 +250,41 @@
     "features": ["月額3,278円で無制限", "契約期間・違約金なし", "楽天回線エリアならデータ無制限"],
     "target": "とにかく安く、持ち運びたい",
     "notes": "楽天回線エリア外ではau回線（5GB/月）に制限。速度は光回線より遅い"
+  },
+  {
+    "id": "eo_hikari",
+    "type": "hikari",
+    "name": "eo光",
+    "provider_parent": "オプテージ（関西電力系）",
+    "monthly_cost_house": 5448,
+    "monthly_cost_mansion": 3876,
+    "max_speed": "1Gbps",
+    "typical_speed": "300〜500Mbps",
+    "construction_required": true,
+    "smartphone_discount": ["au", "UQモバイル", "mineo"],
+    "smartphone_discount_amount": "最大1,100円/月割引",
+    "cashback": "キャッシュバック・月額割引あり",
+    "contract_period": "2年（自動更新）",
+    "features": ["関西限定の独自回線", "混雑に強く速度が安定", "mineo・au・UQセット割対応"],
+    "target": "関西在住でau・UQ・mineoユーザー、速度重視",
+    "notes": "提供エリアは大阪・京都・兵庫・奈良・滋賀・和歌山・福井の一部。関西では満足度が高い"
+  },
+  {
+    "id": "plaio_wimax",
+    "type": "mobile_wifi",
+    "name": "PLAIO WiMAX",
+    "provider_parent": "PLAIO（WiMAXプロバイダ）",
+    "monthly_cost_house": 4268,
+    "monthly_cost_mansion": 4268,
+    "max_speed": "3.9Gbps（5G）",
+    "typical_speed": "50〜150Mbps",
+    "construction_required": false,
+    "smartphone_discount": ["au", "UQモバイル"],
+    "smartphone_discount_amount": "最大1,100円/月割引",
+    "cashback": "キャッシュバックあり",
+    "contract_period": "契約期間なし",
+    "features": ["WiMAX 5G対応", "月額料金が安い", "端末代実質無料キャンペーンあり"],
+    "target": "WiMAXを安く使いたい、持ち運び・ホームルーター両対応",
+    "notes": "UQ WiMAXと同じ回線を使用。プロバイダ経由で月額が安くなる"
   }
 ]
