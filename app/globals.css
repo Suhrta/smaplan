@@ -42,6 +42,10 @@
 
 * { box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -54,6 +58,8 @@ body {
   font-weight: 400;
   min-height: 100vh;
   line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -89,6 +95,12 @@ h1, h2, h3, h4, h5, h6 {
 .anim-float-slow { animation: float-slow 14s ease-in-out infinite; }
 .anim-float-med  { animation: float-med 10s ease-in-out infinite; }
 .anim-float-fast { animation: float-fast 8s ease-in-out infinite; }
+
+@keyframes hero-shield-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+.anim-hero-shield { animation: hero-shield-float 3s ease-in-out infinite; }
 .anim-pulse-ring { animation: pulse-ring 6s cubic-bezier(0.22, 1, 0.36, 1) infinite; transform-origin: center; transform-box: fill-box; }
 .anim-dash-drift { animation: dash-drift 3.5s linear infinite; }
 
@@ -106,6 +118,7 @@ h1, h2, h3, h4, h5, h6 {
   .anim-float-slow,
   .anim-float-med,
   .anim-float-fast,
+  .anim-hero-shield,
   .anim-pulse-ring,
   .anim-dash-drift { animation: none !important; }
   .fade-up { transition: none !important; opacity: 1 !important; transform: none !important; }
