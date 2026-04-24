@@ -497,7 +497,7 @@ function KaisenPhoneMockup() {
           </div>
         </div>
       </div>
-      <div className="mt-2 text-center text-[9px] text-[#9CA3AF]">
+      <div className="mt-2 text-center text-[9px] text-white/40">
         ※表示はイメージです
       </div>
     </div>
@@ -726,42 +726,54 @@ export default function KaisenPage() {
         <section
           ref={heroRef}
           className="relative overflow-hidden"
-          style={{ background: 'linear-gradient(135deg, #f8f7ff 0%, #ede9fe 40%, #ffffff 100%)' }}
+          style={{ background: 'linear-gradient(135deg, #312e81 0%, #4338ca 30%, #6366f1 60%, #a5b4fc 100%)' }}
         >
-          <div className="mx-auto max-w-[1200px] px-8 pt-14 pb-18 md:px-8 md:pt-20 md:pb-24">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+            <span className="absolute left-[5%] top-[15%] block h-1.5 w-1.5 rounded-full bg-white/20 anim-float-slow" />
+            <span className="absolute left-[15%] top-[65%] block h-1 w-1 rounded-full bg-white/15 anim-float-med" />
+            <span className="absolute left-[28%] top-[25%] block h-[5px] w-[5px] rounded-full bg-white/10 anim-float-fast" />
+            <span className="absolute left-[42%] top-[80%] block h-1 w-1 rounded-full bg-white/20 anim-float-slow" />
+            <span className="absolute left-[58%] top-[10%] block h-1.5 w-1.5 rounded-full bg-white/15 anim-float-med" />
+            <span className="absolute left-[72%] top-[55%] block h-1 w-1 rounded-full bg-white/10 anim-float-fast" />
+            <span className="absolute left-[85%] top-[30%] block h-[5px] w-[5px] rounded-full bg-white/20 anim-float-slow" />
+            <span className="absolute left-[92%] top-[70%] block h-1 w-1 rounded-full bg-white/15 anim-float-med" />
+            <span className="absolute left-[35%] top-[45%] block h-1 w-1 rounded-full bg-white/10 anim-float-fast" />
+            <span className="absolute left-[65%] top-[88%] block h-1.5 w-1.5 rounded-full bg-white/20 anim-float-slow" />
+          </div>
+          <div className="relative mx-auto max-w-[1200px] px-4 pt-16 pb-12 sm:px-6 md:px-8 md:pt-24 md:pb-28">
             <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
               <div>
                 <FadeIn>
-                  <div className="mb-7 inline-flex items-center gap-1.5 rounded-full border border-[#c4b5fd] bg-[#f8f7ff] px-3.5 py-1.5 text-xs font-medium text-[#4338ca]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#0d9f5f]" />
+                  <div className="mb-7 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#34d399]" />
                     30秒で無料診断
                   </div>
                 </FadeIn>
                 <FadeIn delayMs={80}>
-                  <h1 className="mb-5 text-[clamp(32px,5vw,52px)] font-bold leading-[1.3] tracking-tight text-[#111]">
+                  <h1 className="mb-5 text-[clamp(32px,5vw,52px)] font-bold leading-[1.3] tracking-tight text-white">
                     ネット回線、<br />
-                    初年度 最大<span className="font-extrabold" style={{ background: 'linear-gradient(135deg, #4338ca, #7c3aed)', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{heroCount.toLocaleString()}</span>円<br />
+                    初年度 最大<span className="font-extrabold text-[#c4b5fd]">{heroCount.toLocaleString()}</span>円<br />
                     おトク。
                   </h1>
                 </FadeIn>
                 <FadeIn delayMs={160}>
-                  <p className="mb-9 text-base leading-[1.8] text-[#555]">
+                  <p className="mb-9 text-base leading-[1.8] text-white/70">
                     10問答えるだけで、全16プランから<br />
                     あなたにぴったりの1つを提案します。
                   </p>
                 </FadeIn>
                 <FadeIn delayMs={240}>
                   <div className="flex flex-col items-start gap-[18px]">
-                    <GradientCTA onClick={startDiagnose}>回線診断スタート</GradientCTA>
-                    <div className="flex gap-6 text-[13px] font-medium text-[#888]">
+                    <GradientCTA onClick={startDiagnose} variant="light">回線診断スタート</GradientCTA>
+                    <div className="flex flex-wrap gap-5 text-[13px] font-medium text-white/50 sm:gap-6">
                       {['光回線10社', '個人情報不要', '完全無料'].map(t => (
                         <span key={t} className="flex items-center gap-1">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0d9f5f" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
                           {t}
                         </span>
                       ))}
                     </div>
-                    <p className="mt-1 text-[11px] leading-relaxed text-[#888]">
+                    <p className="mt-1 text-[11px] leading-relaxed text-white/40">
                       ※月額差+キャッシュバック特典を含む初年度の試算例です。特典内容は時期により変動します。
                     </p>
                   </div>
@@ -893,17 +905,17 @@ export default function KaisenPage() {
         </FadeIn>
 
         {/* ── FOOTER ── */}
-        <footer className="border-t border-[#e8e8e8] bg-white py-12">
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-8 text-center">
+        <footer style={{ background: '#1a1a2e' }}>
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-5 px-8 py-10 text-center sm:py-12">
             <div className="flex flex-wrap justify-center gap-7">
-              <Link href="/smaho" className="text-sm font-medium text-[#555] no-underline hover:text-[#4338ca]">
+              <Link href="/smaho" className="text-sm font-medium text-white/50 no-underline hover:text-white/80">
                 スマホ診断
               </Link>
-              <Link href="/blog" className="text-sm font-medium text-[#555] no-underline hover:text-[#4338ca]">
+              <Link href="/blog" className="text-sm font-medium text-white/50 no-underline hover:text-white/80">
                 ブログ
               </Link>
             </div>
-            <div className="text-xs text-[#888]">
+            <div className="text-xs text-white/30">
               &copy; {new Date().getFullYear()} スマートプラン
             </div>
           </div>

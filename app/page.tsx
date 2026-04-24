@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { TopHeader } from './components/TopHeader';
+import { SiteHeader } from './components/SiteHeader';
 import { FadeIn } from './components/FadeIn';
 import blogPosts from '@/data/blog-posts.json';
 
@@ -64,7 +64,7 @@ export default function PortalPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#111]">
-      <TopHeader />
+      <SiteHeader />
 
       {/* ═══════════════ HERO ═══════════════ */}
       <section
@@ -381,7 +381,8 @@ export default function PortalPage() {
               {
                 icon: <ClockIcon />,
                 label: '診断時間',
-                value: '約30',
+                prefix: '約',
+                value: '30',
                 suffix: '秒',
                 sub: '10問に答えるだけの簡単診断',
               },
@@ -402,6 +403,11 @@ export default function PortalPage() {
                     {stat.label}
                   </div>
                   <div className="mt-2 flex items-baseline justify-center gap-1">
+                    {'prefix' in stat && stat.prefix && (
+                      <span className="text-base font-semibold text-white/80 sm:text-lg">
+                        {stat.prefix}
+                      </span>
+                    )}
                     <span className="text-[36px] font-bold leading-none tracking-tight text-white sm:text-[44px] md:text-[56px]">
                       {stat.value}
                     </span>
