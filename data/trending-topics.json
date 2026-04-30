@@ -1,26 +1,26 @@
 [
   {
-    "slug": "gw-travel-roaming-plan",
-    "title": "GW海外旅行に最適なデータ通信プランまとめ",
-    "keyword": "GW 海外旅行 スマホ データ通信 ローミング",
-    "category": "comparison",
-    "type": "smaho",
-    "reason": "ゴールデンウィーク直前の4月下旬は海外渡航者が急増し、現地でのデータ通信手段（eSIM・ローミング・ポケットWi-Fi）の比較需要が毎年急上昇する。"
-  },
-  {
-    "slug": "new-life-hikari-first-contract",
-    "title": "初めて光回線を契約する人向け完全ガイド",
-    "keyword": "光回線 初めて 一人暮らし 契約 おすすめ 2026",
+    "slug": "summer-plan-switch-2026",
+    "title": "夏前にスマホ料金を見直す方法2026",
+    "keyword": "スマホ料金 見直し 2026 夏",
     "category": "guide",
-    "type": "kaisen",
-    "reason": "4〜5月は新生活で初めて一人暮らしを始めた学生・社会人が自分名義で光回線を契約する時期にあたり、「何を選べばいいかわからない」という入門需要が集中する。"
+    "type": "smaho",
+    "reason": "新生活が落ち着く5月頃に「やっぱり料金が高い」と気づいたユーザーが夏前の節約を検討し始めるタイミングでニーズが急増する。"
   },
   {
-    "slug": "linemo-vs-iijmio-2026",
-    "title": "LINEMO vs IIJmio どっちがお得？2026年比較",
-    "keyword": "LINEMO IIJmio 比較 どっち おすすめ 2026",
+    "slug": "home-router-2026-ranking",
+    "title": "ホームルーターおすすめ比較ランキング2026",
+    "keyword": "ホームルーター おすすめ 2026 比較",
+    "category": "comparison",
+    "type": "kaisen",
+    "reason": "新生活で一人暮らしを始めたユーザーが工事不要の手軽なホームルーターを検討する需要がGW明けも継続して高まっているため。"
+  },
+  {
+    "slug": "linemo-mineo-comparison-2026",
+    "title": "LINEMOとmineo比較どちらがお得？",
+    "keyword": "LINEMO mineo 比較 どちら 2026",
     "category": "comparison",
     "type": "smaho",
-    "reason": "2026年春に両社が相次いで料金・容量プランを改定したことで「乗り換え先としてどちらが最適か」という比較検索が急増しているトレンドテーマ。"
+    "reason": "両社が2026年春に新プランや値下げキャンペーンを展開しており、中容量帯で迷うユーザーからの比較検索が急増している。"
   }
 ]
