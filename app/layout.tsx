@@ -72,6 +72,12 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');`}
         </Script>
+        <Script
+          id="adsense-loader"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1657546819928079"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>{children}</body>
     </html>
