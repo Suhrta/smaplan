@@ -41,7 +41,14 @@ export default function AboutPage() {
             <div style={{ display: 'flex', gap: 12, borderBottom: '1px solid var(--border)', padding: '10px 0' }}>
               <dt style={{ width: 140, fontWeight: 600, color: 'var(--text-sub)' }}>お問い合わせ</dt>
               <dd style={{ margin: 0 }}>
-                お問い合わせは準備中です。しばらくお待ちください。
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfUz5oZ1agLTkkAF4a45qxKdnIkwnug1_wKQQ87u659u4xhQA/viewform"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--accent)' }}
+                >
+                  お問い合わせフォーム（Google フォーム）
+                </a>
               </dd>
             </div>
           </dl>
