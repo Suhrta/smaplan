@@ -16,9 +16,13 @@ const kaisenAffiliateLinks: Record<string, AffiliateEntry> = {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AVR8TU+50+64C3K1",
     impression: "https://www13.a8.net/0.gif?a8mat=4B1OTT+AVR8TU+50+64C3K1",
   },
+  nuro_hikari: {
+    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AZXA2A+2VMU+67Z9T",
+    impression: "https://www18.a8.net/0.gif?a8mat=4B1OTT+AZXA2A+2VMU+67Z9T",
+  },
   gmobb_hikari: {
-    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B8US4Y+50+3IBBPD",
-    impression: "https://www18.a8.net/0.gif?a8mat=4B1OTT+B8US4Y+50+3IBBPD",
+    link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+B8US4Y+50+3H48S2",
+    impression: "https://www14.a8.net/0.gif?a8mat=4B1OTT+B8US4Y+50+3H48S2",
   },
   biglobe_hikari: {
     link: "https://px.a8.net/svt/ejp?a8mat=4B1OTT+AWCOFM+3HKU+1BNYOX",
