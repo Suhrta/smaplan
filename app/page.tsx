@@ -6,13 +6,13 @@ import { FadeIn } from './components/FadeIn';
 import blogPosts from '@/data/blog-posts.json';
 
 export const metadata: Metadata = {
-  title: 'スマートプラン | AIがあなたの固定費を見直します',
+  title: 'スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】',
   description:
-    'AIがあなたのスマホ料金・インターネット回線を診断。最適なプランを提案し、年間いくら節約できるかお伝えします。無料・登録不要。',
+    'スマホ料金もネット回線も、10問の質問に答えるだけでAIが最適プランを診断。全36プランから年間いくら節約できるかわかります。完全無料・登録不要・30秒で結果表示。',
   openGraph: {
-    title: 'スマートプラン | AIがあなたの固定費を見直します',
+    title: 'スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】',
     description:
-      'AIがあなたのスマホ料金・インターネット回線を診断。最適なプランを提案します。',
+      '10問でAIが最適なスマホ・ネット回線プランを診断。全36プランから年間の節約額がわかります。',
     url: 'https://smaplan.com',
     siteName: 'スマートプラン',
     locale: 'ja_JP',

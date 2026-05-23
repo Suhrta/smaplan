@@ -15,11 +15,11 @@ const notoSansJP = Noto_Sans_JP({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smaplan.com"),
-  title: "スマートプラン | AIがあなたの固定費を見直します",
-  description: "スマホ料金もネット回線も、10の質問に答えるだけ。AIがあなたに最適なプランを診断し、年間いくら節約できるかお伝えします。無料・登録不要。",
+  title: "スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】",
+  description: "スマホ料金もネット回線も、10問の質問に答えるだけでAIが最適プランを診断。全36プランから年間いくら節約できるかわかります。完全無料・登録不要・30秒で結果表示。",
   openGraph: {
-    title: "スマートプラン | AIがあなたの固定費を見直します",
-    description: "スマホ料金もネット回線も、AIが最適なプランを診断します。",
+    title: "スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】",
+    description: "10問でAIが最適なスマホ・ネット回線プランを診断。全36プランから年間の節約額がわかります。",
     url: "https://smaplan.com",
     siteName: "スマートプラン",
     locale: "ja_JP",
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "スマートプラン - AIがあなたの固定費を見直します",
+        alt: "スマートプラン｜スマホ料金・ネット回線をAIが無料診断",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "スマートプラン | AIがあなたの固定費を見直します",
-    description: "スマホ料金もネット回線も、AIが最適なプランを診断します。",
+    title: "スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】",
+    description: "10問でAIが最適なスマホ・ネット回線プランを診断。全36プランから年間の節約額がわかります。",
     images: ["/og-image.png"],
   },
   verification: {

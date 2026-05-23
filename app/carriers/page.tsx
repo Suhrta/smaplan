@@ -5,20 +5,20 @@ import { SiteHeader } from '../components/SiteHeader';
 import { Breadcrumb } from '../components/Breadcrumb';
 
 export const metadata: Metadata = {
-  title: 'スマホ料金プラン一覧 | スマプラン',
-  description: '大手キャリアからMVNOまで、主要20プランのメリット・デメリットを中立的にまとめた一覧ページ。キャリア別に料金とデータ容量を比較し、自分に合うプランを見つけよう。',
+  title: 'スマホ料金プラン比較一覧｜全20プランの料金・特徴まとめ【2026年最新】',
+  description: 'ドコモ・au・ソフトバンク・ahamo・LINEMO・格安SIMなど全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。あなたに合うプランが10秒で見つかります。',
   alternates: { canonical: 'https://smaplan.com/carriers' },
   openGraph: {
-    title: 'スマホ料金プラン一覧 | スマプラン',
-    description: '大手キャリアからMVNOまで主要20プランをキャリア別に比較。',
+    title: 'スマホ料金プラン比較一覧｜全20プランの料金・特徴まとめ【2026年最新】',
+    description: '全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。',
     url: 'https://smaplan.com/carriers',
     type: 'website',
     images: [{ url: '/og-image.png', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'スマホ料金プラン一覧 | スマプラン',
-    description: '大手キャリアからMVNOまで主要20プランをキャリア別に比較。',
+    title: 'スマホ料金プラン比較一覧｜全20プランの料金・特徴まとめ【2026年最新】',
+    description: '全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。',
     images: ['/og-image.png'],
   },
 };
