@@ -2,14 +2,14 @@ name: Generate blog posts
 
 on:
   schedule:
-    # 毎週月曜 00:00 UTC = JST 月曜 09:00
-    - cron: '0 0 * * 1'
+    # 毎日 00:00 UTC = JST 09:00
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       count:
         description: '生成する記事数'
         required: false
-        default: '2'
+        default: '1'
         type: string
 
 permissions:
@@ -34,7 +34,7 @@ jobs:
       - name: Generate blog posts
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: node scripts/generate-blog-posts.mjs --count ${{ github.event.inputs.count || '2' }}
+        run: node scripts/generate-blog-posts.mjs --count ${{ github.event.inputs.count || '1' }}
 
       - name: Commit and push if changed
         run: |
