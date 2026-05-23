@@ -82,45 +82,30 @@ export default function PortalPage() {
       {/* ═══════════════ HERO ═══════════════ */}
       <section
         className="relative overflow-hidden"
-        style={{
-          background:
-            'linear-gradient(135deg, #312e81 0%, #4338ca 30%, #6366f1 60%, #a5b4fc 100%)',
-        }}
+        style={{ background: '#1e1b4b' }}
       >
         <div className="absolute inset-0 overflow-hidden" aria-hidden>
-          {/* Glow orbs */}
-          <div className="absolute -left-20 top-1/4 h-[350px] w-[350px] rounded-full bg-[#7c3aed]/15 blur-[100px]" />
-          <div className="absolute right-0 bottom-0 h-[450px] w-[450px] rounded-full bg-[#818cf8]/15 blur-[120px]" />
-          <div className="absolute left-[55%] top-[20%] h-[300px] w-[300px] rounded-full bg-[#6366f1]/15 blur-[90px]" />
-          {/* Particles — 25 dots */}
-          <span className="absolute left-[3%] top-[12%] block h-1 w-1 rounded-full bg-white/15 anim-float-slow" />
-          <span className="absolute left-[8%] top-[55%] block h-1.5 w-1.5 rounded-full bg-white/20 anim-float-med" />
-          <span className="absolute left-[12%] top-[80%] block h-1 w-1 rounded-full bg-white/10 anim-float-fast" />
-          <span className="absolute left-[18%] top-[25%] block h-[5px] w-[5px] rounded-full bg-white/15 anim-float-fast" />
-          <span className="absolute left-[22%] top-[68%] block h-1 w-1 rounded-full bg-white/25 anim-float-slow" />
-          <span className="absolute left-[28%] top-[10%] block h-1.5 w-1.5 rounded-full bg-white/10 anim-float-med" />
-          <span className="absolute left-[33%] top-[42%] block h-[4px] w-[4px] rounded-full bg-white/20 anim-float-fast" />
-          <span className="absolute left-[38%] top-[88%] block h-1 w-1 rounded-full bg-white/15 anim-float-slow" />
-          <span className="absolute left-[42%] top-[18%] block h-[6px] w-[6px] rounded-full bg-white/10 anim-float-med" />
-          <span className="absolute left-[48%] top-[62%] block h-1.5 w-1.5 rounded-full bg-white/20 anim-float-fast" />
-          <span className="absolute left-[53%] top-[35%] block h-1 w-1 rounded-full bg-white/30 anim-float-slow" />
-          <span className="absolute left-[58%] top-[78%] block h-[5px] w-[5px] rounded-full bg-white/10 anim-float-med" />
-          <span className="absolute left-[63%] top-[8%] block h-1.5 w-1.5 rounded-full bg-white/15 anim-float-fast" />
-          <span className="absolute left-[68%] top-[50%] block h-1 w-1 rounded-full bg-white/25 anim-float-slow" />
-          <span className="absolute left-[72%] top-[85%] block h-[4px] w-[4px] rounded-full bg-white/10 anim-float-med" />
-          <span className="absolute left-[76%] top-[22%] block h-1 w-1 rounded-full bg-white/20 anim-float-fast" />
-          <span className="absolute left-[80%] top-[58%] block h-1.5 w-1.5 rounded-full bg-white/15 anim-float-slow" />
-          <span className="absolute left-[84%] top-[40%] block h-[6px] w-[6px] rounded-full bg-white/10 anim-float-med" />
-          <span className="absolute left-[88%] top-[72%] block h-1 w-1 rounded-full bg-white/20 anim-float-fast" />
-          <span className="absolute left-[92%] top-[15%] block h-[5px] w-[5px] rounded-full bg-white/15 anim-float-slow" />
-          <span className="absolute left-[15%] top-[38%] block h-[3px] w-[3px] rounded-full bg-white/20 anim-float-med" />
-          <span className="absolute left-[45%] top-[92%] block h-1 w-1 rounded-full bg-white/25 anim-float-fast" />
-          <span className="absolute left-[70%] top-[5%] block h-[4px] w-[4px] rounded-full bg-white/15 anim-float-slow" />
-          <span className="absolute left-[55%] top-[48%] block h-1.5 w-1.5 rounded-full bg-white/10 anim-float-med" />
-          <span className="absolute left-[35%] top-[72%] block h-1 w-1 rounded-full bg-white/20 anim-float-fast" />
+          {/* Animated mesh gradient blobs — blue-shifted to match design */}
+          <div className="mesh-blob mesh-blob-1" style={{ width: 650, height: 650, top: '-15%', left: '-10%', background: 'radial-gradient(circle, #3730a3 0%, transparent 70%)' }} />
+          <div className="mesh-blob mesh-blob-2" style={{ width: 550, height: 550, top: '5%', right: '-8%', background: 'radial-gradient(circle, #5b21b6 0%, transparent 70%)' }} />
+          <div className="mesh-blob mesh-blob-3" style={{ width: 600, height: 600, bottom: '-20%', left: '25%', background: 'radial-gradient(circle, #4338ca 0%, transparent 70%)' }} />
+          <div className="mesh-blob mesh-blob-4" style={{ width: 450, height: 450, top: '35%', left: '55%', background: 'radial-gradient(circle, #6366f1 0%, transparent 70%)' }} />
+          {/* Bright accent highlights */}
+          <div className="mesh-blob mesh-blob-2" style={{ width: 350, height: 350, top: '0%', left: '40%', background: 'radial-gradient(circle, #818cf8 0%, transparent 70%)', opacity: 0.45 }} />
+          <div className="mesh-blob mesh-blob-3" style={{ width: 400, height: 400, bottom: '5%', right: '15%', background: 'radial-gradient(circle, #7c3aed 0%, transparent 70%)', opacity: 0.4 }} />
+          <div className="mesh-blob mesh-blob-1" style={{ width: 300, height: 300, top: '60%', left: '5%', background: 'radial-gradient(circle, #a5b4fc 0%, transparent 70%)', opacity: 0.3 }} />
+          {/* Sparse particles */}
+          <span className="absolute left-[8%] top-[20%] block h-1 w-1 rounded-full bg-white/20 anim-float-slow" />
+          <span className="absolute left-[25%] top-[70%] block h-1.5 w-1.5 rounded-full bg-white/15 anim-float-med" />
+          <span className="absolute left-[45%] top-[15%] block h-1 w-1 rounded-full bg-white/25 anim-float-fast" />
+          <span className="absolute left-[65%] top-[55%] block h-[5px] w-[5px] rounded-full bg-white/10 anim-float-slow" />
+          <span className="absolute left-[80%] top-[25%] block h-1 w-1 rounded-full bg-white/20 anim-float-med" />
+          <span className="absolute left-[90%] top-[75%] block h-1.5 w-1.5 rounded-full bg-white/15 anim-float-fast" />
+          <span className="absolute left-[35%] top-[40%] block h-1 w-1 rounded-full bg-white/25 anim-float-med" />
+          <span className="absolute left-[72%] top-[8%] block h-1.5 w-1.5 rounded-full bg-white/10 anim-float-fast" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 pt-16 pb-12 sm:px-6 md:px-8 md:pt-32 md:pb-28">
+        <div className="relative mx-auto max-w-6xl px-4 pt-12 pb-8 sm:px-6 md:px-8 md:pt-20 md:pb-16">
           <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12 lg:gap-16">
             <div>
               <FadeIn>
@@ -159,51 +144,65 @@ export default function PortalPage() {
             </div>
 
             <FadeIn delayMs={200}>
-              <div className="relative flex items-center justify-center py-6 sm:py-12 md:py-20">
-                {/* Background glows behind shield */}
-                <div className="absolute h-[200px] w-[200px] rounded-full bg-white/10 blur-[60px] sm:h-[320px] sm:w-[320px] sm:blur-[80px]" aria-hidden />
-                <div className="absolute h-[140px] w-[140px] rounded-full bg-[#a5b4fc]/20 blur-[40px] sm:h-[220px] sm:w-[220px] sm:blur-[50px]" aria-hidden />
-                <div className="absolute h-[100px] w-[100px] rounded-full bg-[#6366f1]/15 blur-[40px] sm:h-[160px] sm:w-[160px] sm:blur-[60px]" aria-hidden />
+              <div className="relative flex items-center justify-center py-2 sm:py-6 md:py-8">
+                {/* Background glows */}
+                <div className="absolute h-[200px] w-[200px] rounded-full bg-white/8 blur-[60px] sm:h-[300px] sm:w-[300px] sm:blur-[80px]" aria-hidden />
+                <div className="absolute h-[140px] w-[140px] rounded-full bg-[#a5b4fc]/15 blur-[50px] sm:h-[200px] sm:w-[200px]" aria-hidden />
 
-                {/* Shield with glow wrapper + float animation */}
-                <div
-                  className="relative z-[1] anim-hero-shield rounded-full"
-                  style={{ boxShadow: '0 0 80px rgba(255,255,255,0.3), 0 0 120px rgba(99,102,241,0.25)' }}
-                >
-                  <HeroShield />
+                {/* Dotted orbit lines */}
+                <svg className="absolute h-[260px] w-[260px] sm:h-[380px] sm:w-[380px] md:h-[440px] md:w-[440px] anim-dash-drift" viewBox="0 0 200 200" fill="none" aria-hidden>
+                  <ellipse cx="100" cy="100" rx="92" ry="88" stroke="white" strokeOpacity="0.1" strokeWidth="1" strokeDasharray="4 6" />
+                </svg>
+                <svg className="absolute h-[210px] w-[210px] sm:h-[310px] sm:w-[310px] md:h-[360px] md:w-[360px]" viewBox="0 0 200 200" fill="none" aria-hidden style={{ transform: 'rotate(25deg)' }}>
+                  <ellipse cx="100" cy="100" rx="90" ry="82" stroke="white" strokeOpacity="0.06" strokeWidth="1" strokeDasharray="3 8" />
+                </svg>
+
+                {/* Person illustration */}
+                <div className="relative z-[1]">
+                  <Image
+                    src="/hero/person.png"
+                    alt="スマホを持つビジネスマン"
+                    width={1040}
+                    height={1040}
+                    className="h-[320px] w-auto sm:h-[440px] md:h-[520px]"
+                    priority
+                  />
                 </div>
 
-                {/* Floating card — smaho (tilted +3deg) */}
-                <div className="absolute right-2 top-0 z-10 anim-float-slow sm:right-4 lg:right-6">
-                  <div
-                    className="flex items-center gap-2 rounded-lg bg-white/95 px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:gap-2.5 sm:rounded-xl sm:px-4 sm:py-3"
-                    style={{ transform: 'rotate(3deg)' }}
-                  >
-                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#ede9fe] sm:h-9 sm:w-9 sm:rounded-lg">
-                      <PhoneGlyph />
-                    </div>
-                    <span className="text-[11px] font-bold leading-tight text-[#1a1a2e] sm:text-[13px]">
-                      スマホプラン
-                      <br />
-                      診断
-                    </span>
+                {/* Card — スマホプラン (top-right) */}
+                <div className="absolute right-2 -top-2 z-10 anim-float-slow sm:-right-12 sm:-top-10 lg:-right-10">
+                  <Image
+                    src="/hero/1.png"
+                    alt="スマホプラン — データ・通話を比較"
+                    width={520}
+                    height={520}
+                    className="h-[150px] w-auto sm:h-[280px] md:h-[340px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                  />
+                </div>
+
+                {/* Card — 回線プラン (middle-left) */}
+                <div className="absolute -left-2 top-[25%] z-10 anim-float-med sm:-left-16 lg:-left-14">
+                  <div className="md:-rotate-90">
+                    <Image
+                      src="/hero/3.png"
+                      alt="回線プラン — 光回線を比較"
+                      width={520}
+                      height={520}
+                      className="h-[150px] w-auto sm:h-[280px] md:h-[340px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                    />
                   </div>
                 </div>
 
-                {/* Floating card — kaisen (tilted -3deg) */}
-                <div className="absolute bottom-0 left-2 z-10 anim-float-med sm:left-4 lg:left-6">
-                  <div
-                    className="flex items-center gap-2 rounded-lg bg-white/95 px-3 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:gap-2.5 sm:rounded-xl sm:px-4 sm:py-3"
-                    style={{ transform: 'rotate(-3deg)' }}
-                  >
-                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#ede9fe] sm:h-9 sm:w-9 sm:rounded-lg">
-                      <WifiGlyph />
-                    </div>
-                    <span className="text-[11px] font-bold leading-tight text-[#1a1a2e] sm:text-[13px]">
-                      回線プラン
-                      <br />
-                      診断
-                    </span>
+                {/* Card — AIおすすめ (bottom-right) */}
+                <div className="absolute right-0 -bottom-2 z-10 anim-float-fast sm:-right-14 lg:-right-12">
+                  <div className="md:-rotate-90">
+                    <Image
+                      src="/hero/2.png"
+                      alt="AIおすすめ — あなたに最適なプランを提案しました"
+                      width={520}
+                      height={520}
+                      className="h-[150px] w-auto sm:h-[280px] md:h-[340px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                    />
                   </div>
                 </div>
               </div>
@@ -752,81 +751,6 @@ function CheckCircleIcon() {
     </svg>
   );
 }
-
-function HeroShield() {
-  return (
-    <svg
-      viewBox="0 0 180 200"
-      fill="none"
-      className="relative z-[1] h-[180px] w-[160px] drop-shadow-[0_20px_60px_rgba(99,102,241,0.4)] sm:h-[250px] sm:w-[225px] md:h-[300px] md:w-[270px]"
-    >
-      <defs>
-        <linearGradient id="heroShieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#e0e7ff" />
-          <stop offset="50%" stopColor="#c7d2fe" />
-          <stop offset="100%" stopColor="#a5b4fc" />
-        </linearGradient>
-        <linearGradient id="heroShieldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#818cf8" />
-          <stop offset="100%" stopColor="#6366f1" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M90 12L18 48v45c0 48 30 90 72 97 42-7 72-49 72-97V48L90 12z"
-        fill="url(#heroShieldGrad)"
-        stroke="url(#heroShieldStroke)"
-        strokeWidth="3"
-      />
-      <path
-        d="M65 100l18 18 32-36"
-        stroke="#4338ca"
-        strokeWidth="8"
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function PhoneGlyph() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#4338ca"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="5" y="2" width="14" height="20" rx="3" />
-      <line x1="12" y1="18" x2="12" y2="18.01" strokeWidth="2" />
-    </svg>
-  );
-}
-
-function WifiGlyph() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#4338ca"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12.55a11 11 0 0 1 14.08 0" />
-      <path d="M1.42 9a16 16 0 0 1 21.16 0" />
-      <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
-      <circle cx="12" cy="20" r="1" fill="#4338ca" />
-    </svg>
-  );
-}
-
 
 function DevicesIcon() {
   return (
