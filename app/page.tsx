@@ -176,7 +176,7 @@ export default function PortalPage() {
                     alt="スマホプラン — データ・通話を比較"
                     width={520}
                     height={520}
-                    className="h-[150px] w-auto sm:h-[280px] md:h-[340px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                    className="h-[150px] w-auto sm:h-[180px] md:h-[200px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
                   />
                 </div>
 
@@ -188,7 +188,7 @@ export default function PortalPage() {
                       alt="回線プラン — 光回線を比較"
                       width={520}
                       height={520}
-                      className="h-[150px] w-auto sm:h-[280px] md:h-[340px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                      className="h-[150px] w-auto sm:h-[180px] md:h-[200px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
                     />
                   </div>
                 </div>
@@ -201,7 +201,7 @@ export default function PortalPage() {
                       alt="AIおすすめ — あなたに最適なプランを提案しました"
                       width={520}
                       height={520}
-                      className="h-[150px] w-auto sm:h-[280px] md:h-[340px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
+                      className="h-[150px] w-auto sm:h-[180px] md:h-[200px] drop-shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
                     />
                   </div>
                 </div>
