@@ -56,6 +56,15 @@ function getCategoryColor(label: string) {
   }
 }
 
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'スマートプラン',
+  url: 'https://smaplan.com',
+  description: 'AIがあなたのスマホ料金・インターネット回線を診断。最適なプランを提案します。',
+  publisher: { '@type': 'Organization', name: 'スマートプラン' },
+};
+
 export default function PortalPage() {
   const posts = (blogPosts as BlogPost[])
     .slice()
@@ -64,6 +73,10 @@ export default function PortalPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#111]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       <SiteHeader />
 
       {/* ═══════════════ HERO ═══════════════ */}

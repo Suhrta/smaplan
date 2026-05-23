@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import plans from '@/data/plans.json';
 import { SiteHeader } from '../components/SiteHeader';
+import { Breadcrumb } from '../components/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'スマホ料金プラン一覧 | スマプラン',
@@ -53,11 +54,10 @@ export default function CarriersIndexPage() {
     <>
       <SiteHeader />
       <main style={{ maxWidth: 720, margin: '0 auto', padding: '24px 20px 40px' }}>
-      <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
-        <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <span>プラン一覧</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'プラン一覧' },
+      ]} />
 
       <h1 style={{
         fontSize: 26, fontWeight: 800, lineHeight: 1.4,

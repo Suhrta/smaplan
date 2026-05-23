@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SiteHeader } from '@/app/components/SiteHeader';
+import { Breadcrumb } from '@/app/components/Breadcrumb';
 
 export const metadata: Metadata = {
   title: '運営者情報 | スマートプラン',
@@ -15,6 +16,10 @@ export default function AboutPage() {
     <div style={{ background: '#fff', minHeight: '100vh' }}>
       <SiteHeader />
       <main className="sp-container" style={{ padding: '40px 20px 60px', maxWidth: 760 }}>
+        <Breadcrumb items={[
+          { label: 'ホーム', href: '/' },
+          { label: '運営者情報' },
+        ]} />
         <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 24px', color: 'var(--text-main)' }}>
           運営者情報
         </h1>

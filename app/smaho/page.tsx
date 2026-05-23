@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect, useRef, type ReactNode } from 'react';
+import { useState, useEffect, useRef, Suspense, type ReactNode } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getLink } from '@/data/affiliateLinks';
 import { track } from '@/lib/analytics';
@@ -658,7 +659,17 @@ function GradientCTA({ onClick, children, variant = 'primary' }: {
   );
 }
 
+const STORAGE_KEY = 'smaho_diagnose_progress';
+
 export default function Home() {
+  return (
+    <Suspense>
+      <HomeInner />
+    </Suspense>
+  );
+}
+
+function HomeInner() {
   const [view, setView] = useState<View>('landing');
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
@@ -666,10 +677,48 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<DiagnoseResult | null>(null);
   const advanceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const searchParams = useSearchParams();
+  const restoredRef = useRef(false);
 
   useEffect(() => {
     return () => { if (advanceTimerRef.current) clearTimeout(advanceTimerRef.current); };
   }, []);
+
+  useEffect(() => {
+    if (restoredRef.current) return;
+    restoredRef.current = true;
+    const encoded = searchParams.get('a');
+    if (encoded) {
+      try {
+        const decoded = JSON.parse(atob(encoded)) as Answers;
+        setAnswers(decoded);
+        setStep(QUESTIONS.length - 1);
+        setView('diagnose');
+        return;
+      } catch { /* ignore invalid param */ }
+    }
+    try {
+      const saved = sessionStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const { view: sv, step: ss, answers: sa } = JSON.parse(saved);
+        if (sv === 'diagnose' && ss > 0) {
+          setView(sv);
+          setStep(ss);
+          setAnswers(sa);
+        }
+      }
+    } catch { /* ignore */ }
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (view === 'diagnose') {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ view, step, answers }));
+      } catch { /* quota exceeded */ }
+    } else if (view === 'landing') {
+      try { sessionStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+    }
+  }, [view, step, answers]);
 
   const q = QUESTIONS[step];
 
@@ -697,6 +746,8 @@ export default function Home() {
     setAnswers({});
     setResult(null);
     setError(null);
+    try { sessionStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+    window.history.replaceState(null, '', '/smaho');
   }
 
   function toggle(key: string, val: string, multi: boolean) {
@@ -754,6 +805,11 @@ export default function Home() {
       if (!res.ok) throw new Error(data.error || 'エラーが発生しました');
       setResult(data);
       setView('result');
+      try { sessionStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
+      try {
+        const encoded = btoa(JSON.stringify(answers));
+        window.history.replaceState(null, '', `/smaho?a=${encoded}`);
+      } catch { /* ignore */ }
       track('diagnose_complete');
     } catch (e) {
       setError(e instanceof Error ? e.message : 'エラーが発生しました');

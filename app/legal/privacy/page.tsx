@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SiteHeader } from '@/app/components/SiteHeader';
+import { Breadcrumb } from '@/app/components/Breadcrumb';
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー | スマートプラン',
@@ -15,6 +16,10 @@ export default function PrivacyPage() {
     <div style={{ background: '#fff', minHeight: '100vh' }}>
       <SiteHeader />
       <main className="sp-container" style={{ padding: '40px 20px 60px', maxWidth: 760 }}>
+        <Breadcrumb items={[
+          { label: 'ホーム', href: '/' },
+          { label: 'プライバシーポリシー' },
+        ]} />
         <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px', color: 'var(--text-main)' }}>
           プライバシーポリシー
         </h1>

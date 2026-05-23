@@ -5,6 +5,7 @@ import plans from '@/data/plans.json';
 import contents from '@/data/carrier-contents.json';
 import { getLink } from '@/data/affiliateLinks';
 import { SiteHeader } from '../../components/SiteHeader';
+import { Breadcrumb } from '../../components/Breadcrumb';
 
 type Plan = (typeof plans)[number];
 type Content = {
@@ -93,13 +94,11 @@ export default async function CarrierDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
-        <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <Link href="/carriers" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>プラン一覧</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <span>{plan.plan_name}</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'プラン一覧', href: '/carriers' },
+        { label: plan.plan_name },
+      ]} />
 
       <section style={{
         background: 'var(--bg-card)', border: '1px solid var(--border)',

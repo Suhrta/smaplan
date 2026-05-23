@@ -4,6 +4,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import posts from '@/data/blog-posts.json';
 import { SiteHeader } from '../components/SiteHeader';
+import { Breadcrumb } from '../components/Breadcrumb';
 
 type Post = (typeof posts)[number];
 
@@ -41,17 +42,29 @@ function formatDate(iso: string) {
   return `${y}年${Number(m)}月${Number(d)}日`;
 }
 
+const collectionJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'ブログ｜スマホ料金・節約・乗り換えの最新情報',
+  url: 'https://smaplan.com/blog',
+  description: 'スマホ料金の節約術、格安SIMへの乗り換え手順、キャリア比較など、役立つ記事をまとめています。',
+  publisher: { '@type': 'Organization', name: 'スマートプラン' },
+};
+
 export default function BlogIndexPage() {
   const sorted = [...posts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
   return (
     <>
       <SiteHeader />
       <main style={{ maxWidth: 720, margin: '0 auto', padding: '24px 20px 40px' }}>
-      <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
-        <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <span>ブログ</span>
-      </nav>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }}
+      />
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'ブログ' },
+      ]} />
 
       <h1 style={{
         fontSize: 26, fontWeight: 800, lineHeight: 1.4,

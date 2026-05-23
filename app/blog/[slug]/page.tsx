@@ -5,6 +5,7 @@ import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import posts from '@/data/blog-posts.json';
 import { SiteHeader } from '../../components/SiteHeader';
+import { Breadcrumb } from '../../components/Breadcrumb';
 
 type Post = (typeof posts)[number];
 
@@ -319,7 +320,17 @@ export default async function BlogDetailPage({
   const minutes = readingMinutes(post.content);
 
   const imageSrc = getImageSrc(post);
-  const related = posts.filter(p => p.slug !== slug).slice(0, 3);
+  const getCategory = (s: string) => {
+    if (/hikari|home-router|internet|kaisen/.test(s)) return 'kaisen';
+    if (/carrier|ahamo|linemo|uq|ymobile|docomo|sim|mnp|family|switch|new-life/.test(s)) return 'smaho';
+    return 'other';
+  };
+  const currentCategory = getCategory(slug);
+  const others = posts.filter(p => p.slug !== slug);
+  const sameCategory = others.filter(p => getCategory(p.slug) === currentCategory);
+  const related = sameCategory.length >= 3
+    ? sameCategory.slice(0, 3)
+    : [...sameCategory, ...others.filter(p => getCategory(p.slug) !== currentCategory)].slice(0, 3);
 
   const articleSchema = {
     '@context': 'https://schema.org',
@@ -350,13 +361,11 @@ export default async function BlogDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
       <style dangerouslySetInnerHTML={{ __html: BLOG_BODY_CSS }} />
-      <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
-        <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <Link href="/blog" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ブログ</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <span>{post.title}</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'ブログ', href: '/blog' },
+        { label: post.title },
+      ]} />
 
       <article>
         <img

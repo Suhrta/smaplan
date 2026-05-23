@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { SiteHeader } from '@/app/components/SiteHeader';
+import { Breadcrumb } from '@/app/components/Breadcrumb';
 
 export const metadata: Metadata = {
   title: '利用規約 | スマートプラン',
@@ -14,6 +15,10 @@ export default function TermsPage() {
     <div style={{ background: '#fff', minHeight: '100vh' }}>
       <SiteHeader />
       <main className="sp-container" style={{ padding: '40px 20px 60px', maxWidth: 760 }}>
+        <Breadcrumb items={[
+          { label: 'ホーム', href: '/' },
+          { label: '利用規約' },
+        ]} />
         <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px', color: 'var(--text-main)' }}>
           利用規約
         </h1>

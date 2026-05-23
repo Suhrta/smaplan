@@ -5,6 +5,7 @@ import plans from '@/data/kaisen-plans.json';
 import contents from '@/data/kaisen-contents.json';
 import { getKaisenLink, getKaisenImpression } from '@/data/kaisenAffiliateLinks';
 import { SiteHeader } from '../../components/SiteHeader';
+import { Breadcrumb } from '../../components/Breadcrumb';
 
 type Plan = (typeof plans)[number];
 type Content = {
@@ -107,13 +108,11 @@ export default async function KaisenDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <nav style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 12 }}>
-        <Link href="/" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>ホーム</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <Link href="/kaisen" style={{ color: 'var(--text-sub)', textDecoration: 'none' }}>回線診断</Link>
-        <span style={{ margin: '0 6px' }}>/</span>
-        <span>{plan.name}</span>
-      </nav>
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: '回線診断', href: '/kaisen' },
+        { label: plan.name },
+      ]} />
 
       <section style={{
         background: 'var(--bg-card)', border: '1px solid var(--border)',
