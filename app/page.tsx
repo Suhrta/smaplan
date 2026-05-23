@@ -182,7 +182,7 @@ export default function PortalPage() {
 
                 {/* Card — 回線プラン (middle-left) */}
                 <div className="absolute -left-2 top-[25%] z-10 anim-float-med sm:-left-16 lg:-left-14">
-                  <div className="md:-rotate-90">
+                  <div>
                     <Image
                       src="/hero/3.png"
                       alt="回線プラン — 光回線を比較"
@@ -195,7 +195,7 @@ export default function PortalPage() {
 
                 {/* Card — AIおすすめ (bottom-right) */}
                 <div className="absolute right-0 -bottom-2 z-10 anim-float-fast sm:-right-14 lg:-right-12">
-                  <div className="md:-rotate-90">
+                  <div>
                     <Image
                       src="/hero/2.png"
                       alt="AIおすすめ — あなたに最適なプランを提案しました"
