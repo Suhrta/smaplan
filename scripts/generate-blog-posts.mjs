@@ -268,7 +268,7 @@ async function main() {
   }
 
   const client = new Anthropic({ apiKey });
-  console.log(`Generating ${target.length} post(s) (count=${args.count}, available=${pending.length}, image=${args.image})`);
+  console.log(`Generating ${target.length} post(s) (count=${args.count}, available=${smahoPending.length + kaisenPending.length}, image=${args.image})`);
 
   let browser = null;
   if (args.image) {
