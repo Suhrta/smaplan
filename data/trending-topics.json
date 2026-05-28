@@ -1,26 +1,26 @@
 [
   {
-    "slug": "povo-topup-guide-2026",
-    "title": "povo2.0トッピング完全ガイド2026",
-    "keyword": "povo トッピング おすすめ 2026",
-    "category": "guide",
-    "type": "smaho",
-    "reason": "新生活シーズン後の5〜6月は固定費見直し需要が高まり、基本料0円のpovoが注目されるタイミングだが既存記事はpovo概要のみで活用法の詳細記事が未作成のため。"
-  },
-  {
-    "slug": "home-router-vs-hikari-cost-2026",
-    "title": "ホームルーターvs光回線どちらが安い？",
-    "keyword": "ホームルーター 光回線 比較 安い 2026",
+    "slug": "home-router-summer-2026",
+    "title": "2026年夏おすすめホームルーター比較",
+    "keyword": "ホームルーター おすすめ 2026",
     "category": "comparison",
     "type": "kaisen",
-    "reason": "引越し需要が落ち着く5月以降も「工事不要で使えるか」という観点でホームルーターと光回線のコスト比較への検索が継続的に高く、既存記事hikari-vs-home-routerより踏み込んだ金額比較記事の需要があるため。"
+    "reason": "新生活シーズン後の5〜6月はホームルーター需要が継続して高く、工事不要で使えるホームルーターへの乗り換えを検討するユーザーが増えるタイミングのため。"
   },
   {
-    "slug": "ahamo-irumo-switch-guide-2026",
-    "title": "ahamo→irumo乗り換えはお得？徹底比較",
-    "keyword": "ahamo irumo 乗り換え どっち 2026",
+    "slug": "docomo-ahamo-irumo-choose-2026",
+    "title": "ドコモ・ahamo・irumo どれが得か",
+    "keyword": "ahamo irumo どっち 2026",
     "category": "comparison",
     "type": "smaho",
-    "reason": "ドコモユーザーがahamoとirumoのどちらを選ぶべきか、2026年の最新料金・特典改定を受けて検索数が増加しており、両プランを正面から比較した記事が既存ラインナップに存在しないため。"
+    "reason": "ドコモ回線ユーザーがirumo／ahamoへの移行を検討するケースが増加しており、3プランの使い分けや最安構成への関心が2026年春〜夏にかけて高まっているため。"
+  },
+  {
+    "slug": "esim-instant-switch-guide-2026",
+    "title": "eSIM即日乗り換えの手順と注意点",
+    "keyword": "eSIM 即日 乗り換え やり方",
+    "category": "guide",
+    "type": "smaho",
+    "reason": "各キャリアのeSIM対応が普及し、物理SIM不要で即日開通できる格安SIMへの関心がGW前後の外出需要増に伴い急上昇しているため。"
   }
 ]
