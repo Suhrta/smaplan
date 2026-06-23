@@ -1,9 +1,14 @@
 import type { MetadataRoute } from 'next';
 import plans from '@/data/plans.json';
 import kaisenPlans from '@/data/kaisen-plans.json';
+import kaisenContents from '@/data/kaisen-contents.json';
 import posts from '@/data/blog-posts.json';
 
 const baseUrl = 'https://smaplan.com';
+
+// 実ページが生成されている回線プランのみ（kaisen-contents にあるもの）。
+// これを絞らないと、ページ未生成のIDがsitemapに載って404になる
+const kaisenIdsWithPage = new Set(Object.keys(kaisenContents));
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -22,12 +27,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     })),
-    ...kaisenPlans.map(p => ({
-      url: `${baseUrl}/kaisen/${p.id}`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    })),
+    ...kaisenPlans
+      .filter(p => kaisenIdsWithPage.has(p.id))
+      .map(p => ({
+        url: `${baseUrl}/kaisen/${p.id}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      })),
     ...posts.map(p => ({
       url: `${baseUrl}/blog/${p.slug}`,
       lastModified: new Date(p.publishedAt),

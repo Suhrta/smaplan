@@ -32,7 +32,7 @@ export async function generateMetadata(
   const { slug } = await params;
   const plan = findPlan(slug);
   if (!plan) return {};
-  const title = `${plan.plan_name}のメリット・デメリット | スマプラン`;
+  const title = `${plan.plan_name}の料金・メリット・デメリット【2026年最新】| スマートプラン`;
   const dataLabel = plan.data_gb === 999 ? '無制限' : `${plan.data_gb}GB`;
   const description = `${plan.carrier}「${plan.plan_name}」（月${plan.monthly_cost.toLocaleString()}円 / ${dataLabel}）のメリット・デメリットを中立的に解説。10問のAI診断で本当にあなたに合うプランを無料で確認できます。`;
   return {
@@ -75,13 +75,20 @@ export default async function CarrierDetailPage({
     '@type': 'Article',
     headline: `${plan.plan_name}のメリット・デメリット`,
     description: content.summary,
-    author: { '@type': 'Organization', name: 'スマプラン' },
-    publisher: { '@type': 'Organization', name: 'スマプラン' },
+    author: { '@type': 'Organization', name: 'スマートプラン' },
+    publisher: { '@type': 'Organization', name: 'スマートプラン' },
     mainEntityOfPage: `https://smaplan.com/carrier/${plan.id}`,
     about: {
       '@type': 'Product',
       name: plan.plan_name,
       brand: { '@type': 'Brand', name: plan.carrier },
+      offers: {
+        '@type': 'Offer',
+        priceCurrency: 'JPY',
+        price: plan.monthly_cost,
+        availability: 'https://schema.org/InStock',
+        url: `https://smaplan.com/carrier/${plan.id}`,
+      },
     },
   };
 

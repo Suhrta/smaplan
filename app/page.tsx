@@ -4,6 +4,12 @@ import type { Metadata } from 'next';
 import { SiteHeader } from './components/SiteHeader';
 import { FadeIn } from './components/FadeIn';
 import blogPosts from '@/data/blog-posts.json';
+import plans from '@/data/plans.json';
+import kaisenPlans from '@/data/kaisen-plans.json';
+import kaisenContents from '@/data/kaisen-contents.json';
+
+// 実ページがある回線プランのみリンク（404防止）
+const kaisenIdsWithPage = new Set(Object.keys(kaisenContents));
 
 export const metadata: Metadata = {
   title: 'スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】',
@@ -437,6 +443,65 @@ export default function PortalPage() {
         </div>
       </section>
 
+      {/* ═══════════════ PLANS ═══════════════ */}
+      <section className="py-14 sm:py-20 md:py-28" style={{ background: 'linear-gradient(180deg, #fafafe 0%, #ffffff 100%)' }}>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
+          <FadeIn>
+            <div className="text-center">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#888] sm:text-[12px]">
+                Plans
+              </div>
+              <h2 className="mt-3 text-[22px] font-bold tracking-tight text-[#111] sm:text-[28px] md:text-[40px]">
+                プランから探す
+              </h2>
+              <p className="mx-auto mt-3 max-w-xl text-[14px] leading-[1.8] text-[#555] sm:mt-4 sm:text-[15px]">
+                気になるスマホ料金プラン・ネット回線を<br className="sm:hidden" />直接チェックできます。
+              </p>
+            </div>
+          </FadeIn>
+
+          <FadeIn delayMs={80}>
+            <div className="mt-10 grid gap-8 sm:mt-12 md:grid-cols-2">
+              <div>
+                <div className="mb-3 flex items-center justify-between">
+                  <h3 className="text-base font-bold text-[#111]">スマホ料金プラン</h3>
+                  <Link href="/carriers" className="text-sm font-semibold text-[#4338ca] no-underline hover:underline">
+                    一覧を見る →
+                  </Link>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {plans.map((p) => (
+                    <Link
+                      key={p.id}
+                      href={`/carrier/${p.id}`}
+                      className="rounded-full border border-[#e0e0e0] bg-white px-3 py-1.5 text-[13px] text-[#333] no-underline transition-colors hover:border-[#4338ca] hover:text-[#4338ca]"
+                    >
+                      {p.plan_name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h3 className="mb-3 text-base font-bold text-[#111]">ネット回線プラン</h3>
+                <div className="flex flex-wrap gap-2">
+                  {kaisenPlans
+                    .filter((p) => kaisenIdsWithPage.has(p.id))
+                    .map((p) => (
+                      <Link
+                        key={p.id}
+                        href={`/kaisen/${p.id}`}
+                        className="rounded-full border border-[#e0e0e0] bg-white px-3 py-1.5 text-[13px] text-[#333] no-underline transition-colors hover:border-[#1d4ed8] hover:text-[#1d4ed8]"
+                      >
+                        {p.name}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ═══════════════ BLOG ═══════════════ */}
       <section id="blog" className="scroll-mt-20 py-14 sm:py-20 md:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8">
@@ -568,6 +633,12 @@ export default function PortalPage() {
                 >
                   使い方
                 </a>
+                <Link
+                  href="/carriers"
+                  className="text-sm text-white/50 no-underline transition-colors hover:text-white/80"
+                >
+                  スマホ料金プラン一覧
+                </Link>
                 <Link
                   href="/blog"
                   className="text-sm text-white/50 no-underline transition-colors hover:text-white/80"

@@ -50,10 +50,26 @@ function groupPlans(plans: typeof import('@/data/plans.json')) {
 
 export default function CarriersIndexPage() {
   const groups = groupPlans(plans);
+  const itemListLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'スマホ料金プラン一覧',
+    numberOfItems: plans.length,
+    itemListElement: plans.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://smaplan.com/carrier/${p.id}`,
+      name: p.plan_name,
+    })),
+  };
   return (
     <>
       <SiteHeader />
       <main style={{ maxWidth: 720, margin: '0 auto', padding: '24px 20px 40px' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListLd) }}
+      />
       <Breadcrumb items={[
         { label: 'ホーム', href: '/' },
         { label: 'プラン一覧' },
