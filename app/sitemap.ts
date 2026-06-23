@@ -10,6 +10,9 @@ const baseUrl = 'https://smaplan.com';
 // これを絞らないと、ページ未生成のIDがsitemapに載って404になる
 const kaisenIdsWithPage = new Set(Object.keys(kaisenContents));
 
+// データ容量別「最安」ページ（/smaho/data/[gb]）。app/smaho/data/[gb]/page.tsx の TIERS と一致させる
+const dataTierSlugs = ['3gb', '5gb', '10gb', '20gb', '30gb', '50gb', 'unlimited'];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   return [
@@ -40,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(p.publishedAt),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+    })),
+    ...dataTierSlugs.map(slug => ({
+      url: `${baseUrl}/smaho/data/${slug}`,
+      lastModified: now,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
     })),
   ];
 }

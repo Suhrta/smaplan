@@ -83,11 +83,40 @@ export default function CarriersIndexPage() {
       </h1>
       <p style={{
         fontSize: 14, color: 'var(--text-sub)', lineHeight: 1.7,
-        margin: '0 0 24px',
+        margin: '0 0 20px',
       }}>
         主要20プランのメリット・デメリットを中立的にまとめています。<br />
         迷ったら<Link href="/" style={{ color: 'var(--accent)', fontWeight: 700 }}>10問のAI診断</Link>で自分に合うプランを見つけてください。
       </p>
+
+      <section style={{ marginBottom: 28 }}>
+        <h2 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 10px', color: 'var(--text-main)' }}>
+          データ容量から最安を探す
+        </h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {[
+            { slug: '3gb', label: '3GB' },
+            { slug: '5gb', label: '5GB' },
+            { slug: '10gb', label: '10GB' },
+            { slug: '20gb', label: '20GB' },
+            { slug: '30gb', label: '30GB' },
+            { slug: '50gb', label: '50GB以上' },
+            { slug: 'unlimited', label: '無制限' },
+          ].map((t) => (
+            <Link
+              key={t.slug}
+              href={`/smaho/data/${t.slug}`}
+              style={{
+                padding: '8px 14px', background: 'var(--bg-card)',
+                border: '1px solid var(--border)', borderRadius: 999,
+                fontSize: 13, fontWeight: 600, textDecoration: 'none', color: 'var(--accent)',
+              }}
+            >
+              {t.label}の最安 →
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
         {groups.map(([groupName, groupPlans]) => (
