@@ -357,7 +357,7 @@
     "priority": 1,
     "category": "review",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "nuro-hikari-review",
