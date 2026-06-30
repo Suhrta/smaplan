@@ -405,7 +405,7 @@
     "priority": 1,
     "category": "comparison",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "docomo-hikari-vs-au-hikari",
