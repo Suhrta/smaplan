@@ -477,7 +477,7 @@
     "priority": 1,
     "category": "knowledge",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "wifi-trouble-fix",
