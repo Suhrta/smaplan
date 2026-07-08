@@ -373,7 +373,7 @@
     "priority": 2,
     "category": "review",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "gmo-hikari-review",
