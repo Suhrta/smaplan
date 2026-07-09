@@ -389,7 +389,7 @@
     "priority": 2,
     "category": "review",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "biglobe-hikari-review",
