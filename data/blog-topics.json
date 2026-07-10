@@ -397,7 +397,7 @@
     "priority": 2,
     "category": "review",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "hikari-vs-home-router",
