@@ -421,7 +421,7 @@
     "priority": 2,
     "category": "comparison",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "hikari-collabo-comparison",
