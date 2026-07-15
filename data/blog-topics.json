@@ -493,7 +493,7 @@
     "priority": 2,
     "category": "knowledge",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "router-how-to-choose",
