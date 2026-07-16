@@ -501,7 +501,7 @@
     "priority": 2,
     "category": "guide",
     "type": "kaisen",
-    "generated": false
+    "generated": true
   },
   {
     "slug": "hikari-collabo-explained",
