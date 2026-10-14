@@ -31,6 +31,8 @@ type Recommendation = {
   reason: string;
   annual_saving: number;
   affiliate_key: string;
+  // 家族割・セット割などをすべて満たした場合の最安値（条件付き）。通常料金と並べて表示する
+  discount?: { monthly_cost: number; conditions: string };
 };
 
 type RelatedPost = {
@@ -95,6 +97,7 @@ function getRelatedPosts(recommendations: Recommendation[]): RelatedPost[] {
 }
 
 const VALID_KEYS = new Set(plans.map(p => p.id));
+const PLAN_BY_ID = new Map(plans.map(p => [p.id, p]));
 
 const SYSTEM_PROMPT = `あなたはスマホ料金の専門家「スマプラン」のAIアドバイザーです。
 ユーザーの10問診断の回答に基づき、以下のプランデータベースから最適なプランを3つ選んでください。
@@ -133,6 +136,8 @@ const SYSTEM_PROMPT = `あなたはスマホ料金の専門家「スマプラン
   - マイナス（現在より高い）になる場合、その値（負数）をそのまま annual_saving にセットし、reason に「データ容量が◯倍」「通話込みで従量課金が不要」などコスパ改善の具体的な理由を必ず明記する
 - 3つの推薦は異なるキャリアまたは容量レンジから選ぶこと（同じ事業者の似たプランを並べない）
 - affiliate_key は必ずプランデータベースの id と完全一致させること（独自のキーを作らない）
+- monthly_cost には割引前の通常料金（plansの monthly_cost）を入れること。monthly_cost_min_with_discounts は条件付きの最安値なので monthly_cost に使わない
+- reason や advice で割引後の料金に触れる場合は、必ずその適用条件（discount_conditions）も一緒に書くこと
 
 ## プランデータベース（JSON）
 ${JSON.stringify(plans, null, 0)}
@@ -213,7 +218,17 @@ export async function POST(req: NextRequest) {
         console.warn('Unknown affiliate_key from AI:', rec.affiliate_key);
         return { ...rec, affiliate_key: '' };
       }
-      return rec;
+      // 料金と節約額は AI の出力ではなくプランデータから確定させる（条件付きの最安値が通常料金として出るのを防ぐ）
+      const plan = PLAN_BY_ID.get(rec.affiliate_key)!;
+      const normalized: Recommendation = {
+        ...rec,
+        monthly_cost: plan.monthly_cost,
+        annual_saving: (data.current_estimated_cost - plan.monthly_cost) * 12,
+      };
+      if (plan.monthly_cost_min_with_discounts && plan.discount_conditions) {
+        normalized.discount = { monthly_cost: plan.monthly_cost_min_with_discounts, conditions: plan.discount_conditions };
+      }
+      return normalized;
     });
 
     data.related_posts = getRelatedPosts(data.recommendations);

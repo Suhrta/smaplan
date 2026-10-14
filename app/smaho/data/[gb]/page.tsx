@@ -37,14 +37,11 @@ function findTier(slug: string) {
   return TIERS.find((t) => t.slug === slug);
 }
 
-function effectivePrice(p: Plan): number {
-  return p.monthly_cost_min_with_discounts ?? p.monthly_cost;
-}
-
 function rankedPlans(tier: (typeof TIERS)[number]): Plan[] {
   return plans
     .filter((p) => tier.match(p.data_gb))
-    .sort((a, b) => effectivePrice(a) - effectivePrice(b));
+    // 割引後の最安値は条件付きなので、順位は通常の月額料金で決める
+    .sort((a, b) => a.monthly_cost - b.monthly_cost);
 }
 
 export async function generateMetadata(
@@ -57,7 +54,7 @@ export async function generateMetadata(
   const cheapest = ranked[0];
   const title = `${tier.label}のスマホ料金 最安比較ランキング${freshLabel(ranked) || ' '}| スマートプラン`;
   const description = cheapest
-    ? `${tier.label}でおすすめのスマホ料金プランを安い順に比較。最安は${cheapest.carrier}の月${effectivePrice(cheapest).toLocaleString()}円〜。${ranked.length}プランの料金・特徴を中立的にまとめました。`
+    ? `${tier.label}でおすすめのスマホ料金プランを安い順に比較。最安は${cheapest.carrier}の月${cheapest.monthly_cost.toLocaleString()}円。${ranked.length}プランの料金・特徴を中立的にまとめました。`
     : `${tier.label}のスマホ料金プランを安い順に比較。`;
   return {
     title,
@@ -126,7 +123,7 @@ export default async function DataTierPage({
         </h1>
         <p style={{ fontSize: 14, color: 'var(--text-sub)', lineHeight: 1.7, margin: '0 0 24px' }}>
           {tier.heading}で使えるスマホ料金プランを、月額料金の安い順に{ranked.length}件まとめました。
-          料金は割引適用後の最安値を基準に比較しています。迷ったら
+          順位は割引なしの通常料金で比較し、家族割・セット割などで安くなるプランは条件と割引後の料金を併記しています。迷ったら
           <Link href="/smaho" style={{ color: 'var(--accent)', fontWeight: 700 }}>10問のAI診断</Link>
           で自分に最適なプランを確認できます。
         </p>
@@ -135,7 +132,6 @@ export default async function DataTierPage({
         <div style={{ display: 'grid', gap: 10 }}>
           {ranked.map((p, i) => {
             const dataLabel = p.data_gb === 999 ? '無制限' : `${p.data_gb}GB`;
-            const price = effectivePrice(p);
             return (
               <TrackedNextLink
                 key={p.id}
@@ -165,13 +161,19 @@ export default async function DataTierPage({
                   </div>
                   <div style={{ textAlign: 'right', flexShrink: 0 }}>
                     <div style={{ fontSize: 18, fontWeight: 800, color: 'var(--accent)' }}>
-                      {price.toLocaleString()}
-                      <span style={{ fontSize: 11, fontWeight: 600 }}>円/月〜</span>
+                      {p.monthly_cost.toLocaleString()}
+                      <span style={{ fontSize: 11, fontWeight: 600 }}>円/月</span>
                     </div>
                     <div style={{ fontSize: 11, color: 'var(--text-sub)' }}>{dataLabel}</div>
                   </div>
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--text-sub)', lineHeight: 1.5 }}>{p.target}</div>
+                {p.monthly_cost_min_with_discounts && (
+                  <div style={{ fontSize: 11, color: 'var(--text-sub)', lineHeight: 1.6, marginTop: 6, paddingTop: 6, borderTop: '1px dashed var(--border)' }}>
+                    <strong style={{ color: 'var(--text-main)' }}>条件付き最安 {p.monthly_cost_min_with_discounts.toLocaleString()}円/月</strong>
+                    ：{p.discount_conditions}（他サービスの料金は別途）
+                  </div>
+                )}
               </TrackedNextLink>
             );
           })}

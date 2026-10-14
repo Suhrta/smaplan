@@ -229,6 +229,7 @@ type Recommendation = {
   reason: string;
   annual_saving: number;
   affiliate_key: string;
+  discount?: { monthly_cost: number; conditions: string };
 };
 
 type RelatedPost = {
@@ -1246,6 +1247,13 @@ function HomeInner() {
                       </span>
                     )}
                   </div>
+
+                  {rec.discount && (
+                    <p className="-mt-1 mb-3 rounded-lg border border-dashed border-[#e0e0e0] px-3 py-2 text-xs leading-relaxed text-[#555]">
+                      <span className="font-bold text-[#111]">条件付き最安 {rec.discount.monthly_cost.toLocaleString()}円/月</span>
+                      （上の金額は通常料金）：{rec.discount.conditions}。他サービスの料金は別途かかります。
+                    </p>
+                  )}
 
                   <div className="mb-3 flex flex-wrap gap-1.5">
                     <span className="flex items-center gap-1 rounded-md border border-[#e8e8e8] bg-[#f8f8fa] px-2.5 py-1 text-xs text-[#555]">

@@ -135,12 +135,22 @@ export default async function CarrierDetailPage({
             {plan.monthly_cost.toLocaleString()}
           </span>
           <span style={{ fontSize: 14, color: 'var(--accent)', fontWeight: 600 }}>円/月</span>
-          {plan.monthly_cost_min_with_discounts && (
-            <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--text-sub)' }}>
-              各種割引適用時 最安 {plan.monthly_cost_min_with_discounts.toLocaleString()}円
-            </span>
-          )}
+          <span style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--text-sub)' }}>通常料金</span>
         </div>
+        {/* 割引後の最安値は条件がそろった場合だけなので、必ず通常料金と条件を並べて出す */}
+        {plan.monthly_cost_min_with_discounts && (
+          <div style={{
+            fontSize: 12, lineHeight: 1.7, color: 'var(--text-sub)',
+            padding: '8px 12px', border: '1px dashed var(--border)', borderRadius: 8, margin: '-4px 0 12px',
+          }}>
+            <strong style={{ color: 'var(--text-main)' }}>
+              条件付き最安 {plan.monthly_cost_min_with_discounts.toLocaleString()}円/月
+            </strong>
+            （通常 {plan.monthly_cost.toLocaleString()}円/月）
+            <br />
+            条件：{plan.discount_conditions}。光回線・電気など他サービスの料金は別途かかります。
+          </div>
+        )}
         <VerifiedNote verifiedAt={plan.verified_at} sourceUrl={plan.source_url} />
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
           <span style={{
