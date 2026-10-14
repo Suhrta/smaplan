@@ -46,10 +46,6 @@ const kaisenAffiliateLinks: Record<string, AffiliateEntry> = {
     link: "https://h.accesstrade.net/sp/cc?rk=0100q48c00or4w",
     impression: "",
   },
-  plaio_wimax: {
-    link: "https://h.accesstrade.net/sp/cc?rk=0100pzk500or4w",
-    impression: "",
-  },
 };
 
 // 公式サイトURLは kaisen-plans.json の source_url（料金確認に使ったページ）を正とする

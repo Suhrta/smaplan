@@ -39,3 +39,34 @@ export function VerifiedNote({
     </p>
   );
 }
+
+type PriceChange = {
+  date: string;
+  monthly_cost_house: number;
+  monthly_cost_mansion: number;
+  note: string;
+};
+
+// 予定されている料金改定の注記（kaisen-plans.json の price_change）。改定日を過ぎたら料金データ側を更新して price_change を消す
+export function PriceChangeNote({ change }: { change?: PriceChange | null }) {
+  if (!change) return null;
+  const label = formatVerifiedAt(change.date);
+  const sameCost = change.monthly_cost_house === change.monthly_cost_mansion;
+  return (
+    <p style={{
+      fontSize: 12, lineHeight: 1.7, color: '#92400e', background: '#fffbeb',
+      border: '1px solid #fde68a', borderRadius: 8, padding: '8px 12px', margin: '0 0 12px',
+    }}>
+      ⚠ {change.note}
+      {label && (
+        <>
+          （{label}以降：
+          {sameCost
+            ? `${change.monthly_cost_house.toLocaleString()}円/月`
+            : `戸建て${change.monthly_cost_house.toLocaleString()}円・マンション${change.monthly_cost_mansion.toLocaleString()}円/月`}
+          ）
+        </>
+      )}
+    </p>
+  );
+}

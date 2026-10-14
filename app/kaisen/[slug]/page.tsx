@@ -7,7 +7,7 @@ import { getKaisenLink, getKaisenImpression, isKaisenAffiliate } from '@/data/ka
 import { SiteHeader } from '../../components/SiteHeader';
 import { Breadcrumb } from '../../components/Breadcrumb';
 import { TrackedLink } from '../../components/TrackedLink';
-import { VerifiedNote } from '../../components/VerifiedNote';
+import { VerifiedNote, PriceChangeNote } from '../../components/VerifiedNote';
 
 type Plan = (typeof plans)[number];
 type Content = {
@@ -169,6 +169,7 @@ export default async function KaisenDetailPage({
           </div>
         </div>
         <VerifiedNote verifiedAt={plan.verified_at} sourceUrl={plan.source_url} />
+        <PriceChangeNote change={plan.price_change} />
 
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
           <span style={{

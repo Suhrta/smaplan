@@ -18,7 +18,7 @@
     "notes": "割引なしだと8,448円と高額。割引条件（ドコモ光・家族3回線以上・dカード）を満たさないと割高",
     "affiliate_key": "docomo_max",
     "source_url": "https://www.docomo.ne.jp/charge/docomo_max/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "docomo_mini_4gb",
@@ -39,7 +39,7 @@
     "notes": "4GBで2,750円は格安SIMの数倍。ドコモ品質にこだわらなければ割高",
     "affiliate_key": "docomo_mini_4gb",
     "source_url": "https://www.docomo.ne.jp/charge/docomo_mini/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "docomo_mini_10gb",
@@ -60,7 +60,7 @@
     "notes": "割引なしだと3,850円。MVNO系なら同容量で半額以下",
     "affiliate_key": "docomo_mini_10gb",
     "source_url": "https://www.docomo.ne.jp/charge/docomo_mini/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "ahamo_30gb",
@@ -80,7 +80,7 @@
     "notes": "都心部でパケ詰まり（通信混雑）の報告多数。地方では安定。NTTが5G基地局を急ピッチで増設中（2026年）",
     "affiliate_key": "ahamo_30gb",
     "source_url": "https://ahamo.com/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "ahamo_110gb",
@@ -100,7 +100,7 @@
     "notes": "パケ詰まり問題はahamo共通。110GBは魅力だが楽天モバイル無制限より1,672円高い",
     "affiliate_key": "ahamo_110gb",
     "source_url": "https://ahamo.com/plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "povo_3gb",
@@ -119,28 +119,28 @@
     "target": "小容量・トッピング自由・au品質",
     "notes": "基本料0円だがトッピング忘れると128kbps。180日間トッピングなしで自動解約リスク",
     "affiliate_key": "povo_3gb",
-    "source_url": "https://povo.jp/",
-    "verified_at": ""
+    "source_url": "https://povo.jp/topping-simulator/",
+    "verified_at": "2026-10-14"
   },
   {
     "id": "povo_20gb",
     "carrier": "povo2.0",
     "carrier_parent": "au",
-    "plan_name": "povo2.0（20GB/30日トッピング）",
-    "monthly_cost": 2700,
-    "data_gb": 20,
+    "plan_name": "povo2.0（360GB/365日トッピング・月30GB目安）",
+    "monthly_cost": 2200,
+    "data_gb": 30,
     "data_exceeded_speed": "128kbps",
     "call_included": "なし（5分/無制限オプションあり）",
     "call_unlimited_option": 1650,
     "network": "au回線",
     "family_discount": false,
     "bundle_discount": false,
-    "features": ["au回線の中容量プラン", "基本料0円＋必要な時だけトッピング", "期間限定の大容量トッピングもあり", "180日以内にトッピング購入が必要"],
-    "target": "中容量・au品質・柔軟な料金",
-    "notes": "基本料0円だがトッピング忘れると128kbps。180日間トッピングなしで自動解約リスク",
+    "features": ["データ追加360GB（365日間）26,400円＝1ヶ月あたり約2,200円", "基本料0円＋トッピング制", "au回線", "30日単位なら30GB/2,780円・5GB/1,380円"],
+    "target": "年単位でまとめ買いできる人・中容量・au品質",
+    "notes": "26,400円を一括購入（1ヶ月あたり約30GB・2,200円の目安）。使い切れなくても返金なし。20GB（30日）トッピングは2025年10月に廃止",
     "affiliate_key": "povo_20gb",
-    "source_url": "https://povo.jp/",
-    "verified_at": ""
+    "source_url": "https://povo.jp/topping-simulator/",
+    "verified_at": "2026-10-14"
   },
   {
     "id": "linemo_best_3gb",
@@ -160,7 +160,7 @@
     "notes": "LINEギガフリーが強み。ソフトバンク回線で都心部も安定",
     "affiliate_key": "linemo_best_3gb",
     "source_url": "https://www.linemo.jp/plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "linemo_best_10gb",
@@ -180,7 +180,7 @@
     "notes": "3GB超えると自動で2,090円に上がる。使い方次第でpovoの方が安い月も",
     "affiliate_key": "linemo_best_10gb",
     "source_url": "https://www.linemo.jp/plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "linemo_best_v",
@@ -200,7 +200,7 @@
     "notes": "LINEギガフリーが強み。ソフトバンク回線で都心部も安定",
     "affiliate_key": "linemo_best_v",
     "source_url": "https://www.linemo.jp/lp/0000/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "uq_komikomi_value",
@@ -219,16 +219,16 @@
     "target": "中〜大容量・通話も使う・au品質・店舗サポート",
     "notes": "au回線で安定。自宅セット割がないと3,828円でやや高め",
     "affiliate_key": "uq_komikomi_value",
-    "source_url": "https://www.uqwimax.jp/mobile/newplan/",
-    "verified_at": ""
+    "source_url": "https://www.uqwimax.jp/mobile/plan/komikomi-pv/",
+    "verified_at": "2026-10-14"
   },
   {
     "id": "ymobile_simple3_s",
     "carrier": "Y!mobile",
     "carrier_parent": "ソフトバンク",
     "plan_name": "シンプル3 S（5GB）",
-    "monthly_cost": 3058,
-    "monthly_cost_min_with_discounts": 1408,
+    "monthly_cost": 3278,
+    "monthly_cost_min_with_discounts": 858,
     "data_gb": 5,
     "data_exceeded_speed": "300kbps",
     "call_included": "なし（10分/無制限オプションあり）",
@@ -238,18 +238,18 @@
     "bundle_discount": true,
     "features": ["家族割で2回線目以降1,100円引", "おうち割光セット(A)で1,650円引", "繰り越し対応", "ソフトバンク品質・店舗サポートあり"],
     "target": "小容量・家族でまとめたい・ソフトバンク光ユーザー",
-    "notes": "家族割が強い。ソフトバンク回線で安定。割引なしだと3,058円で割高",
+    "notes": "家族割が強い。ソフトバンク回線で安定。割引なしだと3,278円で割高。2026年6月に月額220円値上げ",
     "affiliate_key": "ymobile_simple3_s",
     "source_url": "https://www.ymobile.jp/plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "ymobile_simple3_m",
     "carrier": "Y!mobile",
     "carrier_parent": "ソフトバンク",
     "plan_name": "シンプル3 M（30GB）",
-    "monthly_cost": 4158,
-    "monthly_cost_min_with_discounts": 2508,
+    "monthly_cost": 4378,
+    "monthly_cost_min_with_discounts": 1958,
     "data_gb": 30,
     "data_exceeded_speed": "1Mbps",
     "call_included": "なし（10分/無制限オプションあり）",
@@ -259,10 +259,10 @@
     "bundle_discount": true,
     "features": ["家族割で2回線目以降1,100円引", "おうち割光セット(A)で1,650円引", "30GBで中〜大容量に対応", "繰り越し対応", "店舗サポートあり"],
     "target": "中〜大容量・家族でまとめたい・ソフトバンク光ユーザー",
-    "notes": "家族割が強い。ソフトバンク回線で安定。割引なしだと4,158円で格安SIMの倍以上",
+    "notes": "家族割が強い。ソフトバンク回線で安定。割引なしだと4,378円で格安SIMの倍以上。2026年6月に月額220円値上げ",
     "affiliate_key": "ymobile_simple3_m",
     "source_url": "https://www.ymobile.jp/plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "rakuten_saikyo",
@@ -282,7 +282,7 @@
     "notes": "電波改善中だが地下・建物内で繋がりにくい場所あり。データ無制限は魅力",
     "affiliate_key": "rakuten_saikyo",
     "source_url": "https://network.mobile.rakuten.co.jp/fee/saikyo-plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "iijmio_5gb",
@@ -302,27 +302,27 @@
     "notes": "料金最安クラスだが昼12時台は速度低下しやすい（MVNO共通の弱点）",
     "affiliate_key": "iijmio_5gb",
     "source_url": "https://www.iijmio.jp/gigaplan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "iijmio_20gb",
     "carrier": "IIJmio",
     "carrier_parent": "MVNO（ドコモ/au回線）",
-    "plan_name": "ギガプラン 20GB",
+    "plan_name": "ギガプラン 25GB",
     "monthly_cost": 2000,
-    "data_gb": 20,
+    "data_gb": 25,
     "data_exceeded_speed": "300kbps",
     "call_included": "なし（5分/10分/無制限オプションあり）",
     "call_unlimited_option": 1400,
     "network": "ドコモ/au回線（選択可）",
     "family_discount": false,
     "bundle_discount": false,
-    "features": ["20GBで業界最安級", "データシェア/プレゼント可能", "eSIM対応", "混雑時は速度低下あり"],
+    "features": ["25GBで業界最安級", "データシェア/プレゼント可能", "eSIM対応", "混雑時は速度低下あり"],
     "target": "安さ重視・中容量",
     "notes": "料金最安クラスだが昼12時台は速度低下しやすい（MVNO共通の弱点）",
     "affiliate_key": "iijmio_20gb",
     "source_url": "https://www.iijmio.jp/gigaplan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "mineo_mypita_15gb",
@@ -342,7 +342,7 @@
     "notes": "パケット放題Plusは1.5Mbps。動画視聴には不十分な場合あり",
     "affiliate_key": "mineo_mypita_15gb",
     "source_url": "https://mineo.jp/price/mypita/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "nichitsu_minna_20gb",
@@ -362,7 +362,7 @@
     "notes": "料金は安いがサポートが薄い。ドコモ回線。混雑時は速度低下あり",
     "affiliate_key": "nichitsu_minna_20gb",
     "source_url": "https://www.nihontsushin.com/plan/planminna.html",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "nichitsu_50gb",
@@ -382,7 +382,7 @@
     "notes": "料金は安いがサポートが薄い。ドコモ回線。混雑時は速度低下あり",
     "affiliate_key": "nichitsu_50gb",
     "source_url": "https://www.nihontsushin.com/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   },
   {
     "id": "aeon_saiteki_3gb",
@@ -402,6 +402,6 @@
     "notes": "店舗サポートは安心だが料金はIIJmio等より高め。速度はMVNO並み",
     "affiliate_key": "aeon_saiteki_3gb",
     "source_url": "https://aeonmobile.jp/plan/",
-    "verified_at": ""
+    "verified_at": "2026-10-14"
   }
 ]
