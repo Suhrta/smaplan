@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import plans from '@/data/kaisen-plans.json';
 import contents from '@/data/kaisen-contents.json';
-import { getKaisenLink, getKaisenImpression } from '@/data/kaisenAffiliateLinks';
+import { getKaisenLink, getKaisenImpression, isKaisenAffiliate } from '@/data/kaisenAffiliateLinks';
 import { SiteHeader } from '../../components/SiteHeader';
 import { Breadcrumb } from '../../components/Breadcrumb';
+import { TrackedLink } from '../../components/TrackedLink';
+import { VerifiedNote } from '../../components/VerifiedNote';
 
 type Plan = (typeof plans)[number];
 type Content = {
@@ -47,7 +49,9 @@ export async function generateMetadata(
   const { slug } = await params;
   const plan = findPlan(slug);
   if (!plan) return {};
-  const title = `${plan.name}の料金・メリット・デメリット【2026年最新】| スマートプラン`;
+  // 「最新」表記は料金確認済みのプランだけに付ける
+  const fresh = plan.verified_at ? `【${plan.verified_at.slice(0, 4)}年最新】` : '';
+  const title = `${plan.name}の料金・メリット・デメリット${fresh || ' '}| スマートプラン`;
   const description = `${plan.provider_parent}「${plan.name}」（戸建て月${plan.monthly_cost_house.toLocaleString()}円 / マンション月${plan.monthly_cost_mansion.toLocaleString()}円 / 最大${plan.max_speed}）のメリット・デメリットを中立的に解説。AIが最適な回線プランを無料で診断します。`;
   return {
     title,
@@ -164,6 +168,7 @@ export default async function KaisenDetailPage({
             </div>
           </div>
         </div>
+        <VerifiedNote verifiedAt={plan.verified_at} sourceUrl={plan.source_url} />
 
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
           <span style={{
@@ -322,10 +327,12 @@ export default async function KaisenDetailPage({
         >
           AI診断で自分に合う回線を探す
         </Link>
-        <a
+        <TrackedLink
           href={affiliateHref}
           target="_blank"
           rel="nofollow noopener sponsored"
+          event="outbound_cta_click"
+          params={{ plan_id: plan.id, page_type: 'kaisen_detail', is_affiliate: isKaisenAffiliate(plan.id) }}
           style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             width: '100%', minHeight: 48,
@@ -336,7 +343,7 @@ export default async function KaisenDetailPage({
           }}
         >
           公式サイトで詳細を見る →
-        </a>
+        </TrackedLink>
         {impressionSrc && (
           <img src={impressionSrc} width={1} height={1} alt="" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
         )}

@@ -83,7 +83,7 @@ export default function PrivacyPage() {
           <h2 style={{ fontSize: 18, fontWeight: 700, margin: '0 0 10px' }}>6. お問い合わせ</h2>
           <p style={{ fontSize: 14, lineHeight: 1.9, color: 'var(--text-main)', margin: 0 }}>
             本ポリシーに関するお問い合わせは
-            <Link href="/legal/about" style={{ color: 'var(--accent)', marginLeft: 4 }}>
+            <Link href="/legal/about#contact" style={{ color: 'var(--accent)', marginLeft: 4 }}>
               運営者情報
             </Link>
             記載の窓口までお願いします。

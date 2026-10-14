@@ -3,9 +3,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import plans from '@/data/plans.json';
 import contents from '@/data/carrier-contents.json';
-import { getLink } from '@/data/affiliateLinks';
+import { getLink, getImpression, isAffiliate } from '@/data/affiliateLinks';
 import { SiteHeader } from '../../components/SiteHeader';
 import { Breadcrumb } from '../../components/Breadcrumb';
+import { TrackedLink } from '../../components/TrackedLink';
+import { VerifiedNote } from '../../components/VerifiedNote';
 
 type Plan = (typeof plans)[number];
 type Content = {
@@ -32,7 +34,9 @@ export async function generateMetadata(
   const { slug } = await params;
   const plan = findPlan(slug);
   if (!plan) return {};
-  const title = `${plan.plan_name}の料金・メリット・デメリット【2026年最新】| スマートプラン`;
+  // 「最新」表記は料金確認済みのプランだけに付ける
+  const fresh = plan.verified_at ? `【${plan.verified_at.slice(0, 4)}年最新】` : '';
+  const title = `${plan.plan_name}の料金・メリット・デメリット${fresh || ' '}| スマートプラン`;
   const dataLabel = plan.data_gb === 999 ? '無制限' : `${plan.data_gb}GB`;
   const description = `${plan.carrier}「${plan.plan_name}」（月${plan.monthly_cost.toLocaleString()}円 / ${dataLabel}）のメリット・デメリットを中立的に解説。10問のAI診断で本当にあなたに合うプランを無料で確認できます。`;
   return {
@@ -69,6 +73,8 @@ export default async function CarrierDetailPage({
   const dataLabel = plan.data_gb === 999 ? '無制限' : `${plan.data_gb}GB`;
   const related = plans.filter(p => p.carrier_parent === plan.carrier_parent && p.id !== plan.id).slice(0, 6);
   const affiliateHref = getLink(plan.affiliate_key);
+  const affiliate = isAffiliate(plan.affiliate_key);
+  const impressionSrc = getImpression(plan.affiliate_key);
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -135,6 +141,7 @@ export default async function CarrierDetailPage({
             </span>
           )}
         </div>
+        <VerifiedNote verifiedAt={plan.verified_at} sourceUrl={plan.source_url} />
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
           <span style={{
             fontSize: 12, padding: '4px 10px',
@@ -266,10 +273,12 @@ export default async function CarrierDetailPage({
         >
           🤖 AI診断で自分に合うプランを探す
         </Link>
-        <a
+        <TrackedLink
           href={affiliateHref}
           target="_blank"
           rel="nofollow noopener sponsored"
+          event="outbound_cta_click"
+          params={{ plan_id: plan.id, page_type: 'carrier_detail', is_affiliate: affiliate }}
           style={{
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             width: '100%', minHeight: 48,
@@ -280,7 +289,10 @@ export default async function CarrierDetailPage({
           }}
         >
           公式サイトで詳細を見る →
-        </a>
+        </TrackedLink>
+        {impressionSrc && (
+          <img src={impressionSrc} width={1} height={1} alt="" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
+        )}
       </section>
 
       {related.length > 0 && (

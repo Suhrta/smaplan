@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { CONTACT_FORM_URL } from '@/lib/site';
 import { SiteHeader } from '@/app/components/SiteHeader';
 import { Breadcrumb } from '@/app/components/Breadcrumb';
 
@@ -43,11 +44,11 @@ export default function AboutPage() {
               <dt style={{ width: 140, fontWeight: 600, color: 'var(--text-sub)' }}>運営者</dt>
               <dd style={{ margin: 0 }}>スマートプラン運営事務局</dd>
             </div>
-            <div style={{ display: 'flex', gap: 12, borderBottom: '1px solid var(--border)', padding: '10px 0' }}>
+            <div id="contact" style={{ display: 'flex', gap: 12, borderBottom: '1px solid var(--border)', padding: '10px 0', scrollMarginTop: 80 }}>
               <dt style={{ width: 140, fontWeight: 600, color: 'var(--text-sub)' }}>お問い合わせ</dt>
               <dd style={{ margin: 0 }}>
                 <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfUz5oZ1agLTkkAF4a45qxKdnIkwnug1_wKQQ87u659u4xhQA/viewform"
+                  href={CONTACT_FORM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: 'var(--accent)' }}

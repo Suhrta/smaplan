@@ -3,13 +3,21 @@ import Link from 'next/link';
 import plans from '@/data/plans.json';
 import { SiteHeader } from '../components/SiteHeader';
 import { Breadcrumb } from '../components/Breadcrumb';
+import { TrackedLink } from '../components/TrackedLink';
+import { VerifiedNote, oldestVerifiedAt } from '../components/VerifiedNote';
+import { getLink, getImpression, isAffiliate } from '@/data/affiliateLinks';
+
+// 全プランの料金確認が済んでいるときだけ「最新」を付ける
+const verifiedAt = oldestVerifiedAt(plans);
+const fresh = verifiedAt ? `【${verifiedAt.slice(0, 4)}年最新】` : '';
+const pageTitle = `スマホ料金プラン比較一覧｜全${plans.length}プランの料金・特徴まとめ${fresh}`;
 
 export const metadata: Metadata = {
-  title: 'スマホ料金プラン比較一覧｜全20プランの料金・特徴まとめ【2026年最新】',
-  description: 'ドコモ・au・ソフトバンク・ahamo・LINEMO・格安SIMなど全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。あなたに合うプランが10秒で見つかります。',
+  title: pageTitle,
+  description: 'ドコモ・au・ソフトバンク・ahamo・LINEMO・格安SIMなど全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。あなたに合うプランが見つかります。',
   alternates: { canonical: 'https://smaplan.com/carriers' },
   openGraph: {
-    title: 'スマホ料金プラン比較一覧｜全20プランの料金・特徴まとめ【2026年最新】',
+    title: pageTitle,
     description: '全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。',
     url: 'https://smaplan.com/carriers',
     type: 'website',
@@ -17,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'スマホ料金プラン比較一覧｜全20プランの料金・特徴まとめ【2026年最新】',
+    title: pageTitle,
     description: '全20プランの月額料金・データ容量・メリット・デメリットを一覧で比較。',
     images: ['/og-image.png'],
   },
@@ -88,6 +96,7 @@ export default function CarriersIndexPage() {
         主要20プランのメリット・デメリットを中立的にまとめています。<br />
         迷ったら<Link href="/" style={{ color: 'var(--accent)', fontWeight: 700 }}>10問のAI診断</Link>で自分に合うプランを見つけてください。
       </p>
+      <VerifiedNote verifiedAt={verifiedAt} style={{ marginTop: -8 }} />
 
       <section style={{ marginBottom: 28 }}>
         <h2 style={{ fontSize: 15, fontWeight: 700, margin: '0 0 10px', color: 'var(--text-main)' }}>
@@ -131,16 +140,20 @@ export default function CarriersIndexPage() {
             <div style={{ display: 'grid', gap: 10 }}>
               {groupPlans.map(p => {
                 const dataLabel = p.data_gb === 999 ? '無制限' : `${p.data_gb}GB`;
+                const affiliate = isAffiliate(p.affiliate_key);
+                const impressionSrc = getImpression(p.affiliate_key);
                 return (
-                  <Link
+                  <div
                     key={p.id}
-                    href={`/carrier/${p.id}`}
                     style={{
-                      display: 'block', padding: '14px 16px',
+                      position: 'relative', padding: '14px 16px',
                       background: 'var(--bg-card)',
                       border: '1px solid var(--border)', borderRadius: 12,
-                      textDecoration: 'none', color: 'var(--text-main)',
                     }}
+                  >
+                  <Link
+                    href={`/carrier/${p.id}`}
+                    style={{ display: 'block', textDecoration: 'none', color: 'var(--text-main)' }}
                   >
                     <div style={{
                       display: 'flex', justifyContent: 'space-between',
@@ -170,6 +183,39 @@ export default function CarriersIndexPage() {
                       {p.target}
                     </div>
                   </Link>
+                  <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+                    <Link
+                      href={`/carrier/${p.id}`}
+                      style={{
+                        flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                        minHeight: 40, borderRadius: 8, border: '1px solid var(--border)',
+                        fontSize: 13, fontWeight: 600, textDecoration: 'none', color: 'var(--text-sub)',
+                      }}
+                    >
+                      メリット・デメリット
+                    </Link>
+                    {/* ASP 提携済みのプランだけ外部 CTA を出す（affiliateLinks.ts に追加すると自動で表示） */}
+                    {affiliate && (
+                      <TrackedLink
+                        href={getLink(p.affiliate_key)}
+                        target="_blank"
+                        rel="nofollow noopener sponsored"
+                        event="outbound_cta_click"
+                        params={{ plan_id: p.id, page_type: 'carriers', is_affiliate: true }}
+                        style={{
+                          flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          minHeight: 40, borderRadius: 8, background: 'var(--accent)',
+                          fontSize: 13, fontWeight: 700, textDecoration: 'none', color: '#fff',
+                        }}
+                      >
+                        公式サイトへ →
+                      </TrackedLink>
+                    )}
+                  </div>
+                  {impressionSrc && (
+                    <img src={impressionSrc} width={1} height={1} alt="" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }} />
+                  )}
+                  </div>
                 );
               })}
             </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
+import { BING_SITE_VERIFICATION } from "@/lib/site";
 
 const GA_ID = "G-RZ1FHYE0ZG";
 
@@ -16,7 +17,7 @@ const notoSansJP = Noto_Sans_JP({
 export const metadata: Metadata = {
   metadataBase: new URL("https://smaplan.com"),
   title: "スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】",
-  description: "スマホ料金もネット回線も、10問の質問に答えるだけでAIが最適プランを診断。全36プランから年間いくら節約できるかわかります。完全無料・登録不要・30秒で結果表示。",
+  description: "スマホ料金もネット回線も、10問の質問に答えるだけでAIが最適プランを診断。全36プランから年間いくら節約できるかわかります。完全無料・登録不要・約1分で結果表示。",
   openGraph: {
     title: "スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】",
     description: "10問でAIが最適なスマホ・ネット回線プランを診断。全36プランから年間の節約額がわかります。",
@@ -41,6 +42,7 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "5Jtg1aOY0TlsPNeyVZD8LGBoByK93AgaVqLKAzI8i68",
+    ...(BING_SITE_VERIFICATION ? { other: { "msvalidate.01": BING_SITE_VERIFICATION } } : {}),
   },
   icons: {
     icon: [

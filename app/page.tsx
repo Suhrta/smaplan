@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CONTACT_FORM_URL } from '@/lib/site';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { SiteHeader } from './components/SiteHeader';
@@ -14,7 +15,7 @@ const kaisenIdsWithPage = new Set(Object.keys(kaisenContents));
 export const metadata: Metadata = {
   title: 'スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】',
   description:
-    'スマホ料金もネット回線も、10問の質問に答えるだけでAIが最適プランを診断。全36プランから年間いくら節約できるかわかります。完全無料・登録不要・30秒で結果表示。',
+    'スマホ料金もネット回線も、10問の質問に答えるだけでAIが最適プランを診断。全36プランから年間いくら節約できるかわかります。完全無料・登録不要・約1分で結果表示。',
   openGraph: {
     title: 'スマートプラン｜スマホ料金・ネット回線をAIが無料診断【2026年】',
     description:
@@ -62,6 +63,47 @@ function getCategoryColor(label: string) {
   }
 }
 
+const HOME_FAQ = [
+  {
+    question: '本当に無料で使えますか？',
+    answer:
+      'はい、診断・比較ページともに完全無料で、会員登録も不要です。本サイトは紹介先サービスへのお申し込みに応じて事業者から受け取るアフィリエイト報酬で運営しており、利用者の皆さまが支払う料金には影響しません。',
+  },
+  {
+    question: 'どんなプランを比較していますか？',
+    answer: `スマホはドコモ・au・ソフトバンク・楽天モバイルの各ブランドと格安SIMの${plans.length}プラン、ネット回線は光回線・ホームルーター・モバイルWiFiの${kaisenPlans.length}サービスを比較対象にしています。`,
+  },
+  {
+    question: '掲載している料金はいつ時点の情報ですか？',
+    answer:
+      '各事業者の公式サイトで公開されている情報をもとに、定期的に確認・更新しています。確認済みのページには「料金確認日」を表示しています。料金やキャンペーンは変更されることがあるため、お申し込み前に必ず公式サイトでご確認ください。',
+  },
+  {
+    question: 'おすすめの順位は広告で決まっていますか？',
+    answer:
+      'いいえ。診断結果は回答内容と料金・データ容量・通話条件などをもとに選んでおり、容量別ランキングは月額料金の安い順です。アフィリエイト報酬の有無で順位を変えることはありません。',
+  },
+  {
+    question: 'スマホとネット回線はセットにした方が安くなりますか？',
+    answer:
+      'ドコモ光とドコモ、auひかりとau／UQ mobile、ソフトバンク光とソフトバンク／Y!mobileのように、同じ系列のスマホと光回線を組み合わせるとスマホ料金が割引になる「セット割」があります。家族で同じキャリアを使っている場合は特に効果が大きくなります。',
+  },
+  {
+    question: '個人情報の入力は必要ですか？',
+    answer: '不要です。氏名・電話番号・メールアドレスなどの個人情報を入力することはありません。',
+  },
+];
+
+const homeFaqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: HOME_FAQ.map(item => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
+};
+
 const websiteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -82,6 +124,10 @@ export default function PortalPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeFaqJsonLd) }}
       />
       <SiteHeader />
 
@@ -144,7 +190,7 @@ export default function PortalPage() {
                 </div>
                 <p className="mt-3 flex items-center justify-center gap-1.5 text-[13px] text-white/60 sm:mt-4 sm:justify-start sm:text-sm">
                   <CheckCircleIcon />
-                  完全無料・登録不要・1分で完了
+                  完全無料・登録不要・約1分で完了
                 </p>
               </FadeIn>
             </div>
@@ -262,7 +308,7 @@ export default function PortalPage() {
                   <div className="mt-6 grid grid-cols-3 gap-4 border-t border-[#f0f0f0] pt-6">
                     <FeatureItem icon={<DevicesIcon />} text={<>大手キャリアから<br />格安SIMまで対応</>} />
                     <FeatureItem icon={<OptimizeIcon />} text={<>料金・データ・通話を<br />総合的に最適化</>} />
-                    <FeatureItem icon={<SparkleIcon />} text={<>無駄なく、ムダのない<br />プランをご提案</>} />
+                    <FeatureItem icon={<SparkleIcon />} text={<>あなたに合う<br />プランをご提案</>} />
                   </div>
                 </div>
               </Link>
@@ -379,10 +425,10 @@ export default function PortalPage() {
           <FadeIn>
             <div className="text-center">
               <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-white/50 sm:text-[12px]">
-                Trust
+                About
               </div>
               <h2 className="mt-3 text-[22px] font-bold tracking-tight text-white sm:text-[28px] md:text-[40px]">
-                多くの方に選ばれています
+                数字で見るスマートプラン
               </h2>
             </div>
           </FadeIn>
@@ -400,8 +446,8 @@ export default function PortalPage() {
                 icon: <ClockIcon />,
                 label: '診断時間',
                 prefix: '約',
-                value: '30',
-                suffix: '秒',
+                value: '1',
+                suffix: '分',
                 sub: '10問に答えるだけの簡単診断',
               },
               {
@@ -576,6 +622,33 @@ export default function PortalPage() {
         </div>
       </section>
 
+      {/* ═══════════════ FAQ ═══════════════ */}
+      <section id="faq" className="scroll-mt-20 py-14 sm:py-20 md:py-28" style={{ background: '#fafafe' }}>
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 md:px-8">
+          <FadeIn>
+            <div className="text-center">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#888] sm:text-[12px]">
+                FAQ
+              </div>
+              <h2 className="mt-3 text-[22px] font-bold tracking-tight text-[#111] sm:text-[28px] md:text-[40px]">
+                よくある質問
+              </h2>
+            </div>
+          </FadeIn>
+          <div className="mt-8 flex flex-col gap-3 sm:mt-12">
+            {HOME_FAQ.map(item => (
+              <details key={item.question} className="sp-faq-item">
+                <summary className="sp-faq-summary">
+                  <span className="sp-faq-q" aria-hidden="true">Q</span>
+                  {item.question}
+                </summary>
+                <p className="sp-faq-answer">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════ FOOTER ═══════════════ */}
       <footer style={{ background: '#1a1a2e' }}>
         <div className="mx-auto max-w-6xl px-4 py-10 sm:py-16 sm:px-6 md:px-8">
@@ -657,12 +730,14 @@ export default function PortalPage() {
             <div>
               <div className="text-[13px] font-bold text-white">サポート</div>
               <nav className="mt-4 flex flex-col gap-3">
-                <Link
-                  href="/legal/about"
+                <a
+                  href={CONTACT_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-sm text-white/50 no-underline transition-colors hover:text-white/80"
                 >
                   お問い合わせ
-                </Link>
+                </a>
                 <Link
                   href="/legal/privacy"
                   className="text-sm text-white/50 no-underline transition-colors hover:text-white/80"
@@ -697,7 +772,7 @@ export default function PortalPage() {
               </a>
               <p className="mt-3 flex items-center gap-1 text-[12px] text-white/40">
                 <CheckCircleIcon />
-                完全無料・登録不要・1分で完了
+                完全無料・登録不要・約1分で完了
               </p>
             </div>
           </div>

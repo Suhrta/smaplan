@@ -3,10 +3,11 @@
 import { useState, useEffect, useRef, Suspense, type ReactNode } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { getLink } from '@/data/affiliateLinks';
+import { getLink, isAffiliate } from '@/data/affiliateLinks';
 import { track } from '@/lib/analytics';
 import { SiteHeader, LogoHeader } from '@/app/components/SiteHeader';
 import { FadeIn } from '@/app/components/FadeIn';
+import { VerifiedNote, oldestVerifiedAt } from '@/app/components/VerifiedNote';
 import plansData from '@/data/plans.json';
 
 type Plan = {
@@ -525,7 +526,7 @@ function PhoneMockup() {
             <span className="text-[#CBD5E1]">|</span>
             <span className="flex items-center gap-1">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              30秒
+              約1分
             </span>
             <span className="text-[#CBD5E1]">|</span>
             <span className="flex items-center gap-1">
@@ -722,8 +723,17 @@ function HomeInner() {
 
   const q = QUESTIONS[step];
 
+  // 途中離脱の計測：各設問に初めて到達したときだけ送る（戻る操作では再送しない）
+  const maxStepRef = useRef(-1);
+  useEffect(() => {
+    if (view !== 'diagnose' || step <= maxStepRef.current) return;
+    maxStepRef.current = step;
+    track('diagnose_step', { step: step + 1, question: QUESTIONS[step].key });
+  }, [view, step]);
+
   function startDiagnose() {
     track('diagnose_start');
+    maxStepRef.current = -1;
     setView('diagnose');
     setStep(0);
     setAnswers({});
@@ -812,6 +822,7 @@ function HomeInner() {
       } catch { /* ignore */ }
       track('diagnose_complete');
     } catch (e) {
+      track('diagnose_error', { message: e instanceof Error ? e.message : 'unknown' });
       setError(e instanceof Error ? e.message : 'エラーが発生しました');
     } finally {
       setLoading(false);
@@ -942,7 +953,7 @@ function HomeInner() {
                 <FadeIn>
                   <div className="mb-7 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#34d399]" />
-                    30秒で無料診断
+                    約1分で無料診断
                   </div>
                 </FadeIn>
                 <FadeIn delayMs={80}>
@@ -987,7 +998,7 @@ function HomeInner() {
         {/* ── 使い方 ── */}
         <FadeIn as="section" className="bg-[#f8f8fa] py-24 md:py-28">
           <div className="mx-auto max-w-[1200px] px-8">
-            <SectionHeading sub="たった30秒、3ステップで完了">使い方はシンプル</SectionHeading>
+            <SectionHeading sub="約1分、3ステップで完了">使い方はシンプル</SectionHeading>
             <div className="grid gap-5 md:grid-cols-3 md:gap-8">
               {[
                 { num: '01', title: '質問に答える', desc: '使い方やこだわりなど、10問に答えるだけ', icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> },
@@ -1034,7 +1045,7 @@ function HomeInner() {
               今すぐ無料診断
             </h2>
             <p className="mb-10 text-base leading-[1.8] text-white/65">
-              30秒で、あなたにぴったりのプランが見つかる
+              約1分で、あなたにぴったりのプランが見つかる
             </p>
             <GradientCTA onClick={startDiagnose} variant="light">診断スタート</GradientCTA>
             <div className="mt-7 flex flex-wrap justify-center gap-6 text-[13px] font-medium text-white/45">
@@ -1266,6 +1277,9 @@ function HomeInner() {
                       plan_name: rec.plan_name,
                       carrier: rec.carrier,
                       rank: rec.rank,
+                      plan_id: rec.affiliate_key,
+                      page_type: 'smaho_result',
+                      is_affiliate: isAffiliate(rec.affiliate_key),
                     })}
                     className={`flex w-full items-center justify-center rounded-xl py-3 text-[15px] font-bold no-underline transition-all duration-200 hover:brightness-110 ${
                       isTop
@@ -1281,6 +1295,8 @@ function HomeInner() {
             );
           })}
         </div>
+
+        <VerifiedNote verifiedAt={oldestVerifiedAt(plansData)} style={{ marginBottom: 24 }} />
 
         {result.advice && (
           <div className="mb-6 rounded-2xl border border-[#e8e8e8] bg-white p-5">

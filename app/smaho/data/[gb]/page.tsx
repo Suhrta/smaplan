@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import plans from '@/data/plans.json';
 import { SiteHeader } from '../../../components/SiteHeader';
 import { Breadcrumb } from '../../../components/Breadcrumb';
+import { TrackedNextLink } from '../../../components/TrackedLink';
+import { VerifiedNote, oldestVerifiedAt } from '../../../components/VerifiedNote';
 
 type Plan = (typeof plans)[number];
 
@@ -18,6 +20,12 @@ const TIERS: { slug: string; label: string; heading: string; match: (gb: number)
   { slug: '50gb', label: '50GB以上', heading: '50GB以上の大容量', match: (g) => g >= 46 && g !== 999 },
   { slug: 'unlimited', label: 'データ無制限', heading: 'データ無制限', match: (g) => g === 999 },
 ];
+
+// 「最新」表記は掲載プランの料金確認が済んでいるときだけ付ける
+function freshLabel(items: Plan[]): string {
+  const v = oldestVerifiedAt(items);
+  return v ? `【${v.slice(0, 4)}年最新】` : '';
+}
 
 export const dynamicParams = false;
 
@@ -47,7 +55,7 @@ export async function generateMetadata(
   if (!tier) return {};
   const ranked = rankedPlans(tier);
   const cheapest = ranked[0];
-  const title = `${tier.label}のスマホ料金 最安比較ランキング【2026年最新】| スマートプラン`;
+  const title = `${tier.label}のスマホ料金 最安比較ランキング${freshLabel(ranked) || ' '}| スマートプラン`;
   const description = cheapest
     ? `${tier.label}でおすすめのスマホ料金プランを安い順に比較。最安は${cheapest.carrier}の月${effectivePrice(cheapest).toLocaleString()}円〜。${ranked.length}プランの料金・特徴を中立的にまとめました。`
     : `${tier.label}のスマホ料金プランを安い順に比較。`;
@@ -114,7 +122,7 @@ export default async function DataTierPage({
           fontSize: 26, fontWeight: 800, lineHeight: 1.4,
           margin: '0 0 8px', color: 'var(--text-main)',
         }}>
-          {tier.label}のスマホ料金 最安比較ランキング【2026年最新】
+          {tier.label}のスマホ料金 最安比較ランキング{freshLabel(ranked)}
         </h1>
         <p style={{ fontSize: 14, color: 'var(--text-sub)', lineHeight: 1.7, margin: '0 0 24px' }}>
           {tier.heading}で使えるスマホ料金プランを、月額料金の安い順に{ranked.length}件まとめました。
@@ -122,15 +130,18 @@ export default async function DataTierPage({
           <Link href="/smaho" style={{ color: 'var(--accent)', fontWeight: 700 }}>10問のAI診断</Link>
           で自分に最適なプランを確認できます。
         </p>
+        <VerifiedNote verifiedAt={oldestVerifiedAt(ranked)} style={{ marginTop: -12 }} />
 
         <div style={{ display: 'grid', gap: 10 }}>
           {ranked.map((p, i) => {
             const dataLabel = p.data_gb === 999 ? '無制限' : `${p.data_gb}GB`;
             const price = effectivePrice(p);
             return (
-              <Link
+              <TrackedNextLink
                 key={p.id}
                 href={`/carrier/${p.id}`}
+                event="select_plan"
+                params={{ plan_id: p.id, page_type: 'data_tier', tier: tier.slug, rank: i + 1 }}
                 style={{
                   display: 'block', padding: '14px 16px',
                   background: 'var(--bg-card)',
@@ -161,7 +172,7 @@ export default async function DataTierPage({
                   </div>
                 </div>
                 <div style={{ fontSize: 12, color: 'var(--text-sub)', lineHeight: 1.5 }}>{p.target}</div>
-              </Link>
+              </TrackedNextLink>
             );
           })}
         </div>

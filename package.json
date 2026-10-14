@@ -10,7 +10,8 @@
     "generate:og": "node scripts/generate-og.mjs",
     "generate:carriers": "node scripts/generate-carrier-pages.mjs",
     "generate:blog": "node scripts/generate-blog-posts.mjs",
-    "generate:blog-images": "node scripts/generate-blog-images.mjs"
+    "generate:blog-images": "node scripts/generate-blog-images.mjs",
+    "indexnow": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.82.0",
